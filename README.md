@@ -4,25 +4,25 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 ## Controladores de sistema
 
-- CHILLER AGUA FRIA
+- CHILLER AGUA FRIA - *ClimaFlex*
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `11` 
 >
 > MAC `11` 
 
-- CHILLER AGUA CALIENTE
+- CHILLER AGUA CALIENTE - *ClimaFlex*
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `12` 
 >
 > MAC `12` 
 
-- VIGAS FRIAS
+- VIGAS FRIAS - *KMC* ***BAC-5901C***
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `10001` 
 >
@@ -30,7 +30,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - PAH-PAF-PAC-UMA02 
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `10002` 
 >
@@ -38,7 +38,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - UMA-01 
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `10003` 
 >
@@ -46,7 +46,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - EV-AC 
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `10008` 
 >
@@ -54,7 +54,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - EV-AF
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `10009` 
 >
@@ -62,7 +62,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - CUARTO PRUEBAS 1-1 
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `10021` 
 >
@@ -70,7 +70,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - CUARTO PRUEBAS 1-2
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `10022` 
 >
@@ -78,7 +78,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - SPT3_CP
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `133023` 
 >
@@ -86,7 +86,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - SPT4_CP
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `133024` 
 >
@@ -94,7 +94,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - SPT1_CP
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `133025` 
 >
@@ -102,7 +102,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - SPT2_CP
 
-> **BACnet MS/TP**
+> **BACnet** ***MS/TP***
 >
 > DI `133026` 
 >
@@ -110,7 +110,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - DISPLAY
 
-> **BACnet IP**
+> **BACnet** ***IP***
 >
 > DI `10010` 
 >
