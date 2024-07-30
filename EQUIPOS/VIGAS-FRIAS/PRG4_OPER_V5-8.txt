@@ -1,0 +1,220 @@
+REM PRG3_OPER_V5-8
+REM GENERACION DE DEMANDA PARA CONTROL DE CALEFACCION Y ENFRIAMIENTO
+REM AUTHOR CARLOS JIMENEZ HIRASHI
+REM VERSION 1.0.0
+
+REM DECLARACION DE VARIABLES
+
+    LOCALS OCC
+
+REM VARIABLES DE ENTRADA
+
+	OCC = BV1
+
+REM CONTROL DE TEMPERATURA DE VIGAS FRIAS
+
+    REM *CONTROL PI SISTEMA MAURICIO
+        LOCALS ENTRADA_1, SETPOINT_1, ERROR_1, SERROR_1
+        LOCALS BP_C_1, RP_C_1, VI_C_1, RI_C_1, DEM_C_1
+        LOCALS BP_H_1, RP_H_1, VI_H_1, RI_H_1, DEM_H_1
+
+        REM **DECLARACION DE VARIABLES
+	        ENTRADA_1 = AV9
+	        IF BV35 = 0 THEN SETPOINT_1 = AV10 ELSE SETPOINT_1 = AV43
+	        BP_C_1 = 5
+	        VI_C_1 = 2
+	        BP_H_1 = 5
+	        VI_H_1 = 2
+
+        REM **ALGORITMO DE CONTROL
+            REM ***DETECCION DE ERROR DEL SISTEMA
+	            ERROR_1 = ENTRADA_1 - SETPOINT_1
+
+            REM ***INCREMENTO DE ERROR EN EL SISTEMA
+	            IF OCC = 1 THEN
+		            SERROR_1 = SERROR_1 + ( ERROR_1 / ( SCANS * 4 ))
+	             ELSE
+		            SERROR_1 = 0
+	                ENDIF
+	            SERROR_1 = MAX((( 100 / VI_H_1 ) * -1 ) , MIN(( 100 / VI_C_1 ) , SERROR_1 ) )
+        
+            REM ***CALCULO DE DEMANDA DEL SISTEMA DE CONTROL
+            	IF SERROR_1 > 0 THEN
+	            	RP_C_1 = ( ERROR_1 / BP_C_1 ) * 100
+	            	RP_H_1 = 0
+	            	RI_C_1 = VI_C_1 * SERROR_1
+	            	RI_H_1 = 0
+	             ELSE
+	            	RP_C_1 = 0
+	            	RP_H_1 = (( ERROR_1 * -1 ) / BP_H_1 ) * 100
+	            	RI_C_1 = 0
+	            	RI_H_1 = VI_H_1 * ( SERROR_1 * -1 )
+	            ENDIF
+
+            REM ***ACTIVACION DE DEMANDA DEL SISTEMA
+	            IF OCC = 1 THEN
+	            	DEM_C_1 = MAX( 0 , MIN( 100 , ( RP_C_1 + RI_C_1 )))
+	            	DEM_H_1 = MAX( 0 , MIN( 100 , ( RP_H_1 + RI_H_1 )))
+	             ELSE
+	            	DEM_C_1 = 0
+	            	DEM_H_1 = 0
+	            ENDIF
+
+        REM **ASIGNACION DE DEMANDA
+            AO9 = DEM_C_1  : REM MAURICIO
+            AO10 = DEM_H_1 : REM MAURICIO
+
+    REM *CONTROL PI SISTEMA SUSANA
+        LOCALS ENTRADA_2, SETPOINT_2, ERROR_2, SERROR_2
+        LOCALS BP_C_2, RP_C_2, VI_C_2, RI_C_2, DEM_C_2
+        LOCALS BP_H_2, RP_H_2, VI_H_2, RI_H_2, DEM_H_2
+
+        REM **DECLARACION DE VARIABLES
+        	ENTRADA_2 = AV11
+        	IF BV34 = 0 THEN SETPOINT_2 = AV12 ELSE SETPOINT_2 = AV42
+	        BP_C_2 = 10
+	        VI_C_2 = 0.5
+	        BP_H_2 = 10
+	        VI_H_2 = 0.5
+
+        REM **ALGORITMO DE CONTROL
+            REM ***DETECCION DE ERROR DEL SISTEMA
+	            ERROR_2 = ENTRADA_2 - SETPOINT_2
+
+            REM ***INCREMENTO DE ERROR EN EL SISTEMA
+	        IF OCC = 1 THEN
+		        SERROR_2 = SERROR_2 + ( ERROR_2 / ( SCANS * 4 ))
+	         ELSE
+		        SERROR_2 = 0
+	        ENDIF
+	        SERROR_2 = MAX((( 100 / VI_H_2 ) * -1 ) , MIN(( 100 / VI_C_2 ) , SERROR_2 ) )
+
+            REM ***CALCULO DE DEMANDA DEL SISTEMA DE CONTROL
+	            IF SERROR_2 > 0 THEN
+		            RP_C_2 = ( ERROR_2 / BP_C_2 ) * 100
+		            RP_H_2 = 0
+		            RI_C_2 = VI_C_2 * SERROR_2
+		            RI_H_2 = 0
+	             ELSE
+		            RP_C_2 = 0
+		            RP_H_2 = (( ERROR_2 * -1 ) / BP_H_2 ) * 100
+		            RI_C_2 = 0
+		            RI_H_2 = VI_H_2 * ( SERROR_2 * -1 )
+	            ENDIF
+
+            REM ***ACTIVACION DE DEMANDA DEL SISTEMA
+	            IF OCC = 1 THEN
+		            DEM_C_2 = MAX( 0 , MIN( 100 , ( RP_C_2 + RI_C_2 )))
+		            DEM_H_2 = MAX( 0 , MIN( 100 , ( RP_H_2 + RI_H_2 )))
+	             ELSE
+		            DEM_C_2 = 0
+		            DEM_H_2 = 0
+	            ENDIF
+
+        REM **ASIGNACION DE DEMANDA
+            AO11 = DEM_C_2 : REM SUSANA
+            AO12 = DEM_H_2 : REM SUSANA
+
+    REM *CONTROL PI SISTEMA LUIS INNES
+        LOCALS ENTRADA_3, SETPOINT_3, ERROR_3, SERROR_3
+        LOCALS BP_C_3, RP_C_3, VI_C_3, RI_C_3, DEM_C_3
+        LOCALS BP_H_3, RP_H_3, VI_H_3, RI_H_3, DEM_H_3
+
+        REM **DECLARACION DE VARIABLES
+	        ENTRADA_3 = AV13
+	        IF BV33 = 0 THEN SETPOINT_3 = AV14 ELSE SETPOINT_3 = AV41
+	        BP_C_3 = 10
+	        VI_C_3 = 0.5
+	        BP_H_3 = 10
+	        VI_H_3 = 0.5
+
+        REM **ALGORITMO DE CONTROL
+            REM ***DETECCION DE ERROR DEL SISTEMA
+	            ERROR_3 = ENTRADA_3 - SETPOINT_3
+
+            REM ***INCREMENTO DE ERROR EN EL SISTEMA
+	            IF OCC = 1 THEN
+		            SERROR_3 = SERROR_3 + ( ERROR_3 / ( SCANS * 4 ))
+	             ELSE
+		            SERROR_3 = 0
+	            ENDIF
+	            SERROR_3 = MAX((( 100 / VI_H_3 ) * -1 ) , MIN(( 100 / VI_C_3 ) , SERROR_3 ) )
+
+            REM ***CALCULO DE DEMANDA DEL SISTEMA DE CONTROL
+	            IF SERROR_3 > 0 THEN
+		            RP_C_3 = ( ERROR_3 / BP_C_3 ) * 100
+		            RP_H_3 = 0
+		            RI_C_3 = VI_C_3 * SERROR_3
+		            RI_H_3 = 0
+	             ELSE
+		            RP_C_3 = 0
+		            RP_H_3 = (( ERROR_3 * -1 ) / BP_H_3 ) * 100
+		            RI_C_3 = 0
+		            RI_H_3 = VI_H_3 * ( SERROR_3 * -1 )
+	            ENDIF
+
+            REM ***ACTIVACION DE DEMANDA DEL SISTEMA
+	            IF OCC = 1 THEN
+		            DEM_C_3 = MAX( 0 , MIN( 100 , ( RP_C_3 + RI_C_3 )))
+		            DEM_H_3 = MAX( 0 , MIN( 100 , ( RP_H_3 + RI_H_3 )))
+	             ELSE
+		            DEM_C_3 = 0
+		            DEM_H_3 = 0
+	            ENDIF
+
+        REM **ASIGNACION DE DEMANDA
+            AO13 = DEM_C_3 : REM LUIS INNES
+            AO14 = DEM_H_3 : REM LUIS INNES
+
+    REM *CONTROL PI SISTEMA ENRRIQUE
+        LOCALS ENTRADA_4, SETPOINT_4, ERROR_4, SERROR_4
+        LOCALS BP_C_4, RP_C_4, VI_C_4, RI_C_4, DEM_C_4
+        LOCALS BP_H_4, RP_H_4, VI_H_4, RI_H_4, DEM_H_4
+
+        REM **DECLARACION DE VARIABLES
+	        ENTRADA_4 = AV15
+	        IF BV37 = 0 THEN SETPOINT_4 = AV16 ELSE SETPOINT_4 = AV45
+	        BP_C_4 = 5
+	        VI_C_4 = 2
+	        BP_H_4 = 5
+	        VI_H_4 = 2
+
+        REM **ALGORITMO DE CONTROL
+            REM ***DETECCION DE ERROR DEL SISTEMA
+	            ERROR_4 = ENTRADA_4 - SETPOINT_4
+
+            REM ***INCREMENTO DE ERROR EN EL SISTEMA
+	            IF OCC = 1 THEN
+	            	SERROR_4 = SERROR_4 + ( ERROR_4 / ( SCANS * 4 ))
+	             ELSE
+	            	SERROR_4 = 0
+	            ENDIF
+	            SERROR_4 = MAX((( 100 / VI_H_4 ) * -1 ) , MIN(( 100 / VI_C_4 ) , SERROR_4 ) )
+
+            REM ***CALCULO DE DEMANDA DEL SISTEMA DE CONTROL
+	            IF SERROR_4 > 0 THEN
+	            	RP_C_4 = ( ERROR_4 / BP_C_4 ) * 100
+		            RP_H_4 = 0
+		            RI_C_4 = VI_C_4 * SERROR_4
+		            RI_H_4 = 0
+	             ELSE
+		            RP_C_4 = 0
+		            RP_H_4 = (( ERROR_4 * -1 ) / BP_H_4 ) * 100
+		            RI_C_4 = 0
+		            RI_H_4 = VI_H_4 * ( SERROR_4 * -1 )
+	            ENDIF
+
+            REM ***ACTIVACION DE DEMANDA DEL SISTEMA
+	            IF OCC = 1 THEN
+		            DEM_C_4 = MAX( 0 , MIN( 100 , ( RP_C_4 + RI_C_4 )))
+		            DEM_H_4 = MAX( 0 , MIN( 100 , ( RP_H_4 + RI_H_4 )))
+	             ELSE
+		            DEM_C_4 = 0
+		            DEM_H_4 = 0
+	            ENDIF
+
+        REM **ASIGNACION DE DEMANDA
+            AO15 = DEM_C_4 : REM ENRIQUE
+            AO16 = DEM_H_4 : REM ENRIQUE
+
+END
