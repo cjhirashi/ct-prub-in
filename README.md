@@ -6,7 +6,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - UMA-01 
 
-> *BACnet*
+> **BACnet MS/TP**
 >
 > DI `10000` 
 >
@@ -14,7 +14,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - PAH-PAF-PAC-UMA02 
 
-> *BACnet*
+> **BACnet MS/TP**
 >
 > DI `10000` 
 >
@@ -22,7 +22,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - CP-01 
 
-> *BACnet*
+> **BACnet MS/TP**
 >
 > DI `10000` 
 >
@@ -30,7 +30,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 - CP-02 
 
-> *BACnet*
+> **BACnet MS/TP**
 >
 > DI `10000` 
 >
