@@ -7,7 +7,6 @@ Sistema de control con equipos KMC, protocolo de comunicación BACnet
 - UMA-01 *BACnet*
 
 > DI `10000` 
->
 > MAC `4` 
 
 - PAH-PAF-PAC-UMA02 *BACnet*
