@@ -4,7 +4,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 
 ## Controladores de sistema
 
-- CHILLER AGUA FRIA - *ClimaFlex*
+- CHILLER AGUA FRIA - *ClimaFlex* ***FLG Modbus-BACnet***
 
 > **BACnet** ***MS/TP***
 >
@@ -12,7 +12,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `11` 
 
-- CHILLER AGUA CALIENTE - *ClimaFlex*
+- CHILLER AGUA CALIENTE - *ClimaFlex* ***FLG Modbus-BACnet***
 
 > **BACnet** ***MS/TP***
 >
@@ -28,7 +28,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `4`
 
-- PAH-PAF-PAC-UMA02 
+- PAH-PAF-PAC-UMA02 - *KMC* ***BAC-5901C***
 
 > **BACnet** ***MS/TP***
 >
@@ -36,7 +36,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `5` 
 
-- UMA-01 
+- UMA-01 - *KMC* ***BAC-5901C***
 
 > **BACnet** ***MS/TP***
 >
@@ -44,7 +44,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `6`
 
-- EV-AC 
+- EV-AC - *Belimo* ***ev-app-3-12-328***
 
 > **BACnet** ***MS/TP***
 >
@@ -52,7 +52,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `8`
 
-- EV-AF
+- EV-AF - *Belimo* ***ev-app-3-12-328***
 
 > **BACnet** ***MS/TP***
 >
@@ -60,7 +60,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `9` 
 
-- CUARTO PRUEBAS 1-1 
+- CUARTO PRUEBAS 1-1 - *KMC* ***BAC-5901C***
 
 > **BACnet** ***MS/TP***
 >
@@ -68,7 +68,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `21` 
 
-- CUARTO PRUEBAS 1-2
+- CUARTO PRUEBAS 1-2 - *KMC* ***BAC-5901C***
 
 > **BACnet** ***MS/TP***
 >
@@ -76,7 +76,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `22`
 
-- SPT3_CP
+- SPT3_CP - *Veris Industries* ***TWLPXXX4E4***
 
 > **BACnet** ***MS/TP***
 >
@@ -84,7 +84,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `23`
 
-- SPT4_CP
+- SPT4_CP - *Veris Industries* ***TWLPXXX4E4***
 
 > **BACnet** ***MS/TP***
 >
@@ -92,7 +92,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `24`
 
-- SPT1_CP
+- SPT1_CP - *Veris Industries* ***TWLPXXX4E4***
 
 > **BACnet** ***MS/TP***
 >
@@ -100,7 +100,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `25`
 
-- SPT2_CP
+- SPT2_CP - *Veris Industries* ***TWLPXXX4E4***
 
 > **BACnet** ***MS/TP***
 >
@@ -108,7 +108,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `26`
 
-- DISPLAY
+- DISPLAY - *Loytec* ***LVIS***
 
 > **BACnet** ***IP***
 >
