@@ -1,6 +1,6 @@
 # Automatización de aire aconcidiconado Cuarto de Pruebas INNES
 
-Sistema de control con equipos KMC, para control de sistemas UMA-01, UMA-02, PAH, PAF, PAC, Viagas frías y Cuarto de Pruebas
+Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UMA-02***, ***PAH***, ***PAF***, ***PAC***, ***Viagas frías*** y ***Cuarto de Pruebas***
 
 ## Controladores de sistema
 
