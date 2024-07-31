@@ -1,0 +1,47 @@
+REM PRG2_VAVS (CONTROL: CUARTO CONTROL 2)
+REM 
+REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION 1.0.0
+
+REM ///////////////////////////////////////////////////////////////////////////////////////////
+REM AUTH: Carlos Jimenez Hirashi --- Atom Controles
+REM PROG: PR_VAVS (CONTROL: CUARTO DE PRUEBAS 2)
+REM DESC: Control de VAVs del sistema
+
+REM //////////////////////////////////////////////////////////////////////////////////////////
+
+	REM //VARIABLES
+
+		LOCALS DEMANDA, VAV, CM_BL, P_APER, SINC
+
+		P_APER = 5			: REM PORCENTAJE DE DEMANDA PARA ACTIVACION
+		SINC = 5			: REM TIEMPO DE SINCRONIZACION DE DATOS
+
+
+	REM ////VAV (P1-VC)________________________________________________________
+	LOCALS ACTIV1
+	DEMANDA = AV14		: REM DEMANDA DE ENTRADA DE VAV
+
+		IF DEMANDA > P_APER THEN ACTIV1 = 1
+		IF DEMANDA < 1 THEN ACTIV1 = 0
+
+		IF TIMEOFF(ACTIV1) THEN CM_BL = 0, VAV = 0 ELSE CM_BL = 1, VAV = DEMANDA
+
+	AO13 = VAV			: REM COMPUERTA DE VAV
+	BO14 = CM_BL		: REM COMPUERTA DE BLOQUEO
+
+
+	REM ////VAV (P3-VG)________________________________________________________
+	LOCALS ACTIV2
+	DEMANDA = AV15		: REM DEMANDA DE ENTRADA DE VAV
+
+		IF DEMANDA > P_APER THEN ACTIV2 = 1
+		IF DEMANDA < 1 THEN ACTIV2 = 0
+
+		IF TIMEOFF(ACTIV2) THEN CM_BL = 0, VAV = 0 ELSE CM_BL = 1, VAV = DEMANDA
+
+	AO15 = VAV			: REM COMPUERTA DE VAV
+	BO16 = CM_BL			: REM COMPUERTA DE BLOQUEO
+
+
+END

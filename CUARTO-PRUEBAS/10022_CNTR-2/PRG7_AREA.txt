@@ -1,0 +1,289 @@
+REM PRG7_AREA (CONTROL: CUARTO CONTROL 2)
+REM 
+REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION 1.0.0
+
+REM ///////////////////////////////////////////////////////////////////////////////////////////
+REM AUTH: Carlos Jimenez Hirashi --- Atom Controles
+REM PROG: PR_AREA (CONTROL: CUARTO DE PRUEBAS 2)
+REM DESC: SISTEMA DE PRUEBA DE AREA EFECTIVA
+REM //////////////////////////////////////////////////////////////////////////////////////////
+
+	REM //VARIABLES
+	LOCALS ACTIV
+	LOCALS MUESTRA_COUNT, MUESTRA_NUM, MUESTRA_TIME, INICIO
+	LOCALS CICLO, GUARDAR, RESET
+	LOCALS V_PROM_1, V_MAX_1, V_MIN_1
+	LOCALS V_PROM_2, V_MAX_2, V_MIN_2
+
+	LOCALS SN_1, SN_2
+	LOCALS Q_1, V_1, A_1, D_1
+	LOCALS Q_2, V_2, A_2, D_2
+	LOCALS Q_3, V_3, A_3, D_3
+	LOCALS Q_4, V_4, A_4, D_4
+	LOCALS Q_5, V_5, A_5, D_5
+	LOCALS Q_6, V_6, A_6, D_6
+	LOCALS Q_7, V_7, A_7, D_7
+	LOCALS Q_8, V_8, A_8, D_8
+	LOCALS VAR_1, VAR_2, VAR_3, VAR_4, VAR_5, VAR_6, VAR_7, VAR_8
+	LOCALS PROM_AREA, PROM_NUMERO, VAR
+
+	ACTIV = BV16				: REM //ACTIVACION DE MODULO DE PRUEBA
+	INICIO = BV21				: REM //INICIO DE TOMA DE MUESTRAS
+	MUESTRA_NUM = AV21			: REM //NUMERO DE MUESTRAS
+	MUESTRA_TIME = AV22			: REM //TIEMPO ENTRE MUESTRAS
+	CICLO = AV61				: REM //NUMERO DE CICLO DE MUESTRAS  VARIABLE MANUAL 1
+	SN_1 = AI10					: REM //SENSOR DE VELOCIDAD DE AIRE 8
+	SN_2 = AV9					: REM //CAUDALES TOTALES
+	GUARDAR = BV31				: REM //CUARDAR MUESTRA    VAR DG 1
+	RESET = BV32				: REM //RESET DE MUESTRAS  VAR DG 2
+
+	REM //RESET DE VARIABLES PARA MUESTREO
+		IF VAR <> CICLO THEN
+			V_PROM_1 = 0
+			V_MAX_1 = 0
+			V_MIN_1 = 0
+			V_PROM_2 = 0
+			V_MAX_2 = 0
+			V_MIN_2 = 0
+			MUESTRA_COUNT = 0
+			VAR = CICLO
+		ENDIF
+
+	REM //RESET DE CONTADOR DE MUESTRAS
+		IF+ ACTIV = 1 THEN MUESTRA_COUNT = 0
+
+	REM //CONTROL DE PRUEBA DE TIRO
+		IF ACTIV = 1 THEN
+		REM //LIMITES DE VARIABLE DE CICLOS DE CONTROL
+			IF AV61 > 8 THEN AV61@8 = 8
+			IF AV61 < 1 THEN AV61@8 = 1
+		REM //INICIO DE TOMA DE MUESTRA
+			IF INICIO = 1 THEN
+				IF INTERVAL( MUESTRA_TIME ) THEN
+					MUESTRA_COUNT = MUESTRA_COUNT + 1
+
+					REM ////PROMEDIOS
+					IF MUESTRA_COUNT < 2 THEN
+
+						V_PROM_1 = SN_1
+						V_MAX_1 = SN_1
+						V_MIN_1 = SN_1
+
+						V_PROM_2 = SN_2
+						V_MAX_2 = SN_2
+						V_MIN_2 = SN_2
+
+					 ELSE
+
+						REM ////VELOCIDAD DE AIRE
+						V_PROM_1 = ( V_PROM_1 + SN_1 ) / 2
+						V_MAX_1 = MAX( V_MAX_1, SN_1 )
+						V_MIN_1 = MIN( V_MIN_1, SN_1 )
+
+						REM ////CAUDA DE AIRE
+						V_PROM_2 = ( V_PROM_2 + SN_2 ) / 2
+						V_MAX_2 = MAX( V_MAX_2, SN_2 )
+						V_MIN_2 = MIN( V_MIN_2, SN_2 )
+
+					ENDIF
+
+					IF MUESTRA_COUNT >= MUESTRA_NUM THEN BV21@8 = 0
+				ENDIF
+			ENDIF
+
+		REM //GUARDAR MUESTRA
+			REM //MUESTRA 1
+			IF CICLO = 1 THEN
+				IF GUARDAR = 1 THEN
+					V_1 = V_PROM_1
+					Q_1 = V_PROM_2
+
+					BV31@8 = 0
+				ENDIF
+			ENDIF
+			REM //MUESTRA 1
+			IF CICLO = 2 THEN
+				IF GUARDAR = 1 THEN
+					V_2 = V_PROM_1
+					Q_2 = V_PROM_2
+
+					BV31@8 = 0
+				ENDIF
+			ENDIF
+			REM //MUESTRA 1
+			IF CICLO = 3 THEN
+				IF GUARDAR = 1 THEN
+					V_3 = V_PROM_1
+					Q_3 = V_PROM_2
+
+					BV31@8 = 0
+				ENDIF
+			ENDIF
+			REM //MUESTRA 1
+			IF CICLO = 4 THEN
+				IF GUARDAR = 1 THEN
+					V_4 = V_PROM_1
+					Q_4 = V_PROM_2
+
+					BV31@8 = 0
+				ENDIF
+			ENDIF
+			REM //MUESTRA 1
+			IF CICLO = 5 THEN
+				IF GUARDAR = 1 THEN
+					V_5 = V_PROM_1
+					Q_5 = V_PROM_2
+
+					BV31@8 = 0
+				ENDIF
+			ENDIF
+			REM //MUESTRA 1
+			IF CICLO = 6 THEN
+				IF GUARDAR = 1 THEN
+					V_6 = V_PROM_1
+					Q_6 = V_PROM_2
+
+					BV31@8 = 0
+				ENDIF
+			ENDIF
+			REM //MUESTRA 1
+			IF CICLO = 7 THEN
+				IF GUARDAR = 1 THEN
+					V_7 = V_PROM_1
+					Q_7 = V_PROM_2
+
+					BV31@8 = 0
+				ENDIF
+			ENDIF
+			REM //MUESTRA 1
+			IF CICLO = 8 THEN
+				IF GUARDAR = 1 THEN
+					V_8 = V_PROM_1
+					Q_8 = V_PROM_2
+
+					BV31@8 = 0
+				ENDIF
+			ENDIF
+
+			REM //CALCULO DE VARIABLES
+			A_1 = Q_1 / V_1
+			D_1 = ABS( 1 - ( A_1 / PROM_AREA ))
+			A_2 = Q_2 / V_2
+			D_2 = ABS( 1 - ( A_2 / PROM_AREA ))
+			A_3 = Q_3 / V_3
+			D_3 = ABS( 1 - ( A_3 / PROM_AREA ))
+			A_4 = Q_4 / V_4
+			D_4 = ABS( 1 - ( A_4 / PROM_AREA ))
+			A_5 = Q_5 / V_5
+			D_5 = ABS( 1 - ( A_5 / PROM_AREA ))
+			A_6 = Q_6 / V_6
+			D_6 = ABS( 1 - ( A_6 / PROM_AREA ))
+			A_7 = Q_7 / V_7
+			D_7 = ABS( 1 - ( A_7 / PROM_AREA ))
+			A_8 = Q_8 / V_8
+			D_8 = ABS( 1 - ( A_8 / PROM_AREA ))
+
+			REM //PROMEDIOS DE AREA EFECTIVA
+			IF Q_1 > 0 THEN VAR_1 = 1 ELSE VAR_1 = 0
+			IF Q_2 > 0 THEN VAR_2 = 1 ELSE VAR_2 = 0
+			IF Q_3 > 0 THEN VAR_3 = 1 ELSE VAR_3 = 0
+			IF Q_4 > 0 THEN VAR_4 = 1 ELSE VAR_4 = 0
+			IF Q_5 > 0 THEN VAR_5 = 1 ELSE VAR_5 = 0
+			IF Q_6 > 0 THEN VAR_6 = 1 ELSE VAR_6 = 0
+			IF Q_7 > 0 THEN VAR_7 = 1 ELSE VAR_7 = 0
+			IF Q_8 > 0 THEN VAR_8 = 1 ELSE VAR_8 = 0
+			PROM_NUMERO = ( VAR_1 + VAR_2 + VAR_3 + VAR_4 + VAR_5 + VAR_6 + VAR_7 + VAR_8 )
+			PROM_AREA = ( A_1 + A_2 + A_3 + A_4 + A_5 + A_6 + A_7 + A_8 ) / PROM_NUMERO
+
+		 ELSE
+		 REM //SISTEMA INACTIVO
+			MUESTRA_COUNT = 0
+
+		ENDIF
+
+	REM //RESET DE VARIABLES DE MUESTREO
+	IF RESET = 1 THEN
+		Q_1 = 0
+		V_1 = 0
+		A_1 = 0
+		D_1 = 0
+		Q_2 = 0
+		V_2 = 0
+		A_2 = 0
+		D_2 = 0
+		Q_3 = 0
+		V_3 = 0
+		A_3 = 0
+		D_3 = 0
+		Q_4 = 0
+		V_4 = 0
+		A_4 = 0
+		D_4 = 0
+		Q_5 = 0
+		V_5 = 0
+		A_5 = 0
+		D_5 = 0
+		Q_6 = 0
+		V_6 = 0
+		A_6 = 0
+		D_6 = 0
+		Q_7 = 0
+		V_7 = 0
+		A_7 = 0
+		D_7 = 0
+		Q_8 = 0
+		V_8 = 0
+		A_8 = 0
+		D_8 = 0
+		BV32@8 = 0
+	ENDIF
+
+	REM //VARIABLES DE SALIDA
+	IF ACTIV = 1 THEN
+		AV31 = V_PROM_1			: REM //VALOR PROMEDIO 1
+		AV32 = V_MAX_1			: REM //VALOR MAXIMO 1
+		AV33 = V_MIN_1			: REM //VALOR MINIMO 1
+		AV34 = V_PROM_2			: REM //VALOR PROMEDIO 2
+		AV35 = V_MAX_2			: REM //VALOR MAXIMO 2
+		AV36 = V_MIN_2 			: REM //VALOR MINIMO 2
+
+		AV71 = Q_1		: REM //VAR GRUPO 1_1
+		AV72 = V_1		: REM //VAR GRUPO 1_2
+		AV73 = A_1		: REM //VAR GRUPO 1_3
+		AV74 = D_1		: REM //VAR GRUPO 1_4
+		AV75 = Q_2		: REM //VAR GRUPO 2_1
+		AV76 = V_2		: REM //VAR GRUPO 2_2
+		AV77 = A_2		: REM //VAR GRUPO 2_3
+		AV78 = D_2		: REM //VAR GRUPO 2_4
+		AV79 = Q_3		: REM //VAR GRUPO 3_1
+		AV80 = V_3		: REM //VAR GRUPO 3_2
+		AV81 = A_3		: REM //VAR GRUPO 3_3
+		AV82 = D_3		: REM //VAR GRUPO 3_4
+		AV83 = Q_4		: REM //VAR GRUPO 4_1
+		AV84 = V_4		: REM //VAR GRUPO 4_2
+		AV85 = A_4		: REM //VAR GRUPO 4_3
+		AV86 = D_4		: REM //VAR GRUPO 4_4
+		AV87 = Q_5		: REM //VAR GRUPO 5_1
+		AV88 = V_5		: REM //VAR GRUPO 5_2
+		AV89 = A_5		: REM //VAR GRUPO 5_3
+		AV90 = D_5		: REM //VAR GRUPO 5_4
+		AV91 = Q_6		: REM //VAR GRUPO 6_1
+		AV92 = V_6		: REM //VAR GRUPO 6_2
+		AV93 = A_6		: REM //VAR GRUPO 6_3
+		AV94 = D_6		: REM //VAR GRUPO 6_4
+		AV95 = Q_7		: REM //VAR GRUPO 7_1
+		AV96 = V_7		: REM //VAR GRUPO 7_2
+		AV97 = A_7		: REM //VAR GRUPO 7_3
+		AV98 = D_7		: REM //VAR GRUPO 7_4
+		AV99 = Q_8		: REM //VAR GRUPO 8_1
+		AV100 = V_8		: REM //VAR GRUPO 8_2
+		AV101 = A_8		: REM //VAR GRUPO 8_3
+		AV102 = D_8		: REM //VAR GRUPO 8_4
+
+		AV103 = PROM_NUMERO		: REM //VAR GRUPO 9_1
+		AV104 = PROM_AREA		: REM //VAR GRUPO 9_2
+		AV107 = MUESTRA_COUNT	: REM //VAR GRUPO 10_1
+	ENDIF
+
+END

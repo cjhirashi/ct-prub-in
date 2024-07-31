@@ -1,0 +1,79 @@
+REM PRG3_PLENUMS (CONTROL: CUARTO CONTROL 2)
+REM 
+REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION 1.0.0
+
+REM ///////////////////////////////////////////////////////////////////////////////////////////
+REM AUTH: Carlos Jimenez Hirashi --- Atom Controles
+REM PROG: PR_PLENUMS (CONTROL: CUARTO DE PRUEBAS 2)
+REM DESC: Control de Plenums
+
+REM //////////////////////////////////////////////////////////////////////////////////////////
+
+	REM //VARIABLES
+	LOCALS PLENUM, SS_CP
+	LOCALS Q_GR_DM, Q_CH_DM
+	LOCALS P1_VC_A
+	LOCALS P3_VG_A
+
+	PLENUM = MSV1		: REM SELECTOR DE PLENUM EN OPERACION
+	SS_CP = BV10		: REM ACTIVACION DE CUARTO DE PRUEBAS
+	Q_GR_DM = AV19		: REM DEMANDA, VAV GRANDE
+	Q_CH_DM = AV20 		: REM DEMANDA, VAV CHICA
+
+
+	REM ////PLENUM 1
+		IF PLENUM = 1 THEN
+
+		REM ////DEMANDA DE AIRE
+			P1_VC_A = Q_CH_DM
+			P3_VG_A = 0
+	ENDIF
+
+	REM ////PLENUM 2
+		IF PLENUM = 2 THEN
+		REM ////DEMANDA DE AIRE
+			P1_VC_A = 0
+			P3_VG_A = 0
+	ENDIF
+
+	REM ////PLENUM 3
+	IF PLENUM = 3 THEN
+		REM ////DEMANDA DE AIRE
+			P1_VC_A = 0
+			P3_VG_A = Q_GR_DM
+	ENDIF
+
+	REM ////PLENUM 4
+		IF PLENUM = 4 THEN
+		REM ////DEMANDA DE AIRE
+			P1_VC_A = 0
+			P3_VG_A = 0
+	ENDIF
+
+	REM ////PLENUM 5
+		IF PLENUM = 5 THEN
+		REM ////DEMANDA DE AIRE
+			P1_VC_A = 0
+			P3_VG_A = 0
+	ENDIF
+
+	REM ////PLENUM 6
+		IF PLENUM = 6 THEN
+		REM ////DEMANDA DE AIRE
+			P1_VC_A = 0
+			P3_VG_A = 0
+	ENDIF
+
+	REM //CONTROL DE PLENUMS INACTIVO
+		IF SS_CP = 0 THEN
+			P1_VC_A = 100
+			P3_VG_A = 100
+		ENDIF
+
+
+	REM //ASIGNACION DE VARIABLES DE SALIDA
+		AV14 = P1_VC_A				: REM PLENUM 1, VAV CHICA
+		AV15 = P3_VG_A				: REM PLENUM 3, VAV GRANDE
+
+END

@@ -1,0 +1,55 @@
+REM PRG1_SENSORES (CONTROL: CUARTO CONTROL 2)
+REM 
+REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION 1.0.0
+
+REM ///////////////////////////////////////////////////////////////////////////////////////////
+REM AUTH: Carlos Jimenez Hirashi --- Atom Controles
+REM PROG: PR_CAUDALES (CONTROL: CUARTO DE PRUEBAS 2)
+REM DESC: Lectura de caudales de VAVs
+REM P1_VC, P3_VG
+REM //////////////////////////////////////////////////////////////////////////////////////////
+
+REM <<<Asignacion de Datos>>>_________________________________________________________________
+REM Calcula los caudales medidos por caja y aplica factor de calibracion
+REM __________________________________________________________________________________________
+
+	REM //VARIABLES
+
+		LOCALS DP,AREA,CV,CFM,CFM_R,MULT,OFFSET
+
+REM [PLENUM 1]______________________________________________________________________
+REM *CALCULO DE CFM - P1_VAV C*
+	REM **TAM = 04
+		AREA = 0.0819 					: REM AREA DE CAJA VAV
+		CV = 209						: REM COEFICIENTE DE VELOCIDAD DE CAJA
+		DP = AI7						: REM CAIDA DE PRESION
+	REM **CONVERSION
+		CFM_R = CV * ((DP)^0.5)			: REM FORMULA DE CONVERSION
+		AV1 = CFM_R					: REM CAUDAL ANTES DE CALIBRACION USUARIO
+	REM **CALIBRACION
+		MULT = AV2					: REM MULTIPLICADOR PARA CALIBRACION USUARIO
+		OFFSET = AV3					: REM OFFSET PARA CALIBRACION USUARIO
+		CFM = (CFM_R * MULT) + OFFSET	: REM CAUDAL CALIBRACION USUARIO
+		AV4 = MAX(0 ,CFM)				: REM CAUDAL SIN VALORES NEGATIVOS
+
+
+REM [PLENUM 3]______________________________________________________________________
+REM *CALCULO DE CFM - P3_VAV G*
+	REM **TAM = 10
+		AREA = 0.5319 					: REM AREA DE CAJA VAV
+		CV = 1250						: REM COEFICIENTE DE VELOCIDAD DE CAJA
+		DP = AI8						: REM CAIDA DE PRESION
+	REM **CONVERSION
+		CFM_R = CV * ((DP)^0.5)			: REM FORMULA DE CONVERSION
+		AV5 = CFM_R					: REM CAUDAL ANTES DE CALIBRACION USUARIO
+	REM **CALIBRACION
+		MULT = AV6						: REM MULTIPLICADOR PARA CALIBRACION USUARIO
+		OFFSET = AV7					: REM OFFSET PARA CALIBRACION USUARIO
+		CFM = ((CFM_R) * MULT) + OFFSET	: REM CAUDAL CALIBRACION USUARIO
+		AV8 = MAX(0 ,CFM)				: REM CAUDAL SIN VALORES NEGATIVOS
+
+REM *CALCULO DE CFM - PLENUM 2*
+	AV9 = AV8						: REM CAUDAL TOTAL DE PLENUM
+
+END
