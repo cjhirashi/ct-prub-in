@@ -1,0 +1,51 @@
+REM PRG4_CAUDALES (CONTROL: UMA 01)
+REM MEDICION DE CAUDAL DE AIRE EN DUCTO
+REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION 1.0.0
+
+REM DECLARACION DE VARIABLES
+
+	LOCALS DW_S, DH_S, DW_M, DH_M 		: REM (LECTURA) DIMENCIONES DE DUCTOS
+	LOCALS DW_R, DH_R, DW_O, DH_O 		: REM (LECTURA) DIMENCIONES DE DUCTOS
+	LOCALS FW_S, FW_M, FW_R, FW_O 		: REM (LECTURA) VELOCIDAD DE AIRE DEL SISTEMA
+	LOCALS CFM_S, CFM_M, CFM_R, CFM_O 	: REM (ESCRITURA) CAUDAL DE AIRE DEL SISTEMA
+	LOCALS PIES 				        : REM (VARIABLES INTERNAS ) VARIABLES
+
+REM VARIABLES DE ENTRADA
+
+	DH_S = AV15 			: REM ANCHO Ducto suministro (PULGADAS)
+	DW_S = AV16 			: REM ALTO Ducto suministro (PULGADAS)
+	DH_M = AV18 			: REM ANCHO Ducto retorno (PULGADAS)
+	DW_M = AV19 			: REM ALTO Ducto retorno (PULGADAS)
+	DH_R = AV21 			: REM ANCHO Ducto extraccion (PULGADAS)
+	DW_R = AV22 			: REM ALTO Ducto extraccion (PULGADAS)
+	DH_O = AV24 			: REM ANCHO Ducto aire exterior (PULGADAS)
+	DW_O = AV25 			: REM ALTO Ducto aire exterior (PULGADAS)
+	FW_S = AI15 			: REM FLUJO Aire de suministro (FPM)
+	FW_M = AI16 			: REM FLUJO Aire de retorno (FPM)
+	FW_R = AI17 			: REM FLUJO Aire de extraccion (FPM)
+	FW_O = AI18 			: REM FLUJO Aire exterior (FPM)
+	PIES = 0.0833333 		: REM Factor de conversion, pulgadas a pies
+
+REM CALCULO PARA ESTIMACION DE CAUDALES
+
+	REM *SUMINISTRO DE AIRE
+		CFM_S = ((DW_S * PIES) * (DH_S * PIES)) * FW_S
+
+	REM *RETORNO DE AIRE
+		CFM_M = ((DW_M * PIES) * (DH_M * PIES)) * FW_M
+
+	REM *EXTRACCION DE AIRE
+		CFM_R = ((DW_R * PIES) * (DH_R * PIES)) * FW_R
+
+	REM *AIRE EXTERIOR
+		CFM_O = ((DW_O * PIES) * (DH_O * PIES)) * FW_O
+
+REM VARIABLES DE SALIDA
+
+	AV14 = CFM_S 			: REM Caudal, aire de suministro (CFM)
+	AV17 = CFM_M 			: REM Caudal, aire de mezcla (CFM)
+	AV20 = CFM_R 			: REM Caudal, aire de retorno (CFM)
+	AV23 = CFM_O 			: REM Caudal, aire exterior (CFM)
+
+END

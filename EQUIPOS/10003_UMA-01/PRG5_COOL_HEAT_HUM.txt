@@ -1,0 +1,164 @@
+REM PRG5_COOL_HEAT_HUM (CONTROL: UMA 01)
+REM CONTROL DE CALEFACCION Y ENFRIAMIENTO
+REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION 1.0.0
+
+REM DECLARACION DE VARIABLES
+
+	LOCALS TEMP, SP_TEMP			: REM Temperatura suministro
+	LOCALS SP_TEMP1, SP_TEMP2		: REM SetPoints temperatura
+	LOCALS SS_TEMP, ST_TEMP			: REM Variables de control del sistema
+	LOCALS SS_HUM, ST_HUM			: REM Variables de control del sistema
+	LOCALS PID_C1, PID_H1			: REM Variables de demanda del sistema
+	LOCALS PID_C2, PID_H2			: REM Variables de demanda del sistema
+	LOCALS PID_H					: REM Variable de damanda del sistema
+	LOCALS DEM_C, DEM_H				: REM Variables de demanda del sistema
+	LOCALS SS_COOL, SS_HEAT			: REM Variables de activacion
+	LOCALS ST_COOL, ST_HEAT			: REM Variables de estado
+	LOCALS CN_COOL, CN_HEAT			: REM Variables de demanda
+	LOCALS CN_HUM					: REM Variables de demanda
+	LOCALS COOL, HEAT, AREA			: REM Variables
+	LOCALS SIST						: REM Variable local
+
+REM VARIABLES DE ENTRADA
+
+	AREA = BV4			: REM Area en operacion
+	SS_TEMP = BV14		: REM Activacion, sistema de control
+	SS_HUM = BV16		: REM Activacion, sistema de control
+	PID_C1 = LOOP1		: REM Demanda, enfriamiento (Oficinas)
+	PID_H1 = LOOP2		: REM Demanda, calefaccion (Oficinas)
+	PID_C2 = LOOP5		: REM Demanda, enfriamiento (Cuarto Pruebas)
+	PID_H2 = LOOP6		: REM Demanda, calefaccion (Cuarto Pruebas)
+	PID_H = LOOP7		: REM Demanda, deshumidificacion
+	TEMP = AI8
+	SP_TEMP1 = AV1
+	SP_TEMP2 = AV4
+	IF AREA = 0 THEN SP_TEMP = SP_TEMP1 ELSE SP_TEMP = SP_TEMP2
+
+REM ASIGNACION DE CONTROL DE DEMANDA PARA CONTROL DE TEMPERATURA
+	REM //AREA = (0)OFICINAS / (1)CUARTO PRUEBAS
+
+    REM *ENFRIAMIENTO
+		IF AREA = 0 THEN DEM_C = PID_C1 ELSE DEM_C = PID_C2
+
+	REM *CALEFACCION
+		IF AREA = 0 THEN DEM_H = PID_H1 ELSE DEM_H = PID_H2
+
+REM MODO DE OPERACION DE CALEFACCION O ENFRIAMIENTO
+	IF TEMP > SP_TEMP THEN SIST = 1 ELSE SIST = 0
+
+    REM *ENFRIAMIENTO ACTIVO
+		IF TIMEON(SIST) > 30 THEN SS_COOL = 1 , SS_HEAT = 0
+
+    REM *CALEFACCION ACTIVA
+		IF TIMEOFF(SIST) > 30 THEN  SS_COOL = 0 , SS_HEAT = 1
+
+REM ACTIVACION DE CONTROL DE TEMPERATURA
+
+	REM *ACTIVACION DEL SISTEMA
+
+	    IF TIMEON(SS_TEMP) > 10 THEN
+			IF SS_COOL = 1 THEN
+
+                REM **ENFRIAMIENTO ACTIVO
+    				CN_COOL = DEM_C
+	    			ST_COOL = 1
+
+			 ELSE
+
+                REM **ENFRIAMIENTO INACTIVO
+				CN_COOL = 0
+				ST_COOL = 1
+
+			ENDIF
+
+			IF SS_HEAT = 1 AND TIMEON(ST_COOL) > 30 THEN
+
+                REM **CALEFACCION ACTIVA
+				    CN_HEAT = DEM_H
+				    ST_HEAT = 1
+
+			 ELSE
+
+                REM **CALEFACCION INACTIVA
+				    CN_HEAT = 0
+				    ST_HEAT = 1
+
+			ENDIF
+
+			IF TIMEON(ST_HEAT) > 10 THEN ST_TEMP = 1
+
+	    ENDIF
+
+	REM *PARO DEL SISTEMA
+
+		IF SS_TEMP = 0 THEN
+
+			CN_HEAT = 0 , ST_HEAT = 0
+			CN_COOL = 0 , ST_COOL = 0
+
+			IF TIMEOFF(SS_TEMP) > 60 THEN ST_TEMP = 0
+
+		ENDIF
+
+REM ACTIVACION DE SISTEMA DE CONTROL DESHUMIDIFICACION
+
+	REM *ACTIVACION DE SISTEMA DE CONTROL
+
+		IF SS_HUM = 1 THEN
+
+			CN_HUM = PID_H
+			IF TIMEON(SS_HUM) > 10 THEN ST_HUM = 1
+
+		ENDIF
+
+	REM *PARO DE SISTEMA DE CONTROL
+
+		IF SS_HUM = 0 THEN
+
+			CN_HUM = 0 , ST_HUM = 0
+
+		ENDIF
+
+REM CONTROL DE ACTIVACION DE PLANTAS DE AGUA HELADA Y AGUA CALIENTE
+	LOCALS VAR_C, VAR_H
+
+	REM *PLANTA DE AGUA HELADA
+
+		IF DEM_C > 30 THEN VAR_C = 1
+		IF TIMEON(VAR_C) > 30 THEN COOL = 1
+
+		IF DEM_C < 10 THEN VAR_C = 0
+		IF TIMEOFF(VAR_C) > 60 THEN COOL = 0
+
+	REM *PLANTA DE AGUA CALIENTE
+
+		IF DEM_H > 30 OR CN_HUM > 30 THEN VAR_H = 1
+		IF TIMEON(VAR_H) > 30 THEN HEAT = 1
+
+		IF DEM_H < 10 AND CN_HUM < 10 THEN VAR_H = 0
+		IF TIMEOFF(VAR_H) > 60 THEN HEAT = 0
+
+	REM *SINCRONIZACION DE SENAL DE ARRANQUE A PLANTAS DE AGUA
+
+		IF INTERVAL(00:00:10) THEN
+
+			REM **ESTADO DE UMA
+			    10002.BV30 = SS_TEMP
+
+			REM **ENFRIAMIENTO
+			    IF SS_TEMP = 1 AND COOL = 1 THEN 10002.BV31 = 1 ELSE 10002.BV31 = 0
+
+			REM **CALEFACCION
+			    IF SS_TEMP = 1 AND HEAT = 1 THEN 10002.BV32 = 1 ELSE 10002.BV32 = 0
+
+		ENDIF
+
+REM VARIABLES DE SALIDA
+
+	BV15 = ST_TEMP				    : REM Estado del sistema de control
+	BV17  = ST_HUM				    : REM Estado del sistema de control
+	AO5 = CN_COOL				    : REM Demanda de enfriamiento
+	AO6 = MAX(CN_HEAT , CN_HUM)		: REM Demanda de calefaccion
+
+END

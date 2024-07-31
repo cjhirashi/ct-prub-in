@@ -1,0 +1,104 @@
+REM PRG3_VENTILADORES (CONTROL: UMA 01)
+REM CONTROL DE VENTILADOR DE SUMINISTRO Y VENTILADOR DE EXTRACCIÓN
+REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION 1.0.0
+
+REM DECLARACION DE VARIABLES
+
+	LOCALS SS_VENT, ST_VENT			: REM Variables control de ventilador suministro
+	LOCALS SS_SF , ST_SF			: REM Variables operacion de ventilador suministro
+	LOCALS SS_EF , ST_EF			: REM Variables operacion de ventilador extraccion
+	LOCALS CN_SF, CN_EF			    : REM Variables control velocidad ventiladores
+	LOCALS SS_EF_U, CN_EF_U			: REM Variables control ventilador extraccion usuario
+	LOCALS PID_Q, PID_P			    : REM Variable control demanda ventilador suministro
+	LOCALS AREA				        : REM Variable area en operacion
+	LOCALS REF_SF, REF_EF			: REM Variable de referencia estado de operacion ventiladores
+
+REM VARIABLES DE ENTRADA
+
+	SS_VENT = BV12			: REM Arranque control de ventilador suministro
+	SS_EF_U = BV23			: REM Arranque control de ventilador extraccion
+	CN_EF_U = AV41			: REM Control velocidad de ventilador extraccion
+	PID_Q = LOOP3			: REM Control velocidad cuadal suministro de aire
+	PID_P = LOOP4			: REM Control velocidad presion suministro de aire
+	AREA = BV4			    : REM Area en operacion
+	REF_SF = AI14			: REM Presion suministro de aire
+	REF_EF = BI26			: REM Estado operacion extraccion de aire
+
+REM ESTADO OPERACION DE VENTILADORES
+
+	REM *ESTADO VENTILADOR DE SUMINISTRO DE AIRE
+		IF SS_VENT = 1 THEN
+			IF REF_SF >= 0.01 THEN ST_SF = 1 ELSE ST_SF = 0
+		 ELSE
+			ST_SF = 0
+		ENDIF
+
+	REM *ESTADO VENTILADOR DE EXTRACCION DE AIRE
+		IF REF_EF = 1 THEN ST_EF = 1 ELSE ST_EF = 0
+
+REM ARRANQUE DE VENTILADORES
+
+	REM *ARRANQUE VENTILADOR SUMINISTRO
+
+		REM **ARRANQUE DE VENTILADOR
+			IF SS_VENT = 1 THEN SS_SF = 1
+
+		REM **PARO DE VENTILADOR
+			IF TIMEOFF(SS_VENT) > 60 THEN SS_SF = 0
+
+		REM **CONTROL DE VELOCIDAD
+
+			IF TIMEON(SS_VENT) > 30 THEN
+                REM ***VENTILADOR ACTIVO
+			    	IF AREA = 0 THEN
+
+			    		REM ****AREA OFICINAS: CONTROL POR CAUDALES
+			    			CN_SF = PID_Q
+
+			    	 ELSE
+
+			    		REM ****AREA CUARTO PRUEBAS: CONTROL POR PRESION DIFERENCIAL
+			    			CN_SF = PID_P
+
+			    	ENDIF
+
+			 ELSE
+
+				REM ***VENTILADOR INACTIVO
+				    CN_SF = 0
+
+			ENDIF
+
+
+	REM *ARRANQUE VENTILADOR EXTRACCION
+
+		REM **ARRANQUE VENTILADOR
+			SS_EF = SS_EF_U , CN_EF = CN_EF_U
+
+REM ESTADO DE OPERACION DE SISTEMA DE CONTROL DE VENTILADORES
+
+	IF TIMEON(SS_VENT) > 60 AND TIMEON(ST_SF) > 1 THEN ST_VENT = 1
+
+	IF TIMEOFF(SS_VENT) > 60 AND TIMEOFF(ST_SF) > 2 THEN  ST_VENT = 0
+
+REM VARIABLES DE SALIDA
+
+	BV13 = ST_VENT		: REM Estado control de ventilador de suministro
+	BO1 = SS_SF			: REM Arranque ventilador de suministro
+	AO2 = CN_SF			: REM Velocidad ventilador de suministro
+	BV24 = ST_SF		: REM Estado ventilador de suministro
+
+	REM *CONTROLES VENTILADOR DE EXTRACCION
+	    IF SS_VENT = 1 THEN
+	    	BO3 = SS_EF			: REM Arranque ventilador de extraccion
+	    	AO4 = CN_EF			: REM Velocidad ventilador de extraccion
+	     ELSE
+	    	BV23@8 = 0			: REM Control de arranque ventilador extraccion
+	    	BO3 = 0
+	    	AO4 = 0
+	    ENDIF
+
+	BV25 = ST_EF			: REM Estado ventilador de extraccion
+
+END

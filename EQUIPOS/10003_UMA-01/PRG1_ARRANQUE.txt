@@ -1,0 +1,107 @@
+REM PRG1_ARRANQUE (CONTROL: UMA 01)
+REM ARRANQUE DE UNIDAD MANEJADORA DE AIRE
+REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION 1.0.0
+
+REM DECLARACION DE VARIABLES
+
+	LOCALS ARRANQUE						: REM Variable modo de arranque de la UMA
+	LOCALS HORARIO						: REM Variables de activacion del sistema
+	LOCALS AREA							: REM Variable area de operacion de la UMA
+	LOCALS SS_SISTEMA, ST_SISTEMA		: REM Variables de arranque y estado de la UMA
+	LOCALS SS_COMP, ST_COMP				: REM Variables de control de compuertas
+	LOCALS SS_VENT, ST_VENT				: REM Variables de control de ventilador suministro
+	LOCALS SS_TEMP, ST_TEMP				: REM Variables de control de temperatura
+	LOCALS SS_HUM, ST_HUM				: REM Variables de control de humedad
+	LOCALS SS_VF, ST_VF					: REM Variables de control de Vigas Frias
+
+REM VARIABLES DE ENTRADA
+
+	ARRANQUE = MSV1			: REM Arranque de UMA
+	HORARIO = BV1			: REM Estado de horario de operacion
+	ST_COMP = BV11			: REM Estado de control de compuertas
+	ST_VENT = BV13			: REM Estado de control de ventilador suministro
+	ST_TEMP = BV15			: REM Estado de control de temperatura
+	ST_HUM = BV17			: REM Estado de control de humedad
+	ST_VF = BV19			: REM Estado de control de vigas frias
+
+REM MODO DE ACTIVACION DEL SISTEMA
+	REM //ARRANQUE = (1)HORARIO / (2)ARRANQUE / (3)PARO / (4)CUARTO PRUEBAS
+	REM //HORARIO = (0)INACTIVO / (1)ACTIVO
+	REM //SS_SISTEMA = (0)PARO / (1)ARRANQUE
+
+	REM *ARRANQUE POR HORARIO (OFICINAS)
+		IF ARRANQUE = 1 THEN
+			IF HORARIO = 1 THEN SS_SISTEMA = 1 ELSE SS_SISTEMA = 0
+		ENDIF
+
+	REM *ARRANQUE MANUAL (OFICINAS)
+		IF ARRANQUE = 2 THEN SS_SISTEMA = 1
+
+	REM *PARO MANUAL
+		IF ARRANQUE = 3 THEN SS_SISTEMA = 0
+
+	REM *ARRANQUE MANUAL (CUARTO DE PRUEBAS)
+		IF ARRANQUE = 4 THEN SS_SISTEMA = 1
+
+REM AREA EN OPERACION
+	REM //AREA = (0)OFICINAS / (1)CUARTO PRUEBAS
+
+	IF ARRANQUE = 4 THEN AREA = 1 ELSE AREA = 0
+
+REM SECUENCIA DE ARRANQUE Y PARO DEL EQUIPO
+
+	IF SS_SISTEMA = 1 THEN
+
+        REM *SECUENCIA DE ARRANQUE
+
+		    REM *ACTIVACION CONTROL DE COMPUERTAS DE AIRE
+		    	SS_COMP = 1
+
+		    REM *ACTIVACION CONTROL DE VENTILADOR SUMINISTRO
+		    	IF ST_COMP = 1 THEN SS_VENT = 1 ELSE SS_VENT = 0
+
+		    REM *ACTIVACION CONTROL DE TEMPERATURA Y HUMEDAD
+		    	IF ST_VENT = 1 THEN SS_TEMP = 1 , SS_HUM = 1 ELSE SS_TEMP = 0 , SS_HUM = 0
+
+		    REM *ACTIVACION CONTROL DE VIGAS FRIAS
+		    	IF ST_TEMP = 1 AND ST_HUM = 1 THEN SS_VF = 1 ELSE SS_VF = 0
+
+		    REM *ACTIVACION TOTAL DEL EQUIPO
+		    	IF ST_VF = 1 THEN ST_SISTEMA = 1
+
+	 ELSE
+
+        REM *SECUENCIA DE PARO
+		
+            REM *PARO CONTROL DE TEMPERATURA Y HUMEDAD
+		    	SS_TEMP = 0 , SS_HUM = 0 , SS_VF = 0
+
+		    REM *PARO CONTROL DE VENTILADOR SUMINISTRO
+		    	IF ST_TEMP = 0 AND ST_HUM = 0 THEN SS_VENT = 0
+
+		    REM *PARO CONTROL DE COMPUERTAS DE AIRE
+		    	IF ST_VENT = 0 THEN SS_COMP = 0
+
+		    REM *PARO TOTAL DEL EQUIPO
+		    	IF ST_COMP = 0 THEN ST_SISTEMA = 0
+
+	ENDIF
+
+REM VARIABLES DE SALIDA
+
+	BV4 = AREA				: REM Area en operacion
+	BV2 = SS_SISTEMA		: REM Arranque de UMA
+	BV3 = ST_SISTEMA		: REM Estado arranque de UMA
+	BV10 = SS_COMP			: REM Activacion control de compuertas
+	BV11 = ST_COMP			: REM Estado control de compuertas
+	BV12 = SS_VENT 			: REM Activacion control de ventilador suministro
+	BV13 = ST_VENT			: REM Estado control de ventilador suministro
+	BV14 = SS_TEMP 			: REM Activacion control de temperatura
+	BV15 = ST_TEMP			: REM Estado control de temperatura
+	BV16 = SS_HUM 			: REM Activacion control de humedad
+	BV17 = ST_HUM			: REM Estado control de humedad
+	BV18 = SS_VF			: REM Activacion control de vigas frias
+	BV19 = ST_VF			: REM Estado control de vigas frias
+
+END

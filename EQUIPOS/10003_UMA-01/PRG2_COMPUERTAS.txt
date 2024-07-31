@@ -1,0 +1,82 @@
+REM PRG2_COMPUERTAS (CONTROL: UMA 01)
+REM CONTROL DE APERTURA DE COMPUERTAS
+REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION 1.0.0
+
+REM DECLARACION DE VARIABLES
+
+	LOCALS SS_COMP, ST_COMP				: REM Variables control de compuertas
+	LOCALS OP_COM_MIX					: REM Variable control apertura cajas de mezcla
+	LOCALS AREA							: REM Variable area en operacion
+	LOCALS CN_RA, CN_EA, CN_OA			: REM Variables control de apertura compuertas (analogas)
+	LOCALS CN_S1, CN_S2, CN_R1, CN_R2	: REM Variables control de apertura compuertas (On/Off)
+
+REM VARIABLES DE ENTRADA
+
+	SS_COMP = BV10					: REM Activaci�n control de compuertas
+	OP_COM_MIX = AV40				: REM Control apertura compuertas de mezcla
+	AREA = BV4						: REM Area en operacion
+
+REM CONTROL DE COMPUERTAS
+
+	REM *CONTROL DE COMPUERTAS DE CAJA DE MEZCLA
+	    REM //SS_COMP = (0)INACTIVO / (1)ACTIVO
+
+		IF SS_COMP = 1 THEN
+
+            REM **APERTURA DE COMPUERTAS
+			    CN_OA = OP_COM_MIX
+			    CN_EA = OP_COM_MIX
+			    CN_RA = 100 - OP_COM_MIX
+
+		 ELSE
+
+            REM **CIERRE DE COMPUERTAS
+			    CN_OA = 0
+			    CN_EA = 0
+			    CN_RA = 0
+
+		ENDIF
+
+	REM *CONTROL DE COMPUERTAS DE AREA
+	    REM //SS_COMP = (0)INACTIVO / (1)ACTIVO
+	    REM //AREA = (0)OFICINAS / (1)CUARTO PRUEBAS
+
+		IF SS_COMP = 1 THEN
+
+            REM **APERTURA DE COMPUERTAS
+			    IF AREA = 0 THEN
+			    	REM ***CONTROL COMPUERTAS DE OFICINAS
+			    		CN_S1 = 1 , CN_R1 = 1
+			    		CN_S2 = 0 , CN_R2 = 0
+			     ELSE
+			    	REM ***CONTROL COMPUERTAS DE CUARTO PRUEBAS
+			    		CN_S1 = 0 , CN_R1 = 0
+			    		CN_S2 = 1 , CN_R2 = 1
+			    ENDIF
+
+		 ELSE
+
+            REM **CIERRE DE COMPUERTAS
+			    CN_S1 = 0 , CN_R1 = 0
+			    CN_S2 = 0 , CN_R2 = 0
+
+		ENDIF
+
+REM CONFIRMACION DE ESTADO DE COMPUERTAS
+
+	IF TIMEON(SS_COMP) > 90 THEN ST_COMP = 1
+	IF TIMEOFF(SS_COMP) > 90 THEN ST_COMP = 0
+
+REM VARIABLES DE SALIDA
+
+	BV11 = ST_COMP		: REM Estado de sistema compuertas
+	AO7 = CN_RA			: REM Apertura de compuerta retorno
+	AO8 = CN_EA			: REM Apertura de compuerta extraccion
+	AO9 = CN_OA			: REM Apertura de compuerta aire exterior
+	BO10 = CN_S1		: REM Apertura de compuerta suministro 1 (Oficinas)
+	BO11 = CN_S2		: REM Apertura de compuerta suministro 2 (Cuarto Pruebas)
+	BO12 = CN_R1		: REM Apertura de compuerta retorno 1 (Oficinas)
+	BO13 = CN_R2 		: REM Apertura de compuerta retorno 2 (Cuarto Pruebas)
+
+END
