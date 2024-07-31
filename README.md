@@ -12,7 +12,7 @@ Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UM
 >
 > MAC `11` 
 
-- CHILLER AGUA CALIENTE - *ClimaFlex* ***FLG Modbus-BACnet***
+- CHILLER AGUA HELADA - *ClimaFlex* ***FLG Modbus-BACnet***
 
 > **BACnet** ***MS/TP***
 >

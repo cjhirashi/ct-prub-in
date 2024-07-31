@@ -1,0 +1,92 @@
+REM PRG9_BOMBAS_AGUA
+REM GENERACION DE DEMANDA PARA CONTROL DE BOMBAS DE AGUA FRIA Y HELADA
+REM AUTHOR CARLOS JIMENEZ HIRASHI
+REM VERSION 1.0.0
+
+REM DECLARACION DE VARIABLES
+
+    LOCALS ST_B_AF, ST_B_AH
+
+REM VARIABLES DE ENTRADA
+
+	ST_B_AF = BI7
+	ST_B_AH = BI15
+
+REM CONTROL DE DEMANDA DE BOMBAS
+
+    REM *CONTROL PI BOMBA AGUA FRIA
+        LOCALS ENTRADA_1, SETPOINT_1, ERROR_1, SERROR_1
+        LOCALS VP_C_1, RP_C_1, VI_C_1, RI_C_1, DEM_C_1
+
+        REM **DECLARACION DE VARIABLES
+        	ENTRADA_1 = AV24
+        	SETPOINT_1 = AV31 + 3
+        	VP_C_1 = SETPOINT_1 * 2
+        	VI_C_1 = 2
+
+        REM **ALGORITMO DE CONTROL
+            REM ***DETECCION DE ERROR DEL SISTEMA
+	            ERROR_1 = (ENTRADA_1 - SETPOINT_1) * -1
+
+            REM ***INCREMENTO DE ERROR EN EL SISTEMA
+	            IF ST_B_AF = 1 THEN
+		            SERROR_1 = SERROR_1 + ( ERROR_1 / ( SCANS * 4 ))
+	             ELSE
+	            	SERROR_1 = 0
+	            ENDIF
+	            SERROR_1 = MAX((( 100 / -10 ) * -1 ) , MIN(( 100 / VI_C_1 ) , SERROR_1 ) )
+
+            REM ***CALCULO DE DEMANDA DEL SISTEMA DE CONTROL
+	            RP_C_1 = ( ERROR_1 / VP_C_1 ) * 100
+	            RI_C_1 = VI_C_1 * SERROR_1
+
+            REM ***ACTIVACION DE DEMANDA DEL SISTEMA
+	            IF ST_B_AF = 1 THEN
+		            DEM_C_1 = MAX( 0 , MIN( 100 , ( RP_C_1 + RI_C_1 )))
+		            REM DEM_C_1 = (0.3 * DEM_C_1) + 30
+	             ELSE
+		            DEM_C_1 = 0
+	            ENDIF
+
+        REM **ASIGNACION DE DEMANDA
+            AV35 = DEM_C_1
+
+    REM *CONTROL PI BOMBA AGUA HELADA
+        LOCALS ENTRADA_2, SETPOINT_2, ERROR_2, SERROR_2
+        LOCALS VP_C_2, RP_C_2, VI_C_2, RI_C_2, DEM_C_2
+
+        REM **DECLARACION DE VARIABLES
+        	ENTRADA_2 = AV29
+        	SETPOINT_2 = AV32 + 3
+        	VP_C_2 = SETPOINT_2 * 2
+        	VI_C_2 = 2
+
+        REM **ALGORITMO DE CONTROL
+            REM ***DETECCION DE ERROR DEL SISTEMA
+	            ERROR_2 = (ENTRADA_2 - SETPOINT_2) * -1
+
+            REM ***INCREMENTO DE ERROR EN EL SISTEMA
+	            IF ST_B_AH = 1 THEN
+	            	SERROR_2 = SERROR_2 + ( ERROR_2 / ( SCANS * 4 ))
+	             ELSE
+	            	SERROR_2 = 0
+	            ENDIF
+	            SERROR_2 = MAX((( 100 / -10 ) * -2 ) , MIN(( 100 / VI_C_2 ) , SERROR_2 ) )
+
+            REM ***CALCULO DE DEMANDA DEL SISTEMA DE CONTROL
+	            RP_C_2 = ( ERROR_2 / VP_C_2 ) * 100
+	            RI_C_2 = VI_C_2 * SERROR_2
+
+            REM ***ACTIVACION DE DEMANDA DEL SISTEMA
+	            IF ST_B_AH = 1 THEN
+	            	DEM_C_2 = MAX( 0 , MIN( 100 , ( RP_C_2 + RI_C_2 )))
+	            	REM DEM_C_2 = (0.3 * DEM_C_2) + 30
+	             ELSE
+	            	DEM_C_2 = 0
+	            ENDIF
+
+        REM **ASIGNACION DE DEMANDA
+            REM AV36 = DEM_C_2
+            AV36 = 90
+
+END
