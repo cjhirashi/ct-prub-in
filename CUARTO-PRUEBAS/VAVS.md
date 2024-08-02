@@ -2,11 +2,11 @@
 
 ## PLENUM 1
 
-- VAV 01
+- VAV 01 - **MEDIANA**
 
-- VAV 02
+- VAV 02 - **GRANDE**
 
-- VAV 03
+- VAV 03 - **CHICA**
 
 ## PLENUM 2
 
