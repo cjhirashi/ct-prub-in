@@ -154,7 +154,7 @@
 
 ## PLENUM 5
 
-- VAV 01 - **CHICA**
+### VAV 01 - **CHICA**
 
 > Tamaño `5"`
 >
@@ -170,7 +170,7 @@
 >
 > OFFSET `AV34`.10021
 
-- VAV 02 - **GRANDE**
+### VAV 02 - **GRANDE**
 
 > Tamaño `16` pulgadas
 >
