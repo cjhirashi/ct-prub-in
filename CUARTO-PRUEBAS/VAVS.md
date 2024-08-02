@@ -2,404 +2,448 @@
 
 ## PLENUM 1
 
+> CAUDAL `AV9`.10021 ***CFM***
+
 #### VAV 01 - **MEDIANA** - CONTROLADOR 1
 
-> Tamaño `8` pulgadas
+> Tamaño `8` ***pulgadas***
 >
-> Area `0.3382` pies2
+> Area `0.3382` ***pies2***
 >
 > CV `817`
 >
-> DP `AI3`.10021
+> DP `AI3`.10021 ***"WC***
 >
-> Q `AV1`.10021
+> Q `AV1`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV2`.10021
 >
 > OFFSET `AV3`.10021
 >
-> ====================
->
-> COMPUERTA `AO1`.10021
->
-> COMP BLOQ `BO14`.10021
+> Q Cal `AV4`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV85`.10021
+> COMPUERTA `AO1`.10021 ***%***
+>
+> COMP BLOQ `BO14`.10021 ***%***
+>
+> ====================
+>
+> DEMANDA `AV85`.10021 ***%***
 
 #### VAV 02 - **GRANDE** - CONTROLADOR 1
 
-> Tamaño `14` pulgadas
+> Tamaño `14` ***pulgadas***
 >
-> Area `1.05` pies2
+> Area `1.05` ***pies2***
 >
 > CV `2474`
 >
-> DP `AI4`.10021
+> DP `AI4`.10021 ***"WC***
 >
-> Q `AV5`.10021
+> Q `AV5`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV6`.10021
 >
 > OFFSET `AV7`.10021
 >
-> ====================
->
-> COMPUERTA `AO2`.10021
->
-> COMP BLOQ `BO15`.10021
+> Q Cal `AV8`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV86`.10021
+> COMPUERTA `AO2`.10021 ***%***
+>
+> COMP BLOQ `BO15`.10021 ***%***
+>
+> ====================
+>
+> DEMANDA `AV86`.10021 ***%***
 
 #### VAV 03 - **CHICA** - CONTROLADOR 2
 
-> Tamaño `4` pulgadas
+> Tamaño `4` ***pulgadas***
 >
-> Area `0.0819` pies2
+> Area `0.0819` ***pies2***
 >
 > CV `209`
 >
-> DP `AI7`.10022
+> DP `AI7`.10022 ***"WC***
 >
-> Q `AV1`.10022
+> Q `AV1`.10022 ***CFM***
 >
 > MULTIPLICADOR `AV2`.10022
 >
 > OFFSET `AV3`.10022
 >
-> ====================
->
-> COMPUERTA `AO13`.10022
->
-> COMP BLOQ `BO14`.10022
+> Q Cal `AV4`.10022 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV14`.10022
+> COMPUERTA `AO13`.10022 ***%***
+>
+> COMP BLOQ `BO14`.10022 ***%***
+>
+> ====================
+>
+> DEMANDA `AV14`.10022 ***%***
 
 ## PLENUM 2
 
+> CAUDAL `AV18`.10021 ***CFM***
+
 #### VAV 01 - **MEDIANA** - CONTROLADOR 1
 
-> Tamaño `7` pulgadas
+> Tamaño `7` ***pulgadas***
 >
-> Area `0.2578` pies2
+> Area `0.2578` ***pies2***
 >
 > CV `612`
 >
-> DP `AI5`.10021
+> DP `AI5`.10021 ***"WC***
 >
-> Q `AV10`.10021
+> Q `AV10`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV11`.10021
 >
 > OFFSET `AV12`.10021
 >
-> ====================
->
-> COMPUERTA `AO3`.10021
->
-> COMP BLOQ `BO16`.10021
+> Q Cal `AV13`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV87`.10021
+> COMPUERTA `AO3`.10021 ***%***
+>
+> COMP BLOQ `BO16`.10021 ***%***
+>
+> ====================
+>
+> DEMANDA `AV87`.10021 ***%***
 
 #### VAV 02 - **GRANDE** - CONTROLADOR 1
 
-> Tamaño `12` pulgadas
+> Tamaño `12` ***pulgadas***
 >
-> Area `0.7691` pies2
+> Area `0.7691` ***pies2***
 >
 > CV `1792`
 >
-> DP `AI6`.10021
+> DP `AI6`.10021 ***"WC***
 >
-> Q `AV14`.10021
+> Q `AV14`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV15`.10021
 >
 > OFFSET `AV16`.10021
 >
-> ====================
->
-> COMPUERTA `AO4`.10021
->
-> COMP BLOQ `BO1`.10022 ***REMOTO***
+> Q Cal `AV17`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV88`.10021
+> COMPUERTA `AO4`.10021 ***%***
+>
+> COMP BLOQ `BO1`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV88`.10021 ***%***
 
 ## PLENUM 3
 
+> CAUDAL `AV9`.10022 ***CFM***
+
 #### VAV 01 - **GRANDE** - CONTROLADOR 2
 
-> Tamaño `10` pulgadas
+> Tamaño `10` ***pulgadas***
 >
-> Area `0.5319` pies2
+> Area `0.5319` ***pies2***
 >
 > CV `1250`
 >
-> DP `AI8`.10022
+> DP `AI8`.10022 ***"WC***
 >
-> Q `AV5`.10022
+> Q `AV5`.10022 ***CFM***
 >
 > MULTIPLICADOR `AV6`.10022
 >
 > OFFSET `AV7`.10022
 >
-> ====================
->
-> COMPUERTA `AO15`.10022
->
-> COMP BLOQ `BO16`.10022
+> Q Cal `AV8`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV15`.10022
+> COMPUERTA `AO15`.10022 ***%***
+>
+> COMP BLOQ `BO16`.10022 ***%***
+>
+> ====================
+>
+> DEMANDA `AV15`.10022 ***%***
 
 ## PLENUM 4
 
+> CAUDAL `AV31`.10021 ***CFM***
+
 #### VAV 01 - **MEDIANA** - CONTROLADOR 1
 
-> Tamaño `8` pulgadas
+> Tamaño `8` ***pulgadas***
 >
-> Area `0.3382` pies2
+> Area `0.3382` ***pies2***
 >
 > CV `817`
 >
-> DP `AI7`.10021
+> DP `AI7`.10021 ***"WC***
 >
-> Q `AV19`.10021
+> Q `AV19`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV20`.10021
 >
 > OFFSET `AV21`.10021
 >
-> ====================
->
-> COMPUERTA `AO5`.10021
->
-> COMP BLOQ `BO2`.10022 ***REMOTO***
+> Q Cal `AV22`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV89`.10021
+> COMPUERTA `AO5`.10021 ***%***
+>
+> COMP BLOQ `BO2`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV89`.10021 ***%***
 
 #### VAV 02 - **GRANDE** - CONTROLADOR 1
 
-> Tamaño `14` pulgadas
+> Tamaño `14` ***pulgadas***
 >
-> Area `1.05` pies2
+> Area `1.05` ***pies2***
 >
 > CV `2474`
 >
-> DP `AI8`.10021
+> DP `AI8`.10021 ***"WC***
 >
-> Q `AV23`.10021
+> Q `AV23`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV24`.10021
 >
 > OFFSET `AV25`.10021
 >
-> ====================
->
-> COMPUERTA `AO6`.10021
->
-> COMP BLOQ `BO3`.10022 ***REMOTO***
+> Q Cal `AV26`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV90`.10021
+> COMPUERTA `AO6`.10021 ***%***
+>
+> COMP BLOQ `BO3`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV90`.10021 ***%***
 
 #### VAV 03 - **CHICA** - CONTROLADOR 1
 
-> Tamaño `4` pulgadas
+> Tamaño `4` ***pulgadas***
 >
-> Area `0.0819` pies2
+> Area `0.0819` ***pies2***
 >
 > CV `209`
 >
-> DP `AI9`.10021
+> DP `AI9`.10021 ***"WC***
 >
-> Q `AV27`.10021
+> Q `AV27`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV28`.10021
 >
 > OFFSET `AV29`.10021
 >
-> ====================
->
-> COMPUERTA `AO7`.10021
->
-> COMP BLOQ `BO4`.10022 ***REMOTO***
+> Q Cal `AV30`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV91`.10021
+> COMPUERTA `AO7`.10021 ***%***
+>
+> COMP BLOQ `BO4`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV91`.10021 ***%***
 
 ## PLENUM 5
 
+> CAUDAL `AV40`.10021 ***CFM***
+
 #### VAV 01 - **CHICA** - CONTROLADOR 1
 
-> Tamaño `5` pulgadas
+> Tamaño `5` ***pulgadas***
 >
-> Area `0.1296` pies2
+> Area `0.1296` ***pies2***
 >
 > CV `315`
 >
-> DP `AI10`.10021
+> DP `AI10`.10021 ***"WC***
 >
-> Q `AV32`.10021
+> Q `AV32`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV33`.10021
 >
 > OFFSET `AV34`.10021
 >
-> ====================
->
-> COMPUERTA `AO8`.10021
->
-> COMP BLOQ `BO5`.10022 ***REMOTO***
+> Q Cal `AV35`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV92`.10021
+> COMPUERTA `AO8`.10021 ***%***
+>
+> COMP BLOQ `BO5`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV92`.10021 ***%***
 
 #### VAV 02 - **GRANDE** - CONTROLADOR 1
 
-> Tamaño `16` pulgadas
+> Tamaño `16` ***pulgadas***
 >
-> Area `1.3745` pies2
+> Area `1.3745` ***pies2***
 >
 > CV `3235`
 >
-> DP `AI11`.10021
+> DP `AI11`.10021 ***"WC***
 >
-> Q `AV36`.10021
+> Q `AV36`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV37`.10021
 >
 > OFFSET `AV38`.10021
 >
-> ====================
->
-> COMPUERTA `AO9`.10021
->
-> COMP BLOQ `BO6`.10022 ***REMOTO***
+> Q Cal `AV39`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV93`.10021
+> COMPUERTA `AO9`.10021 ***%***
+>
+> COMP BLOQ `BO6`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV93`.10021 ***%***
 
 ## PLENUM 6
 
+> CAUDAL `AV49`.10021 ***CFM***
+
 #### VAV 01 - **GRANDE** - CONTROLADOR 1
 
-> Tamaño `14` pulgadas
+> Tamaño `14` ***pulgadas***
 >
-> Area `1.05` pies2
+> Area `1.05` ***pies2***
 >
 > CV `2474`
 >
-> DP `AI12`.10021
+> DP `AI12`.10021 ***"WC***
 >
-> Q `AV41`.10021
+> Q `AV41`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV42`.10021
 >
 > OFFSET `AV43`.10021
 >
-> ====================
->
-> COMPUERTA `AO10`.10021
->
-> COMP BLOQ `BO7`.10022 ***REMOTO***
+> Q Cal `AV44`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV94`.10021
+> COMPUERTA `AO10`.10021 ***%***
+>
+> COMP BLOQ `BO7`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV94`.10021 ***%***
 
 #### VAV 02 - **MEDIANA** - CONTROLADOR 1
 
-> Tamaño `8` pulgadas
+> Tamaño `8` ***pulgadas***
 >
-> Area `0.3382` pies2
+> Area `0.3382` ***pies2***
 >
 > CV `817`
 >
-> DP `AI13`.10021
+> DP `AI13`.10021 ***"WC***
 >
-> Q `AV45`.10021
+> Q `AV45`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV46`.10021
 >
 > OFFSET `AV47`.10021
 >
-> ====================
->
-> COMPUERTA `AO11`.10021
->
-> COMP BLOQ `BO8`.10022 ***REMOTO***
+> Q Cal `AV48`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV95`.10021
+> COMPUERTA `AO11`.10021 ***%***
+>
+> COMP BLOQ `BO8`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV95`.10021 ***%***
 
 ## PLENUM 7 RETORNO
 
+> CAUDAL `AV58`.10021 ***CFM***
+
 #### VAV 01 - **CHICA** - CONTROLADOR 1
 
-> Tamaño `4` pulgadas
+> Tamaño `4` ***pulgadas***
 >
-> Area `0.0819` pies2
+> Area `0.0819` ***pies2***
 >
 > CV `209`
 >
-> DP `AI14`.10021
+> DP `AI14`.10021 ***"WC***
 >
-> Q `AV50`.10021
+> Q `AV50`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV51`.10021
 >
 > OFFSET `AV52`.10021
 >
-> ====================
->
-> COMPUERTA `AO12`.10021
->
-> COMP BLOQ `BO9`.10022 ***REMOTO***
+> Q Cal `AV53`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV96`.10021
+> COMPUERTA `AO12`.10021 ***%***
+>
+> COMP BLOQ `BO9`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV96`.10021 ***%***
 
 #### VAV 02 - **GRANDE** - CONTROLADOR 1
 
-> Tamaño `14` pulgadas
+> Tamaño `14` ***pulgadas***
 >
-> Area `1.05` pies2
+> Area `1.05` ***pies2***
 >
 > CV `2474`
 >
-> DP `AI15`.10021
+> DP `AI15`.10021 ***"WC***
 >
-> Q `AV54`.10021
+> Q `AV54`.10021 ***CFM***
 >
 > MULTIPLICADOR `AV55`.10021
 >
 > OFFSET `AV56`.10021
 >
-> ====================
->
-> COMPUERTA `AO13`.10021
->
-> COMP BLOQ `BO10`.10022 ***REMOTO***
+> Q Cal `AV57`.10021 ***CFM***
 >
 > ====================
 >
-> DEMANDA `AV97`.10021
+> COMPUERTA `AO13`.10021 ***%***
+>
+> COMP BLOQ `BO10`.10022 ***%*** **REMOTO**
+>
+> ====================
+>
+> DEMANDA `AV97`.10021 ***%***
