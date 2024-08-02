@@ -4,6 +4,20 @@
 
 - VAV 01 - **MEDIANA**
 
+> Tamaño `8"`
+>
+> Area `0.3382`
+>
+> CV `817`
+>
+> DP `AI3`
+>
+> Q `AV1`
+>
+> MULTIPLICADOR `AV2`
+>
+> OFFSET `AV3`
+
 - VAV 02 - **GRANDE**
 
 - VAV 03 - **CHICA**
@@ -29,8 +43,6 @@
 ## PLENUM 5
 
 - VAV 01 - **CHICA**
-
-<hola>
 
 - VAV 02 - **GRANDE**
 
