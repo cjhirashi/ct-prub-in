@@ -36,19 +36,19 @@
 
 #### VAV 03 - **CHICA**
 
-> Tamaño `` pulgadas
+> Tamaño `4` pulgadas
 >
-> Area `` pies2
+> Area `0.0819` pies2
 >
-> CV ``
+> CV `209`
 >
-> DP ``.10021
+> DP `AI7`.10022
 >
-> Q ``.10021
+> Q `AV1`.10022
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV2`.10022
 >
-> OFFSET ``.10021
+> OFFSET `AV3`.10022
 
 ## PLENUM 2
 
@@ -88,19 +88,19 @@
 
 #### VAV 01 - **GRANDE**
 
-> Tamaño `` pulgadas
+> Tamaño `10` pulgadas
 >
-> Area `` pies 2
+> Area `0.5319` pies 2
 >
-> CV ``
+> CV `1250`
 >
-> DP ``.10021
+> DP `AI8`.10022
 >
-> Q ``.10021
+> Q `AV5`.10022
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV6`.10022
 >
-> OFFSET ``.10021
+> OFFSET `AV7`.10022
 
 ## PLENUM 4
 
