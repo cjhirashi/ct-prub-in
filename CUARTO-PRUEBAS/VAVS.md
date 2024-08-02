@@ -106,85 +106,85 @@
 
 - VAV 01 - **MEDIANA**
 
-> Tamaño `"`
+> Tamaño `8"`
 >
-> Area ``
+> Area `0.3382`
 >
-> CV ``
+> CV `817`
 >
-> DP ``.10021
+> DP `AI7`.10021
 >
-> Q ``.10021
+> Q `AV19`.10021
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV20`.10021
 >
-> OFFSET ``.10021
+> OFFSET `AV21`.10021
 
 - VAV 02 - **GRANDE**
 
-> Tamaño `"`
+> Tamaño `14"`
 >
-> Area ``
+> Area `1.05`
 >
-> CV ``
+> CV `2474`
 >
-> DP ``.10021
+> DP `AI8`.10021
 >
-> Q ``.10021
+> Q `AV23`.10021
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV24`.10021
 >
-> OFFSET ``.10021
+> OFFSET `AV25`.10021
 
 - VAV 03 - **CHICA**
 
-> Tamaño `"`
+> Tamaño `4"`
 >
-> Area ``
+> Area `0.0819`
 >
-> CV ``
+> CV `209`
 >
-> DP ``.10021
+> DP `AI9`.10021
 >
-> Q ``.10021
+> Q `AV27`.10021
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV28`.10021
 >
-> OFFSET ``.10021
+> OFFSET `AV29`.10021
 
 ## PLENUM 5
 
 - VAV 01 - **CHICA**
 
-> Tamaño `"`
+> Tamaño `5"`
 >
-> Area ``
+> Area `0.1296`
 >
-> CV ``
+> CV `315`
 >
-> DP ``.10021
+> DP `AI10`.10021
 >
-> Q ``.10021
+> Q `AV32`.10021
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV33`.10021
 >
-> OFFSET ``.10021
+> OFFSET `AV34`.10021
 
 - VAV 02 - **GRANDE**
 
-> Tamaño `"`
+> Tamaño `16"`
 >
-> Area ``
+> Area `1.3745`pies2
 >
-> CV ``
+> CV `3235`
 >
-> DP ``.10021
+> DP `AI11`.10021
 >
-> Q ``.10021
+> Q `AV36`.10021
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV37`.10021
 >
-> OFFSET ``.10021
+> OFFSET `AV38`.10021
 
 ## PLENUM 6
 
