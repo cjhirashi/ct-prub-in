@@ -2,7 +2,7 @@
 
 ## PLENUM 1
 
-#### VAV 01 - **MEDIANA**
+#### VAV 01 - **MEDIANA** - CONTROLADOR 1
 
 > Tamaño `8` pulgadas
 >
@@ -24,7 +24,7 @@
 >
 > COMP BLOQ `BO14`.10021
 
-#### VAV 02 - **GRANDE**
+#### VAV 02 - **GRANDE** - CONTROLADOR 1
 
 > Tamaño `14` pulgadas
 >
@@ -39,8 +39,14 @@
 > MULTIPLICADOR `AV6`.10021
 >
 > OFFSET `AV7`.10021
+>
+> ====================
+>
+> COMPUERTA `AO2`.10021
+>
+> COMP BLOQ `BO15`.10021
 
-#### VAV 03 - **CHICA**
+#### VAV 03 - **CHICA** - CONTROLADOR 2
 
 > Tamaño `4` pulgadas
 >
@@ -55,10 +61,16 @@
 > MULTIPLICADOR `AV2`.10022
 >
 > OFFSET `AV3`.10022
+>
+> ====================
+>
+> COMPUERTA `AO13`.10022
+>
+> COMP BLOQ `BO14`.10022
 
 ## PLENUM 2
 
-#### VAV 01 - **MEDIANA**
+#### VAV 01 - **MEDIANA** - CONTROLADOR 1
 
 > Tamaño `7` pulgadas
 >
@@ -73,8 +85,14 @@
 > MULTIPLICADOR `AV11`.10021
 >
 > OFFSET `AV12`.10021
+>
+> ====================
+>
+> COMPUERTA `AO3`.10021
+>
+> COMP BLOQ `BO16`.10021
 
-#### VAV 02 - **GRANDE**
+#### VAV 02 - **GRANDE** - CONTROLADOR 1
 
 > Tamaño `12` pulgadas
 >
@@ -89,10 +107,16 @@
 > MULTIPLICADOR `AV15`.10021
 >
 > OFFSET `AV16`.10021
+>
+> ====================
+>
+> COMPUERTA `AO4`.10021
+>
+> COMP BLOQ `BO1`.10022 REM
 
 ## PLENUM 3
 
-#### VAV 01 - **GRANDE**
+#### VAV 01 - **GRANDE** - CONTROLADOR 2
 
 > Tamaño `10` pulgadas
 >
@@ -107,10 +131,16 @@
 > MULTIPLICADOR `AV6`.10022
 >
 > OFFSET `AV7`.10022
+>
+> ====================
+>
+> COMPUERTA `AO15`.10022
+>
+> COMP BLOQ `BO16`.10022
 
 ## PLENUM 4
 
-#### VAV 01 - **MEDIANA**
+#### VAV 01 - **MEDIANA** - CONTROLADOR 1
 
 > Tamaño `8` pulgadas
 >
@@ -125,8 +155,14 @@
 > MULTIPLICADOR `AV20`.10021
 >
 > OFFSET `AV21`.10021
+>
+> ====================
+>
+> COMPUERTA `AO5`.10021
+>
+> COMP BLOQ `BO2`.10022 REM
 
-#### VAV 02 - **GRANDE**
+#### VAV 02 - **GRANDE** - CONTROLADOR 1
 
 > Tamaño `14` pulgadas
 >
@@ -141,8 +177,14 @@
 > MULTIPLICADOR `AV24`.10021
 >
 > OFFSET `AV25`.10021
+>
+> ====================
+>
+> COMPUERTA `AO6`.10021
+>
+> COMP BLOQ `BO3`.10022 REM
 
-#### VAV 03 - **CHICA**
+#### VAV 03 - **CHICA** - CONTROLADOR 1
 
 > Tamaño `4` pulgadas
 >
@@ -157,10 +199,16 @@
 > MULTIPLICADOR `AV28`.10021
 >
 > OFFSET `AV29`.10021
+>
+> ====================
+>
+> COMPUERTA `AO7`.10021
+>
+> COMP BLOQ `BO4`.10022 REM
 
 ## PLENUM 5
 
-#### VAV 01 - **CHICA**
+#### VAV 01 - **CHICA** - CONTROLADOR 1
 
 > Tamaño `5` pulgadas
 >
@@ -175,8 +223,14 @@
 > MULTIPLICADOR `AV33`.10021
 >
 > OFFSET `AV34`.10021
+>
+> ====================
+>
+> COMPUERTA `AO8`.10021
+>
+> COMP BLOQ `BO5`.10022 REM
 
-#### VAV 02 - **GRANDE**
+#### VAV 02 - **GRANDE** - CONTROLADOR 1
 
 > Tamaño `16` pulgadas
 >
@@ -191,10 +245,16 @@
 > MULTIPLICADOR `AV37`.10021
 >
 > OFFSET `AV38`.10021
+>
+> ====================
+>
+> COMPUERTA `AO9`.10021
+>
+> COMP BLOQ `BO6`.10022 REM
 
 ## PLENUM 6
 
-#### VAV 01 - **GRANDE**
+#### VAV 01 - **GRANDE** - CONTROLADOR 1
 
 > Tamaño `14` pulgadas
 >
@@ -209,8 +269,14 @@
 > MULTIPLICADOR `AV42`.10021
 >
 > OFFSET `AV43`.10021
+>
+> ====================
+>
+> COMPUERTA `AO10`.10021
+>
+> COMP BLOQ `BO7`.10022 REM
 
-#### VAV 02 - **MEDIANA**
+#### VAV 02 - **MEDIANA** - CONTROLADOR 1
 
 > Tamaño `8` pulgadas
 >
@@ -225,10 +291,16 @@
 > MULTIPLICADOR `AV46`.10021
 >
 > OFFSET `AV47`.10021
+>
+> ====================
+>
+> COMPUERTA `AO11`.10021
+>
+> COMP BLOQ `BO8`.10022 REM
 
 ## PLENUM 7 RETORNO
 
-#### VAV 01 - **CHICA**
+#### VAV 01 - **CHICA** - CONTROLADOR 1
 
 > Tamaño `4` pulgadas
 >
@@ -243,8 +315,14 @@
 > MULTIPLICADOR `AV51`.10021
 >
 > OFFSET `AV52`.10021
+>
+> ====================
+>
+> COMPUERTA `AO12`.10021
+>
+> COMP BLOQ `BO9`.10022 REM
 
-#### VAV 02 - **GRANDE**
+#### VAV 02 - **GRANDE** - CONTROLADOR 1
 
 > Tamaño `14` pulgadas
 >
@@ -259,3 +337,9 @@
 > MULTIPLICADOR `AV55`.10021
 >
 > OFFSET `AV56`.10021
+>
+> ====================
+>
+> COMPUERTA `AO13`.10021
+>
+> COMP BLOQ `BO10`.10022
