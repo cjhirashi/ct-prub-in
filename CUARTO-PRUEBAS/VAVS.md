@@ -2,11 +2,11 @@
 
 ## PLENUM 1
 
-- VAV 01 - **MEDIANA**
+#### VAV 01 - **MEDIANA**
 
-> Tamaño `8"`
+> Tamaño `8` pulgadas
 >
-> Area `0.3382`
+> Area `0.3382` pies2
 >
 > CV `817`
 >
@@ -18,11 +18,11 @@
 >
 > OFFSET `AV3`.10021
 
-- VAV 02 - **GRANDE**
+#### VAV 02 - **GRANDE**
 
-> Tamaño `14"`
+> Tamaño `14` pulgadas
 >
-> Area `1.05`
+> Area `1.05` pies2
 >
 > CV `2474`
 >
@@ -34,11 +34,11 @@
 >
 > OFFSET `AV7`.10021
 
-- VAV 03 - **CHICA**
+#### VAV 03 - **CHICA**
 
-> Tamaño `"`
+> Tamaño `` pulgadas
 >
-> Area ``
+> Area `` pies2
 >
 > CV ``
 >
@@ -52,11 +52,11 @@
 
 ## PLENUM 2
 
-- VAV 01 - **MEDIANA**
+#### VAV 01 - **MEDIANA**
 
-> Tamaño `7"`
+> Tamaño `7` pulgadas
 >
-> Area `0.2578`
+> Area `0.2578` pies2
 >
 > CV `612`
 >
@@ -68,11 +68,11 @@
 >
 > OFFSET `AV12`.10021
 
-- VAV 02 - **GRANDE**
+#### VAV 02 - **GRANDE**
 
-> Tamaño `12"`
+> Tamaño `12` pulgadas
 >
-> Area `0.7691`
+> Area `0.7691` pies2
 >
 > CV `1792`
 >
@@ -86,11 +86,11 @@
 
 ## PLENUM 3
 
-- VAV 01 - **GRANDE**
+#### VAV 01 - **GRANDE**
 
-> Tamaño `"`
+> Tamaño `` pulgadas
 >
-> Area ``
+> Area `` pies 2
 >
 > CV ``
 >
@@ -104,11 +104,11 @@
 
 ## PLENUM 4
 
-- VAV 01 - **MEDIANA**
+#### VAV 01 - **MEDIANA**
 
-> Tamaño `8"`
+> Tamaño `8` pulgadas
 >
-> Area `0.3382`
+> Area `0.3382` pies2
 >
 > CV `817`
 >
@@ -120,11 +120,11 @@
 >
 > OFFSET `AV21`.10021
 
-- VAV 02 - **GRANDE**
+#### VAV 02 - **GRANDE**
 
-> Tamaño `14"`
+> Tamaño `14` pulgadas
 >
-> Area `1.05`
+> Area `1.05` pies2
 >
 > CV `2474`
 >
@@ -136,11 +136,11 @@
 >
 > OFFSET `AV25`.10021
 
-- VAV 03 - **CHICA**
+#### VAV 03 - **CHICA**
 
-> Tamaño `4"`
+> Tamaño `4` pulgadas
 >
-> Area `0.0819`
+> Area `0.0819` pies2
 >
 > CV `209`
 >
@@ -154,11 +154,11 @@
 
 ## PLENUM 5
 
-### VAV 01 - **CHICA**
+#### VAV 01 - **CHICA**
 
-> Tamaño `5"`
+> Tamaño `5` pulgadas
 >
-> Area `0.1296`
+> Area `0.1296` pies2
 >
 > CV `315`
 >
@@ -188,68 +188,68 @@
 
 ## PLENUM 6
 
-- VAV 01 - **GRANDE**
+#### VAV 01 - **GRANDE**
 
-> Tamaño `"`
+> Tamaño `14` pulgadas
 >
-> Area ``
+> Area `1.05` pies2
 >
-> CV ``
+> CV `2474`
 >
-> DP ``.10021
+> DP `AI12`.10021
 >
-> Q ``.10021
+> Q `AV41`.10021
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV42`.10021
 >
-> OFFSET ``.10021
+> OFFSET `AV43`.10021
 
-- VAV 02 - **MEDIANA**
+#### VAV 02 - **MEDIANA**
 
-> Tamaño `"`
+> Tamaño `8` pulgadas
 >
-> Area ``
+> Area `0.3382` pies2
 >
-> CV ``
+> CV `817`
 >
-> DP ``.10021
+> DP `AI13`.10021
 >
-> Q ``.10021
+> Q `AV45`.10021
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV46`.10021
 >
-> OFFSET ``.10021
+> OFFSET `AV47`.10021
 
 ## PLENUM 7 RETORNO
 
-- VAV 01 - **CHICA**
+#### VAV 01 - **CHICA**
 
-> Tamaño `"`
+> Tamaño `4` pulgadas
 >
-> Area ``
+> Area `0.0819` pies2
 >
-> CV ``
+> CV `209`
 >
-> DP ``.10021
+> DP `AI14`.10021
 >
-> Q ``.10021
+> Q `AV50`.10021
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV51`.10021
 >
-> OFFSET ``.10021
+> OFFSET `AV52`.10021
 
-- VAV 02 - **GRANDE**
+#### VAV 02 - **GRANDE**
 
-> Tamaño `"`
+> Tamaño `14` pulgadas
 >
-> Area ``
+> Area `1.05` pies2
 >
-> CV ``
+> CV `2474`
 >
-> DP ``.10021
+> DP `AI15`.10021
 >
-> Q ``.10021
+> Q `AV54`.10021
 >
-> MULTIPLICADOR ``.10021
+> MULTIPLICADOR `AV55`.10021
 >
-> OFFSET ``.10021
+> OFFSET `AV56`.10021
