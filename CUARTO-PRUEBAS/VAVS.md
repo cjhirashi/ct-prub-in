@@ -172,9 +172,9 @@
 
 - VAV 02 - **GRANDE**
 
-> Tamaño `16"`
+> Tamaño `16` pulgadas
 >
-> Area `1.3745`pies2
+> Area `1.3745` pies2
 >
 > CV `3235`
 >
