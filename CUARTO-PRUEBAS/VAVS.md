@@ -17,6 +17,12 @@
 > MULTIPLICADOR `AV2`.10021
 >
 > OFFSET `AV3`.10021
+>
+> ==========
+>
+> COMPUERTA `AO1`.10021
+>
+> COMP BLOQ `BO14`.10021
 
 #### VAV 02 - **GRANDE**
 
@@ -90,7 +96,7 @@
 
 > Tamaño `10` pulgadas
 >
-> Area `0.5319` pies 2
+> Area `0.5319` pies2
 >
 > CV `1250`
 >
