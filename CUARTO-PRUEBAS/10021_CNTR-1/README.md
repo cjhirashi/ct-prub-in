@@ -6,43 +6,8 @@ Programas para operación de cajas VAV del sistema del Cuarto de Pruebas.
 
 ### PRG1_SENSORES
 
-Lectura de caudales de VAVs
+Lectura de caudales del sistema
 
-#### PLENUM 1
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 2
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 4
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 5
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 6
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 7R
-
-- VAV-01
-
-- VAV-02
 
 ### PRG2_VAVS
 
