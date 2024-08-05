@@ -1,6 +1,89 @@
 # CONTROL DE CUARTO DE PRUEBA (CONTROLADOR 1)
 
-Control y monitoreo de cajas VAV del sistema del Cuarto de Pruebas
+Programas para operación de cajas VAV del sistema del Cuarto de Pruebas.
+
+## PROGRAMAS
+
+### PRG1_SENSORES
+
+Lectura de caudales de VAVs
+
+#### PLENUM 1
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 2
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 4
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 5
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 6
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 7R
+
+- VAV-01
+
+- VAV-02
+
+### PRG2_VAVS
+
+Control de de apertura de compuertas por flujo de aire en cajas VAV
+
+#### PLENUM 1
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 2
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 4
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 5
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 6
+
+- VAV-01
+
+- VAV-02
+
+#### PLENUM 7R
+
+- VAV-01
+
+- VAV-02
+
 
 ## PUNTOS DE CONTROL
 
