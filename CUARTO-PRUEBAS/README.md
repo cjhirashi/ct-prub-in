@@ -64,9 +64,9 @@ Sistema de control para la operación de las cajas VAV del *Cuarto de Pruebas* e
 >
 > MAC Address `21`
 
-> **ENTRADAS UNIVERSALES** 16
+> ENTRADAS UNIVERSALES `16`
 >
-> **SALIDAS UNIVERSALES** 16
+> SALIDAS UNIVERSALES `16`
 
 - 1 Contrololador programable KMC [**BAC-5901C**](https://www.kmccontrols.com/product/controller-general-purpose-bacnet-aac-clock-mstp/ "Documentación de equipo")
 
@@ -80,9 +80,9 @@ Sistema de control para la operación de las cajas VAV del *Cuarto de Pruebas* e
 >
 > MAC Address `22`
 
-> **ENTRADAS UNIVERSALES** 32
+> ENTRADAS UNIVERSALES `32`
 >
-> **SALIDAS UNIVERSALES** 16
+> SALIDAS UNIVERSALES `16`
 
 - 1 Contrololador programable KMC [**BAC-5901C**](https://www.kmccontrols.com/product/controller-general-purpose-bacnet-aac-clock-mstp/ "Documentación de equipo")
 
