@@ -64,15 +64,15 @@ Sistema de control para la operación de las cajas VAV del *Cuarto de Pruebas* e
 >
 > MAC Address `21`
 
+> **ENTRADAS UNIVERSALES** 16
+>
+> **SALIDAS UNIVERSALES** 16
+
 - 1 Contrololador programable KMC [**BAC-5901C**](https://www.kmccontrols.com/product/controller-general-purpose-bacnet-aac-clock-mstp/ "Documentación de equipo")
 
 - 1 Módulo de expansión KMC [**CAN-5901**](https://www.kmccontrols.com/product/expansion-io-module-8-ui-8-uo/ "Documentación de equipo")
 
 #### PUNTOS DE CONTROL DEL SISTEMA
-
-> **ENTRADAS UNIVERSALES** 16
->
-> **SALIDAS UNIVERSALES** 16
 
 ### 10022_CNTR-2
 
@@ -80,12 +80,13 @@ Sistema de control para la operación de las cajas VAV del *Cuarto de Pruebas* e
 >
 > MAC Address `22`
 
+> **ENTRADAS UNIVERSALES** 32
+>
+> **SALIDAS UNIVERSALES** 16
+
 - 1 Contrololador programable KMC [**BAC-5901C**](https://www.kmccontrols.com/product/controller-general-purpose-bacnet-aac-clock-mstp/ "Documentación de equipo")
 
 - 1 Módulo de expansión KMC [**CAN-5901**](https://www.kmccontrols.com/product/expansion-io-module-8-ui-8-uo/ "Documentación de equipo")
 
 - 1 Módulo de expansión KMC [**CAN-5902**](https://www.kmccontrols.com/product/expansion-io-module-16-ui/ "Documentación de equipo")
 
-> **ENTRADAS UNIVERSALES** 32
->
-> **SALIDAS UNIVERSALES** 16
