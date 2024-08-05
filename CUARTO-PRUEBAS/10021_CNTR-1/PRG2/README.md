@@ -112,68 +112,68 @@ Código para cajas con control de compuerta de bloqueo desde equipo remoto
 				ENDIF
 ```
 
-## PARAMETROS POR CAJA
+## PARAMETROS DE CAJAS
 
 ### PLENUM 1
 
 #### VAV-01
 
-> `DEMANDA` = AV85 | `VAV` = AO1 | `CM_BL` = BO14
+> `DEMANDA` = ***AV85*** | `VAV` = ***AO1*** | `CM_BL` = ***BO14***
 
 #### VAV-02
 
-> `DEMANDA` = AV86 | `VAV` = AO2 | `CM_BL` = BO15
+> `DEMANDA` = ***AV86*** | `VAV` = ***AO2*** | `CM_BL` = ***BO15***
 
 ### PLENUM 2
 
 #### VAV-01
 
-> `DEMANDA` = AV87 | `VAV` = AO3 | `CM_BL` = BO16
+> `DEMANDA` = ***AV87*** | `VAV` = ***AO3*** | `CM_BL` = ***BO16***
 
 #### VAV-02
 
-> `DEMANDA` = AV88 | `VAV` = AO4 | `CM_BL` = 10022.BO1
+> `DEMANDA` = ***AV88*** | `VAV` = ***AO4*** | `CM_BL` = ***10022.BO1***
 
 ### PLENUM 4
 
 #### VAV-01
 
-> `DEMANDA` = AV89 | `VAV` = AO5 | `CM_BL` = 10022.BO2
+> `DEMANDA` = ***AV89*** | `VAV` = ***AO5*** | `CM_BL` = ***10022.BO2***
 
 #### VAV-02
 
-> `DEMANDA` = AV90 | `VAV` = AO6 | `CM_BL` = 10022.BO3
+> `DEMANDA` = ***AV90*** | `VAV` = ***AO6*** | `CM_BL` = ***10022.BO3***
 
 #### VAV-03
 
-> `DEMANDA` = AV91 | `VAV` = AO7 | `CM_BL` = 10022.BO4
+> `DEMANDA` = ***AV91*** | `VAV` = ***AO7*** | `CM_BL` = ***10022.BO4***
 
 ### PLENUM 5
 
 #### VAV-01
 
-> `DEMANDA` = AV92 | `VAV` = AO8 | `CM_BL` = 10022.BO5
+> `DEMANDA` = ***AV92*** | `VAV` = ***AO8*** | `CM_BL` = ***10022.BO5***
 
 #### VAV-02
 
-> `DEMANDA` = AV93 | `VAV` = AO9 | `CM_BL` = 10022.BO6
+> `DEMANDA` = ***AV93*** | `VAV` = ***AO9*** | `CM_BL` = ***10022.BO6***
 
 ### PLENUM 6
 
 #### VAV-01
 
-> `DEMANDA` = AV94 | `VAV` = AO10 | `CM_BL` = 10022.BO7
+> `DEMANDA` = ***AV94*** | `VAV` = ***AO10*** | `CM_BL` = ***10022.BO7***
 
 #### VAV-02
 
-> `DEMANDA` = AV95 | `VAV` = AO11 | `CM_BL` = 10022.BO8
+> `DEMANDA` = ***AV95*** | `VAV` = ***AO11*** | `CM_BL` = ***10022.BO8***
 
 ### PLENUM 7R
 
 #### VAV-01
 
-> `DEMANDA` = AV96 | `VAV` = AO12 | `CM_BL` = 10022.BO9
+> `DEMANDA` = ***AV96*** | `VAV` = ***AO12*** | `CM_BL` = ***10022.BO9***
 
 #### VAV-02
 
-> `DEMANDA` = AV97 | `VAV` = AO13 | `CM_BL` = 10022.BO10
+> `DEMANDA` = ***AV97*** | `VAV` = ***AO13*** | `CM_BL` = ***10022.BO10***
