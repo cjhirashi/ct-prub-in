@@ -36,4 +36,4 @@ Este sistema opera 15 cajas de volumen variable, las cuales están conectadas a 
 >
 >   **VAV-02**  GRANDE
 
-Para acceder a los datos del sistema, ingresar a[**VAVs.md**](https://github.com/cjhirashi/ct-prub-in/blob/main/CUARTO-PRUEBAS/VAVs.md "Datos de cajas VAV del sistema")
+Para acceder a los datos del sistema, ingresar a [***VAVs.md***](https://github.com/cjhirashi/ct-prub-in/blob/main/CUARTO-PRUEBAS/VAVs.md "Datos de cajas VAV del sistema")
