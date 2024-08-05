@@ -32,6 +32,8 @@ Este sistema opera 15 cajas de volumen variable, las cuales están conectadas a 
 >
 >   **VAV-02**  MEDIANA
 - PLENUM R7
->   [**VAV-01**](https://github.com/cjhirashi/ct-prub-in/blob/main/CUARTO-PRUEBAS/VAVs.md#vav-01---chica-1)  CHICA
+>   **VAV-01**  CHICA
 >
 >   **VAV-02**  GRANDE
+
+[Documentos](https://github.com/cjhirashi/ct-prub-in/blob/main/CUARTO-PRUEBAS/VAVs.md "Hola")
