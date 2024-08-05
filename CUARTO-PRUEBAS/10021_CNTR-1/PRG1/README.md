@@ -71,11 +71,11 @@ Lectura de caudales del sistema desde sensores Dwyer MS, rango de medición de s
 
 ### ASIGNACION DE DEMANDA A COMPUETAS POR ESTADO DE ACTIVACIÓN
 
-Cuando el estado de `ACTIV` sea *On*, se asignará el porcentaje de `DEMANDA` actual a la compuerta `VAV ` y el estado de apertura de la compueta de bloqueo `CM_BL`
+Cuando el estado de `ACTIV` sea *On*, se asignará al control de compuerta `VAV` el valor de `DEMANDA` y a la compueta de bloqueo `CM_BL` el valor de *On*
 
-Cuando el estado de `ACTIV` sea *Off*, se asignará a control de compuerta `VAV` 0% y a control de compuerta de bloqueo `CM_BL` Off
+Cuando el estado de `ACTIV` sea *Of*, se asignará al control de compuerta `VAV` el valor de 0% y a la compueta de bloqueo `CM_BL` el valor de *Off*
 
 ```bash
-    IF `ACTIV1` = 1 THEN `CM_BL` = 1, `VAV` = `DEMANDA` ELSE `CM_BL` = 1, `VAV` = 0
+    IF `ACTIV1` = 1 THEN `VAV` = `DEMANDA`, `CM_BL` = 1 ELSE `VAV` = 0, `CM_BL` = 0
 ```
 
