@@ -62,11 +62,15 @@ Asignación de de estados de apertura del control de compuerta `VAV` y control d
 
 - VAV-01
 
-> `DEMANDA` = AV85
-> `VAV` = AO1
-> `CM_BL` = BO14
+> `DEMANDA` = AV85 | `VAV` = AO1 | `CM_BL` = BO14
 
 - VAV-02
+
+> `DEMANDA` = AV85
+>
+> `VAV` = AO1
+>
+> `CM_BL` = BO14
 
 ### PLENUM 2
 
