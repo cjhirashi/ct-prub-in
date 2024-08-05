@@ -1,4 +1,4 @@
-# CONTROL DE CUARTO DE PRUEBA (CONTROLADOR 1)
+# CONTROL DE CUARTO DE PRUEBA - CONTROLADOR 1
 
 Programas para operación de cajas VAV del sistema del Cuarto de Pruebas.
 
