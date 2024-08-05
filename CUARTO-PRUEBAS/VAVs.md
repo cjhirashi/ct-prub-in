@@ -6,7 +6,7 @@
 
 #### VAV 01 - **MEDIANA** 
 
-> **CONTROLADOR 1**
+> ***CONTROLADOR 1***
 
 > Tamaño `8` ***pulgadas***
 >
@@ -34,7 +34,8 @@
 >
 > DEMANDA `AV85`.10021 ***%***
 
-#### VAV 02 - **GRANDE** - CONTROLADOR 1
+#### VAV 02 - **GRANDE** 
+> ***CONTROLADOR 1***
 
 > Tamaño `14` ***pulgadas***
 >
