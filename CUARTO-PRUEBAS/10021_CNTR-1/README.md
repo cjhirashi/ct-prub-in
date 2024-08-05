@@ -6,14 +6,23 @@ Programas para operación de cajas VAV del sistema del Cuarto de Pruebas.
 
 ### PRG1_SENSORES
 
-Lectura de caudales del sistema
-
+Lectura de caudales de las ***cajas VAVs*** del sistema de control
 
 ### PRG2_VAVS
 
-Control de de apertura de compuertas por flujo de aire en cajas VAV
+Control de de apertura de compuertas por flujo de aire de ***cajas VAV***
+
+### PRG3_PLENUMS
+
+### PRG4_DEMANDA
+
+### PRG5_UMA
+
+### PRG6_CALIBRACION
 
 ## PUNTOS DE CONTROL
+
+____________________
 
 ### ENTRADAS
 
