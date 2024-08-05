@@ -90,7 +90,7 @@ Código para cajas con ambas compuertas en el mismo controlador
 Código para cajas con control de compuerta de bloqueo desde equipo remoto
 
 ```bash
-        REM **VAV 00 - TAMANO 
+		REM **VAV 00 - TAMANO
 			LOCALS ACTIV
 			DEMANDA = [AV]
 
