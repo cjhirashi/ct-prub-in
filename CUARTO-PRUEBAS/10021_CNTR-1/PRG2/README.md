@@ -56,9 +56,22 @@ Asignación de de estados de apertura del control de compuerta `VAV` y control d
 				[BO] = CM_BL
 ```
 
-### SEGMENTO COMPLETO
+Código para cajas con control de compuerta de bloqueo desde equipo remoto
 
 ```bash
+			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
+				[AO] = VAV
+				IF INTERVAL(SINC) THEN
+    				[10022.BO] = CM_BL
+                ENDIF
+```
+
+### SEGMENTO COMPLETO
+
+Código para cajas con ambas compuertas en el mismo controlador
+
+```bash
+        REM **VAV 00 - TAMANO 
 			LOCALS ACTIV
 			DEMANDA = [AV]
 
@@ -72,6 +85,27 @@ Asignación de de estados de apertura del control de compuerta `VAV` y control d
 			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
 				[AO] = VAV
 				[BO] = CM_BL
+```
+
+Código para cajas con control de compuerta de bloqueo desde equipo remoto
+
+```bash
+        REM **VAV 00 - TAMANO 
+			LOCALS ACTIV
+			DEMANDA = [AV]
+
+			REM ***ACTIVACION DE CAJA
+				IF DEMANDA > P_APER THEN ACTIV = 1
+				IF DEMANDA < 1 THEN ACTIV = 0
+
+			REM ***CONTROL DE COMPUERTAS
+				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+
+			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
+				[AO] = VAV
+				IF INTERVAL(SINC) THEN
+    				[10022.BO] = CM_BL
+                ENDIF
 ```
 
 ## PARAMETROS POR CAJA
@@ -90,48 +124,52 @@ Asignación de de estados de apertura del control de compuerta `VAV` y control d
 
 #### VAV-01
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV87 | `VAV` = AO3 | `CM_BL` = BO16
 
 #### VAV-02
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV88 | `VAV` = AO4 | `CM_BL` = 10022.BO1
 
 ### PLENUM 4
 
 #### VAV-01
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV89 | `VAV` = AO5 | `CM_BL` = 10022.BO2
 
 #### VAV-02
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV90 | `VAV` = AO6 | `CM_BL` = 10022.BO3
+
+#### VAV-03
+
+> `DEMANDA` = AV91 | `VAV` = AO7 | `CM_BL` = 10022.BO4
 
 ### PLENUM 5
 
 #### VAV-01
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV92 | `VAV` = AO8 | `CM_BL` = 10022.BO5
 
 #### VAV-02
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV93 | `VAV` = AO9 | `CM_BL` = 10022.BO6
 
 ### PLENUM 6
 
 #### VAV-01
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV94 | `VAV` = AO10 | `CM_BL` = 10022.BO7
 
 #### VAV-02
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV95 | `VAV` = AO11 | `CM_BL` = 10022.BO8
 
 ### PLENUM 7R
 
 #### VAV-01
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV96 | `VAV` = AO12 | `CM_BL` = 10022.BO9
 
 #### VAV-02
 
-> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+> `DEMANDA` = AV97 | `VAV` = AO13 | `CM_BL` = 10022.BO10
