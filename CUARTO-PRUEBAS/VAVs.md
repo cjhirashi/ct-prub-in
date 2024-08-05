@@ -4,7 +4,9 @@
 
 > CAUDAL `AV9`.10021 ***CFM***
 
-#### VAV 01 - **MEDIANA** - CONTROLADOR 1
+#### VAV 01 - **MEDIANA** 
+
+**CONTROLADOR 1**
 
 > Tamaño `8` ***pulgadas***
 >
