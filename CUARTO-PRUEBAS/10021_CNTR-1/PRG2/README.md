@@ -62,8 +62,8 @@ Código para cajas con control de compuerta de bloqueo desde equipo remoto
 			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
 				[AO] = VAV
 				IF INTERVAL(SINC) THEN
-                    [10022.BO] = CM_BL
-                ENDIF
+					[10022.BO] = CM_BL
+				ENDIF
 ```
 
 ### SEGMENTO COMPLETO
