@@ -21,7 +21,7 @@ Lectura de caudales de las ***cajas VAVs*** del sistema de control
 
 ### PRG2_VAVS
 
-Control de de apertura de compuertas por flujo de aire de ***cajas VAV***
+Control de apertura de compuerta por flujo de aire y compuerta de bloqueo de aire de ***cajas VAV***
 
 ### PRG3_PLENUMS
 
