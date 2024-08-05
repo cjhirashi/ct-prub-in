@@ -68,8 +68,8 @@ Las cajas controladas por este programa son:
 
 ```bash
 			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV1 = 1
-				IF DEMANDA < 1 THEN ACTIV1 = 0
+				IF DEMANDA > P_APER THEN ACTIV = 1
+				IF DEMANDA < 1 THEN ACTIV = 0
 ```
 
 ### ASIGNACION DE DEMANDA A COMPUETAS POR ESTADO DE ACTIVACIÓN
@@ -80,7 +80,7 @@ Cuando el estado de `ACTIV` sea *Off*, se asignará al control de compuerta `VAV
 
 ```bash
 			REM ***CONTROL DE COMPUERTAS
-				IF TIMEOFF(ACTIV1) THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
 
 ```
 
