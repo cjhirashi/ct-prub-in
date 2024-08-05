@@ -35,6 +35,7 @@
 > DEMANDA `AV85`.10021 ***%***
 
 #### VAV 02 - **GRANDE** 
+
 > ***CONTROLADOR 1***
 
 > Tamaño `14` ***pulgadas***
@@ -63,7 +64,9 @@
 >
 > DEMANDA `AV86`.10021 ***%***
 
-#### VAV 03 - **CHICA** - CONTROLADOR 2
+#### VAV 03 - **CHICA** 
+
+> ***CONTROLADOR 2***
 
 > Tamaño `4` ***pulgadas***
 >
@@ -95,7 +98,9 @@
 
 > CAUDAL `AV18`.10021 ***CFM***
 
-#### VAV 01 - **MEDIANA** - CONTROLADOR 1
+#### VAV 01 - **MEDIANA** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `7` ***pulgadas***
 >
@@ -123,7 +128,9 @@
 >
 > DEMANDA `AV87`.10021 ***%***
 
-#### VAV 02 - **GRANDE** - CONTROLADOR 1
+#### VAV 02 - **GRANDE** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `12` ***pulgadas***
 >
@@ -155,7 +162,9 @@
 
 > CAUDAL `AV9`.10022 ***CFM***
 
-#### VAV 01 - **GRANDE** - CONTROLADOR 2
+#### VAV 01 - **GRANDE** 
+
+> ***CONTROLADOR 2***
 
 > Tamaño `10` ***pulgadas***
 >
@@ -187,7 +196,9 @@
 
 > CAUDAL `AV31`.10021 ***CFM***
 
-#### VAV 01 - **MEDIANA** - CONTROLADOR 1
+#### VAV 01 - **MEDIANA** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `8` ***pulgadas***
 >
@@ -215,7 +226,9 @@
 >
 > DEMANDA `AV89`.10021 ***%***
 
-#### VAV 02 - **GRANDE** - CONTROLADOR 1
+#### VAV 02 - **GRANDE** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `14` ***pulgadas***
 >
@@ -243,7 +256,9 @@
 >
 > DEMANDA `AV90`.10021 ***%***
 
-#### VAV 03 - **CHICA** - CONTROLADOR 1
+#### VAV 03 - **CHICA** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `4` ***pulgadas***
 >
@@ -275,7 +290,9 @@
 
 > CAUDAL `AV40`.10021 ***CFM***
 
-#### VAV 01 - **CHICA** - CONTROLADOR 1
+#### VAV 01 - **CHICA** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `5` ***pulgadas***
 >
@@ -303,7 +320,9 @@
 >
 > DEMANDA `AV92`.10021 ***%***
 
-#### VAV 02 - **GRANDE** - CONTROLADOR 1
+#### VAV 02 - **GRANDE** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `16` ***pulgadas***
 >
@@ -335,7 +354,9 @@
 
 > CAUDAL `AV49`.10021 ***CFM***
 
-#### VAV 01 - **GRANDE** - CONTROLADOR 1
+#### VAV 01 - **GRANDE** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `14` ***pulgadas***
 >
@@ -363,7 +384,9 @@
 >
 > DEMANDA `AV94`.10021 ***%***
 
-#### VAV 02 - **MEDIANA** - CONTROLADOR 1
+#### VAV 02 - **MEDIANA** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `8` ***pulgadas***
 >
@@ -395,7 +418,9 @@
 
 > CAUDAL `AV58`.10021 ***CFM***
 
-#### VAV 01 - **CHICA** - CONTROLADOR 1
+#### VAV 01 - **CHICA** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `4` ***pulgadas***
 >
@@ -423,7 +448,9 @@
 >
 > DEMANDA `AV96`.10021 ***%***
 
-#### VAV 02 - **GRANDE** - CONTROLADOR 1
+#### VAV 02 - **GRANDE** 
+
+> ***CONTROLADOR 1***
 
 > Tamaño `14` ***pulgadas***
 >
