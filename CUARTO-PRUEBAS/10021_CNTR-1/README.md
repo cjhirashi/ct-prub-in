@@ -8,6 +8,11 @@ Programas para operación de cajas VAV del sistema del Cuarto de Pruebas.
 > - Puerto *RS-485* **BACnet MS/TP**
 > - Alimentación a ***24 VAC/DC***
 
+> Módulo de expansión KMC **CAN-5901**
+>
+> - 8 Entradas Universales, 8 Salidas Universales
+> - Alimentación a ***24 VAC/DC***
+
 ## PROGRAMAS
 
 ### PRG1_SENSORES
