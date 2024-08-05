@@ -6,7 +6,7 @@
 
 #### VAV 01 - **MEDIANA** 
 
-    **CONTROLADOR 1**
+> **CONTROLADOR 1**
 
 > Tamaño `8` ***pulgadas***
 >
