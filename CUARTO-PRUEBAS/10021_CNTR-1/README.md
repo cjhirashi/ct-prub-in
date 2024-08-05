@@ -3,9 +3,10 @@
 Programas para operación de cajas VAV del sistema del Cuarto de Pruebas.
 
 > Controlador KMC **BAC-5901C**
-> 8 Entradas Universales, 8 Salidas Universales
-> Puerto *RS-485* **BACnet MS/TP**
-> Alimentación a ***24 VAC/DC***
+>
+> - 8 Entradas Universales, 8 Salidas Universales
+> - Puerto *RS-485* **BACnet MS/TP**
+> - Alimentación a ***24 VAC/DC***
 
 ## PROGRAMAS
 
