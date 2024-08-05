@@ -1,6 +1,6 @@
 # CONTROL DE CUARTO DE PRUEBAS - CONTROLADOR 1
 
-Programas para operación de cajas VAV del sistema del Cuarto de Pruebas.
+Sistema de control para la operación de las cajas VAV del *Cuarto de Pruebas*
 
 > Controlador KMC [**BAC-5901C**](https://www.kmccontrols.com/product/controller-general-purpose-bacnet-aac-clock-mstp/ "Documentación de equipo")
 >
