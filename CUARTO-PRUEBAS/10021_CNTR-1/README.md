@@ -17,7 +17,7 @@ Control de de apertura de compuertas por flujo de aire en cajas VAV
 
 ### ENTRADAS
 
-> ***AI3*** `P1_VM_DP`    PLENUM 1, VAV 01 - MEDIANA, PRES DIF
+> ***AI3*** `P1_VM_DP` | PLENUM 1, VAV 01 - MEDIANA, PRES DIF
 >
 > `AI4` **P1_VG_DP**    PLENUM 1, VAV 02 - GRANDE, PRES DIF
 >
