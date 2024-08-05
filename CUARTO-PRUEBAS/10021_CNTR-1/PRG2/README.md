@@ -52,52 +52,86 @@ Asignación de de estados de apertura del control de compuerta `VAV` y control d
 
 ```bash
 			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				[AO] = VAV			: REM COMPUERTA DE VAV
-				[BO] = CM_BL		: REM COMPUERTA DE BLOQUEO
+				[AO] = VAV
+				[BO] = CM_BL
+```
+
+### SEGMENTO COMPLETO
+
+```bash
+			LOCALS ACTIV
+			DEMANDA = [AV]
+
+			REM ***ACTIVACION DE CAJA
+				IF DEMANDA > P_APER THEN ACTIV = 1
+				IF DEMANDA < 1 THEN ACTIV = 0
+
+			REM ***CONTROL DE COMPUERTAS
+				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+
+			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
+				[AO] = VAV
+				[BO] = CM_BL
 ```
 
 ## PARAMETROS POR CAJA
 
 ### PLENUM 1
 
-- VAV-01
+#### VAV-01
 
 > `DEMANDA` = AV85 | `VAV` = AO1 | `CM_BL` = BO14
 
-- VAV-02
+#### VAV-02
 
-> `DEMANDA` = AV85
->
-> `VAV` = AO1
->
-> `CM_BL` = BO14
+> `DEMANDA` = AV86 | `VAV` = AO2 | `CM_BL` = BO15
 
 ### PLENUM 2
 
-- VAV-01
+#### VAV-01
 
-- VAV-02
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+
+#### VAV-02
+
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
 
 ### PLENUM 4
 
-- VAV-01
+#### VAV-01
 
-- VAV-02
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+
+#### VAV-02
+
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
 
 ### PLENUM 5
 
-- VAV-01
+#### VAV-01
 
-- VAV-02
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+
+#### VAV-02
+
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
 
 ### PLENUM 6
 
-- VAV-01
+#### VAV-01
 
-- VAV-02
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+
+#### VAV-02
+
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
 
 ### PLENUM 7R
 
-- VAV-01
+#### VAV-01
 
-- VAV-02
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
+
+#### VAV-02
+
+> `DEMANDA` = AV | `VAV` = AO | `CM_BL` = BO
