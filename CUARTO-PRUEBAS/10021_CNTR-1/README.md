@@ -13,43 +13,6 @@ Lectura de caudales del sistema
 
 Control de de apertura de compuertas por flujo de aire en cajas VAV
 
-#### PLENUM 1
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 2
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 4
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 5
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 6
-
-- VAV-01
-
-- VAV-02
-
-#### PLENUM 7R
-
-- VAV-01
-
-- VAV-02
-
-
 ## PUNTOS DE CONTROL
 
 ### ENTRADAS
