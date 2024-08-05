@@ -22,7 +22,7 @@ Control de de apertura de compuertas por flujo de aire de ***cajas VAV***
 
 ## PUNTOS DE CONTROL
 
-____________________
+_
 
 ### ENTRADAS
 
