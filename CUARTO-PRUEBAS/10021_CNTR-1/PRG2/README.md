@@ -14,13 +14,19 @@ Control de apertura de compuerta de VAV por demanda de control de suministro de 
 
 > `CM_BL` (On/Off) | Comando de apertura de compuerta de bloqueo
 
+> `ACTIV` (On/Off) | Señal de activación de sistema de control de compuertas
+
 ## MEDICION POR CAJA VAV
 
-### VARIABLES LOCALES
+### ASIGNACIÓN DE VARIABLES LOCALES
 
-> `ACTIV` 
+Asignar variables de caja VAV a controlar
 
-> `DEMANDA` [AV] | Se asigna la variable de demanda correspondiente a la caja monitoreada
+> `DEMANDA` = [AV]
+>
+> [AO] = `VAV`
+>
+> [BO] = `CM_BL`
 
 ### ACTIVACION DE CAJA
 
@@ -72,7 +78,6 @@ Código para cajas con ambas compuertas en el mismo controlador
 
 ```bash
 		REM **VAV 00 - TAMANO
-			LOCALS ACTIV
 			DEMANDA = [AV]
 
 			REM ***ACTIVACION DE CAJA
@@ -91,7 +96,6 @@ Código para cajas con control de compuerta de bloqueo desde equipo remoto
 
 ```bash
 		REM **VAV 00 - TAMANO
-			LOCALS ACTIV
 			DEMANDA = [AV]
 
 			REM ***ACTIVACION DE CAJA
