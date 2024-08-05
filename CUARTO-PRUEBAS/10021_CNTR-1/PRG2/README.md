@@ -2,44 +2,6 @@
 
 Control de apertura de compuerta de VAV por demanda de control de suministro de aire por *CFMs* y control de apertura de compuerta de bloqueo de aire.
 
-Las cajas controladas por este programa son:
-
-**PLENUM 1**
-
-- VAV-01
-
-- VAV-02
-
-**PLENUM 2**
-
-- VAV-01
-
-- VAV-02
-
-**PLENUM 4**
-
-- VAV-01
-
-- VAV-02
-
-**PLENUM 5**
-
-- VAV-01
-
-- VAV-02
-
-**PLENUM 6**
-
-- VAV-01
-
-- VAV-02
-
-**PLENUM 7R**
-
-- VAV-01
-
-- VAV-02
-
 ## VARIABLES GLOBALES
 
 > `P_APER` =  5 (%) | Porcentaje para activación de control de compuertas.
@@ -58,7 +20,7 @@ Las cajas controladas por este programa son:
 
 > `ACTIV` 
 
-> `DEMANDA` | Se asigna la variable de demanda correspondiente a la caja monitoreada
+> `DEMANDA` [AV] | Se asigna la variable de demanda correspondiente a la caja monitoreada
 
 ### ACTIVACION DE CAJA
 
@@ -84,3 +46,54 @@ Cuando el estado de `ACTIV` sea *Off*, se asignará al control de compuerta `VAV
 
 ```
 
+### ASIGNACIÓN DE CONTROL DE COMPUERTAS A SALIDAS 
+
+Asignación de de estados de apertura del control de compuerta `VAV` y control de compuerta de bloqueo `CM_BL` a puertos de salida del controlador.
+
+```bash
+			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
+				[AO] = VAV			: REM COMPUERTA DE VAV
+				[BO] = CM_BL		: REM COMPUERTA DE BLOQUEO
+```
+
+## PARAMETROS POR CAJA
+
+### PLENUM 1
+
+- VAV-01
+
+> `DEMANDA`
+> `VAV`
+> `CM_BL`
+
+- VAV-02
+
+### PLENUM 2
+
+- VAV-01
+
+- VAV-02
+
+### PLENUM 4
+
+- VAV-01
+
+- VAV-02
+
+### PLENUM 5
+
+- VAV-01
+
+- VAV-02
+
+### PLENUM 6
+
+- VAV-01
+
+- VAV-02
+
+### PLENUM 7R
+
+- VAV-01
+
+- VAV-02
