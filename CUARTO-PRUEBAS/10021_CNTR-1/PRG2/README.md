@@ -1,6 +1,8 @@
-# PRG1 SENSORES
+# PRG2 VAVS
 
-Lectura de caudales del sistema desde sensores Dwyer MS, rango de medición de señal de entrada de *0-2"WC*
+Control de apertura de compuerta de VAV por demanda de control de suministro de aire por *CFMs* y control de apertura de compuerta de bloqueo de aire.
+
+Las cajas controladas por este programa son:
 
 **PLENUM 1**
 
@@ -73,7 +75,7 @@ Lectura de caudales del sistema desde sensores Dwyer MS, rango de medición de s
 
 Cuando el estado de `ACTIV` sea *On*, se asignará al control de compuerta `VAV` el valor de `DEMANDA` y a la compueta de bloqueo `CM_BL` el valor de *On*
 
-Cuando el estado de `ACTIV` sea *Of*, se asignará al control de compuerta `VAV` el valor de 0% y a la compueta de bloqueo `CM_BL` el valor de *Off*
+Cuando el estado de `ACTIV` sea *Off*, se asignará al control de compuerta `VAV` el valor de 0% y a la compueta de bloqueo `CM_BL` el valor de *Off*
 
 ```bash
     IF `ACTIV1` = 1 THEN `VAV` = `DEMANDA`, `CM_BL` = 1 ELSE `VAV` = 0, `CM_BL` = 0
