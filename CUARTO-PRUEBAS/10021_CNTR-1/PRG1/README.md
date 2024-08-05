@@ -60,11 +60,11 @@ Lectura de caudales del sistema desde sensores Dwyer MS, rango de medición de s
 
 ### ACTIVACION DE CAJA
 
-**ACTIVACION** El control de la compuerta se activa cuando la demanda de la compuerta se mayor a lo establecido en la variable `P_APER`
+***ACTIVACION*** El control de la compuerta se activa cuando la demanda de la compuerta se mayor a lo establecido en la variable `P_APER`
 
-**DESACTIVACION** El control de la compuerta se desactiva cuando la demanda sea menor que 1%
+***DESACTIVACION*** El control de la compuerta se desactiva cuando la demanda sea menor que 1%
 
 ```bash
     IF `DEMANDA` > `P_APER` THEN `ACTIV#` = 1
-    IF DEMANDA < 1 THEN ACTIV1 = 0
+    IF `DEMANDA` < 1 THEN `ACTIV#` = 0
 ```
