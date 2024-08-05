@@ -67,8 +67,9 @@ Las cajas controladas por este programa son:
 ***DESACTIVACION*** El control de la compuerta se desactiva cuando la `DEMANDA` sea menor que 1%
 
 ```bash
-    IF `DEMANDA` > `P_APER` THEN `ACTIV` = 1
-    IF `DEMANDA` < 1 THEN `ACTIV` = 0
+			REM ***ACTIVACION DE CAJA
+				IF DEMANDA > P_APER THEN ACTIV1 = 1
+				IF DEMANDA < 1 THEN ACTIV1 = 0
 ```
 
 ### ASIGNACION DE DEMANDA A COMPUETAS POR ESTADO DE ACTIVACIÓN
@@ -78,6 +79,8 @@ Cuando el estado de `ACTIV` sea *On*, se asignará al control de compuerta `VAV`
 Cuando el estado de `ACTIV` sea *Off*, se asignará al control de compuerta `VAV` el valor de 0% y a la compueta de bloqueo `CM_BL` el valor de *Off*
 
 ```bash
-    IF `ACTIV1` = 1 THEN `VAV` = `DEMANDA`, `CM_BL` = 1 ELSE `VAV` = 0, `CM_BL` = 0
+			REM ***CONTROL DE COMPUERTAS
+				IF TIMEOFF(ACTIV1) THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+
 ```
 
