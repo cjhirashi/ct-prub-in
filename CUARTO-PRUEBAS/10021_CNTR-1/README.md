@@ -2,13 +2,13 @@
 
 Programas para operación de cajas VAV del sistema del Cuarto de Pruebas.
 
-> Controlador KMC **BAC-5901C**
+> Controlador KMC [**BAC-5901C**](https://www.kmccontrols.com/product/controller-general-purpose-bacnet-aac-clock-mstp/ "Documentación de equipo")
 >
 > - 8 Entradas Universales, 8 Salidas Universales
 > - Puerto *RS-485* **BACnet MS/TP**
 > - Alimentación a ***24 VAC/DC***
 
-> Módulo de expansión KMC **CAN-5901**
+> Módulo de expansión KMC [**CAN-5901**](https://www.kmccontrols.com/product/expansion-io-module-8-ui-8-uo/ "Documentación de equipo")
 >
 > - 8 Entradas Universales, 8 Salidas Universales
 > - Alimentación a ***24 VAC/DC***
