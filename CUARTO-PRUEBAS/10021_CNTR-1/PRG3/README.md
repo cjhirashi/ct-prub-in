@@ -66,67 +66,67 @@ Control de apertura de compuerta de VAV por demanda de control de suministro de 
 
 =======================================================
 
-> `PLENUM` = **MSV1**		: REM SELECTOR DE PLENUM EN OPERACION
+> `PLENUM` = **MSV1**						| Selector de plenum en operación
 >
-> `SS_CP` = **BV1**			: REM ACTIVACION DE SISTEMA DE CONTROL CUARTO DE PRUEBAS
+> `SS_CP` = **BV1**		( ***On/Off*** )	| Activación de sistema de control, cuarto de pruebas 
+
+> `Q_GR_DM` = **AV82**	( ***%*** )			| Demanda de caudal, VAV grande 
 >
-> `Q_GR_DM` = **AV82**		: REM DEMANDA, VAV GRANDE
+> `Q_MD_DM` = **AV83**	( ***%*** )			| Demanda de caudal, VAV mediana 
 >
-> `Q_MD_DM` = **AV83**		: REM DEMANDA, VAV MEDIANA
+> `Q_CH_DM` = **AV84** 	( ***%*** )			| Demanda de caudal, VAV chica 
 >
-> `Q_CH_DM` = **AV84** 		: REM DEMANDA, VAV CHICA
+> `QR_GR_DM` = **AV80**	( ***%*** )			| Demanda de caudal, VAV grande (retorno) 
 >
-> `QR_GR_DM` = **AV80**		: REM DEMANDA, VAV GRANDE RETORNO
+> `QR_CH_DM` = **AV81**	( ***%*** )			| Demanda de caudal, VAV chica (retorno) 
+
+> `SP_Q_VG` = **AV107**	( ***CFM*** )		| Setpoint de caudal, caja grande 
 >
-> `QR_CH_DM` = **AV81**		: REM DEMANDA, VAV CHICA RETORNO
+> `SP_Q_VM` = **AV108**	( ***CFM*** )		| Setpoint de caudal, caja mediana 
 >
-> `SP_Q_VG` = **AV107**		: REM SETPOINT CAUDAL, CAJA GRANDE
+> `SP_Q_VC` = **AV109**	( ***CFM*** )		| Setpoint de caudal, caja chica 
 >
-> `SP_Q_VM` = **AV108**		: REM SETPOINT CAUDAL, CAJA MEDIANA
+> `P1_VM_Q` = **AV4**	( ***CFM*** )		| Caudal de Plenum 1, VAV mediana 
 >
-> `SP_Q_VC` = **AV109**		: REM SETPOINT CAUDAL, CAJA CHICA
+> `P1_VG_Q` = **AV8**	( ***CFM*** )		| Caudal de Plenum 1, VAV grande 
 >
-> `P1_VM_Q` = **AV4**		: REM CAUDAL, PLENUM 1, VAV MEDIANA
+> `P1_VC_Q` = 10022.**AV4**	( ***CFM*** )	: REM CAUDAL, PLENUM 1, VAV CHICA
 >
-> `P1_VG_Q` = **AV8**		: REM CAUDAL, PLENUM 1, VAV GRANDE
+> `P2_VM_Q` = **AV13**	( ***CFM*** )	: REM CAUDAL, PLENUM 2, VAV MEDIANA
 >
-> `P1_VC_Q` = 10022.**AV4**		: REM CAUDAL, PLENUM 1, VAV CHICA
+> `P2_VG_Q` = **AV17**	( ***CFM*** )	: REM CAUDAL, PLENUM 2, VAV GRANDE
 >
-> `P2_VM_Q` = **AV13**		: REM CAUDAL, PLENUM 2, VAV MEDIANA
+> `P3_VG_Q` = 10022.**AV8**	( ***CFM*** )	: REM CAUDAL, PLENUM 3, VAV GRANDE
 >
-> `P2_VG_Q` = **AV17**		: REM CAUDAL, PLENUM 2, VAV GRANDE
+> `P4_VM_Q` = **AV22**	( ***CFM*** )	: REM CAUDAL, PLENUM 4, VAV MEDIANA
 >
-> `P3_VG_Q` = 10022.**AV8**		: REM CAUDAL, PLENUM 3, VAV GRANDE
+> `P4_VG_Q` = **AV26**	( ***CFM*** )	: REM CAUDAL, PLENUM 4, VAV GRANDE
 >
-> `P4_VM_Q` = AV22		: REM CAUDAL, PLENUM 4, VAV MEDIANA
+> `P4_VC_Q` = **AV30**	( ***CFM*** )	: REM CAUDAL, PLENUM 4, VAV CHICA
 >
-> `P4_VG_Q` = AV26		: REM CAUDAL, PLENUM 4, VAV GRANDE
+> `P5_VC_Q` = **AV35**	( ***CFM*** )	: REM CAUDAL, PLENUM 5, VAV CHICA
 >
-> `P4_VC_Q` = AV30		: REM CAUDAL, PLENUM 4, VAV CHICA
+> `P5_VG_Q` = **AV39**	( ***CFM*** )	: REM CAUDAL, PLENUM 5, VAV GRANDE
 >
-> `P5_VC_Q` = AV35		: REM CAUDAL, PLENUM 5, VAV CHICA
+> `P6_VG_Q` = **AV44**	( ***CFM*** )	: REM CAUDAL, PLENUM 6, VAV GRANDE
 >
-> `P5_VG_Q` = AV39		: REM CAUDAL, PLENUM 5, VAV GRANDE
+> `P6_VM_Q` = **AV48**	( ***CFM*** )	: REM CAUDAL, PLENUM 6, VAV MEDIANA
 >
-> `P6_VG_Q` = AV44		: REM CAUDAL, PLENUM 6, VAV GRANDE
+> `PR7_VC_Q` = **AV53**	( ***CFM*** )	: REM CAUDAL, PLENUM R7, VAV CHICA
 >
-> `P6_VM_Q` = AV48		: REM CAUDAL, PLENUM 6, VAV MEDIANA
+> `PR7_VG_Q` = **AV57**	( ***CFM*** )	: REM CAUDAL, PLENUM R7, VAV GRANDE
 >
-> `PR7_VC_Q` = AV53		: REM CAUDAL, PLENUM R7, VAV CHICA
+> `P1_DP_1` = **AI16** 	( ***"WC"*** )	: REM PLENUM 1, PRESION DIFERENCIAL 1
 >
-> `PR7_VG_Q` = AV57		: REM CAUDAL, PLENUM R7, VAV GRANDE
+> `P1_DP_2`	= **AI17** 	( ***"WC"*** )	: REM PLENUM 1, PRESION DIFERENCIAL 2
 >
-> `P1_DP_1` = AI16 		: REM PLENUM 1, PRESION DIFERENCIAL 1
+> `P2_DP` =	**AI18** 	( ***"WC"*** )	: REM PLENUM 2, PRESION DIFERENCIAL
 >
-> `P1_DP_2`	= AI17 		: REM PLENUM 1, PRESION DIFERENCIAL 2
+> `P4_DP` = 10022.**AI3** ( ***"WC"*** )	: REM PLENUM 4, PRESION DIFERENCIAL
 >
-> `P2_DP` =	AI18 		: REM PLENUM 2, PRESION DIFERENCIAL
+> `P5_DP` = 10022.**AI4** ( ***"WC"*** )	: REM PLENUM 5, PRESION DIFERENCIAL
 >
-> `P4_DP` = 10022.AI3 	: REM PLENUM 4, PRESION DIFERENCIAL
->
-> `P5_DP` = 10022.AI4 	: REM PLENUM 5, PRESION DIFERENCIAL
->
-> `P6_DP` = 10022.AI5	: REM PLENUM 6, PRESION DIFERENCIAL
+> `P6_DP` = 10022.**AI5** ( ***"WC"*** )	: REM PLENUM 6, PRESION DIFERENCIAL
 
 
 ## MEDICION POR CAJA VAV
