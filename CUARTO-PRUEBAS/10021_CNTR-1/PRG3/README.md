@@ -85,6 +85,10 @@ Control de apertura de compuerta de VAV por demanda de control de suministro de 
 > `SP_Q_VM` = **AV108**	( ***CFM*** )		| Setpoint de caudal, caja mediana 
 >
 > `SP_Q_VC` = **AV109**	( ***CFM*** )		| Setpoint de caudal, caja chica 
+>
+> `SP_Q_VGR` = **AV10**	( ***CFM*** )		| Setpoint de caudal, caja grande (retorno)
+>
+> `SP_Q_VCR` = **AV11**	( ***CFM*** )		| Setpoint de caudal, caja chica (retorno)
 
 > `P1_VM_Q` = **AV4**	( ***CFM*** )		| Caudal de Plenum 1, VAV mediana 
 >
