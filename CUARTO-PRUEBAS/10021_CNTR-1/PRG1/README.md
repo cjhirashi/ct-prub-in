@@ -138,6 +138,8 @@ Código para cajas con ambas compuertas en el mismo controlador
 
 > CAUDAL `AV18`.10021 ***CFM***
 
+#### VAV 01 - **MEDIANA** 
+
 > Tamaño `7` ***pulgadas***
 >
 > Area `0.2578` ***pies2***
