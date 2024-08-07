@@ -90,13 +90,13 @@ Control de apertura de compuerta de VAV por demanda de control de suministro de 
 >
 > `P1_VG_Q` = **AV8**	( ***CFM*** )		| Caudal de Plenum 1, VAV grande 
 >
-> `P1_VC_Q` = 10022.**AV4**	( ***CFM*** )	| Caudal de Plenum 1, VAV chica ( *sicronización cada 5 seg y plenum 1 activo* ) 
+> `P1_VC_Q` = 10022.**AV4**	( ***CFM*** )	| Caudal de Plenum 1, VAV chica ( ***sicronización cada 5 seg y plenum 1 activo*** ) 
 
 > `P2_VM_Q` = **AV13**	( ***CFM*** )		| Caudal de Plenum 2, VAV mediana 
 >
 > `P2_VG_Q` = **AV17**	( ***CFM*** )		| Caudal de Plenum 2, VAV grande 
 >
-> `P3_VG_Q` = 10022.**AV8**	( ***CFM*** )	| Caudal de Plenum 3, VAV grande ( *sicronización cada 5 seg y plenum 3 activo* )
+> `P3_VG_Q` = 10022.**AV8**	( ***CFM*** )	| Caudal de Plenum 3, VAV grande ( ***sicronización cada 5 seg y plenum 3 activo*** )
 >
 > `P4_VM_Q` = **AV22**	( ***CFM*** )		| Caudal de Plenum 4, VAV mediana 
 >
@@ -122,11 +122,11 @@ Control de apertura de compuerta de VAV por demanda de control de suministro de 
 >
 > `P2_DP` =	**AI18** 	( ***"WC"*** )		| Presión diferencial, Plenum 2 
 >
-> `P4_DP` = 10022.**AI3** ( ***"WC"*** )	| Presión diferencial, Plenum 4 ( *sicronización cada 5 seg* )
+> `P4_DP` = 10022.**AI3** ( ***"WC"*** )	| Presión diferencial, Plenum 4 ( ***sicronización cada 5 seg*** )
 >
-> `P5_DP` = 10022.**AI4** ( ***"WC"*** )	| Presión diferencial, Plenum 5 ( *sicronización cada 5 seg* ) 
+> `P5_DP` = 10022.**AI4** ( ***"WC"*** )	| Presión diferencial, Plenum 5 ( ***sicronización cada 5 seg*** ) 
 >
-> `P6_DP` = 10022.**AI5** ( ***"WC"*** )	| Presión diferencial, Plenum 6 ( *sicronización cada 5 seg* ) 
+> `P6_DP` = 10022.**AI5** ( ***"WC"*** )	| Presión diferencial, Plenum 6 ( ***sicronización cada 5 seg*** ) 
 
 
 ## MEDICION POR CAJA VAV
