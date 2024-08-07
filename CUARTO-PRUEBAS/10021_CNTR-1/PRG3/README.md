@@ -85,48 +85,48 @@ Control de apertura de compuerta de VAV por demanda de control de suministro de 
 > `SP_Q_VM` = **AV108**	( ***CFM*** )		| Setpoint de caudal, caja mediana 
 >
 > `SP_Q_VC` = **AV109**	( ***CFM*** )		| Setpoint de caudal, caja chica 
->
+
 > `P1_VM_Q` = **AV4**	( ***CFM*** )		| Caudal de Plenum 1, VAV mediana 
 >
 > `P1_VG_Q` = **AV8**	( ***CFM*** )		| Caudal de Plenum 1, VAV grande 
 >
-> `P1_VC_Q` = 10022.**AV4**	( ***CFM*** )	: REM CAUDAL, PLENUM 1, VAV CHICA
+> `P1_VC_Q` = 10022.**AV4**	( ***CFM*** )	| Caudal de Plenum 1, VAV chica ( *sicronización cada 5 seg y plenum 1 activo* ) 
+
+> `P2_VM_Q` = **AV13**	( ***CFM*** )		| Caudal de Plenum 2, VAV mediana 
 >
-> `P2_VM_Q` = **AV13**	( ***CFM*** )	: REM CAUDAL, PLENUM 2, VAV MEDIANA
+> `P2_VG_Q` = **AV17**	( ***CFM*** )		| Caudal de Plenum 2, VAV grande 
 >
-> `P2_VG_Q` = **AV17**	( ***CFM*** )	: REM CAUDAL, PLENUM 2, VAV GRANDE
+> `P3_VG_Q` = 10022.**AV8**	( ***CFM*** )	| Caudal de Plenum 3, VAV grande ( *sicronización cada 5 seg y plenum 3 activo* )
 >
-> `P3_VG_Q` = 10022.**AV8**	( ***CFM*** )	: REM CAUDAL, PLENUM 3, VAV GRANDE
+> `P4_VM_Q` = **AV22**	( ***CFM*** )		| Caudal de Plenum 4, VAV mediana 
 >
-> `P4_VM_Q` = **AV22**	( ***CFM*** )	: REM CAUDAL, PLENUM 4, VAV MEDIANA
+> `P4_VG_Q` = **AV26**	( ***CFM*** )		| Caudal de Plenum 4, VAV grande 
 >
-> `P4_VG_Q` = **AV26**	( ***CFM*** )	: REM CAUDAL, PLENUM 4, VAV GRANDE
+> `P4_VC_Q` = **AV30**	( ***CFM*** )		| Caudal de Plenum 4, VAV chica 
 >
-> `P4_VC_Q` = **AV30**	( ***CFM*** )	: REM CAUDAL, PLENUM 4, VAV CHICA
+> `P5_VC_Q` = **AV35**	( ***CFM*** )		| Caudal de Plenum 5, VAV chica 
 >
-> `P5_VC_Q` = **AV35**	( ***CFM*** )	: REM CAUDAL, PLENUM 5, VAV CHICA
+> `P5_VG_Q` = **AV39**	( ***CFM*** )		| Caudal de Plenum 5, VAV grande 
 >
-> `P5_VG_Q` = **AV39**	( ***CFM*** )	: REM CAUDAL, PLENUM 5, VAV GRANDE
+> `P6_VG_Q` = **AV44**	( ***CFM*** )		| Caudal de Plenum 6, VAV grande 
 >
-> `P6_VG_Q` = **AV44**	( ***CFM*** )	: REM CAUDAL, PLENUM 6, VAV GRANDE
+> `P6_VM_Q` = **AV48**	( ***CFM*** )		| Caudal de Plenum 6, VAV mediana 
 >
-> `P6_VM_Q` = **AV48**	( ***CFM*** )	: REM CAUDAL, PLENUM 6, VAV MEDIANA
+> `PR7_VC_Q` = **AV53**	( ***CFM*** )		| Caudal de Plenum R7, VAV chica 
 >
-> `PR7_VC_Q` = **AV53**	( ***CFM*** )	: REM CAUDAL, PLENUM R7, VAV CHICA
+> `PR7_VG_Q` = **AV57**	( ***CFM*** )		| Caudal de Plenum R7, VAV grande 
 >
-> `PR7_VG_Q` = **AV57**	( ***CFM*** )	: REM CAUDAL, PLENUM R7, VAV GRANDE
+> `P1_DP_1` = **AI16** 	( ***"WC"*** )		| Presión diferencial 1, Plenum 1 
 >
-> `P1_DP_1` = **AI16** 	( ***"WC"*** )	: REM PLENUM 1, PRESION DIFERENCIAL 1
+> `P1_DP_2`	= **AI17** 	( ***"WC"*** )		| Presión diferencial 2, Plenum 1 
 >
-> `P1_DP_2`	= **AI17** 	( ***"WC"*** )	: REM PLENUM 1, PRESION DIFERENCIAL 2
+> `P2_DP` =	**AI18** 	( ***"WC"*** )		| Presión diferencial, Plenum 2 
 >
-> `P2_DP` =	**AI18** 	( ***"WC"*** )	: REM PLENUM 2, PRESION DIFERENCIAL
+> `P4_DP` = 10022.**AI3** ( ***"WC"*** )	| Presión diferencial, Plenum 4 ( *sicronización cada 5 seg* )
 >
-> `P4_DP` = 10022.**AI3** ( ***"WC"*** )	: REM PLENUM 4, PRESION DIFERENCIAL
+> `P5_DP` = 10022.**AI4** ( ***"WC"*** )	| Presión diferencial, Plenum 5 ( *sicronización cada 5 seg* ) 
 >
-> `P5_DP` = 10022.**AI4** ( ***"WC"*** )	: REM PLENUM 5, PRESION DIFERENCIAL
->
-> `P6_DP` = 10022.**AI5** ( ***"WC"*** )	: REM PLENUM 6, PRESION DIFERENCIAL
+> `P6_DP` = 10022.**AI5** ( ***"WC"*** )	| Presión diferencial, Plenum 6 ( *sicronización cada 5 seg* ) 
 
 
 ## MEDICION POR CAJA VAV
