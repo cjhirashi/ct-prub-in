@@ -4,65 +4,65 @@ Control de apertura de compuerta de VAV por demanda de control de suministro de 
 
 ## VARIABLES GLOBALES
 
-> `P1_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo
+> `P1_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 1, grande
 >
-> `P1_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo
+> `P1_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 1, grande
 >
-> `P1_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo
+> `P1_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 1, mediana
 >
-> `P1_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo
+> `P1_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 1, mediana
 >
-> `P1_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo
+> `P1_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 1, chica
 >
-> `P1_VC_QMIN` = 45 	( ***CFM*** )	| Caudal mínimo
+> `P1_VC_QMIN` = 45 	( ***CFM*** )	| Caudal mínimo, Plenum 1, chica
 
-> `P2_VG_QMAX` = 2350 	( ***CFM*** )	| Caudal máximo
+> `P2_VG_QMAX` = 2350 	( ***CFM*** )	| Caudal máximo, Plenum 2, grande
 >
-> `P2_VG_QMIN` = 400 	( ***CFM*** )	| Caudal mínimo
+> `P2_VG_QMIN` = 400 	( ***CFM*** )	| Caudal mínimo, Plenum 2, grande
 >
-> `P2_VM_QMAX` = 800 	( ***CFM*** )	| Caudal máximo
+> `P2_VM_QMAX` = 800 	( ***CFM*** )	| Caudal máximo, Plenum 2, mediana
 >
-> `P2_VM_QMIN` = 140 	( ***CFM*** )	| Caudal mínimo
+> `P2_VM_QMIN` = 140 	( ***CFM*** )	| Caudal mínimo, Plenum 2, mediana
 
-> `P3_VG_QMAX` = 1450 	( ***CFM*** )	| Caudal máximo
+> `P3_VG_QMAX` = 1450 	( ***CFM*** )	| Caudal máximo, Plenum 3, grande
 >
-> `P3_VG_QMIN` = 290 	( ***CFM*** )	| Caudal mínimo
+> `P3_VG_QMIN` = 290 	( ***CFM*** )	| Caudal mínimo, Plenum 3, grande
 
-> `P4_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo
+> `P4_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 4, grande
 >
-> `P4_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo
+> `P4_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 4, grande
 >
-> `P4_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo
+> `P4_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 4, mediana
 >
-> `P4_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo
+> `P4_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 4, mediana
 >
-> `P4_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo
+> `P4_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 4, chica
 >
-> `P4_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo
+> `P4_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo, Plenum 4, chica
 
-> `P5_VG_QMAX` = 4200 	( ***CFM*** )	| Caudal máximo
+> `P5_VG_QMAX` = 4200 	( ***CFM*** )	| Caudal máximo, Plenum 5, grande
 >
-> `P5_VG_QMIN` = 700 	( ***CFM*** )	| Caudal mínimo
+> `P5_VG_QMIN` = 700 	( ***CFM*** )	| Caudal mínimo, Plenum 5, grande
 >
-> `P5_VC_QMAX` = 400 	( ***CFM*** )	| Caudal máximo
+> `P5_VC_QMAX` = 400 	( ***CFM*** )	| Caudal máximo, Plenum 5, chica
 >
-> `P5_VC_QMIN` = 70	 	( ***CFM*** )	| Caudal mínimo
+> `P5_VC_QMIN` = 70	 	( ***CFM*** )	| Caudal mínimo, Plenum 5, chica
 
-> `P6_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo
+> `P6_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 6, grande
 >
-> `P6_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo
+> `P6_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 6, grande
 >
-> `P6_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo
+> `P6_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 6, mediana
 >
-> `P6_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo
+> `P6_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 6, mediana
 
-> `P7_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo
+> `P7_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 7, grande
 >
-> `P7_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo
+> `P7_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 7, grande
 >
-> `P7_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo
+> `P7_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 7, chica
 >
-> `P7_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo
+> `P7_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo, Plenum 7, chica
 
 =======================================================
 
