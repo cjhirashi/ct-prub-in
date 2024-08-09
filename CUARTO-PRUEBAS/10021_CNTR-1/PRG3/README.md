@@ -1,6 +1,6 @@
-# PRG2 VAVS
+# PRG3 PLENUMS
 
-Control de apertura de compuerta de VAV por demanda de control de suministro de aire por *CFMs* y control de apertura de compuerta de bloqueo de aire.
+Control de caudal de aire por plenums
 
 ## VARIABLES GLOBALES
 
