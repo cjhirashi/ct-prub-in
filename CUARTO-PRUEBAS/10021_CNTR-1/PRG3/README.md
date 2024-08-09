@@ -4,17 +4,19 @@ Control de apertura de compuerta de VAV por demanda de control de suministro de 
 
 ## VARIABLES GLOBALES
 
-Rangos de operación de caudal por caja VAV ( ***Caudal máximo***, ***Caudal mínimo*** )
+Rango de operación de caudal por caja VAV ( ***Caudal máximo***, ***Caudal mínimo*** )
 
-    1. Plenum 1, VAV-01 Grande
+1. Plenum 1, VAV GRANDE
 
     > `P1_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 1, grande
->
+    >
     > `P1_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 1, grande
->
-> `P1_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 1, mediana
->
-> `P1_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 1, mediana
+
+2. Plenum 2, VAV MEDIANA
+
+    > `P1_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 1, mediana
+    >
+    > `P1_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 1, mediana
 >
 > `P1_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 1, chica
 >
