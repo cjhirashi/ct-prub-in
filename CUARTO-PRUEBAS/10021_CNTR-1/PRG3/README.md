@@ -1,6 +1,6 @@
 # PRG3 PLENUMS
 
-Control de caudal de aire por plenums
+Control de caudal de aire por plenums, este programa asigna las variables para operación del plenum, a las cajas VAV del Plenum activo
 
 ## VARIABLES GLOBALES
 
@@ -114,6 +114,8 @@ Variables de demanda de cajas en plenum activo para operación
 >
 > `QR_CH_DM` = **AV81**	( ***%*** )			| Demanda de caudal, VAV chica (retorno) 
 
+Setpoint de caudales para cajas de plenum activo
+
 > `SP_Q_VG` = **AV107**	( ***CFM*** )		| Setpoint de caudal, caja grande 
 >
 > `SP_Q_VM` = **AV108**	( ***CFM*** )		| Setpoint de caudal, caja mediana 
@@ -124,47 +126,75 @@ Variables de demanda de cajas en plenum activo para operación
 >
 > `SP_Q_VCR` = **AV11**	( ***CFM*** )		| Setpoint de caudal, caja chica (retorno)
 
-> `P1_VM_Q` = **AV4**	( ***CFM*** )		| Caudal de Plenum 1, VAV mediana 
->
-> `P1_VG_Q` = **AV8**	( ***CFM*** )		| Caudal de Plenum 1, VAV grande 
->
-> `P1_VC_Q` = 10022.**AV4**	( ***CFM*** )	| Caudal de Plenum 1, VAV chica ( ***sicronización cada 5 seg y plenum 1 activo*** ) 
+Caudal de aire de cajas VAV
 
-> `P2_VM_Q` = **AV13**	( ***CFM*** )		| Caudal de Plenum 2, VAV mediana 
->
-> `P2_VG_Q` = **AV17**	( ***CFM*** )		| Caudal de Plenum 2, VAV grande 
->
-> `P3_VG_Q` = 10022.**AV8**	( ***CFM*** )	| Caudal de Plenum 3, VAV grande ( ***sicronización cada 5 seg y plenum 3 activo*** )
->
-> `P4_VM_Q` = **AV22**	( ***CFM*** )		| Caudal de Plenum 4, VAV mediana 
->
-> `P4_VG_Q` = **AV26**	( ***CFM*** )		| Caudal de Plenum 4, VAV grande 
->
-> `P4_VC_Q` = **AV30**	( ***CFM*** )		| Caudal de Plenum 4, VAV chica 
->
-> `P5_VC_Q` = **AV35**	( ***CFM*** )		| Caudal de Plenum 5, VAV chica 
->
-> `P5_VG_Q` = **AV39**	( ***CFM*** )		| Caudal de Plenum 5, VAV grande 
->
-> `P6_VG_Q` = **AV44**	( ***CFM*** )		| Caudal de Plenum 6, VAV grande 
->
-> `P6_VM_Q` = **AV48**	( ***CFM*** )		| Caudal de Plenum 6, VAV mediana 
->
-> `PR7_VC_Q` = **AV53**	( ***CFM*** )		| Caudal de Plenum R7, VAV chica 
->
-> `PR7_VG_Q` = **AV57**	( ***CFM*** )		| Caudal de Plenum R7, VAV grande 
->
-> `P1_DP_1` = **AI16** 	( ***"WC"*** )		| Presión diferencial 1, Plenum 1 
->
-> `P1_DP_2`	= **AI17** 	( ***"WC"*** )		| Presión diferencial 2, Plenum 1 
->
-> `P2_DP` =	**AI18** 	( ***"WC"*** )		| Presión diferencial, Plenum 2 
->
-> `P4_DP` = 10022.**AI3** ( ***"WC"*** )	| Presión diferencial, Plenum 4 ( ***sicronización cada 5 seg*** )
->
-> `P5_DP` = 10022.**AI4** ( ***"WC"*** )	| Presión diferencial, Plenum 5 ( ***sicronización cada 5 seg*** ) 
->
-> `P6_DP` = 10022.**AI5** ( ***"WC"*** )	| Presión diferencial, Plenum 6 ( ***sicronización cada 5 seg*** ) 
+1. PLENUM 1
+
+    > `P1_VM_Q` = **AV4**	( ***CFM*** )		| Caudal de Plenum 1, VAV mediana 
+    >
+    > `P1_VG_Q` = **AV8**	( ***CFM*** )		| Caudal de Plenum 1, VAV grande 
+    >
+    > `P1_VC_Q` = 10022.**AV4**	( ***CFM*** )	| Caudal de Plenum 1, VAV chica ( ***sicronización cada 5 seg y plenum 1 activo*** ) 
+
+2. PLENUM 2
+
+    > `P2_VM_Q` = **AV13**	( ***CFM*** )		| Caudal de Plenum 2, VAV mediana 
+    >
+    > `P2_VG_Q` = **AV17**	( ***CFM*** )		| Caudal de Plenum 2, VAV grande 
+
+3. PLENUM 3
+
+    > `P3_VG_Q` = 10022.**AV8**	( ***CFM*** )	| Caudal de Plenum 3, VAV grande ( ***sicronización cada 5 seg y plenum 3 activo*** )
+
+4. PLENUM 4
+
+    > `P4_VM_Q` = **AV22**	( ***CFM*** )		| Caudal de Plenum 4, VAV mediana 
+    >
+    > `P4_VG_Q` = **AV26**	( ***CFM*** )		| Caudal de Plenum 4, VAV grande 
+    >
+    > `P4_VC_Q` = **AV30**	( ***CFM*** )		| Caudal de Plenum 4, VAV chica 
+
+5. PLENUM 5
+
+    > `P5_VC_Q` = **AV35**	( ***CFM*** )		| Caudal de Plenum 5, VAV chica 
+    >
+    > `P5_VG_Q` = **AV39**	( ***CFM*** )		| Caudal de Plenum 5, VAV grande 
+
+6. PLENUM 6
+
+    > `P6_VG_Q` = **AV44**	( ***CFM*** )		| Caudal de Plenum 6, VAV grande 
+    >
+    > `P6_VM_Q` = **AV48**	( ***CFM*** )		| Caudal de Plenum 6, VAV mediana 
+
+7. PLENUM 7 RETORNO
+
+    > `PR7_VC_Q` = **AV53**	( ***CFM*** )		| Caudal de Plenum R7, VAV chica 
+    >
+    > `PR7_VG_Q` = **AV57**	( ***CFM*** )		| Caudal de Plenum R7, VAV grande 
+
+Caida de presión de aire en plenums
+
+1. PLENUM 1
+
+    > `P1_DP_1` = **AI16** 	( ***"WC"*** )		| Presión diferencial 1, Plenum 1 
+    >
+    > `P1_DP_2`	= **AI17** 	( ***"WC"*** )		| Presión diferencial 2, Plenum 1 
+
+2. PLENUM 2
+
+    > `P2_DP` =	**AI18** 	( ***"WC"*** )		| Presión diferencial, Plenum 2 
+
+3. PLENUM 4
+
+    > `P4_DP` = 10022.**AI3** ( ***"WC"*** )	| Presión diferencial, Plenum 4 ( ***sicronización cada 5 seg*** )
+
+4. PLENUM 5
+
+    > `P5_DP` = 10022.**AI4** ( ***"WC"*** )	| Presión diferencial, Plenum 5 ( ***sicronización cada 5 seg*** ) 
+
+5. PLENUM 6
+
+    > `P6_DP` = 10022.**AI5** ( ***"WC"*** )	| Presión diferencial, Plenum 6 ( ***sicronización cada 5 seg*** ) 
 
 
 ## MEDICION POR CAJA VAV
