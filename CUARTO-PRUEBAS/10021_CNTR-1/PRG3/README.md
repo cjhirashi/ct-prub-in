@@ -12,39 +12,53 @@ Rango de operación de caudal por caja VAV ( ***Caudal máximo***, ***Caudal mí
     >
     > `P1_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 1, grande
 
-2. Plenum 2, VAV MEDIANA
+2. Plenum 1, VAV MEDIANA
 
     > `P1_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 1, mediana
     >
     > `P1_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 1, mediana
->
-> `P1_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 1, chica
->
-> `P1_VC_QMIN` = 45 	( ***CFM*** )	| Caudal mínimo, Plenum 1, chica
 
-> `P2_VG_QMAX` = 2350 	( ***CFM*** )	| Caudal máximo, Plenum 2, grande
->
-> `P2_VG_QMIN` = 400 	( ***CFM*** )	| Caudal mínimo, Plenum 2, grande
->
+3. Plenum 1, VAV CHICA
+
+    > `P1_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 1, chica
+    >
+    > `P1_VC_QMIN` = 45 	( ***CFM*** )	| Caudal mínimo, Plenum 1, chica
+
+4. Plenum 2, VAV GRANDE
+
+    > `P2_VG_QMAX` = 2350 	( ***CFM*** )	| Caudal máximo, Plenum 2, grande
+    >
+    > `P2_VG_QMIN` = 400 	( ***CFM*** )	| Caudal mínimo, Plenum 2, grande
+
+5. Plenum 2, VAV MEDIANA
+
 > `P2_VM_QMAX` = 800 	( ***CFM*** )	| Caudal máximo, Plenum 2, mediana
 >
 > `P2_VM_QMIN` = 140 	( ***CFM*** )	| Caudal mínimo, Plenum 2, mediana
 
-> `P3_VG_QMAX` = 1450 	( ***CFM*** )	| Caudal máximo, Plenum 3, grande
->
-> `P3_VG_QMIN` = 290 	( ***CFM*** )	| Caudal mínimo, Plenum 3, grande
+6. Plenum 3, VAV GRANDE
 
-> `P4_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 4, grande
->
-> `P4_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 4, grande
->
-> `P4_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 4, mediana
->
-> `P4_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 4, mediana
->
-> `P4_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 4, chica
->
-> `P4_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo, Plenum 4, chica
+    > `P3_VG_QMAX` = 1450 	( ***CFM*** )	| Caudal máximo, Plenum 3, grande
+    >
+    > `P3_VG_QMIN` = 290 	( ***CFM*** )	| Caudal mínimo, Plenum 3, grande
+
+7. Plenum 4, VAV GRANDE
+
+    > `P4_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 4, grande
+    >
+    > `P4_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 4, grande
+
+8. Plenum 4, VAV MEDIANA
+
+    > `P4_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 4, mediana
+    >
+    > `P4_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 4, mediana
+
+9. Plenum 4, VAV CHICA
+
+    > `P4_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 4, chica
+    >
+    > `P4_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo, Plenum 4, chica
 
 > `P5_VG_QMAX` = 4200 	( ***CFM*** )	| Caudal máximo, Plenum 5, grande
 >
