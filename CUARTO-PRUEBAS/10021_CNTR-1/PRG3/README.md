@@ -8,21 +8,21 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
     - **PLENUM_1** | VAV GRANDE
 
-        > `P1_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo
+        > `P1_VG_QMAX` = 3000 [3200] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P1_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo
+        > `P1_VG_QMIN` = 1100 [500] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_1** | VAV MEDIANA
 
-        > `P1_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo
+        > `P1_VM_QMAX` = 850 [1050] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P1_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo
+        > `P1_VM_QMIN` = 350 [175] 	    ( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_1** | VAV CHICA
 
-        > `P1_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo
+        > `P1_VC_QMAX` = 200 [250] 	    ( ***CFM*** )	| Caudal máximo
         >
-        > `P1_VC_QMIN` = 45 	( ***CFM*** )	| Caudal mínimo
+        > `P1_VC_QMIN` = 75 [45] 	    ( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_2** | VAV GRANDE
 
@@ -310,7 +310,7 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
         
         > **AV116** = `MIN_VC`      | Caudal mínimo
         >
-        > **AV117** = `MIN_VC`      | Caudal máximo
+        > **AV117** = `MAN_VC`      | Caudal máximo
 
 ## SINCRONIZACION DE DATOS
 
