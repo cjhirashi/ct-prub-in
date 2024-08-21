@@ -497,7 +497,7 @@ El plenum R7 ( RETORNO ) siempre se encontrará activo para su operación
 	PR7_VC_A = QR_CH_DM
     ```
 
-Si el sistema se encuentra inactivo `SS_CP` = ***Off***, todas las compuertas de las VAV y compuertas de bloqueo tomarán un estado general
+Si el sistema se encuentra inactivo `SS_CP` = ***Off***, todas las compuertas de las VAV tomarán un estado general
 
 ```basic
 IF SS_CP = 0 THEN
