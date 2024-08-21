@@ -216,3 +216,13 @@ IF SS_CP = 1 AND PERM_{VAV} = 1 THEN
 		
 ENDIF
 ```
+
+Desactivación del sistema por permisivos inactivos
+
+```basic
+REM CAJAS VAV
+	IF PERM_VG = 0 AND PERM_VM = 0 AND PERM_VC = 0 THEN BV9@8 = 1
+
+REM CAJAS VAV RETORNO
+	IF PERM_VGR = 0 AND PERM_VCR = 0 THEN BV35@8 = 1
+```
