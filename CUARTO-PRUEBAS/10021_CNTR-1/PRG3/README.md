@@ -359,28 +359,28 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
     - VAV MEDIANA
 
-    ```python
+    ```basic
     IF SP_Q_VM > MAX_VM THEN AV108@8 = MAX_VM
 	IF SP_Q_VM < MIN_VM THEN AV108@8 = MIN_VM
     ```
 
     - VAV CHICA
 
-    ```python
+    ```basic
     IF SP_Q_VC > MAX_VC THEN AV109@8 = MAX_VC
 	IF SP_Q_VC < MIN_VC THEN AV109@8 = MIN_VC
     ```
 
     - VAV GRANDE ( RETORNO )
 
-    ```python
+    ```basic
     IF SP_Q_VGR > P7_VG_QMAX THEN AV110 = P7_VG_QMAX
 	IF SP_Q_VGR < P7_VG_QMIN THEN AV110 = P7_VG_QMIN
     ```
 
     - VAV CHICA ( RETORNO )
 
-    ```python
+    ```basic
     IF SP_Q_VCR > P7_VC_QMAX THEN AV111 = P7_VC_QMAX
 	IF SP_Q_VCR < P7_VC_QMIN THEN AV111 = P7_VC_QMIN
     ```
