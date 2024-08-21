@@ -43,24 +43,24 @@ REM ALGORITMOS PARA CONTROL DE DEMANDA
 		IF SS_CP = 1 AND PERM_VG = 1 THEN
 
 			REM **ERROR DEL SISTEMA
-			ERR_VG = ( Q_VG - SP_Q_VG ) * -1
+				ERR_VG = ( Q_VG - SP_Q_VG ) * -1
 
-			REM **PROPORCIONA
-			PR_VG = ( ERR_VG / ( SP_Q_VG * P_VG )) * 100
+			REM **RESULTANTE PROPORCIONAL
+				PR_VG = ( ERR_VG / ( SP_Q_VG * P_VG )) * 100
 
-			REM **INTEGRAL
-			IR_VG = (( 100 * ERR_VG ) / SP_Q_VG ) * I_VG
-			IF T_VG > 1 THEN IS_VG = IS_VG + IR_VG, T_VG = 0
-			IS_VG = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VG ))
+			REM **RESULTANTE INTEGRAL
+				IR_VG = (( 100 * ERR_VG ) / SP_Q_VG ) * I_VG
+				IF T_VG > 1 THEN IS_VG = IS_VG + IR_VG, T_VG = 0
+				IS_VG = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VG ))
 
 			REM **DEMANDA DE SISTEMA
-			DM_VG = PR_VG + IS_VG
-			DM_VG = MAX( L_MIN , MIN( L_MAX, DM_VG ))
+				DM_VG = PR_VG + IS_VG
+				DM_VG = MAX( L_MIN , MIN( L_MAX, DM_VG ))
 
 		 ELSE
 
 			PR_VG = 0, IR_VG = 0, IS_VG = 0, DM_VG = 0
-			
+
 		ENDIF
 
 	AV82 = DM_VG
