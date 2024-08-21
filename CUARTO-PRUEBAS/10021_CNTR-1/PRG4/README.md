@@ -162,18 +162,21 @@ Control PI para generación de demanda de flujo de caudal de aire, cada tipo de 
 2. Se calcula el error de la variable en operación del sistema, para esto le resta al valor del caudal de la caja `Q_{VAV}`, el valor del setpoint `SP_Q_{VAV}`, el factor `-1` indica el sentido de control del algoritmo, si este es negativo, el control es inverso, si es positivo la dirección es normal
 
     ```Basic
+    REM **ERROR DEL SISTEMA
     ERR_{VAV} = ( Q_{VAV} - SP_Q_{VAV} ) * -1
     ```
 
 3. Se calcula la resultante de la *Proporción* `PR_{VAV}`
 
     ```basic
+    REM **RESULTANTE PROPORCIONA
     PR_{VAV} = ( ERR_{VAV} / ( SP_Q_{VAV} * P_{VAV} )) * 100
     ```
 
 4. Se calcula la resultante acumulativa *Integral* `IS_{VAV}`
 
     ```basic
+    REM **RESULTANTE INTEGRAL
     IR_{VAV} = (( 100 * ERR_{VAV} ) / SP_Q_{VAV} ) * I_{VAV}
 	IF T_{VAV} > 1 THEN IS_{VAV} = IS_{VAV} + IR_{VAV}, T_{VAV} = 0
 	IS_{VAV} = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_{VAV} ))
@@ -182,6 +185,7 @@ Control PI para generación de demanda de flujo de caudal de aire, cada tipo de 
 5. Se asigna la demanda calculada del sistema `DM_{VAV}`
 
     ```basic
+    REM **DEMANDA DE SISTEMA
     DM_{VAV} = PR_{VAV} + IS_{VAV}
 	DM_{VAV} = MAX( L_MIN , MIN( L_MAX, DM_{VAV} ))
     ```
