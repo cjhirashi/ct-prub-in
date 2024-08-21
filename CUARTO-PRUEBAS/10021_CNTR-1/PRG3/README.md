@@ -102,7 +102,17 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
     >
     > `SS_CP` = **BV1**		( ***On/Off*** )	| Activación de sistema de control, cuarto de pruebas 
 
-3. Variables de demanda de cajas en plenum activo para operación
+3. Caudal de aire de cajas activas
+
+    > AV98 = `Q_GR` ( ***CFM*** )       | Caudal de aire, VAV Grande Activa
+    >
+    > AV99 = `Q_MD` ( ***CFM*** )       | Caudal de aire, VAV Mediana Activa
+    >
+    > AV100 = `Q_CH` ( ***CFM*** )      | Caudal de aire, VAV Chica Activa
+    >
+    > AV101 = `Q_GR + Q_MD + Q_CH`      | Caudal total, Plenum Activo
+
+4. Variables de demanda de cajas en plenum activo para operación
 
     - **CAJA GRANDE**
 
@@ -124,7 +134,7 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
         > `QR_CH_DM` = **AV81**	( ***%*** )			| Demanda de caudal
 
-4. Setpoint de caudales para cajas de plenum activo
+5. Setpoint de caudales para cajas de plenum activo
 
     - **CAJA GRANDE**
 
@@ -146,7 +156,7 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
         > `SP_Q_VCR` = **AV11**	( ***CFM*** )		| Setpoint de caudal
 
-5. Caudal de aire de cajas VAV
+6. Caudal de aire de cajas VAV
 
     - **PLENUM 1**
 
@@ -192,7 +202,7 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
         >
         > `PR7_VG_Q` = **AV57**	( ***CFM*** )		| Caudal, VAV grande 
 
-6. Caida de presión de aire en plenums
+7. Caida de presión de aire en plenums
 
     - **PLENUM 1**
 
@@ -216,6 +226,125 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
         > `P6_DP` = 10022.**AI5** ( ***"WC"*** )	| Presión diferencial ( ***sicronización cada 5 seg*** ) 
 
+8. Control de compuertas de VAVs
+
+    - **PLENUM 1**
+
+        > **AV85** = `P1_VM_A` ( ***%*** )      | Compuerta, VAV Mediana
+        >
+        > **AV86** = `P1_VG_A` ( ***%*** )      | Compuerta, VAV Grande
+        >
+        > AV = `P1_VC_A` ( ***%*** )            | Compuerta, VAV Chica
+
+    - **PLENUM 2**
+
+        > **AV87** = `P2_VM_A` ( ***%*** )      | Compuerta, VAV Mediana
+        >
+        > **AV88** = `P2_VG_A` ( ***%*** )      | Compuerta, VAV Grande
+
+    - **PLENUM 3**
+
+        > AV = `P3_VG_A` ( ***%*** )            | Compuerta, VAV Grande
+
+    - **PLENUM 4**
+
+        > **AV89** = `P4_VM_A` ( ***%*** )      | Compuerta, VAV Mediana
+        >  
+        > **AV90** = `P4_VG_A` ( ***%*** )      | Compuerta, VAV Grande
+        >
+        > **AV91** = `P$_VC_A` ( ***%*** )      | Compuerta, VAV Chica
+
+    - **PLENUM 5**
+
+        > **AV92** = `P5_VC_A` ( ***%*** )      | Compuerta, VAV Chica
+        >
+        > **AV93** = `P5_VG_A` ( ***%*** )      | Compuerta, VAV Grande
+
+    - **PLENUM 6**
+
+        > **AV94** = `P6_VG_A` ( ***%*** )      | Compuerta, VAV Grande
+        >
+        > **AV95** = `P6_VM_A` ( ***%*** )      | Compuerta, VAV Mediana
+
+    - **PLENUM R7**
+
+        > **AV96** = `PR7_VC_A` ( ***%*** )      | Compuerta, VAV Chica
+        >
+        > **AV97** = `PR7_VG_A` ( ***%*** )      | Compuerta, VAV Grande
+
+9. Estados de Plenums
+
+    > **BV3** = `ST_P1`         | Estado de plenum 1
+    >
+    > **BV4** = `ST_P2`         | Estado de plenum 2
+    >
+    > **BV5** = `ST_P3`         | Estado de plenum 3
+    >
+    > **BV6** = `ST_P4`         | Estado de plenum 4
+    >
+    > **BV7** = `ST_P5`         | Estado de plenum 5
+    >
+    > **BV8** = `ST_P6`         | Estado de plenum 6
+
+10. Caida de presión de plenum activo
+
+    > **AV105** = `DP_1`        | Presión diferencial 1
+    >
+    > **AV106** = `DP_2`        | Presión diferencial 2
+
+11. Rango de caudal máximo y mínimo de VAVs activas
+
+    - **VAV GRANDE**
+
+        > **AV112** = `MIN_VG`      | Caudal mínimo
+        >
+        > **AV113** = `MAX_VG`      | Caudal máximo
+
+    - **VAV MEDIANA**
+        
+        > **AV114** = `MIN_VM`      | Caudal mínimo
+        >
+        > **AV115** = `MAX_VM`      | Caudal máximo
+
+    - **VAV CHICA**
+        
+        > **AV116** = `MIN_VC`      | Caudal mínimo
+        >
+        > **AV117** = `MIN_VC`      | Caudal máximo
+
+## SINCRONIZACION DE DATOS
+
+1. Rangos máximo y mínimo de cajas de retorno, cotrol remoto Controlador 2 - cada 10 seg.
+
+    - **VAV GRANDE**
+
+        > 10022.**AV120** = `P7_VG_QMAX`      | Caudal máximo
+        >
+        > 10022.**AV121** = `P7_VG_QMIN`      | Caudal mínimo
+
+    - **VAV CHICA**
+
+        > 10022.**AV122** = `P7_VC_QMAX`      | Caudal máximo
+        >
+        > 10022.**AV123** = `P7_VC_QMIN`      | Caudal mínimo
+
+2. Variables de operación para equipo, control remoto Controlador 2 - cada 10 seg.
+
+    > 10022.**BV10** = **BV1**          | Activación, cuarto de pruebas
+    >
+    > 10022.**MSV1** = **MSV1**         | Plenum en operación
+    >
+    > 10022.**AV16** = **AV107**        | Setpoint, VAV Grande
+    >
+    > 10022.**AV17** = **AV108**        | Setpoint, VAV Mediana
+    >
+    > 10022.**AV18** = **AV109**        | Setpoint, VAV Chica
+    >
+    > 10022.**BV9** = **BV9**           | Permisivo, VAV Grande
+    >
+    > 10022.**BV10** = **BV10**         | Permisivo, VAV Mediana
+    >
+    > 10022.**BV11** = **BV11**         | Permisivo, VAV Chica
 ____________________
 
 ## MEDICION POR CAJA VAV
