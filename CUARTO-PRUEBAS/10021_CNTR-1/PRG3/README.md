@@ -400,6 +400,6 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
 1. Variables de presión del plenum
 
     ```basic
-    `DP_1` = `P#_DP_1`
-	`DP_2` = `P#_DP_2`
+    DP_1 = P{#}_DP_1
+	DP_2 = P{#}_DP_2
     ```
