@@ -98,9 +98,9 @@ Rango de operación de caudal por caja VAV ( ***Caudal máximo***, ***Caudal mí
 
 Variables de operación del sistema de control de caudales por Plenum
 
-> `PLENUM` = **MSV1**						| Selector de plenum en operación
->
-> `SS_CP` = **BV1**		( ***On/Off*** )	| Activación de sistema de control, cuarto de pruebas 
+    > `PLENUM` = **MSV1**						| Selector de plenum en operación
+    >
+    > `SS_CP` = **BV1**		( ***On/Off*** )	| Activación de sistema de control, cuarto de pruebas 
 
 Variables de demanda de cajas en plenum activo para operación
 
