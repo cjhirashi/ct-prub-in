@@ -393,128 +393,13 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
     ```
 ____________________
 
-## MEDICION POR CAJA VAV
+## OPERACIÓN DE PROGRAMA
 
-### ASIGNACIÓN DE VARIABLES LOCALES
+El usuario deverá elegír qué plenum es el que deberá operar a través de la variable `PLENUM`, el sistema asignará todas las variables de operación del plenum elegido al sistema
 
-Asignar variables de caja VAV a controlar
+1. Variables de presión del plenum
 
-> `DEMANDA` = [AV]
->
-> [AO] = `VAV`
->
-> [BO] = `CM_BL`
-
-### ACTIVACION DE CAJA
-
-***ACTIVACION*** El control de la compuerta se activa cuando la `DEMANDA` de la compuerta sea mayor a lo establecido en la variable `P_APER`
-
-***DESACTIVACION*** El control de la compuerta se desactiva cuando la `DEMANDA` sea menor que 1%
-
-```bash
-
-```
-
-### ASIGNACION DE DEMANDA A COMPUETAS POR ESTADO DE ACTIVACIÓN
-
-Cuando el estado de `ACTIV` sea *On*, se asignará al control de compuerta `VAV` el valor de `DEMANDA` y a la compueta de bloqueo `CM_BL` el valor de *On*
-
-Cuando el estado de `ACTIV` sea *Off*, se asignará al control de compuerta `VAV` el valor de 0% y a la compueta de bloqueo `CM_BL` el valor de *Off*
-
-```bash
-
-```
-
-### ASIGNACIÓN DE CONTROL DE COMPUERTAS A SALIDAS 
-
-Asignación de de estados de apertura del control de compuerta `VAV` y control de compuerta de bloqueo `CM_BL` a puertos de salida del controlador.
-
-```bash
-
-```
-
-Código para cajas con control de compuerta de bloqueo desde equipo remoto
-
-```bash
-
-```
-
-### SEGMENTO COMPLETO
-
-Código para cajas con ambas compuertas en el mismo controlador
-
-```bash
-
-```
-
-Código para cajas con control de compuerta de bloqueo desde equipo remoto
-
-```bash
-
-```
-
-## PARAMETROS DE CAJAS
-
-### PLENUM 1
-
-#### VAV-01 - MEDIANA
-
-> `DEMANDA` = ***AV85*** | `VAV` = ***AO1*** | `CM_BL` = ***BO14***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV86*** | `VAV` = ***AO2*** | `CM_BL` = ***BO15***
-
-### PLENUM 2
-
-#### VAV-01 - MEDIANA
-
-> `DEMANDA` = ***AV87*** | `VAV` = ***AO3*** | `CM_BL` = ***BO16***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV88*** | `VAV` = ***AO4*** | `CM_BL` = ***10022.BO1***
-
-### PLENUM 4
-
-#### VAV-01 - MEDIANA
-
-> `DEMANDA` = ***AV89*** | `VAV` = ***AO5*** | `CM_BL` = ***10022.BO2***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV90*** | `VAV` = ***AO6*** | `CM_BL` = ***10022.BO3***
-
-#### VAV-03 - CHICA
-
-> `DEMANDA` = ***AV91*** | `VAV` = ***AO7*** | `CM_BL` = ***10022.BO4***
-
-### PLENUM 5
-
-#### VAV-01 - CHICA
-
-> `DEMANDA` = ***AV92*** | `VAV` = ***AO8*** | `CM_BL` = ***10022.BO5***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV93*** | `VAV` = ***AO9*** | `CM_BL` = ***10022.BO6***
-
-### PLENUM 6
-
-#### VAV-01 - GRANDE
-
-> `DEMANDA` = ***AV94*** | `VAV` = ***AO10*** | `CM_BL` = ***10022.BO7***
-
-#### VAV-02 - MEDIANA
-
-> `DEMANDA` = ***AV95*** | `VAV` = ***AO11*** | `CM_BL` = ***10022.BO8***
-
-### PLENUM 7R
-
-#### VAV-01 - CHICA
-
-> `DEMANDA` = ***AV96*** | `VAV` = ***AO12*** | `CM_BL` = ***10022.BO9***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV97*** | `VAV` = ***AO13*** | `CM_BL` = ***10022.BO10***
+    ```basic
+    `DP_1` = `P#_DP_1`
+	`DP_2` = `P#_DP_2`
+    ```
