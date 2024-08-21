@@ -488,3 +488,44 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
 	ST_P5 = 0
 	ST_P6 = 0
     ```
+
+El plenum R7 ( RETORNO ) siempre se encontrará activo para su operación
+
+    - Demanda de aire para control de compuertas
+    ```basic
+    PR7_VG_A = QR_GR_DM
+	PR7_VC_A = QR_CH_DM
+    ```
+
+Si el sistema se encuentra inactivo `SS_CP` = ***Off***, todas las compuertas de las VAV y compuertas de bloqueo tomarán un estado general
+
+```basic
+IF SS_CP = 0 THEN
+
+	P1_VG_A = 100
+	P1_VM_A = 100
+	P1_VC_A = 100
+	P2_VG_A = 100
+	P2_VM_A = 100
+	P3_VG_A = 100
+	P4_VG_A = 100
+	P4_VM_A = 100
+	P4_VC_A = 100
+	P5_VG_A = 100
+	P5_VC_A = 100
+	P6_VG_A = 100
+	P6_VM_A = 100
+	PR7_VG_A = 100
+	PR7_VC_A = 100
+	ST_P1 = 0
+	ST_P2 = 0
+	ST_P3 = 0
+	ST_P4 = 0
+	ST_P5 = 0
+	ST_P6 = 0
+	BV9@7 = 0
+	BV10@7 = 0
+	BV11@7 = 0
+		
+ENDIF
+```
