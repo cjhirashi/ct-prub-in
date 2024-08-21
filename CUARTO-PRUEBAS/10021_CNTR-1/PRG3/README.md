@@ -83,6 +83,7 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
         > `P6_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo
         >
         > `P6_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo
+
     - **PLENUM_7R** | VAV GRANDE ( RETORNO )
 
         > `P7_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo
@@ -195,26 +196,27 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
     - **PLENUM 1**
 
-    > `P1_DP_1` = **AI16** 	( ***"WC"*** )		| Presión diferencial 1
-    >
-    > `P1_DP_2`	= **AI17** 	( ***"WC"*** )		| Presión diferencial 2 
+        > `P1_DP_1` = **AI16** 	( ***"WC"*** )		| Presión diferencial 1
+        >
+        > `P1_DP_2`	= **AI17** 	( ***"WC"*** )		| Presión diferencial 2 
 
     - **PLENUM 2**
 
-    > `P2_DP` =	**AI18** 	( ***"WC"*** )		| Presión diferencial
+        > `P2_DP` =	**AI18** 	( ***"WC"*** )		| Presión diferencial
 
     - **PLENUM 4**
 
-    > `P4_DP` = 10022.**AI3** ( ***"WC"*** )	| Presión diferencial ( ***sicronización cada 5 seg*** )
+        > `P4_DP` = 10022.**AI3** ( ***"WC"*** )	| Presión diferencial ( ***sicronización cada 5 seg*** )
 
     - **PLENUM 5**
 
-    > `P5_DP` = 10022.**AI4** ( ***"WC"*** )	| Presión diferencial ( ***sicronización cada 5 seg*** ) 
+        > `P5_DP` = 10022.**AI4** ( ***"WC"*** )	| Presión diferencial ( ***sicronización cada 5 seg*** ) 
 
     - **PLENUM 6**
 
-    > `P6_DP` = 10022.**AI5** ( ***"WC"*** )	| Presión diferencial ( ***sicronización cada 5 seg*** ) 
+        > `P6_DP` = 10022.**AI5** ( ***"WC"*** )	| Presión diferencial ( ***sicronización cada 5 seg*** ) 
 
+____________________
 
 ## MEDICION POR CAJA VAV
 
