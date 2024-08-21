@@ -352,7 +352,7 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
     - VAV GRANDE
 
-    ```python
+    ```basic
     IF SP_Q_VG > MAX_VG THEN AV107@8 = MAX_VG
 	IF SP_Q_VG < MIN_VG THEN AV107@8 = MIN_VG
     ```
