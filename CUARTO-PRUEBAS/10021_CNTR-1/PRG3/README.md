@@ -345,6 +345,27 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
     > 10022.**BV10** = **BV10**         | Permisivo, VAV Mediana
     >
     > 10022.**BV11** = **BV11**         | Permisivo, VAV Chica
+
+## ASIGNACION DE LIMITES A VARIABLES
+
+1. Setpoints de caudales para VAV activas
+
+    - VAV GRANDE
+
+    ```python
+    IF SP_Q_VG > MAX_VG THEN AV107@8 = MAX_VG
+	IF SP_Q_VG < MIN_VG THEN AV107@8 = MIN_VG
+    ```
+
+    - VAV MEDIANA
+
+    - VAV CHICA
+
+    - VAV GRANDE ( RETORNO )
+
+    - VAV CHICA ( RETORNO )
+
+
 ____________________
 
 ## MEDICION POR CAJA VAV
