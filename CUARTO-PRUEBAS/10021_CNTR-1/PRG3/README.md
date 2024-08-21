@@ -6,97 +6,97 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
 1. Rango de operación de caudal por caja VAV ( ***Caudal máximo***, ***Caudal mínimo*** )
 
-    - ***Plenum 1*** - VAV GRANDE
+    - **PLENUM_1** | VAV GRANDE
 
         > `P1_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 1, grande
         >
         > `P1_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 1, grande
 
-    - **Plenum** - VAV MEDIANA
+    - **PLENUM_1** | VAV MEDIANA
 
         > `P1_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 1, mediana
         >
         > `P1_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 1, mediana
 
-3. Plenum 1, VAV CHICA
+    - **PLENUM_1** | VAV CHICA
 
-    > `P1_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 1, chica
-    >
-    > `P1_VC_QMIN` = 45 	( ***CFM*** )	| Caudal mínimo, Plenum 1, chica
+        > `P1_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 1, chica
+        >
+        > `P1_VC_QMIN` = 45 	( ***CFM*** )	| Caudal mínimo, Plenum 1, chica
 
-4. Plenum 2, VAV GRANDE
+    - **PLENUM_2** | VAV GRANDE
 
-    > `P2_VG_QMAX` = 2350 	( ***CFM*** )	| Caudal máximo, Plenum 2, grande
-    >
-    > `P2_VG_QMIN` = 400 	( ***CFM*** )	| Caudal mínimo, Plenum 2, grande
+        > `P2_VG_QMAX` = 2350 	( ***CFM*** )	| Caudal máximo, Plenum 2, grande
+        >
+        > `P2_VG_QMIN` = 400 	( ***CFM*** )	| Caudal mínimo, Plenum 2, grande
 
-5. Plenum 2, VAV MEDIANA
+    - **PLENUM_2** | VAV MEDIANA
 
-    > `P2_VM_QMAX` = 800 	( ***CFM*** )	| Caudal máximo, Plenum 2, mediana
-    >
-    > `P2_VM_QMIN` = 140 	( ***CFM*** )	| Caudal mínimo, Plenum 2, mediana
+        > `P2_VM_QMAX` = 800 	( ***CFM*** )	| Caudal máximo, Plenum 2, mediana
+        >
+        > `P2_VM_QMIN` = 140 	( ***CFM*** )	| Caudal mínimo, Plenum 2, mediana
 
-6. Plenum 3, VAV GRANDE
+    - **PLENUM_3** | VAV GRANDE
 
-    > `P3_VG_QMAX` = 1450 	( ***CFM*** )	| Caudal máximo, Plenum 3, grande
-    >
-    > `P3_VG_QMIN` = 290 	( ***CFM*** )	| Caudal mínimo, Plenum 3, grande
+        > `P3_VG_QMAX` = 1450 	( ***CFM*** )	| Caudal máximo, Plenum 3, grande
+        >
+        > `P3_VG_QMIN` = 290 	( ***CFM*** )	| Caudal mínimo, Plenum 3, grande
 
-7. Plenum 4, VAV GRANDE
+    - **PLENUM_4** | VAV GRANDE
 
-    > `P4_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 4, grande
-    >
-    > `P4_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 4, grande
+        > `P4_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 4, grande
+        >
+        > `P4_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 4, grande
 
-8. Plenum 4, VAV MEDIANA
+    - **PLENUM_4** | VAV MEDIANA
 
-    > `P4_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 4, mediana
-    >
-    > `P4_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 4, mediana
+        > `P4_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 4, mediana
+        >
+        > `P4_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 4, mediana
 
-9. Plenum 4, VAV CHICA
+    - **PLENUM_4** | VAV CHICA
 
-    > `P4_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 4, chica
-    >
-    > `P4_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo, Plenum 4, chica
+        > `P4_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 4, chica
+        >
+        > `P4_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo, Plenum 4, chica
 
-10. Plenum 5, VAV GRANDE
+    - **PLENUM_5** | VAV GRANDE
 
-    > `P5_VG_QMAX` = 4200 	( ***CFM*** )	| Caudal máximo, Plenum 5, grande
-    >
-    > `P5_VG_QMIN` = 700 	( ***CFM*** )	| Caudal mínimo, Plenum 5, grande
+        > `P5_VG_QMAX` = 4200 	( ***CFM*** )	| Caudal máximo, Plenum 5, grande
+        >
+        > `P5_VG_QMIN` = 700 	( ***CFM*** )	| Caudal mínimo, Plenum 5, grande
 
-11. Plenum 5, VAV CHICA
+    - **PLENUM_5** | VAV CHICA
 
-    > `P5_VC_QMAX` = 400 	( ***CFM*** )	| Caudal máximo, Plenum 5, chica
-    >
-    > `P5_VC_QMIN` = 70	 	( ***CFM*** )	| Caudal mínimo, Plenum 5, chica
+        > `P5_VC_QMAX` = 400 	( ***CFM*** )	| Caudal máximo, Plenum 5, chica
+        >
+        > `P5_VC_QMIN` = 70	 	( ***CFM*** )	| Caudal mínimo, Plenum 5, chica
 
-12. Plenum 6, VAV GRANDE
+    - **PLENUM_6** | VAV GRANDE
 
-    > `P6_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 6, grande
-    >
-    > `P6_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 6, grande
+        > `P6_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 6, grande
+        >
+        > `P6_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 6, grande
 
-13. Plenum 6, VAV MEDIANA
+    - **PLENUM_6** | VAV MEDIANA
 
-    > `P6_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 6, mediana
-    >
-    > `P6_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 6, mediana
+        > `P6_VM_QMAX` = 1050 	( ***CFM*** )	| Caudal máximo, Plenum 6, mediana
+        >
+        > `P6_VM_QMIN` = 175 	( ***CFM*** )	| Caudal mínimo, Plenum 6, mediana
 
-14. Plenum 7 retorno, VAV GRANDE
+    - **PLENUM_7R** | VAV GRANDE ( RETORNO )
 
-    > `P7_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 7, grande
-    >
-    > `P7_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 7, grande
+        > `P7_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 7, grande
+        >
+            > `P7_VG_QMIN` = 500 	( ***CFM*** )	| Caudal mínimo, Plenum 7, grande
 
-15. Plenum 7 retorno, VAV CHICA
+    - **PLENUM_7R** | VAV CHICA
 
-    > `P7_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 7, chica
-    >
-    > `P7_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo, Plenum 7, chica
+        > `P7_VC_QMAX` = 250 	( ***CFM*** )	| Caudal máximo, Plenum 7, chica
+        >
+        > `P7_VC_QMIN` = 45	 	( ***CFM*** )	| Caudal mínimo, Plenum 7, chica
 
-Variables de operación del sistema de control de caudales por Plenum
+2. Variables de operación del sistema de control de caudales por Plenum
 
     > `PLENUM` = **MSV1**						| Selector de plenum en operación
     >
