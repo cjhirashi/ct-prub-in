@@ -403,3 +403,17 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
     DP_1 = P{#}_DP_1
 	DP_2 = P{#}_DP_2
     ```
+
+2. Permisivo de operación de VAV, desbloque el control si existe el tamaño de caja
+
+    ```basic
+    RLQ BV9@7
+	RLQ BV10@7
+	RLQ BV11@7
+    ```
+
+    ```basic
+    RLQ BV9@7
+	RLQ BV10@7
+	BV11@7 = 0
+    ```
