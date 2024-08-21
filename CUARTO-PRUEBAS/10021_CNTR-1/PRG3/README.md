@@ -406,12 +406,14 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
 
 2. Permisivo de operación de VAV, desbloque el control si existe el tamaño de caja
 
+    - Todos los tamaños existen
     ```basic
     RLQ BV9@7
 	RLQ BV10@7
 	RLQ BV11@7
     ```
 
+    - No existe el tamaño chico
     ```basic
     RLQ BV9@7
 	RLQ BV10@7
