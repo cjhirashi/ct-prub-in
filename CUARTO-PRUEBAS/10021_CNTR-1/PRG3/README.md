@@ -419,3 +419,25 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
 	RLQ BV10@7
 	BV11@7 = 0
     ```
+
+3. Asignación de límite de operación de caudales para las cajas activas
+
+    - Todos los tamaños existen
+    ```basic
+    MAX_VG = P{#}_VG_QMAX
+	MIN_VG = P{#}_VG_QMIN
+	MAX_VM = P{#}_VM_QMAX
+	MIN_VM = P{#}_VM_QMIN
+	MAX_VC = P{#}_VC_QMAX
+	MIN_VC = P{#}_VC_QMIN
+    ```
+
+    - No existe el tamaño chico
+    ```basic
+    MAX_VG = P{#}_VG_QMAX
+	MIN_VG = P{#}_VG_QMIN
+	MAX_VM = P{#}_VM_QMAX
+	MIN_VM = P{#}_VM_QMIN
+	MAX_VC = 0
+	MIN_VC = 0
+    ```
