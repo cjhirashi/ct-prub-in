@@ -192,27 +192,27 @@ Control PI para generación de demanda de flujo de caudal de aire, cada tipo de 
 
 Sistema con modulos integrados
 
-    ```basic
-    IF SS_CP = 1 AND PERM_{VAV} = 1 THEN
+```basic
+IF SS_CP = 1 AND PERM_{VAV} = 1 THEN
 		
-        REM **ERROR DEL SISTEMA
-            ERR_{VAV} = ( Q_{VAV} - SP_Q_{VAV} ) * -1
+    REM **ERROR DEL SISTEMA
+        ERR_{VAV} = ( Q_{VAV} - SP_Q_{VAV} ) * -1
 
-        REM **RESULTANTE PROPORCIONAL
+    REM **RESULTANTE PROPORCIONAL
         PR_{VAV} = ( ERR_{VAV} / ( SP_Q_{VAV} * P_{VAV} )) * 100
 
-        REM **RESULTANTE INTEGRAL
-            IR_{VAV} = (( 100 * ERR_{VAV} ) / SP_Q_{VAV} ) * I_{VAV}
-	        IF T_{VAV} > 1 THEN IS_{VAV} = IS_{VAV} + IR_{VAV}, T_{VAV} = 0
-	        IS_{VAV} = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_{VAV} ))
+    REM **RESULTANTE INTEGRAL
+        IR_{VAV} = (( 100 * ERR_{VAV} ) / SP_Q_{VAV} ) * I_{VAV}
+	    IF T_{VAV} > 1 THEN IS_{VAV} = IS_{VAV} + IR_{VAV}, T_{VAV} = 0
+	    IS_{VAV} = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_{VAV} ))
 
-        REM **DEMANDA DE SISTEMA
-            DM_{VAV} = PR_{VAV} + IS_{VAV}
-	        DM_{VAV} = MAX( L_MIN , MIN( L_MAX, DM_{VAV} ))
+    REM **DEMANDA DE SISTEMA
+        DM_{VAV} = PR_{VAV} + IS_{VAV}
+	    DM_{VAV} = MAX( L_MIN , MIN( L_MAX, DM_{VAV} ))
 
-	  ELSE
+  ELSE
 
-		PR_{VAV} = 0, IR_{VAV} = 0, IS_{VAV} = 0, DM_{VAV} = 0
+	PR_{VAV} = 0, IR_{VAV} = 0, IS_{VAV} = 0, DM_{VAV} = 0
 		
-    ENDIF
-    ```
+ENDIF
+```
