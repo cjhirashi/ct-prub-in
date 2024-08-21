@@ -8,7 +8,7 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
     - **PLENUM_1** | VAV GRANDE
 
-        > `P1_VG_QMAX` = **3000** <3200> 	( ***CFM*** )	| Caudal máximo
+        > `P1_VG_QMAX` = **3000** [3200] 	( ***CFM*** )	| Caudal máximo
         >
         > `P1_VG_QMIN` = **1100** [500] 	( ***CFM*** )	| Caudal mínimo
 
