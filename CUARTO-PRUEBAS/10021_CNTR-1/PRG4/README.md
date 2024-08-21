@@ -143,22 +143,45 @@ ____________________
 
 ## OPERACIÓN DE PROGRAMA
 
-El usuario deverá elegír qué plenum es el que deberá operar a través de la variable `PLENUM`, el sistema asignará todas las variables de operación del plenum elegido al sistema, esto considerando los siguientes grupos de parámetros
+Control PI para generación de demanda de flujo de caudal de aire, cada tipo de caja en operación cuenta con su propio algoritmo.
 
-1. Demanda de aire
+1. Validación de activación de algoritmo, si la variable de activación del sistema está activa `SS_CP` = **On**, y el permisivo de operación de la caja está activo `PERM_{VAV}`
 
     ```basic
-    DP_1 = P{#}_DP_1
-	DP_2 = P{#}_DP_2
+    IF SS_CP = 1 AND PERM_{VAV} = 1 THEN
+		
+        REM ALGORITMO DE DEMANDA SE EJECUTA
+
+	  ELSE
+
+		PR_{VAV} = 0, IR_{VAV} = 0, IS_{VAV} = 0, DM_{VAV} = 0
+		
+    ENDIF
     ```
 
-Si el sistema se encuentra inactivo `SS_CP` = ***Off***, todas las compuertas de las VAV tomarán un estado general
+2. Se calcula el error de la variable en operación del sistema, para esto le resta al valor del caudal de la caja `Q_{VAV}`, el valor del setpoint `SP_Q_{VAV}`, el factor `-1` indica el sentido de control del algoritmo, si este es negativo, el control es inverso, si es positivo la dirección es normal
 
-```basic
-IF SS_CP = 0 THEN
+    ```Basic
+    ERR_{VAV} = ( Q_{VAV} - SP_Q_{VAV} ) * -1
+    ```
 
-	P1_VC_A = 100
-	P3_VG_A = 100
+3. Se calcula la resultante de la *Proporción* `PR_{VAV}`
 
-ENDIF
-```
+    ```basic
+    PR_{VAV} = ( ERR_{VAV} / ( SP_Q_{VAV} * P_{VAV} )) * 100
+    ```
+
+4. Se calcula la resultante acumulativa *Integral* `IS_{VAV}`
+
+    ```basic
+    IR_{VAV} = (( 100 * ERR_{VAV} ) / SP_Q_{VAV} ) * I_{VAV}
+	IF T_{VAV} > 1 THEN IS_{VAV} = IS_{VAV} + IR_{VAV}, T_{VAV} = 0
+	IS_{VAV} = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_{VAV} ))
+    ```
+
+5. Se asigna la demanda calculada del sistema `DM_{VAV}`
+
+    ```basic
+    DM_{VAV} = PR_{VAV} + IS_{VAV}
+	DM_{VAV} = MAX( L_MIN , MIN( L_MAX, DM_{VAV} ))
+    ```
