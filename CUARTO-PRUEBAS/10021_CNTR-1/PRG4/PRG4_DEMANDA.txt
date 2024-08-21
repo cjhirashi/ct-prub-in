@@ -1,16 +1,10 @@
 REM PRG4_DEMANDA (CONTROL: CUARTO CONTROL 1)
-REM 
+REM CONTROL DE DEMANDA PLENUMS
 REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
 REM VERSION 1.0.0
 
-REM ///////////////////////////////////////////////////////////////////////////////////////////
-REM AUTH: Carlos Jimenez Hirashi --- Atom Controles
-REM PROG: PR_DEMANDA (CONTROL: CUARTO DE PRUEBAS 1)
-REM DESC: Control de demanda plenums
+REM DECLARACION DE VARIABLES
 
-REM //////////////////////////////////////////////////////////////////////////////////////////
-
-	REM //VARIABLES
 	LOCALS TM, T_VG, T_VM, T_VC, T_VGR, T_VCR
 	TM = 1 / SCANS
 	T_VG = T_VG + TM
@@ -21,6 +15,7 @@ REM ////////////////////////////////////////////////////////////////////////////
 
 	REM //VARIABLES
 	LOCALS SS_CP,
+	LOCALS L_MAX, L_MIN
 	LOCALS ERR_VG, ERR_VM, ERR_VC, ERR_VGR, ERR_VCR
 	LOCALS PERM_VG, PERM_VM, PERM_VC, PERM_VGR, PERM_VCR
 	LOCALS Q_VG, Q_VM, Q_VC, Q_VGR, Q_VCR
@@ -30,7 +25,6 @@ REM ////////////////////////////////////////////////////////////////////////////
 	LOCALS I_VG, I_VM, I_VC, I_VGR, I_VCR
 	LOCALS IR_VG, IR_VM, IR_VC, IR_VGR, IR_VCR
 	LOCALS IS_VG, IS_VM, IS_VC, IS_VGR, IS_VCR
-	LOCALS L_MAX, L_MIN
 	LOCALS DM_VG, DM_VM, DM_VC, DM_VGR, DM_VCR
 
 	SS_CP = BV1
@@ -110,7 +104,7 @@ REM ////////////////////////////////////////////////////////////////////////////
 			PR_VC = 0, IR_VC = 0, IS_VC = 0, DM_VC = 0
 		ENDIF
 
-	AV84@7 = DM_VC
+	AV84 = DM_VC
 
 	REM //PERMISIVO DE OPERACION ACTIVO
 		IF PERM_VG = 0 AND PERM_VM = 0 AND PERM_VC = 0 THEN BV9@8 = 1
