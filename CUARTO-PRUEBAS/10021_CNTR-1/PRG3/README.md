@@ -385,6 +385,12 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 	IF SP_Q_VCR < P7_VC_QMIN THEN AV111 = P7_VC_QMIN
     ```
 
+2. Selector de plenum activo
+
+    ```basic
+    IF PLENUM < 1 THEN PLENUM = 1
+	IF PLENUM > 6 THEN PLENUM = 6
+    ```
 ____________________
 
 ## MEDICION POR CAJA VAV
