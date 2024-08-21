@@ -19,13 +19,15 @@ Sistema de control para la operación de las cajas VAV del *CUARTO DE PRUEBAS*
 
 ### PRG1_SENSORES
 
-Lectura de caudales de las ***cajas VAVs*** del sistema de control
+Control de medición de caudales del sistema, a través de la señal medida por los transmisores de presión diferencial de las cajas Dwayer **MS-311**, rango de medición *0-2"WC*
 
 ### PRG2_VAVS
 
-Control de apertura de compuerta por flujo de aire y compuerta de bloqueo de aire de ***cajas VAV***
+Control de apertura de compuerta de ***VAV*** por demanda de control de suministro de aire por CFMs y control de apertura de compuerta de bloqueo de aire.
 
 ### PRG3_PLENUMS
+
+Control de caudal de aire por plenums, este programa asigna las variables para operación del plenum, a las cajas VAV del Plenum activo
 
 ### PRG4_DEMANDA
 
