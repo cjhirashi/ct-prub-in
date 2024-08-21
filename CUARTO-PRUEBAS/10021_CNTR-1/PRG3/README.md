@@ -395,7 +395,7 @@ ____________________
 
 ## OPERACIÓN DE PROGRAMA
 
-El usuario deverá elegír qué plenum es el que deberá operar a través de la variable `PLENUM`, el sistema asignará todas las variables de operación del plenum elegido al sistema
+El usuario deverá elegír qué plenum es el que deberá operar a través de la variable `PLENUM`, el sistema asignará todas las variables de operación del plenum elegido al sistema, esto considerando los siguientes grupos de parámetros
 
 1. Variables de presión del plenum
 
@@ -475,4 +475,16 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
 	P5_VC_A = 0
 	P6_VG_A = 0
 	P6_VM_A = 0
+    ```
+
+6. Asignación a variables de estado para indicar cual es el plenum activo
+
+    - Este ejemplo muestra la asignación cuando se encuentra el plenum 1 activo
+    ```basic
+    ST_P1 = 1
+	ST_P2 = 0
+	ST_P3 = 0
+	ST_P4 = 0
+	ST_P5 = 0
+	ST_P6 = 0
     ```
