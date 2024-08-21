@@ -406,14 +406,14 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
 
 2. Permisivo de operación de VAV, desbloque el control si existe el tamaño de caja
 
-    - Todos los tamaños existen
+    - Todos los tamaños existen (ejemplo)
     ```basic
     RLQ BV9@7
 	RLQ BV10@7
 	RLQ BV11@7
     ```
 
-    - No existe el tamaño chico
+    - No existe el tamaño chico (ejemplo)
     ```basic
     RLQ BV9@7
 	RLQ BV10@7
@@ -422,7 +422,7 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
 
 3. Asignación de límite de operación de caudales para las cajas activas
 
-    - Todos los tamaños existen
+    - Todos los tamaños existen (ejemplo)
     ```basic
     MAX_VG = P{#}_VG_QMAX
 	MIN_VG = P{#}_VG_QMIN
@@ -432,7 +432,7 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
 	MIN_VC = P{#}_VC_QMIN
     ```
 
-    - No existe el tamaño chico
+    - No existe el tamaño chico (ejemplo)
     ```basic
     MAX_VG = P{#}_VG_QMAX
 	MIN_VG = P{#}_VG_QMIN
@@ -440,4 +440,39 @@ El usuario deverá elegír qué plenum es el que deberá operar a través de la 
 	MIN_VM = P{#}_VM_QMIN
 	MAX_VC = 0
 	MIN_VC = 0
+    ```
+
+4. Asignación de caudal de aire por tamaño de caja
+
+    - Todos los tamaños existen (ejemplo)
+    ```basic
+    Q_GR = P{#}_VG_Q
+	Q_MD = P{#}_VM_Q
+	Q_CH = P{#}_VC_Q
+    ```
+
+    - No existe el tamaño chico (ejemplo)
+    ```basic
+    Q_GR = P{#}_VG_Q
+	Q_MD = P{#}_VM_Q
+	Q_CH = 0
+    ```
+
+5. Asignación de demanda a control de compuerta de VAVs activas
+
+    - Este ejemplo muestra la asignación cuando se encuentra el plenum 1 activo
+    ```basic
+    P1_VG_A = Q_GR_DM
+	P1_VM_A = Q_MD_DM
+	P1_VC_A = Q_CH_DM
+	P2_VG_A = 0
+	P2_VM_A = 0
+	P3_VG_A = 0
+	P4_VG_A = 0
+	P4_VM_A = 0
+	P4_VC_A = 0
+	P5_VG_A = 0
+	P5_VC_A = 0
+	P6_VG_A = 0
+	P6_VM_A = 0
     ```
