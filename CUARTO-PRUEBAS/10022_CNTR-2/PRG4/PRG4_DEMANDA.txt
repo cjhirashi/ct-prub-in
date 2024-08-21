@@ -1,23 +1,16 @@
 REM PRG4_DEMANDA (CONTROL: CUARTO CONTROL 2)
-REM 
+REM CONTROL DE DEMANDA PLENUMS
 REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
 REM VERSION 1.0.0
 
-REM ///////////////////////////////////////////////////////////////////////////////////////////
-REM AUTH: Carlos Jimenez Hirashi --- Atom Controles
-REM PROG: PR_DEMANDA (CONTROL: CUARTO DE PRUEBAS 2)
-REM DESC: Control de demanda plenums
+REM DECLARACION DE VARIABLES
 
-REM //////////////////////////////////////////////////////////////////////////////////////////
-
-	REM //VARIABLES
 	LOCALS TM, T_VG, T_VM, T_VC
 	TM = 1 / SCANS
 	T_VG = T_VG + TM
 	T_VM = T_VM + TM
 	T_VC = T_VC + TM
 
-	REM //VARIABLES
 	LOCALS SS_CP,
 	LOCALS ERR_VG, ERR_VC
 	LOCALS PERM_VG, PERM_VC
@@ -40,61 +33,81 @@ REM ////////////////////////////////////////////////////////////////////////////
 		AV28 = 10021.AV74
 	ENDIF
 
+REM VARIABLES DE ENTRADA
+
 	SS_CP = BV10
 	L_MAX = 100
 	L_MIN = 6
 
-	REM //DEMANDA PI CAJA GRANDE
-	PERM_VG = BV7
-	Q_VG = AV8
-	SP_Q_VG = AV16
-	P_VG = AV23
-	I_VG = AV24
+REM ALGORITMOS PARA CONTROL DE DEMANDA 
+
+	REM *PI CAJA GRANDE
+		PERM_VG = BV7
+		Q_VG = AV8
+		SP_Q_VG = AV16
+		P_VG = AV23
+		I_VG = AV24
 
 		IF SS_CP = 1 AND PERM_VG = 1 THEN
-			REM ////ERROR DEL SISTEMA
-			ERR_VG = ( Q_VG - SP_Q_VG ) * -1
-			REM ////PROPORCIONA
-			PR_VG = ( ERR_VG / ( SP_Q_VG * P_VG )) * 100
-			REM ////INTEGRAL
-			IR_VG = (( 100 * ERR_VG ) / SP_Q_VG ) * I_VG
-			IF T_VG > 1 THEN IS_VG = IS_VG + IR_VG, T_VG = 0
-			IS_VG = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VG ))
-			REM ////DEMANDA DE SISTEMA
-			DM_VG = PR_VG + IS_VG
-			DM_VG = MAX( L_MIN , MIN( L_MAX, DM_VG ))
+
+			REM **ERROR DEL SISTEMA
+				ERR_VG = ( Q_VG - SP_Q_VG ) * -1
+
+			REM **RESULTANTE PROPORCIONAL
+				PR_VG = ( ERR_VG / ( SP_Q_VG * P_VG )) * 100
+
+			REM **RESULTANTE INTEGRAL
+				IR_VG = (( 100 * ERR_VG ) / SP_Q_VG ) * I_VG
+				IF T_VG > 1 THEN IS_VG = IS_VG + IR_VG, T_VG = 0
+				IS_VG = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VG ))
+
+			REM **DEMANDA DE SISTEMA
+				DM_VG = PR_VG + IS_VG
+				DM_VG = MAX( L_MIN , MIN( L_MAX, DM_VG ))
+
 		 ELSE
+
 			PR_VG = 0, IR_VG = 0, IS_VG = 0, DM_VG = 0
+
 		ENDIF
 
-	AV19 = DM_VG
+		AV19 = DM_VG
 
-	REM //DEMANDA PI CAJA CHICA
-	PERM_VC = BV9
-	Q_VC = AV4
-	SP_Q_VC = AV18
-	P_VC = AV27
-	I_VC = AV28
+	REM *PI CAJA CHICA
+		PERM_VC = BV9
+		Q_VC = AV4
+		SP_Q_VC = AV18
+		P_VC = AV27
+		I_VC = AV28
 
 		IF SS_CP = 1 AND PERM_VC = 1 THEN
-			REM ////ERROR DEL SISTEMA
-			ERR_VC = ( Q_VC - SP_Q_VC ) * -1
-			REM ////PROPORCIONA
-			PR_VC = ( ERR_VC / ( SP_Q_VC * P_VC )) * 100
-			REM ////INTEGRAL
-			IR_VC = (( 100 * ERR_VC ) / SP_Q_VC ) * I_VC
-			IF T_VC > 1 THEN IS_VC = IS_VC + IR_VC, T_VC = 0
-			IS_VC = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VC ))
-			REM ////DEMANDA DE SISTEMA
-			DM_VC = PR_VC + IS_VC
-			DM_VC = MAX( L_MIN , MIN( L_MAX, DM_VC ))
+
+			REM **ERROR DEL SISTEMA
+				ERR_VC = ( Q_VC - SP_Q_VC ) * -1
+
+			REM **RESULTANTE PROPORCIONAL
+				PR_VC = ( ERR_VC / ( SP_Q_VC * P_VC )) * 100
+
+			REM **RESULTANTE INTEGRAL
+				IR_VC = (( 100 * ERR_VC ) / SP_Q_VC ) * I_VC
+				IF T_VC > 1 THEN IS_VC = IS_VC + IR_VC, T_VC = 0
+				IS_VC = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VC ))
+
+			REM **DEMANDA DE SISTEMA
+				DM_VC = PR_VC + IS_VC
+				DM_VC = MAX( L_MIN , MIN( L_MAX, DM_VC ))
+
 		 ELSE
+
 			PR_VC = 0, IR_VC = 0, IS_VC = 0, DM_VC = 0
+
 		ENDIF
 
-	AV20 = DM_VC
+		AV20 = DM_VC
 
-	REM //PERMISIVO DE OPERACION ACTIVO
+REM PERMISIVO DE OPERACION ACTIVO
+
+	REM CAJAS VAV
 		IF PERM_VG = 0 AND PERM_VM = 0 AND PERM_VC = 0 THEN BV9@8 = 1
 
 END
