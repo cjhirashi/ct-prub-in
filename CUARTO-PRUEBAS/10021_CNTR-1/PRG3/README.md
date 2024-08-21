@@ -8,93 +8,93 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
     - **PLENUM_1** | VAV GRANDE
 
-        > `P1_VG_QMAX` = 3000 [3200] 	( ***CFM*** )	| Caudal máximo
+        > `P1_VG_QMAX` = **3000** <3200> 	( ***CFM*** )	| Caudal máximo
         >
-        > `P1_VG_QMIN` = 1100 [500] 	( ***CFM*** )	| Caudal mínimo
+        > `P1_VG_QMIN` = **1100** [500] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_1** | VAV MEDIANA
 
-        > `P1_VM_QMAX` = 850 [1050] 	( ***CFM*** )	| Caudal máximo
+        > `P1_VM_QMAX` = **850** [1050] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P1_VM_QMIN` = 350 [175] 	    ( ***CFM*** )	| Caudal mínimo
+        > `P1_VM_QMIN` = **350** [175] 	    ( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_1** | VAV CHICA
 
-        > `P1_VC_QMAX` = 200 [250] 	    ( ***CFM*** )	| Caudal máximo
+        > `P1_VC_QMAX` = **200** [250] 	    ( ***CFM*** )	| Caudal máximo
         >
-        > `P1_VC_QMIN` = 75 [45] 	    ( ***CFM*** )	| Caudal mínimo
+        > `P1_VC_QMIN` = **75** [45] 	    ( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_2** | VAV GRANDE
 
-        > `P2_VG_QMAX` = 2000 [2350] 	( ***CFM*** )	| Caudal máximo
+        > `P2_VG_QMAX` = **2000** [2350] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P2_VG_QMIN` = 850 [400] 	( ***CFM*** )	| Caudal mínimo
+        > `P2_VG_QMIN` = **850** [400] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_2** | VAV MEDIANA
 
-        > `P2_VM_QMAX` = 650 [800] 	( ***CFM*** )	| Caudal máximo
+        > `P2_VM_QMAX` = **650** [800] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P2_VM_QMIN` = 275 [140] 	( ***CFM*** )	| Caudal mínimo
+        > `P2_VM_QMIN` = **275** [140] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_3** | VAV GRANDE
 
-        > `P3_VG_QMAX` = 1350 [1450] 	( ***CFM*** )	| Caudal máximo
+        > `P3_VG_QMAX` = **1350** [1450] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P3_VG_QMIN` = 575 [290] 	( ***CFM*** )	| Caudal mínimo
+        > `P3_VG_QMIN` = **575** [290] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_4** | VAV GRANDE
 
-        > `P4_VG_QMAX` = 3000 [3200] 	( ***CFM*** )	| Caudal máximo
+        > `P4_VG_QMAX` = **3000** [3200] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P4_VG_QMIN` = 1100 [500] 	( ***CFM*** )	| Caudal mínimo
+        > `P4_VG_QMIN` = **1100** [500] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_4** | VAV MEDIANA
 
-        > `P4_VM_QMAX` = 850 [1050] 	( ***CFM*** )	| Caudal máximo
+        > `P4_VM_QMAX` = **850** [1050] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P4_VM_QMIN` = 350 [175] 	    ( ***CFM*** )	| Caudal mínimo
+        > `P4_VM_QMIN` = **350** [175] 	    ( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_4** | VAV CHICA
 
-        > `P4_VC_QMAX` = 200 [250] 	    ( ***CFM*** )	| Caudal máximo
+        > `P4_VC_QMAX` = **200** [250] 	    ( ***CFM*** )	| Caudal máximo
         >
-        > `P4_VC_QMIN` = 75 [45]	 	( ***CFM*** )	| Caudal mínimo
+        > `P4_VC_QMIN` = **75** [45]	 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_5** | VAV GRANDE
 
-        > `P5_VG_QMAX` = 4000 [4200] 	( ***CFM*** )	| Caudal máximo
+        > `P5_VG_QMAX` = **4000** [4200] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P5_VG_QMIN` = 1500 [700] 	( ***CFM*** )	| Caudal mínimo
+        > `P5_VG_QMIN` = **1500** [700] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_5** | VAV CHICA
 
-        > `P5_VC_QMAX` = 300 [400] 	    ( ***CFM*** )	| Caudal máximo
+        > `P5_VC_QMAX` = **300** [400] 	    ( ***CFM*** )	| Caudal máximo
         >
-        > `P5_VC_QMIN` = 125 [70]	 	( ***CFM*** )	| Caudal mínimo
+        > `P5_VC_QMIN` = **125** [70]	 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_6** | VAV GRANDE
 
-        > `P6_VG_QMAX` = 3000 [3200] 	( ***CFM*** )	| Caudal máximo
+        > `P6_VG_QMAX` = **3000** [3200] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P6_VG_QMIN` = 1100 [500] 	( ***CFM*** )	| Caudal mínimo
+        > `P6_VG_QMIN` = **1100** [500] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_6** | VAV MEDIANA
 
-        > `P6_VM_QMAX` = 850 [1050] 	( ***CFM*** )	| Caudal máximo
+        > `P6_VM_QMAX` = **850** [1050] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P6_VM_QMIN` = 350 [175] 	( ***CFM*** )	| Caudal mínimo
+        > `P6_VM_QMIN` = **350** [175] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_7R** | VAV GRANDE ( RETORNO )
 
-        > `P7_VG_QMAX` = 3000 [3200] 	( ***CFM*** )	| Caudal máximo
+        > `P7_VG_QMAX` = **3000** [3200] 	( ***CFM*** )	| Caudal máximo
         >
-        > `P7_VG_QMIN` = 1100 [500] 	( ***CFM*** )	| Caudal mínimo
+        > `P7_VG_QMIN` = **1100** [500] 	( ***CFM*** )	| Caudal mínimo
 
     - **PLENUM_7R** | VAV CHICA
 
-        > `P7_VC_QMAX` = 200 [250] 	    ( ***CFM*** )	| Caudal máximo
+        > `P7_VC_QMAX` = **200** [250] 	    ( ***CFM*** )	| Caudal máximo
         >
-        > `P7_VC_QMIN` = 75 [45]	 	( ***CFM*** )	| Caudal mínimo
+        > `P7_VC_QMIN` = **75** [45]	 	( ***CFM*** )	| Caudal mínimo
 
 2. Variables de operación del sistema de control de caudales por Plenum
 
