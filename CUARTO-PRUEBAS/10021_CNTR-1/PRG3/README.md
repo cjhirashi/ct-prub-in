@@ -4,9 +4,9 @@ Control de caudal de aire por plenums, este programa asigna las variables para o
 
 ## VARIABLES GLOBALES
 
-- Rango de operación de caudal por caja VAV ( ***Caudal máximo***, ***Caudal mínimo*** )
+1. Rango de operación de caudal por caja VAV ( ***Caudal máximo***, ***Caudal mínimo*** )
 
-    1. Plenum 1, VAV GRANDE
+    - Plenum 1, VAV GRANDE
 
     > `P1_VG_QMAX` = 3200 	( ***CFM*** )	| Caudal máximo, Plenum 1, grande
     >
