@@ -206,4 +206,4 @@ Sistema de control para la operación de las cajas VAV del *Cuarto de Pruebas*, 
 >
 >   **VAV-02**  GRANDE
 
-Para acceder a los datos del sistema, ingresar a [***VAVs.md***](https://github.com/cjhirashi/ct-prub-in/blob/main/CUARTO-PRUEBAS/VAVs.md "Datos de cajas VAV del sistema")
+Para visualizar los datos de ajuste de las ***VAVs***, ingresar a [***VAVs.md***](https://github.com/cjhirashi/ct-prub-in/blob/main/CUARTO-PRUEBAS/VAVs.md "Datos de cajas VAV del sistema")
