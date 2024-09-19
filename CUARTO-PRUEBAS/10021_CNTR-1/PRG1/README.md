@@ -1,4 +1,4 @@
-# PRG2 VAVS
+# PRG1 VAVS
 
 Control de medición de caudales del sistema, a través de la señal medida por los transmisores de presión diferencial de las cajas Dwayer **MS-311**, rango de medición *0-2"WC* 
 
@@ -94,7 +94,7 @@ Código para cajas con ambas compuertas en el mismo controlador
 
 ## PARAMETROS DE CAJAS
 
-## PLENUM 1
+### PLENUM 1
 
 > CAUDAL `AV9`.10021 ***CFM***
 
@@ -134,7 +134,25 @@ Código para cajas con ambas compuertas en el mismo controlador
 >
 > CAUDAL Cal `AV8`.10021 ***CFM***
 
-## PLENUM 2
+#### VAV 03 - **CHICA** 
+
+> Tamaño `4` ***pulgadas***
+>
+> Area `0.0819` ***pies2***
+>
+> CV `209`
+>
+> DP `AI`.10021 ***"WC***
+>
+> CAUDAL `AV`.10021 ***CFM***
+>
+> MULTIPLICADOR `AV`.10021
+>
+> OFFSET `AV`.10021
+>
+> CAUDAL Cal `AV`.10021 ***CFM***
+
+### PLENUM 2
 
 > CAUDAL `AV18`.10021 ***CFM***
 
@@ -174,7 +192,27 @@ Código para cajas con ambas compuertas en el mismo controlador
 >
 > CAUDAL Cal `AV17`.10021 ***CFM***
 
-## PLENUM 4
+### PLENUM 3
+
+#### VAV 01 - **GRANDE** 
+
+> Tamaño `10` ***pulgadas***
+>
+> Area `0.5319` ***pies2***
+>
+> CV `1250`
+>
+> DP `AI`.10021 ***"WC***
+>
+> CAUDAL `AV`.10021 ***CFM***
+>
+> MULTIPLICADOR `AV`.10021
+>
+> OFFSET `AV`.10021
+>
+> CAUDAL Cal `AV`.10021 ***CFM***
+
+### PLENUM 4
 
 > CAUDAL `AV31`.10021 ***CFM***
 
@@ -232,7 +270,7 @@ Código para cajas con ambas compuertas en el mismo controlador
 >
 > CAUDAL Cal `AV30`.10021 ***CFM***
 
-## PLENUM 5
+### PLENUM 5
 
 > CAUDAL `AV40`.10021 ***CFM***
 
@@ -272,7 +310,7 @@ Código para cajas con ambas compuertas en el mismo controlador
 >
 > CAUDAL Cal `AV39`.10021 ***CFM***
 
-## PLENUM 6
+### PLENUM 6
 
 > CAUDAL `AV49`.10021 ***CFM***
 
@@ -312,7 +350,7 @@ Código para cajas con ambas compuertas en el mismo controlador
 >
 > CAUDAL Cal `AV48`.10021 ***CFM***
 
-## PLENUM 7 RETORNO
+### PLENUM 7 RETORNO
 
 > CAUDAL `AV58`.10021 ***CFM***
 
