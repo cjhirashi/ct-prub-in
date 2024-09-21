@@ -141,9 +141,9 @@ Control de apertura de compuertas de VAV y bloqueo de aire, por demanda de flujo
 ## VARIABLES GLOBALES
 
 > `P_APER` =  5 (*%*) | Porcentaje para activación de control de compuertas.
-
+>
 > `ACTIV` (*On/Off*) | Activación control de compuertas
-
+>
 > `SINC` = 10 (*seg*) | Tiempo de sincronización de datos
 
 ## LOGICA DE CONTROL
