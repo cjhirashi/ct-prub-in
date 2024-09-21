@@ -128,7 +128,7 @@ Control de apertura de compuertas de VAV y bloqueo de aire, por demanda de flujo
 >
 > **AO12** = `VAV` (*%*) | Porcentaje de apertura de compuerta
 >
-> 10022.**BO9** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+> **BO17** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
 
 #### VAV-02 - GRANDE
 
@@ -136,7 +136,7 @@ Control de apertura de compuertas de VAV y bloqueo de aire, por demanda de flujo
 >
 > **AO13** = `VAV` (*%*) | Porcentaje de apertura de compuerta
 >
-> 10022.**BO10** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+> **BO18** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
 
 ## VARIABLES GLOBALES
 
