@@ -112,15 +112,15 @@ Control de medición de caudales del sistema, a través de la señal medida por 
 >
 > `CV` = **1250** | Factor de flujo de aire VAV
 >
-> `DP` = **AI**.10021 (*"WC*) | Caida de presión de flujo de aire VAV
+> `DP` = **AI17**.10021 (*"WC*) | Caida de presión de flujo de aire VAV
 >
-> **AV**.10021 = `CFM_R` (*CFM*) | Caudal de flujo de aire VAV
+> **AV63**.10021 = `CFM_R` (*CFM*) | Caudal de flujo de aire VAV
 >
-> `MULT` = **AV**.10021 | Multiplicador para calibración de Caudal VAV
+> `MULT` = **AV64**.10021 | Multiplicador para calibración de Caudal VAV
 >
-> `OFFSET` = **AV**.10021 | Offset para calibración de Caudal VAV
+> `OFFSET` = **AV65**.10021 | Offset para calibración de Caudal VAV
 >
-> **AV**.10021 = `CFM` (*CFM*) | Caudal de flujo de aire VAV Calibrado
+> **AV66**.10021 = `CFM` (*CFM*) | Caudal de flujo de aire VAV Calibrado
 
 ### PLENUM 4
 
