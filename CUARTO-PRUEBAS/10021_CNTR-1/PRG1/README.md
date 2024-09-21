@@ -1,6 +1,6 @@
 # PRG1 VAVS
 
-Control de medición de caudales del sistema, a través de la señal medida por los transmisores de presión diferencial de las cajas Dwayer **MS-311**, rango de medición *0-2"WC* 
+Control de medición de caudales del sistema, a través de la señal medida por los transmisores de presión diferencial de las cajas Dwayer **MS-311**, rango de medición *0-2"WC*.
 
 ## VARIABLES DEL SISTEMA
 

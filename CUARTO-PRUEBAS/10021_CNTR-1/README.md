@@ -29,15 +29,15 @@ Control de las 15 ***Cajas VAV*** y 7 ***Plenums*** del sistema de control del c
 
 ### PRG1_SENSORES
 
-Control de medición de caudales del sistema, a través de la señal medida por los transmisores de presión diferencial de las cajas Dwayer **MS-311**, rango de medición *0-2"WC*
+Control de medición de caudales del sistema, a través de la señal medida por los transmisores de presión diferencial de las cajas Dwayer **MS-311**, rango de medición *0-2"WC*.
 
 ### PRG2_VAVS
 
-Control de apertura de compuerta de ***VAV*** por demanda de control de suministro de aire por CFMs y control de apertura de compuerta de bloqueo de aire.
+Control de apertura de compuertas de ***VAV*** y bloqueo de aire, por demanda de flujo de aire.
 
 ### PRG3_PLENUMS
 
-Control de caudal de aire por plenums, este programa asigna las variables para operación del plenum, a las cajas VAV del Plenum activo
+Control de caudal de aire por plenums, este programa asigna las variables para operación del plenum, a las cajas ***VAV*** del Plenum activo.
 
 ### PRG4_DEMANDA
 

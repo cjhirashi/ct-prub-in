@@ -1,6 +1,6 @@
 # PRG3 PLENUMS
 
-Control de caudal de aire por plenums, este programa asigna las variables para operación del plenum, a las cajas VAV del Plenum activo
+Control de caudal de aire por plenums, este programa asigna las variables para operación del plenum, a las cajas ***VAV*** del Plenum activo.
 
 ## VARIABLES GLOBALES
 

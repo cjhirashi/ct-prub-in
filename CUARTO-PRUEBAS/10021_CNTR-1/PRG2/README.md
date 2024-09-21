@@ -1,6 +1,6 @@
 # PRG2 VAVS
 
-Control de apertura de compuertas de VAV y bloqueo de aire, por demanda de flujo de aire
+Control de apertura de compuertas de ***VAV*** y bloqueo de aire, por demanda de flujo de aire.
 
 ## VARIABLES DEL SISTEMA
 
