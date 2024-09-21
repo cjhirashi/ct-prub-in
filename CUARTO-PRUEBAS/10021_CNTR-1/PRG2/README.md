@@ -1,40 +1,166 @@
 # PRG2 VAVS
 
-Control de apertura de compuerta de VAV por demanda de control de suministro de aire por *CFMs* y control de apertura de compuerta de bloqueo de aire.
+Control de apertura de compuertas de VAV y bloqueo de aire, por demanda de flujo de aire
+
+## VARIABLES DEL SISTEMA
+
+### PLENUM 1
+
+#### VAV-01 - MEDIANA
+
+> `DEMANDA` = **AV85** (*%*) | Demanda de flujo de aire
+>
+> **AO1** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> **BO14** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+#### VAV-02 - GRANDE
+
+> `DEMANDA` = **AV86** (*%*) | Demanda de flujo de aire
+>
+> **AO2** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> **BO15** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+#### VAV-03 - CHICA
+
+> `DEMANDA` = **AV67** (*%*) | Demanda de flujo de aire
+>
+> **AO21** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> **BO22** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+### PLENUM 2
+
+#### VAV-01 - MEDIANA
+
+> `DEMANDA` = **AV87** (*%*) | Demanda de flujo de aire
+>
+> **AO3** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> **BO16** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+#### VAV-02 - GRANDE
+
+> `DEMANDA` = **AV88** (*%*) | Demanda de flujo de aire
+>
+> **AO4** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO1** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+### PLENUM 3
+
+#### vav-01 - GRANDE
+
+> `DEMANDA` = **AV68** (*%*) | Demanda de flujo de aire
+>
+> **AO23** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> **BO24** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+### PLENUM 4
+
+#### VAV-01 - MEDIANA
+
+> `DEMANDA` = **AV89** (*%*) | Demanda de flujo de aire
+>
+> **AO5** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO2** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+#### VAV-02 - GRANDE
+
+> `DEMANDA` = **AV90** (*%*) | Demanda de flujo de aire
+>
+> **AO6** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO3** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+#### VAV-03 - CHICA
+
+> `DEMANDA` = **AV91** (*%*) | Demanda de flujo de aire
+>
+> **AO7** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO4** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+### PLENUM 5
+
+#### VAV-01 - CHICA
+
+> `DEMANDA` = **AV92** (*%*) | Demanda de flujo de aire
+>
+> **AO8** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO5** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+#### VAV-02 - GRANDE
+
+> `DEMANDA` = **AV93** (*%*) | Demanda de flujo de aire
+>
+> **AO9** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO6** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+### PLENUM 6
+
+#### VAV-01 - GRANDE
+
+> `DEMANDA` = **AV94** (*%*) | Demanda de flujo de aire
+>
+> **AO10** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO7** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+#### VAV-02 - MEDIANA
+
+> `DEMANDA` = **AV95** (*%*) | Demanda de flujo de aire
+>
+> **AO11** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO8** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+### PLENUM 7R
+
+#### VAV-01 - CHICA
+
+> `DEMANDA` = **AV96** (*%*) | Demanda de flujo de aire
+>
+> **AO12** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO9** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
+
+#### VAV-02 - GRANDE
+
+> `DEMANDA` = **AV97** (*%*) | Demanda de flujo de aire
+>
+> **AO13** = `VAV` (*%*) | Porcentaje de apertura de compuerta
+>
+> 10022.**BO10** = `CM_BL` (*On/Off*) | Compuerta de bloqueo
 
 ## VARIABLES GLOBALES
 
-> `P_APER` =  5 (%) | Porcentaje para activación de control de compuertas.
+> `P_APER` =  5 (*%*) | Porcentaje para activación de control de compuertas.
 
-> `SINC` = 10 (seg.) | Tiempo de sincronización de datos
+> `ACTIV` (*On/Off*) | Activación control de compuertas
 
-> `DEMANDA` (%) | Demanda de enfriamiento para apertura de compuerta por porcentaje
+> `SINC` = 10 (*seg*) | Tiempo de sincronización de datos
 
-> `VAV` (%) | Porcentaje de apertura de compuerta
+## LOGICA DE CONTROL
 
-> `CM_BL` (On/Off) | Comando de apertura de compuerta de bloqueo
+### ASIGNACIÓN DE VARIABLE DE DEMANDA
 
-> `ACTIV` (On/Off) | Señal de activación de sistema de control de compuertas
-
-## MEDICION POR CAJA VAV
-
-### ASIGNACIÓN DE VARIABLES LOCALES
-
-Asignar variables de caja VAV a controlar
-
-> `DEMANDA` = [AV]
->
-> [AO] = `VAV`
->
-> [BO] = `CM_BL`
+```basic
+		DEMANDA = [AV]
+```
 
 ### ACTIVACION DE CAJA
 
-***ACTIVACION*** El control de la compuerta se activa cuando la `DEMANDA` de la compuerta sea mayor a lo establecido en la variable `P_APER`
+***ACTIVACION*** El control de la compuerta se activa cuando la `DEMANDA` de la compuerta sea mayor al porcentaje establecido en la variable `P_APER`.
 
-***DESACTIVACION*** El control de la compuerta se desactiva cuando la `DEMANDA` sea menor que 1%
+***DESACTIVACION*** El control de la compuerta se desactiva cuando la `DEMANDA` sea menor que 1%.
 
-```bash
+```basic
 			REM ***ACTIVACION DE CAJA
 				IF DEMANDA > P_APER THEN ACTIV = 1
 				IF DEMANDA < 1 THEN ACTIV = 0
@@ -42,11 +168,11 @@ Asignar variables de caja VAV a controlar
 
 ### ASIGNACION DE DEMANDA A COMPUETAS POR ESTADO DE ACTIVACIÓN
 
-Cuando el estado de `ACTIV` sea *On*, se asignará al control de compuerta `VAV` el valor de `DEMANDA` y a la compueta de bloqueo `CM_BL` el valor de *On*
+Cuando el estado de `ACTIV` sea *On*, se asignará al valor de `DEMANDA` a la variable de control de la compuerta `VAV` y se abrirá la compuerta de bloqueo `CM_BL`.
 
-Cuando el estado de `ACTIV` sea *Off*, se asignará al control de compuerta `VAV` el valor de 0% y a la compueta de bloqueo `CM_BL` el valor de *Off*
+Cuando el estado de `ACTIV` sea *Off*, se mandará a `0` *%* el control de la compuerta `VAV` y se cerrará la copuerta de bloqueo `CM_BL`.
 
-```bash
+```basic
 			REM ***CONTROL DE COMPUERTAS
 				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
 
@@ -54,21 +180,23 @@ Cuando el estado de `ACTIV` sea *Off*, se asignará al control de compuerta `VAV
 
 ### ASIGNACIÓN DE CONTROL DE COMPUERTAS A SALIDAS 
 
-Asignación de de estados de apertura del control de compuerta `VAV` y control de compuerta de bloqueo `CM_BL` a puertos de salida del controlador.
+Asignación de estados de apertura del control de compuerta `VAV` y control de compuerta de bloqueo `CM_BL` a variables de salida del controlador.
 
-```bash
+1. Compuerta de bloqueo local
+
+	```basic
 			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
 				[AO] = VAV
 				[BO] = CM_BL
-```
+	```
 
-Código para cajas con control de compuerta de bloqueo desde equipo remoto
+2. Compuerta de bloqueo remota
 
-```bash
+```basic
 			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
 				[AO] = VAV
 				IF INTERVAL(SINC) THEN
-					[10022.BO] = CM_BL
+					[00000.BO] = CM_BL
 				ENDIF
 ```
 
@@ -76,7 +204,7 @@ Código para cajas con control de compuerta de bloqueo desde equipo remoto
 
 Código para cajas con ambas compuertas en el mismo controlador
 
-```bash
+```basic
 		REM **VAV 00 - TAMANO
 			DEMANDA = [AV]
 
@@ -94,7 +222,7 @@ Código para cajas con ambas compuertas en el mismo controlador
 
 Código para cajas con control de compuerta de bloqueo desde equipo remoto
 
-```bash
+```basic
 		REM **VAV 00 - TAMANO
 			DEMANDA = [AV]
 
@@ -108,72 +236,6 @@ Código para cajas con control de compuerta de bloqueo desde equipo remoto
 			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
 				[AO] = VAV
 				IF INTERVAL(SINC) THEN
-					[10022.BO] = CM_BL
+					[00000.BO] = CM_BL
 				ENDIF
 ```
-
-## PARAMETROS DE CAJAS
-
-### PLENUM 1
-
-#### VAV-01 - MEDIANA
-
-> `DEMANDA` = ***AV85*** | `VAV` = ***AO1*** | `CM_BL` = ***BO14***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV86*** | `VAV` = ***AO2*** | `CM_BL` = ***BO15***
-
-### PLENUM 2
-
-#### VAV-01 - MEDIANA
-
-> `DEMANDA` = ***AV87*** | `VAV` = ***AO3*** | `CM_BL` = ***BO16***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV88*** | `VAV` = ***AO4*** | `CM_BL` = ***10022.BO1***
-
-### PLENUM 4
-
-#### VAV-01 - MEDIANA
-
-> `DEMANDA` = ***AV89*** | `VAV` = ***AO5*** | `CM_BL` = ***10022.BO2***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV90*** | `VAV` = ***AO6*** | `CM_BL` = ***10022.BO3***
-
-#### VAV-03 - CHICA
-
-> `DEMANDA` = ***AV91*** | `VAV` = ***AO7*** | `CM_BL` = ***10022.BO4***
-
-### PLENUM 5
-
-#### VAV-01 - CHICA
-
-> `DEMANDA` = ***AV92*** | `VAV` = ***AO8*** | `CM_BL` = ***10022.BO5***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV93*** | `VAV` = ***AO9*** | `CM_BL` = ***10022.BO6***
-
-### PLENUM 6
-
-#### VAV-01 - GRANDE
-
-> `DEMANDA` = ***AV94*** | `VAV` = ***AO10*** | `CM_BL` = ***10022.BO7***
-
-#### VAV-02 - MEDIANA
-
-> `DEMANDA` = ***AV95*** | `VAV` = ***AO11*** | `CM_BL` = ***10022.BO8***
-
-### PLENUM 7R
-
-#### VAV-01 - CHICA
-
-> `DEMANDA` = ***AV96*** | `VAV` = ***AO12*** | `CM_BL` = ***10022.BO9***
-
-#### VAV-02 - GRANDE
-
-> `DEMANDA` = ***AV97*** | `VAV` = ***AO13*** | `CM_BL` = ***10022.BO10***
