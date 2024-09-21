@@ -4,7 +4,7 @@ Control de medición de caudales del sistema, a través de la señal medida por 
 
 ## VARIABLES DEL SISTEMA
 
-1. Parámetros de cajas por Plenum
+Parámetros de cajas por Plenum
 
 ### PLENUM 1
 
