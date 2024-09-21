@@ -83,125 +83,125 @@ Control de medición de caudales del sistema, a través de la señal medida por 
 >
 > OFFSET `AV12`.10021
 >
-> CAUDAL Cal `AV13`.10021 ***CFM***
+> **AV13**.10021 (*CFM*)
 
 #### VAV 02 - **GRANDE** 
 
-> Tamaño `12` ***pulgadas***
+> Tamaño = **12** (*pulgadas*)
 >
-> Area `0.7691` ***pies2***
+> `AREA` = **0.7691** (*pies2*)
 >
-> CV `1792`
+> `CV` = **1792**
 >
-> DP `AI6`.10021 ***"WC***
+> `DP` = **AI6**.10021 (*"WC*)
 >
-> CAUDAL `AV14`.10021 ***CFM***
+> **AV14**.10021 = `CFM_R` (*CFM*)
 >
-> MULTIPLICADOR `AV15`.10021
+> `MULT` = **AV15**.10021
 >
-> OFFSET `AV16`.10021
+> `OFFSET` = **AV16**.10021
 >
-> CAUDAL Cal `AV17`.10021 ***CFM***
+> **AV17**.10021 = `CFM` (*CFM*)
 
 ### PLENUM 3
 
 #### VAV 01 - **GRANDE** 
 
-> Tamaño `10` ***pulgadas***
+> Tamaño = **10** *pulgadas* | Tamaño de caja VAV
 >
-> Area `0.5319` ***pies2***
+> `AREA` = **0.5319** *pies2* | Area de entrada de aire a VAV
 >
-> CV `1250`
+> `CV` = **1250** | Factor de flujo de aire VAV
 >
-> DP `AI`.10021 ***"WC***
+> `DP` = **AI**.10021 *"WC* | Caida de presión de flujo de aire VAV
 >
-> CAUDAL `AV`.10021 ***CFM***
+> **AV**.10021 = `CFM_R` *CFM* | Caudal de flujo de aire VAV
 >
-> MULTIPLICADOR `AV`.10021
+> `MULT` = **AV**.10021 | Multiplicador para calibración de Caudal VAV
 >
-> OFFSET `AV`.10021
+> `OFFSET` = **AV**.10021 | Offset para calibración de Caudal VAV
 >
-> CAUDAL Cal `AV`.10021 ***CFM***
+> **AV**.10021 = `CFM` *CFM* | Caudal de flujo de aire VAV Calibrado
 
 ### PLENUM 4
 
-> CAUDAL `AV31`.10021 ***CFM***
+> **AV31**.10021 (*CFM*) | Tamaño de caja VAV
 
 #### VAV 01 - **MEDIANA** 
 
-> Tamaño `8` ***pulgadas***
+> Tamaño = **8** (*pulgadas*) | Tamaño de caja VAV
 >
-> Area `0.3382` ***pies2***
+> `AREA` = **0.3382** (*pies2*) | Area de entrada de aire a VAV
 >
-> CV `817`
+> `CV` = **817** | Factor de flujo de aire VAV
 >
-> DP `AI7`.10021 ***"WC***
+> `DP` = **AI7**.10021 (*"WC*) | Caida de presión de flujo de aire VAV
 >
-> CAUDAL `AV19`.10021 ***CFM***
+> **AV19**.10021 = `CFM_R` (*CFM*) | Caudal de flujo de aire VAV
 >
-> MULTIPLICADOR `AV20`.10021
+> `MULT` = **AV20**.10021 | Multiplicador para calibración de Caudal VAV
 >
-> OFFSET `AV21`.10021
+> `OFFSET` = **AV21**.10021 | Offset para calibración de Caudal VAV
 >
-> CAUDAL Cal `AV22`.10021 ***CFM***
+> **AV22**.10021 = `CFM` (*CFM*) | Caudal de flujo de aire VAV Calibrado
 
 #### VAV 02 - **GRANDE** 
 
-> Tamaño `14` ***pulgadas***
+> Tamaño = **14** (*pulgadas*) | Tamaño de caja VAV
 >
-> Area `1.05` ***pies2***
+> `AREA` = **1.05** (*pies2*) | Area de entrada de aire a VAV
 >
-> CV `2474`
+> `CV` = **2474** | Factor de flujo de aire VAV
 >
-> DP `AI8`.10021 ***"WC***
+> `DP` = **AI8**.10021 (*"WC*) | Caida de presión de flujo de aire VAV
 >
-> CAUDAL `AV23`.10021 ***CFM***
+> **AV23**.10021 = `CFM_R` (*CFM*) | Caudal de flujo de aire VAV
 >
-> MULTIPLICADOR `AV24`.10021
+> `MULT` = **AV24**.10021 | Multiplicador para calibración de Caudal VAV
 >
-> OFFSET `AV25`.10021
+> `OFFSET` = **AV25**.10021 | Offset para calibración de Caudal VAV
 >
-> CAUDAL Cal `AV26`.10021 ***CFM***
+> **AV26**.10021 = `CFM` (*CFM*) | Caudal de flujo de aire VAV Calibrado
 
 #### VAV 03 - **CHICA** 
 
-> Tamaño `4` ***pulgadas***
+> Tamaño = **4** (*pulgadas*) | Tamaño de caja VAV
 >
-> Area `0.0819` ***pies2***
+> `AREA` = **0.0819** (*pies2*) | Area de entrada de aire a VAV
 >
-> CV `209`
+> `CV` = **209** | Factor de flujo de aire VAV
 >
-> DP `AI9`.10021 ***"WC***
+> `DP` = **AI9**.10021 (*"WC*) | Caida de presión de flujo de aire VAV
 >
-> CAUDAL `AV27`.10021 ***CFM***
+> **AV27**.10021 = `CFM_R` (*CFM*) | Caudal de flujo de aire VAV
 >
-> MULTIPLICADOR `AV28`.10021
+> `MULT` = **AV28**.10021 | Multiplicador para calibración de Caudal VAV
 >
-> OFFSET `AV29`.10021
+> `OFFSET` = **AV29**.10021 | Offset para calibración de Caudal VAV
 >
-> CAUDAL Cal `AV30`.10021 ***CFM***
+> **AV30**.10021 = `CFM` (*CFM*) | Caudal de flujo de aire VAV Calibrado
 
 ### PLENUM 5
 
-> CAUDAL `AV40`.10021 ***CFM***
+> AV40.10021 ( *CFM* )  | Caudal total de Plenum
 
 #### VAV 01 - **CHICA** 
 
-> Tamaño `5` ***pulgadas***
+> Tamaño = **5** ( *pulgadas* ) | Tamaño de caja VAV
 >
-> Area `0.1296` ***pies2***
+> `AREA` = **0.1296** ( *pies2* ) | Area de entrada de aire a VAV
 >
-> CV `315`
+> `CV` = **315** | Factor de flujo de aire VAV
 >
-> DP `AI10`.10021 ***"WC***
+> `DP` = **AI10**.10021 ( *"WC* ) | Caida de presión de flujo de aire VAV
 >
-> CAUDAL `AV32`.10021 ***CFM***
+> **AV32**.10021 = `CFM_R` ( *CFM* ) | Caudal de flujo de aire VAV
 >
-> MULTIPLICADOR `AV33`.10021
+> `MULT` = **AV33**.10021 | Multiplicador para calibración de Caudal VAV
 >
-> OFFSET `AV34`.10021
+> `OFFSET` = **AV34**.10021 | Offset para calibración de Caudal VAV
 >
-> CAUDAL Cal `AV35`.10021 ***CFM***
+> **AV35**.10021 = `CFM` ( *CFM* ) | Caudal de flujo de aire VAV Calibrado
 
 #### VAV 02 - **GRANDE** 
 
