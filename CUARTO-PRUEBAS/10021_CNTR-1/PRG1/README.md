@@ -4,6 +4,8 @@ Control de medición de caudales del sistema, a través de la señal medida por 
 
 ## VARIABLES DEL SISTEMA
 
+1. Parámetros de cajas por Plenum
+
 ### PLENUM 1
 
 > **AV9**.10021 (*CFM*) | Caudal total de Plenum
