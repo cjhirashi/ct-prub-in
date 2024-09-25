@@ -383,15 +383,15 @@ Asignación de variables de control a parametros de cajas de plenum activo
     - VAV GRANDE ( RETORNO )
 
     ```basic
-    IF SP_Q_VGR > P7_VG_QMAX THEN AV110 = P7_VG_QMAX
-	IF SP_Q_VGR < P7_VG_QMIN THEN AV110 = P7_VG_QMIN
+    IF SP_Q_VGR > P7_VG_QMAX THEN AV110@8 = P7_VG_QMAX
+	IF SP_Q_VGR < P7_VG_QMIN THEN AV110@8 = P7_VG_QMIN
     ```
 
     - VAV CHICA ( RETORNO )
 
     ```basic
-    IF SP_Q_VCR > P7_VC_QMAX THEN AV111 = P7_VC_QMAX
-	IF SP_Q_VCR < P7_VC_QMIN THEN AV111 = P7_VC_QMIN
+    IF SP_Q_VCR > P7_VC_QMAX THEN AV111@8 = P7_VC_QMAX
+	IF SP_Q_VCR < P7_VC_QMIN THEN AV111@8 = P7_VC_QMIN
     ```
 
 2. Limita la asignación de opciones del plenum, rango de 1 a 6
@@ -555,30 +555,43 @@ Si el sistema se encuentra inactivo `SS_CP` = ***Off***, todas las compuertas de
 ```basic
 IF SS_CP = 0 THEN
 
-	P1_VG_A = 100
-	P1_VM_A = 100
-	P1_VC_A = 100
-	P2_VG_A = 100
-	P2_VM_A = 100
-	P3_VG_A = 100
-	P4_VG_A = 100
-	P4_VM_A = 100
-	P4_VC_A = 100
-	P5_VG_A = 100
-	P5_VC_A = 100
-	P6_VG_A = 100
-	P6_VM_A = 100
-	PR7_VG_A = 100
-	PR7_VC_A = 100
-	ST_P1 = 0
-	ST_P2 = 0
-	ST_P3 = 0
-	ST_P4 = 0
-	ST_P5 = 0
-	ST_P6 = 0
-	BV9@7 = 0
-	BV10@7 = 0
-	BV11@7 = 0
+	REM **COMPUERTAS DE CAJAS VAV
+		P1_VG_A = 100
+		P1_VM_A = 100
+		P1_VC_A = 100
+		P2_VG_A = 100
+		P2_VM_A = 100
+		P3_VG_A = 100
+		P4_VG_A = 100
+		P4_VM_A = 100
+		P4_VC_A = 100
+		P5_VG_A = 100
+		P5_VC_A = 100
+		P6_VG_A = 100
+		P6_VM_A = 100
+		PR7_VG_A = 100
+		PR7_VC_A = 100
+
+	REM **ESTADOS DE OPERACION DE PLENUMS
+		ST_P1 = 0
+		ST_P2 = 0
+		ST_P3 = 0
+		ST_P4 = 0
+		ST_P5 = 0
+		ST_P6 = 0
+
+	REM **PERMISIVOS DE OPERACION POR TAMANO DE CAJA
+		BV9@7 = 0
+		BV10@7 = 0
+		BV11@7 = 0
 		
 ENDIF
+```
+
+### ESTADO DE OPERACIÓN GENERAL
+
+La variable de estado de operación general `ST_CP` se activa cuando detecta un plenum activo.
+
+```basic
+ST_CP = MAX(ST_P1, ST_P2, ST_P3, ST_P4, ST_P5, ST_P6)
 ```
