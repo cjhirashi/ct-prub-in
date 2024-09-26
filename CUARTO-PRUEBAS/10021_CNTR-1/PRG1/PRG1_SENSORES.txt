@@ -3,288 +3,290 @@ REM LECTURA DE CAUDALES DE VAVS
 REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
 REM VERSION 1.0.0
 
-REM DECLARACION DE VARIABLES
+REM DECLARACION DE VARIABLES DEL SISTEMA
 
 	LOCALS DP, AREA, CV, CFM, CFM_R, MULT, OFFSET
 
-REM CALCULO DE CAUDALES EN VAVS
+REM LOGICA DE CONTROL
 
-	REM *PLENUM 1
+	REM *CALCULO DE CAUDALES EN VAVS
 
-		REM **VAV 01 - MEDIANA
-			REM ***TAM = 08
-				AREA = 0.3382 
-				CV = 817
-				DP = AI3
-	
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV1 = MAX(0 ,CFM_R)	
-	
-			REM ***CALIBRACION
-				MULT = AV2	
-				OFFSET = AV3
-				CFM = (CFM_R * MULT) + OFFSET
-				AV4 = MAX(0 ,CFM)	
+		REM **PLENUM 1
 
-		REM **VAV 02 - GRANDE
-			REM ***TAM = 14
-				AREA = 1.05 
-				CV = 2474	
-				DP = AI4
-	
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV5 = MAX(0 ,CFM_R)	
-	
-			REM ***CALIBRACION
-				MULT = AV6		
-				OFFSET = AV7	
-				CFM = (CFM_R * MULT) + OFFSET
-				AV8 = MAX(0 ,CFM)	
-
-		REM **VAV 03 - CHICA
-			REM ***TAM = 4
-				AREA = 0.0819
-				CV = 209
-				DP = AI16
+			REM **VAV 01 - MEDIANA
+				REM ***TAM = 08
+					AREA = 0.3382 
+					CV = 817
+					DP = AI3
 		
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)
-				AV59 = MAX(0 ,CFM_R)
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV1 = MAX(0 ,CFM_R)	
 		
-			REM ***CALIBRACION
-				MULT = AV60
-				OFFSET = AV61
-				CFM = (CFM_R * MULT) + OFFSET
-				AV62 = MAX(0 ,CFM)
+				REM ***CALIBRACION
+					MULT = AV2	
+					OFFSET = AV3
+					CFM = (CFM_R * MULT) + OFFSET
+					AV4 = MAX(0 ,CFM)	
+
+			REM **VAV 02 - GRANDE
+				REM ***TAM = 14
+					AREA = 1.05 
+					CV = 2474	
+					DP = AI4
 		
-		REM **CAUDAL TOTAL - PLENUM 1
-			AV9 = AV4 + AV8 + AV62	
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV5 = MAX(0 ,CFM_R)	
+		
+				REM ***CALIBRACION
+					MULT = AV6		
+					OFFSET = AV7	
+					CFM = (CFM_R * MULT) + OFFSET
+					AV8 = MAX(0 ,CFM)	
 
-	REM *PLENUM 2
-
-		REM **VAV 01 - MEDIANA
-			REM ***TAM = 07
-				AREA = 0.2578 
-				CV = 612
-				DP = AI5
-	
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV10 = MAX(0 ,CFM_R)
-	
-			REM ***CALIBRACION
-				MULT = AV11	
-				OFFSET = AV12	
-				CFM = (CFM_R * MULT) + OFFSET
-				AV13 = MAX(0 ,CFM)	
-
-		REM **VAV 02 - GRANDE
-			REM ***TAM = 12
-				AREA = 0.7691 
-				CV = 1792	
-				DP = AI6	
+			REM **VAV 03 - CHICA
+				REM ***TAM = 4
+					AREA = 0.0819
+					CV = 209
+					DP = AI16
 			
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV14 = MAX(0 ,CFM_R)	
-	
-			REM ***CALIBRACION
-				MULT = AV15	
-				OFFSET = AV16	
-				CFM = (CFM_R * MULT) + OFFSET	
-				AV17 = MAX(0 ,CFM)	
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)
+					AV59 = MAX(0 ,CFM_R)
+			
+				REM ***CALIBRACION
+					MULT = AV60
+					OFFSET = AV61
+					CFM = (CFM_R * MULT) + OFFSET
+					AV62 = MAX(0 ,CFM)
+			
+			REM **CAUDAL TOTAL - PLENUM 1
+				AV9 = AV4 + AV8 + AV62	
 
-		REM **CAUDAL TOTAL - PLENUM 2
-			AV18 = AV13 + AV17	
+		REM **PLENUM 2
 
-	REM *PLENUM 3
-
-		REM **VAV 01 - GRANDE
-			REM ***TAM = 10
-				AREA = 0.5319
-				CV = 1250
-				DP = AI17
+			REM **VAV 01 - MEDIANA
+				REM ***TAM = 07
+					AREA = 0.2578 
+					CV = 612
+					DP = AI5
 		
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)
-				AV63 = MAX(0 ,CFM_R)
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV10 = MAX(0 ,CFM_R)
 		
-			REM ***CALIBRACION
-				MULT = AV64
-				OFFSET = AV65
-				CFM = (CFM_R * MULT) + OFFSET
-				AV66 = MAX(0 ,CFM)
+				REM ***CALIBRACION
+					MULT = AV11	
+					OFFSET = AV12	
+					CFM = (CFM_R * MULT) + OFFSET
+					AV13 = MAX(0 ,CFM)	
+
+			REM **VAV 02 - GRANDE
+				REM ***TAM = 12
+					AREA = 0.7691 
+					CV = 1792	
+					DP = AI6	
+				
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV14 = MAX(0 ,CFM_R)	
 		
-	REM *PLENUM 4
+				REM ***CALIBRACION
+					MULT = AV15	
+					OFFSET = AV16	
+					CFM = (CFM_R * MULT) + OFFSET	
+					AV17 = MAX(0 ,CFM)	
 
-		REM **VAV 01 - MEDIANA
-			REM ***TAM = 08
-				AREA = 0.3382 	
-				CV = 817	
-				DP = AI7	
+			REM **CAUDAL TOTAL - PLENUM 2
+				AV18 = AV13 + AV17	
+
+		REM **PLENUM 3
+
+			REM **VAV 01 - GRANDE
+				REM ***TAM = 10
+					AREA = 0.5319
+					CV = 1250
+					DP = AI17
+			
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)
+					AV63 = MAX(0 ,CFM_R)
+			
+				REM ***CALIBRACION
+					MULT = AV64
+					OFFSET = AV65
+					CFM = (CFM_R * MULT) + OFFSET
+					AV66 = MAX(0 ,CFM)
+			
+		REM **PLENUM 4
+
+			REM **VAV 01 - MEDIANA
+				REM ***TAM = 08
+					AREA = 0.3382 	
+					CV = 817	
+					DP = AI7	
+			
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV19 = MAX(0 ,CFM_R)	
+
+				REM ***CALIBRACION
+					MULT = AV20		
+					OFFSET = AV21	
+					CFM = (CFM_R * MULT) + OFFSET
+					AV22 = MAX(0 ,CFM)	
+
+			REM **VAV 02 - GRANDE
+				REM ***TAM = 14
+					AREA = 1.05 
+					CV = 2474	
+					DP = AI8	
+
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV23 = MAX(0 ,CFM_R)	
+
+				REM ***CALIBRACION
+					MULT = AV24		
+					OFFSET = AV25	
+					CFM = (CFM_R * MULT) + OFFSET	
+					AV26 = MAX(0 ,CFM)	
+
+			REM **VAV 03 - CHICA
+				REM ***TAM = 4
+					AREA = 0.0819 	
+					CV = 209	
+					DP = AI9	
+
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV27 = MAX(0 ,CFM_R)	
+
+				REM ***CALIBRACION
+					MULT = AV28		
+					OFFSET = AV29	
+					CFM = (CFM_R * MULT) + OFFSET	
+					AV30 = MAX(0 ,CFM)	
+
+			REM **CAUDAL TOTAL - PLENUM 4
+				AV31 = AV22 + AV26 + AV30	
+
+		REM **PLENUM 5
+
+			REM **VAV 01 - CHICA
+				REM ***TAM = 05
+					AREA = 0.1296 	
+					CV = 315	
+					DP = AI10	
+
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV32 = MAX(0 ,CFM_R)	
 		
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV19 = MAX(0 ,CFM_R)	
+				REM ***CALIBRACION
+					MULT = AV33		
+					OFFSET = AV34	
+					CFM = (CFM_R * MULT) + OFFSET	
+					AV35 = MAX(0 ,CFM)	
 
-			REM ***CALIBRACION
-				MULT = AV20		
-				OFFSET = AV21	
-				CFM = (CFM_R * MULT) + OFFSET
-				AV22 = MAX(0 ,CFM)	
+			REM **VAV 02 - GRANDE
+				REM ***TAM = 16
+					AREA = 1.3745 	
+					CV = 3235	
+					DP = AI11	
+		
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV36 = MAX(0 ,CFM_R)	
+		
+				REM ***CALIBRACION
+					MULT = AV37		
+					OFFSET = AV38	
+					CFM = (CFM_R * MULT) + OFFSET	
+					AV39 = MAX(0 ,CFM)	
 
-		REM **VAV 02 - GRANDE
-			REM ***TAM = 14
-				AREA = 1.05 
-				CV = 2474	
-				DP = AI8	
+			REM **CAUDAL TOTAL - PLENUM 5
+				AV40 = AV35 + AV39	
 
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV23 = MAX(0 ,CFM_R)	
+		REM **PLENUM 6
 
-			REM ***CALIBRACION
-				MULT = AV24		
-				OFFSET = AV25	
-				CFM = (CFM_R * MULT) + OFFSET	
-				AV26 = MAX(0 ,CFM)	
+			REM **VAV 01 - GRANDE
+				REM ***TAM = 14
+					AREA = 1.05		
+					CV = 2474	
+					DP = AI12	
+		
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV41 = MAX(0 ,CFM_R)	
+		
+				REM ***CALIBRACION
+					MULT = AV42		
+					OFFSET = AV43	
+					CFM = (CFM_R * MULT) + OFFSET
+					AV44 = MAX(0 ,CFM)	
 
-		REM **VAV 03 - CHICA
-			REM ***TAM = 4
-				AREA = 0.0819 	
-				CV = 209	
-				DP = AI9	
+			REM **VAV 02 - MEDIANA
+				REM ***TAM = 8
+					AREA = 0.3382	
+					CV = 817	
+					DP = AI13	
+		
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV45 = MAX(0 ,CFM_R)	
+		
+				REM ***CALIBRACION
+					MULT = AV46		
+					OFFSET = AV47	
+					CFM = (CFM_R * MULT) + OFFSET	
+					AV48 = MAX(0 ,CFM)	
 
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV27 = MAX(0 ,CFM_R)	
+			REM **CAUDAL TOTAL - PLENUM 6
+				AV49 = AV44 + AV48	
 
-			REM ***CALIBRACION
-				MULT = AV28		
-				OFFSET = AV29	
-				CFM = (CFM_R * MULT) + OFFSET	
-				AV30 = MAX(0 ,CFM)	
+		REM **PLENUM R7
 
-		REM **CAUDAL TOTAL - PLENUM 4
-			AV31 = AV22 + AV26 + AV30	
+			REM **VAV 01 - CHICA
+				REM ***TAM = 04
+					AREA = 0.0819	
+					CV = 209	
+					DP = AI14	
+		
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)	
+					AV50 = MAX(0 ,CFM_R)
+		
+				REM ***CALIBRACION
+					MULT = AV51		
+					OFFSET = AV52	
+					CFM = (CFM_R * MULT) + OFFSET
+					AV53 = MAX(0 ,CFM)	
 
-	REM *PLENUM 5
+			REM **VAV 02 - GRANDE
+				REM ***TAM = 14
+					AREA = 1.05	
+					CV = 2474	
+					DP = AI15	
+		
+				REM ***CONVERSION
+					CFM_R = CV * ((DP)^0.5)		
+					AV54 = MAX(0 ,CFM_R)	
+		
+				REM ***CALIBRACION
+					MULT = AV55			
+					OFFSET = AV56		
+					CFM = (CFM_R * MULT) + OFFSET	
+					AV57 = MAX(0 ,CFM)	
 
-		REM **VAV 01 - CHICA
-			REM ***TAM = 05
-				AREA = 0.1296 	
-				CV = 315	
-				DP = AI10	
+			REM **CALCULO DE CFM - PLENUM R7
+				AV58 = AV53 + AV57		
 
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV32 = MAX(0 ,CFM_R)	
-	
-			REM ***CALIBRACION
-				MULT = AV33		
-				OFFSET = AV34	
-				CFM = (CFM_R * MULT) + OFFSET	
-				AV35 = MAX(0 ,CFM)	
+REM CONEXION DE VARIABLES
 
-		REM **VAV 02 - GRANDE
-			REM ***TAM = 16
-				AREA = 1.3745 	
-				CV = 3235	
-				DP = AI11	
-	
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV36 = MAX(0 ,CFM_R)	
-	
-			REM ***CALIBRACION
-				MULT = AV37		
-				OFFSET = AV38	
-				CFM = (CFM_R * MULT) + OFFSET	
-				AV39 = MAX(0 ,CFM)	
-
-		REM **CAUDAL TOTAL - PLENUM 5
-			AV40 = AV35 + AV39	
-
-	REM *PLENUM 6
-
-		REM **VAV 01 - GRANDE
-			REM ***TAM = 14
-				AREA = 1.05		
-				CV = 2474	
-				DP = AI12	
-	
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV41 = MAX(0 ,CFM_R)	
-	
-			REM ***CALIBRACION
-				MULT = AV42		
-				OFFSET = AV43	
-				CFM = (CFM_R * MULT) + OFFSET
-				AV44 = MAX(0 ,CFM)	
-
-		REM **VAV 02 - MEDIANA
-			REM ***TAM = 8
-				AREA = 0.3382	
-				CV = 817	
-				DP = AI13	
-	
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV45 = MAX(0 ,CFM_R)	
-	
-			REM ***CALIBRACION
-				MULT = AV46		
-				OFFSET = AV47	
-				CFM = (CFM_R * MULT) + OFFSET	
-				AV48 = MAX(0 ,CFM)	
-
-		REM **CAUDAL TOTAL - PLENUM 6
-			AV49 = AV44 + AV48	
-
-	REM *PLENUM R7
-
-		REM **VAV 01 - CHICA
-			REM ***TAM = 04
-				AREA = 0.0819	
-				CV = 209	
-				DP = AI14	
-	
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)	
-				AV50 = MAX(0 ,CFM_R)
-	
-			REM ***CALIBRACION
-				MULT = AV51		
-				OFFSET = AV52	
-				CFM = (CFM_R * MULT) + OFFSET
-				AV53 = MAX(0 ,CFM)	
-
-		REM **VAV 02 - GRANDE
-			REM ***TAM = 14
-				AREA = 1.05	
-				CV = 2474	
-				DP = AI15	
-	
-			REM ***CONVERSION
-				CFM_R = CV * ((DP)^0.5)		
-				AV54 = MAX(0 ,CFM_R)	
-	
-			REM ***CALIBRACION
-				MULT = AV55			
-				OFFSET = AV56		
-				CFM = (CFM_R * MULT) + OFFSET	
-				AV57 = MAX(0 ,CFM)	
-
-		REM **CALCULO DE CFM - PLENUM R7
-			AV58 = AV53 + AV57		
-
-REM CAUDALES DE RETORNO
-
-	AV102 = AV57			: REM CAUDAL CAJA GRANDE
-	AV103 = AV53			: REM CAUDAL CAJA CHICA
+	AV102 = AV57			: REM CAUDAL CAJA GRANDE DE RETORNO
+	AV103 = AV53			: REM CAUDAL CAJA CHICA DE RETORNO
 	AV104 = AV102 + AV103	: REM CAUDAL TOTAL	
 
 END
