@@ -2,9 +2,9 @@
 
 Gestor de calculo de demanda de VAVs, se utiliza un algoritmo PI para generar esta demanda.
 
-## VARIABLES GLOBALES
+## DECLARACION DE VARIABLES DEL SISTEMA
 
-1. Variables de tiempo para ejecución de algoritmos de control de demanda
+1. VARIABLES: Contadores del sistema
 
     > `SCANS`               | Variable interna de sistema, indica el número de veces que el programa se ejecuta por segundo
     >
@@ -20,7 +20,7 @@ Gestor de calculo de demanda de VAVs, se utiliza un algoritmo PI para generar es
     >
     > `T_VCR` = `T_VCM + TM`      | Contador de tiempo de ejecución de algoritmo
 
-2. Variable de operación del sistema
+2. VARIABLES: Parámetros de operación
 
     > `SS_CP` = **BV1**	( ***On/Off*** )	| Activación de sistema de control, cuarto de pruebas
     >
@@ -141,11 +141,11 @@ Gestor de calculo de demanda de VAVs, se utiliza un algoritmo PI para generar es
         > **AV81** = `DM_VCR`     | Demanda de enfriamiento
 ____________________
 
-## OPERACIÓN DE PROGRAMA
+## LOGICA DE CONTROL
 
 Control PI para generación de demanda de flujo de caudal de aire, cada tipo de caja en operación cuenta con su propio algoritmo.
 
-1. Validación de activación de algoritmo, si la variable de activación del sistema está activa `SS_CP` = **On**, y el permisivo de operación de la caja está activo `PERM_{VAV}`
+1. Validación de activación de algoritmo, si la variable de activación del sistema está activa `SS_CP` = **On**, y el permisivo de operación de la caja está activo `PERM_{VAV}`.
 
     ```basic
     IF SS_CP = 1 AND PERM_{VAV} = 1 THEN
@@ -217,7 +217,7 @@ IF SS_CP = 1 AND PERM_{VAV} = 1 THEN
 ENDIF
 ```
 
-Desactivación del sistema por permisivos inactivos
+### PERMISIVO DE OPERACION ACTIVO
 
 ```basic
 REM CAJAS VAV
