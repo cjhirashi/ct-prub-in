@@ -1,6 +1,6 @@
 # PRG3 PLENUMS
 
-Asignación de variables de control a parametros de cajas de plenum activo
+Asignación de variables de control a parametros de cajas de plenum activo.
 
 ## DECLARACION DE VARIABLES DEL SISTEMA
 

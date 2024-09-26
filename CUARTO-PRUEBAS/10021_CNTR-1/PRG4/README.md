@@ -1,6 +1,6 @@
-# PRG3 PLENUMS
+# PRG4 DEMANDA
 
-Gestor del control de demanda de VAVs, se utiliza un algoritmo PI para calcular esta demanda
+Gestor de calculo de demanda de VAVs, se utiliza un algoritmo PI para generar esta demanda.
 
 ## VARIABLES GLOBALES
 

@@ -1,6 +1,6 @@
-# PRG1 VAVS
+# PRG1 SENSORES
 
-Control de medición de caudales del sistema, a través de la señal medida por los transmisores de presión diferencial de las cajas Dwayer **MS-311**, rango de medición *0-2"WC*.
+Conversión de medición de presión de aire a caudales de suministro de aire. Equipo de medición Dwayer **MS-311**, rango de medición *0-2"WC*.
 
 ## DECLARACIÓN DE VARIABLES DEL SISTEMA
 
