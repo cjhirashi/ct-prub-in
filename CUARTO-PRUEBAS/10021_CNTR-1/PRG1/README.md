@@ -1,4 +1,4 @@
-# PRG1 SENSORES
+# PRG1 SENSORES - V2.0.0
 
 Conversión de medición de presión de aire a caudales de suministro de aire. Equipo de medición Dwayer **MS-311**, rango de medición *0-2"WC*.
 

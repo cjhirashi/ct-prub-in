@@ -1,4 +1,4 @@
-# PRG2 VAVS
+# PRG2 VAVS - v2.0.0
 
 Control de apertura de compuertas de ***VAV*** y bloqueo de aire, por demanda de flujo de aire.
 
