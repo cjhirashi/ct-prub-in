@@ -78,21 +78,33 @@ Sistema de calibración a medición de caudales del sistema de control
 
         > ***MEDIANA***
         >
-        > `P1_VM_Q` = 10021.**AV1**       | CAUDAL DE AIRE
+        > `P1_VM_Q` = 10021.**AV1**         | CAUDAL DE AIRE
         >
-        > 10021.**AO1** = `P1_VM_A`       | APERTURA DE COMPUERTA
+        > 10021.**AO1** = `P1_VM_A`         | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV2**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV3**      | OFFSET
 
         > ***GRANDE***
         >
-        > `P1_VG_Q` = 10021.**AV5**       | CAUDAL DE AIRE
+        > `P1_VG_Q` = 10021.**AV5**         | CAUDAL DE AIRE
         >
-        > 10021.**AO2** = `P1_VG_A`       | APERTURA DE COMPUERTA
+        > 10021.**AO2** = `P1_VG_A`         | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV6**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV7**      | OFFSET
 
         > ***CHICA***
         >
-        > `P1_VC_Q` = 10021.**AV59**      | CAUDAL DE AIRE
+        > `P1_VC_Q` = 10021.**AV59**        | CAUDAL DE AIRE
         >
-        > 10021.**AO21** = `P1_VC_A`      | APERTURA DE COMPUERTA
+        > 10021.**AO21** = `P1_VC_A`        | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV60**      | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV61**     | OFFSET
 
     * PLENUM 2
 
@@ -101,12 +113,20 @@ Sistema de calibración a medición de caudales del sistema de control
         > `P2_VM_Q` = 10021.**AV10**      | CAUDAL DE AIRE
         >
         > 10021.**AO3** = `P2_VM_A`       | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV11**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV12**      | OFFSET
 
         > ***GRANDE***
         >
         > `P2_VG_Q` = 10021.**AV14**      | CAUDAL DE AIRE
         >
         > 10021.**AO4** = `P2_VG_A`       | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV15**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV16**      | OFFSET
 
     * PLENUM 3
 
@@ -115,6 +135,10 @@ Sistema de calibración a medición de caudales del sistema de control
         > `P3_VG_Q` = 10021.**AV63**       | CAUDAL DE AIRE
         >
         > 10021.**AO23** = `P3_VG_A`       | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV64**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV65**      | OFFSET
 
     * PLENUM 4
 
@@ -123,18 +147,30 @@ Sistema de calibración a medición de caudales del sistema de control
         > `P4_VM_Q` = 10021.**AV19**       | CAUDAL DE AIRE
         >
         > 10021.**AO5** = `P4_VM_A`        | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV20**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV21**      | OFFSET
 
         > ***GRANDE***
         >
         > `P4_VG_Q` = 10021.**AV23**       | CAUDAL DE AIRE
         >
         > 10021.**AO6** = `P4_VG_A`        | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV24**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV25**      | OFFSET
 
         > ***CHICA***
         >
         > `P4_VC_Q` = 10021.**AV27**       | CAUDAL DE AIRE
         >
         > 10021.**AO7** = `P4_VC_A`        | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV28**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV29**      | OFFSET
 
     * PLENUM 5
 
@@ -143,12 +179,20 @@ Sistema de calibración a medición de caudales del sistema de control
         > `P5_VC_Q` = 10021.**AV32**       | CAUDAL DE AIRE
         >
         > 10021.**AO8** = `P5_VC_A`        | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV33**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV34**      | OFFSET
 
         > ***GRANDE***
         >
         > `P5_VG_Q` = 10021.**AV36**       | CAUDAL DE AIRE
         >
         > 10021.**AO9** = `P5_VG_A`        | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV37**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV38**      | OFFSET
 
     * PLENUM 6
 
@@ -157,12 +201,20 @@ Sistema de calibración a medición de caudales del sistema de control
         > `P6_VG_Q` = 10021.**AV41**       | CAUDAL DE AIRE
         >
         > 10021.**AO10** = `P6_VG_A`       | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV42**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV43**      | OFFSET
 
         > ***MEDIANA***
         >
         > `P6_VM_Q` = 10021.**AV45**       | CAUDAL DE AIRE
         >
         > 10021.**AO11** = `P6_VM_A`       | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV46**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV47**      | OFFSET
 
     * PLENUM R7
 
@@ -171,9 +223,17 @@ Sistema de calibración a medición de caudales del sistema de control
         > `PR7_VC_Q` = 10021.**AV50**       | CAUDAL DE AIRE
         >
         > 10021.**AO12** = `PR7_VC_A`       | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV51**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV52**      | OFFSET
 
         > ***GRANDE***
         >
         > `PR7_VG_Q` = 10021.**AV54**       | CAUDAL DE AIRE
         >
         > 10021.**AO13** = `PR7_VG_A`       | APERTURA DE COMPUERTA
+        >
+        > `CAL_MULTI` = 10021.**AV55**       | MULTIPLICADOR
+        >
+        > `CAL_OFFSET` = 10021.**AV56**      | OFFSET
