@@ -9,6 +9,8 @@ Sistema de calibración a medición de caudales del sistema de control
     > `CAL_ACTIV` = BV1 (*ON/OFF*) | ACTIVACIÓN DEL SISTEMA DE CONTROL
     >
     > `CAL_VAV` = MSV1              | VAV EN OPERACIÓN
+    >
+    > `VAR`
 
 2. VARIABLES: Parámetros de control de toma de muestras para calibración
 
