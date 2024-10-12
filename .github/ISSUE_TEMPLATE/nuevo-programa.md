@@ -1,7 +1,7 @@
 ---
 name: Nuevo programa
 about: Solicitud de creación de nuevo programa
-title: ''
+title: "[NEW]"
 labels: documentation, new program
 assignees: ''
 
