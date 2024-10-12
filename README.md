@@ -2,6 +2,8 @@
 
 Sistema de control con equipos KMC, para control de sistemas ***UMA-01***, ***UMA-02***, ***PAH***, ***PAF***, ***PAC***, ***Viagas frías*** y ***Cuarto de Pruebas***
 
+[Página](https://github.com/cjhirashi/ct-prub-in/wiki "Página del sistema)
+
 ## Controladores de sistema
 
 - CHILLER AGUA FRIA - *ClimaFlex* ***FLG Modbus-BACnet***
