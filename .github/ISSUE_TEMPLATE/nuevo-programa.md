@@ -8,10 +8,10 @@ assignees: ''
 ---
 
 **Equipo (información de equipo):**
- - DI: [address]
- - MAC: [address]
- - PRG [#]
- - Nombre [name]
+ > DI: [address]
+ > MAC: [address]
+ > PRG [#]
+ > Nombre [name]
 
 **Descripción de funcionalidad de nuevo programa**
 descripción clara y concisa.
