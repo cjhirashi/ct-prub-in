@@ -18,3 +18,11 @@ descripción clara y concisa.
 
 **Contexto adicional**
 descripción de contexto adicional
+
+- [ ] Creación de archivo de documentación de programa
+- [ ] Creación de archivo de programa
+- [ ] Asignación de variables de control
+- [ ] Creación de lógica de control
+- [ ] Creación de variables en controlador
+- [ ] Creación de variables en display
+- [ ] Conexión de puntos en display

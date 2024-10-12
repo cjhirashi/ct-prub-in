@@ -18,11 +18,3 @@ descripción clara y concisa de las alternativas.
 
 **Contexto adicional**
 Agrega otro contexto o capturas de pantalla sobre la solicitud de característica.
-
-- [ ] Creación de archivo de documentación de programa
-- [ ] Creación de archivo de programa
-- [ ] Asignación de variables de control
-- [ ] Creación de lógica de control
-- [ ] Creación de variables en controlador
-- [ ] Creación de variables en display
-- [ ] Conexión de puntos en display
