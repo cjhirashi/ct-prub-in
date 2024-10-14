@@ -239,3 +239,5 @@ Sistema de calibración a medición de caudales del sistema de control
         > `CAL_MULTI` = 10021.**AV55**       | MULTIPLICADOR
         >
         > `CAL_OFFSET` = 10021.**AV56**      | OFFSET
+
+## LOGICA DE CONTROL

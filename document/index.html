@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Header Dinámico</title>
+</head>
+<body class="bg-Zinc-900 ">
+    <header class="bg-blue-600 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-white text-lg font-bold">
+                <a href="#">Atom Controles</a>
+            </div>
+            <nav class="hidden md:flex space-x-4">
+                <a href="C:/PROYECTOS/KMC/cuarto-pruebas-innes/document/sistemas/sistema.html" class="text-white hover:text-blue-200">Sistema</a>
+                <a href="C:/PROYECTOS/KMC/cuarto-pruebas-innes/document/sistemas/CP INNES-AUT-CM.pdf" class="text-white hover:text-blue-200">PDF</a>
+                <a href="#" class="text-white hover:text-blue-200">Contacto</a>
+                <a href="#" class="text-white hover:text-blue-200">Acerca de</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none">
+                    &#9776; <!-- Icono de menú -->
+                </button>
+            </div>
+            <div>
+                <a href="#" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100">Iniciar sesión</a>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <nav class="flex flex-col space-y-2 mt-2">
+                <a href="#" class="block text-white hover:text-blue-200">Inicio</a>
+                <a href="#" class="block text-white hover:text-blue-200">Servicios</a>
+                <a href="#" class="block text-white hover:text-blue-200">Contacto</a>
+                <a href="#" class="block text-white hover:text-blue-200">Acerca de</a>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
