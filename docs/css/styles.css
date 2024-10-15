@@ -12,8 +12,8 @@ html {
     --object: #27272a;
     --text-object: #71717a;
     --title-object: #a1a1aa;
-    --text-background: #71717a;
-    --title-background: #a1a1aa;
+    --text-background: #a1a1aa;
+    --title-background: #d4d4d8;
     --primary: #0891b2;
 }
 
@@ -93,7 +93,7 @@ footer div {
 }
 
 nav .title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: var(--primary);
     text-transform: uppercase;
@@ -137,7 +137,7 @@ strong {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 20px 0px;
+    padding: 0px 0px;
     flex: 1;
 }
 
@@ -151,7 +151,7 @@ strong {
 a {
     background-color: var(--object);
     padding: 10px;
-    color: var(--text-background);
+    color: var(--text-object);
     text-decoration: none;
     margin: 5px 0;
     border-radius: 10px;
@@ -162,7 +162,7 @@ a:hover {
     color: var(--background-color);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     body{
         /* font-size: 12px; */
     }
@@ -189,7 +189,7 @@ a:hover {
     }
 
     .logo-cliente {
-        width: 120px;
+        width: 180px;
     }
 
     nav .title {
@@ -201,7 +201,7 @@ a:hover {
     .encabezado .logo {
         border-radius: 0% 0% 0% 0%;
         width: auto;
-        height: 50px;
+        height: 100px;
     
     }
 
@@ -213,12 +213,4 @@ a:hover {
     
     
     
-}
-  
-@media (min-width: 640px) and (max-width: 768px) {
-    
-}
-  
-@media (min-width: 768px) {
-
 }
