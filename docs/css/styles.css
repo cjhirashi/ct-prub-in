@@ -31,6 +31,27 @@ main {
     padding: 40px 20px;
 }
 
+h1 {
+    margin: 0;
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+
+h2 {
+    margin: 0;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: var(--title-background);
+}
+
+h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+
 .container {
     max-width: 1200px;
     margin: auto;
@@ -75,49 +96,23 @@ nav .title {
     font-size: 2rem;
     font-weight: bold;
     color: var(--primary);
-
-}
-
-h1 {
-    margin: 1rem;
-    font-size: 4rem;
     text-transform: uppercase;
-}
 
-h2 {
-    margin: 1rem;
-    font-size: 3rem;
-    text-transform: uppercase;
-}
-
-p {
-    
 }
 
 span {
     color: var(--primary);
 }
 
+strong {
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
 .seccion {
     padding-top: 15px;
     padding-bottom: 5px;
     
-}
-
-.seccion h1 {
-    margin: 10px 0;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--primary);
-}
-
-.seccion p {
-    font-size: 1rem;
-}
-
-strong {
-    color: var(--primary);
-    text-transform: uppercase;
 }
 
 .encabezado {
@@ -145,25 +140,11 @@ strong {
     flex: 1;
 }
 
-.encabezado .titulo h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    color: var(--primary);
-}
 
-.encabezado .titulo h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: var(--title-background);
-}
-
-.encabezado .titulo p {
-    font-size: 1rem;
-}
 
 @media (max-width: 640px) {
     body{
-        font-size: 12px;
+        /* font-size: 12px; */
     }
 
     .encabezado {
@@ -193,21 +174,21 @@ strong {
 
     }
     
-    .encabezado .titulo h1 {
-        margin: 0;
+    h1 {
+        
         font-size: 1.5rem;
        
     }
     
-    .encabezado .titulo h2 {
-        margin: 0;
+    h2 {
+        
         font-size: 1rem;
         
     }
     
-    .encabezado .titulo p {
-        margin: 0;
-        font-size: 10px;
+    p {
+        
+        font-size: 14px;
     }
     
 }
