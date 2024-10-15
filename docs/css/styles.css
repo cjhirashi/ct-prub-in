@@ -118,6 +118,7 @@ strong {
 .encabezado {
     display: flex;
     gap: 10px;
+    margin-bottom: 40px;
 }
 
 .encabezado .logo {
@@ -147,6 +148,23 @@ strong {
         /* font-size: 12px; */
     }
 
+    h1 {
+        
+        font-size: 1.5rem;
+       
+    }
+    
+    h2 {
+        
+        font-size: 1rem;
+        
+    }
+    
+    p {
+        
+        font-size: 14px;
+    }
+
     .encabezado {
         flex-direction: column;
     }
@@ -174,22 +192,7 @@ strong {
 
     }
     
-    h1 {
-        
-        font-size: 1.5rem;
-       
-    }
     
-    h2 {
-        
-        font-size: 1rem;
-        
-    }
-    
-    p {
-        
-        font-size: 14px;
-    }
     
 }
   
