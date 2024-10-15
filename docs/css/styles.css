@@ -141,18 +141,20 @@ strong {
     flex: 1;
 }
 
-.equipos {
+.ligas {
+    padding: 10px;
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
 
-.equipos a {
+a {
     color: var(--text-background);
     text-decoration: none;
     margin: 5px 0;
 }
 
-.equipos a:hover {
+a:hover {
     color: var(--primary);
 }
 
