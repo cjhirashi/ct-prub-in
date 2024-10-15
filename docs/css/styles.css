@@ -148,7 +148,7 @@ strong {
         /* font-size: 12px; */
     }
 
-    h1 {
+    /* h1 {
         
         font-size: 1.5rem;
        
@@ -163,7 +163,7 @@ strong {
     p {
         
         font-size: 14px;
-    }
+    } */
 
     .encabezado {
         flex-direction: column;
