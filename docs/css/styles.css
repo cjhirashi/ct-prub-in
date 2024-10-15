@@ -118,7 +118,21 @@ strong {
 .encabezado {
     display: flex;
     gap: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+}
+
+.encabezado-equipo {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.encabezado-equipo .equipo img {
+    display: flex;
+    width: auto;
+    margin: auto;
+    background-color: green;
 }
 
 .encabezado .logo {
