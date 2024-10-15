@@ -1,5 +1,5 @@
 html {
-    font-size: 16px;
+    
     font-family: "Open Sans", sans-serif;
     box-sizing: border-box;
 }
@@ -18,6 +18,7 @@ html {
 }
 
 body {
+    font-size: 16px;
     background-color: var(--background-color);
     color: var(--text-background);
     margin: 0;
@@ -80,11 +81,13 @@ nav .title {
 h1 {
     margin: 1rem;
     font-size: 4rem;
+    text-transform: uppercase;
 }
 
 h2 {
     margin: 1rem;
     font-size: 3rem;
+    text-transform: uppercase;
 }
 
 p {
@@ -95,10 +98,26 @@ span {
     color: var(--primary);
 }
 
-.seccion {
-    padding-top: 40px;
-    padding-bottom: 20px;
+section {
+    padding-top: 15px;
+    padding-bottom: 5px;
     
+}
+
+section h1 {
+    margin: 10px 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+section p {
+    font-size: 1rem;
+}
+
+strong {
+    color: var(--primary);
+    text-transform: uppercase;
 }
 
 .encabezado {
@@ -129,14 +148,12 @@ span {
 .encabezado .titulo h1 {
     margin: 0;
     font-size: 2.5rem;
-    text-transform: uppercase;
     color: var(--primary);
 }
 
 .encabezado .titulo h2 {
     margin: 0;
     font-size: 1.5rem;
-    text-transform: uppercase;
     color: var(--title-background);
 }
 
