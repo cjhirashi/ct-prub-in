@@ -141,7 +141,20 @@ strong {
     flex: 1;
 }
 
+.equipos {
+    display: flex;
+    flex-direction: column;
+}
 
+.equipos a {
+    color: var(--text-background);
+    text-decoration: none;
+    margin: 5px 0;
+}
+
+.equipos a:hover {
+    color: var(--primary);
+}
 
 @media (max-width: 640px) {
     body{
