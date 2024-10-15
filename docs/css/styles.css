@@ -123,16 +123,18 @@ strong {
 
 .encabezado-equipo {
     display: flex;
+
     gap: 10px;
     flex-direction: column;
     margin-bottom: 20px;
+ 
 }
 
 .encabezado-equipo .equipo img {
     display: flex;
-    width: auto;
+    
     margin: auto;
-    background-color: green;
+ 
 }
 
 .encabezado .logo {
