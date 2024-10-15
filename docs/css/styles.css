@@ -149,13 +149,17 @@ strong {
 }
 
 a {
+    background-color: var(--object);
+    padding: 10px;
     color: var(--text-background);
     text-decoration: none;
     margin: 5px 0;
+    border-radius: 10px;
 }
 
 a:hover {
-    color: var(--primary);
+    background-color: var(--primary);
+    color: var(--background-color);
 }
 
 @media (max-width: 640px) {
