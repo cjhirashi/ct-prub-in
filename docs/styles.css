@@ -191,15 +191,19 @@ button:hover {
 }
 
 .contenedor-componentes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:10px;
     background: var(--background);
-    height: 80px;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    padding: 10px
+    padding: 20px 10px;
 }
 
 .tarjeta-componente {
-    width: 80px;
-    height: 80px;
-    background-colo: #000;
+    width: 160px;
+    height: 160px;
+    background-color: #000;
+    border-radius: var(--radius);
 }
