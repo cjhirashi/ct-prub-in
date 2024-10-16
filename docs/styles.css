@@ -10,6 +10,9 @@
     --primary: #0284c7;
     --transition: all 0.5s ease-in-out 0s;
     --shadow: 4px 4px 3px rgba(0, 0, 0, 0.8);
+    --shadow-sect: 1px 1px 4px 2px rgba(0, 0, 0, 0.8);
+    --shadow-sect2: 1px 1px 6px 4px rgba(0, 0, 0, 0.4);
+    --shadow-inset: 1px 1px 4px 2px rgba(0, 0, 0, 0.8) inset;
     --radius: 10px;
 }
 
@@ -108,6 +111,7 @@ section {
     border-radius: var(--radius);
     opacity: 75%;
     color: var(--obj-text);
+    box-shadow: var(--shadow-sect);
 }
 
 /* FOOTER */
@@ -194,16 +198,86 @@ button:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap:10px;
+    gap:40px;
     background: var(--background);
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 20px 10px;
+    box-shadow: var(--shadow-inset);
+    padding: 40px 10px;
 }
 
 .tarjeta-componente {
-    width: 160px;
-    height: 160px;
-    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
     border-radius: var(--radius);
+    box-shadow: var(--shadow-sect);
+    
+}
+
+.tarjeta-componente:hover {
+    transform: scale(1.1, 1.1);
+    box-shadow: var(--shadow-sect2);
+    transition: var(--transition);
+    opacity: 100%;
+}
+
+.tarjeta-componente div {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+.tarjeta-componente-contenido {
+    /* display: flex;
+    flex-direction: column; */
+    background-color: var(--object);
+    padding: 10px;
+}
+
+.tarjeta-componente-contenido a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.tarjeta-componente-contenido a:hover {
+    padding-top: 10px;
+    color: var(--obj-title);
+    transition: var(--transition);
+}
+
+.tarjeta-componente-contenido-modelo {
+    font-size: 1.5rem;
+    color: var(--obj-title);
+    font-weight: bold;
+}
+
+.tarjeta-componente-contenido-marca {
+    color: var(--primary);
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.tarjeta-componente-contenido-desc {
+
+}
+
+.tarjeta-componente-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary);
+    width; 100%;
+}
+
+.tarjeta-componente-img img {
+    height: 150px;
+    object-fit: cover;
+    filter: drop-shadow(5px 5px 5px black);
 }
