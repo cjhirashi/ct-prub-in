@@ -1,87 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INNES | Document</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <title>INNES | Docs</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <img src="./img/L_ATOM_D.png" alt="Logo Atom Controles" class="logo-atom">
-            <div class="title">Documentación</div>
-        </nav>
-    </header>
 
-    <main class="container">
+<!-- ENCABEZADO -->
+<header>
 
-        <div class="encabezado">
-            <div class="logo">
-                <img src="./img/L_INNES.svg" alt="Logo INNES Aire" class="logo-cliente" >
-            </div>
+    <!-- TITULO PAGINA -->
+    <h1 class="titulo">Sistema de Control</h1>
 
-            <div class="titulo">
-                <h1>Sistema de Control</h1>
-                <h2>Aire Acondicionado y Cuarto de Pruebas</h2>
-                <p>Calle División del Norte 76,Colonia Memetla, Código Postal 05330, Cuajimalpa de Morelos, México CDMX</p>
-            </div>
-        </div>
+    <!-- LOGO -->
+    <img src="./img/logo/logo_cliente.png" width="200" alt="Logo INNES Aire">
+    
+    <!-- MENU DE NAVEGACION -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#info-tecnica">Información Técnica</a></li>
+            <li><a href="#sistemas">Sistemas</a></li>
+            <li><a href="#manual">Manual de Operación</a></li>
+            <li><a href="#soporte">Soporte</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
 
-        <section class="seccion">
-            <h3>Introducción</h3>
+</header>
 
-            <p><strong>Propósito: </strong>Información técnica y operativa del sistema de control de los equipos de aire Acondicionado
+<!-- CONTENEDOR PRINCIPAL -->
+<main>
+   
+    <!-- SECCION: Inicio -->
+    <section id="inicio">
+        <h1>Sistema de Control de Aire Acondicionado</h1>
+        <p>Sistema de control y automatización de los equipos de Aire Acondicionado 
+            para la ambientación del <span>Cuarto de Pruebas</span> y <span>Oficinas</span> 
             de <span>INNES Aire</span>.</p>
+    </section>
 
-            <p><strong>Alcance: </strong>Esta documentación establece los parámetros operativos del sistema, así como la documentación 
-            sobre este.</p>
+    <!-- SECCION Información Técnica -->
+    <section id="info-tecnica">
 
-            <p><strong>Audiencia: </strong>Esta documentación está dirigida al personal técnico encargado de la operación y mantenimiento 
-            del sistema de control.</p>
-        </section>
+        <!-- TITULO -->
+        <h2>Información Técnica</h2>
 
-        <section class="seccion">
-            <h3>Descripción</h3>
-
-            <p><strong>Descripción general: </strong>El sistema de control de los equipos de aire, es un sistema de control centralizado, 
-            el cual está basado en una topología de control BACnet.</p>
-
-            <p><Strong>Componentes: </Strong>El sistema está dividido en los siguientes sistemas:</p>
-
-            <div class="ligas">
-                <a href="./sistemas/UMA-01.html">UMA-01</a>
-                <a href="#">UMA-02</a>
-                <a href="#">PAH</a>
-                <a href="#">PAF</a>
-                <a href="#">PAC</a>
-                <a href="#">Vigas Frías</a>
-                <a href="#">Cuarto de pruebas</a>
-            </div>
-            
-        </section>
-
-        <section>
-            <h3>Diagramas</h3>
-
-            <div class="ligas">
-                <a href="./diagramas/CP INNES-AUT-CM.pdf">Diagrama, Arquitectura de control (17SEP24)</a>
-                <a href="./diagramas/CP INNES-AUT-E-CN-1.pdf">Diagrama, Controlador 1 (17SEP24)</a>
-                <a href="./diagramas/CP INNES-AUT-E-IO1-1.pdf">Diagrama, Módulo de expansión 1 - Controlador 1 (17SEP24)</a>
-                <a href="./diagramas/CP INNES-AUT-E-IO1-2.pdf">Diagrama, Módulo de expansión 2 - Controlador 1 (17SEP24)</a>
-                <a href="./diagramas/CP INNES-AUT-E-CN-2.pdf">Diagrama, Controlador 2 (17SEP24)</a>
-                <a href="./diagramas/CP INNES-AUT-E-IO2-1.pdf">Diagrama, Módulo de expansión 1 - Controlador 2 (17SEP24)</a>
-            </div>
-        </section>
-        <p>Sistema de control con equipos KMC, para control de sistemas <span>UMA-01</span>, <span>UMA-02</span>, <span>PAH</span>, <span>PAF</span>, <span>PAC</span>, <span>Viagas frías</span> y <span>Cuarto de Pruebas</span></p>
-
-
-    </main>
-    <footer>
-        <div class="container">
-            <p>www.atomcontroles.com</p>
-            <p>@cjhirashi</p>
+        <!-- CASILLA BUSQUEDA -->
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Buscar información...">
         </div>
-    </footer>
+
+        <!-- INFORMACION TECNICA -->
+        <div class="info-content">
+
+            <h3>Descripción General</h3>
+            <p>Sistema de control centralizado, integrado por <span>tarjetas de control DDC</span>, 
+                conectadas por medio de <span>red RS-485</span> con protocolo de 
+                comunicación <span>BACnet MS/TP</span> para centralizar su Operación mediante 
+                <span>display TouchScreen</span>.
+            </p>
+
+            <h3>Componentes del Sistema</h3>
+            <p>Lista de componentes y sus descripciones.</p>
+            <div class="contenedor-componentes">
+                
+                <div class="tarjeta-componente">Hola</div>
+            </div>
+
+            <h3>Especificaciones Técnicas</h3>
+            <p>Detalles técnicos del sistema.</p>
+
+            <h3>Diagramas de Funcionamiento</h3>
+            <img src="diagrama.png" alt="Diagrama de Funcionamiento">
+        </div>
+    </section>
+
+    <section id="sistemas">
+        <h2>Sistemas</h2>
+        <ul id="sistemas-list"></ul>
+    </section>
+    
+
+    <section id="manual">
+        <h2>Manual de Operación</h2>
+        <h3>Tabla de Contenido</h3>
+        <ul>
+            <li><a href="#seccion1">Sección 1</a></li>
+            <li><a href="#seccion2">Sección 2</a></li>
+        </ul>
+        <h3>Documentos Descargables</h3>
+        <a href="manual.pdf" download>Descargar Manual en PDF</a>
+    </section>
+
+    <section id="soporte">
+        <h2>Soporte</h2>
+        <h3>Preguntas Frecuentes</h3>
+        <p>Aquí van las preguntas frecuentes.</p>
+        <h3>Formulario de Contacto</h3>
+        <form>
+            <input type="text" placeholder="Tu nombre" required>
+            <input type="email" placeholder="Tu correo" required>
+            <textarea placeholder="Tu mensaje" required></textarea>
+            <div>
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>Email: contacto@sistema.com</p>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Sistema de Control, INNES Aire</p>
+    <p>www.atomcontroles.com / @cjhirashi</p>
+    <!-- <a href="#">Política de Privacidad</a> -->
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
