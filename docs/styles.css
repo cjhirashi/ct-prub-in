@@ -258,10 +258,11 @@ button:hover {
 
 .tarjeta-componente-contenido-marca {
     color: var(--primary);
+    font-size: 1.2rem;
     font-weight: bold;
-    font-style: italic;
+    /* font-style: italic; */
     margin-bottom: 10px;
-    padding-left: 10px;
+    /* padding-left: 10px; */
 }
 
 .tarjeta-componente-contenido-desc {
