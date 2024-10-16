@@ -30,6 +30,7 @@ header {
     color: white;
     padding: 10px;
     text-align: center;
+    box-shadow: var(--shadow-sect);
 }
 
 header h1 {
