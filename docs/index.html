@@ -5,195 +5,280 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INNES | Docs</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
 
-<!-- ENCABEZADO -->
-<header>
+    <!-- ENCABEZADO -->
+    <header>
 
-    <!-- TITULO PAGINA -->
-    <h1 class="titulo">Sistema de Control</h1>
+        
+        <!-- MENU DE NAVEGACION -->
+        <nav class="navbar">
+            
+            <!-- LOGO -->
+            <img src="./img/logo/logo_cliente.png" alt="Logo INNES Aire">
+            
+            <!-- TITULO PAGINA -->
+            <h1 class="titulo">Sistema de Control</h1>
+        
+        </nav>
 
-    <!-- LOGO -->
-    <img src="./img/logo/logo_cliente.png" width="200" alt="Logo INNES Aire">
-    
-    <!-- MENU DE NAVEGACION -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#info-tecnica">Información Técnica</a></li>
-            <li><a href="#sistemas">Sistemas</a></li>
-            <li><a href="#manual">Manual de Operación</a></li>
-            <li><a href="#soporte">Soporte</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
+    </header>
 
-</header>
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main>
 
-<!-- CONTENEDOR PRINCIPAL -->
-<main>
-   
-    <!-- SECCION: Inicio -->
-    <section id="inicio">
-        <h1>Sistema de Control de Aire Acondicionado</h1>
-        <p>Sistema de control y automatización de los equipos de Aire Acondicionado 
-            para la ambientación del <span>Cuarto de Pruebas</span> y <span>Oficinas</span> 
-            de <span>INNES Aire</span>.</p>
-    </section>
-
-    <!-- SECCION Información Técnica -->
-    <section id="info-tecnica">
-
-        <!-- TITULO -->
-        <h2>Información Técnica</h2>
-
-        <!-- CASILLA BUSQUEDA -->
-        <div class="search-bar">
-            <input type="text" id="search" placeholder="Buscar información...">
+        <!-- SIDE BAR: Left -->
+        <div class="side-bar-left">
+            <div class="side-bar-l-link">
+                <a >general</a>
+                <div class="side-bar-l-sublink">
+                    <a >hola</a>
+                </div>
+                <a >manual</a>
+                <div class="side-bar-l-sublink">
+                    <a >Opción 1</a>
+                    <a >Opción 2</a>
+                    <a >Opción 3</a>
+                </div>
+            </div>
         </div>
 
-        <!-- INFORMACION TECNICA -->
-        <div class="info-content">
+        <!-- PRINCIPAL -->
+        <div class="principal">
 
-            <h3>Descripción General</h3>
-            <p>Sistema de control centralizado, integrado por <span>tarjetas de control DDC</span>, 
-                conectadas por medio de <span>red RS-485</span> con protocolo de 
-                comunicación <span>BACnet MS/TP</span> para centralizar su Operación mediante 
-                <span>display TouchScreen</span>.
-            </p>
+            <!-- SECCION: Inicio -->
+            <section id="inicio">
+                <h1>Sistema de Control de Aire Acondicionado</h1>
+                <p>Sistema de control y automatización de los equipos de Aire Acondicionado 
+                    para la ambientación del <span>Cuarto de Pruebas</span> y <span>Oficinas</span> 
+                    de <span>INNES Aire</span>.</p>
+            </section>
+        
+            <!-- SECCION: Información Técnica -->
+            <section id="info-tecnica">
+        
+                <!-- TITULO -->
+                <h2>Información Técnica</h2>
+        
+                <!-- CASILLA BUSQUEDA -->
+                <div class="search-bar">
+                    <input type="text" id="search" placeholder="Buscar información...">
+                </div>
+        
+                <!-- INFORMACION TECNICA -->
+                <div id="info-tecnica-general" class="info-content">
+        
+                    <!-- TITULO -->
+                    <h3>Descripción General</h3>
+                    <p>Sistema de control centralizado, integrado por <span>tarjetas de control DDC</span>, 
+                        conectadas por medio de <span>red RS-485</span> con protocolo de 
+                        comunicación <span>BACnet MS/TP</span> para centralizar su Operación mediante 
+                        <span>display TouchScreen</span>.
+                    </p>
 
-            <!-- COMPONENTES DEL SISTEMA -->
-            <h3>Componentes del Sistema</h3>
-            <p>Lista de componentes y sus descripciones.</p>
-            <div class="contenedor-componentes">
-
-                <!-- TARJETA 1 -->
-                <div class="tarjeta-componente">
-                    <div class="tarjeta-componente-img">
-                        <img src="./img/equipos/bac-5901c.png" alt="Controlador BAC-5901C">
-                    </div>
-                    <div class="tarjeta-componente-contenido">
-                        <div class="tarjeta-componente-contenido-modelo">BAC-5901C</div>
-                        <div class="tarjeta-componente-contenido-marca">KMC</div>
-                        <div class="tarjeta-componente-contenido-desc">
-                            Controlador DDC programable, 8UI, 8UO, BACnet MS/TP, alimetación 
-                            a 24 VAC/DC.
-                        </div>
-                        <a href="https://www.kmccontrols.com/product/controller-general-purpose-bacnet-aac-clock-ethernet/">
-                            Documentación
-                        </a>
-                    </div>
                 </div>
 
-                <!-- TARJETA 2 -->
-                <div class="tarjeta-componente">
-                    <div class="tarjeta-componente-img">
-                        <img src="./img/equipos/can-5901.png" alt="Controlador BAC-5901C">
-                    </div>
-                    <div class="tarjeta-componente-contenido">
-                        <div class="tarjeta-componente-contenido-modelo">CAN-5901</div>
-                        <div class="tarjeta-componente-contenido-marca">KMC</div>
-                        <div class="tarjeta-componente-contenido-desc">
-                            Módulo de expansión de entradas y salidas, 8UI, 8UO, alimetación 
-                            a 24 VAC/DC.
-                        </div>
-                        <a href="https://www.kmccontrols.com/product/expansion-io-module-8-ui-8-uo/">
-                            Documentación
-                        </a>
-                    </div>
-                </div>
+                <!-- COMPONENTES DEL SISTEMA -->
+                <div id="info-tecnica-sistema">
 
-                <!-- TARJETA 3 -->
-                <div class="tarjeta-componente">
-                    <div class="tarjeta-componente-img">
-                        <img src="./img/equipos/can-5902.png" alt="Controlador BAC-5901C">
-                    </div>
-                    <div class="tarjeta-componente-contenido">
-                        <div class="tarjeta-componente-contenido-modelo">CAN-5902</div>
-                        <div class="tarjeta-componente-contenido-marca">KMC</div>
-                        <div class="tarjeta-componente-contenido-desc">
-                            Controlador DDC programable, 16UI, BACnet MS/TP, alimetación 
-                            a 24 VAC/DC.
+                    <h3>Componentes del Sistema</h3>
+                    <p>Lista de componentes y sus descripciones.</p>
+                    <div class="contenedor-componentes">
+        
+                        <!-- TARJETA 1 -->
+                        <div class="tarjeta-componente">
+                            <div class="tarjeta-componente-img">
+                                <img src="./img/equipos/bac-5901c.png" alt="Controlador BAC-5901C">
+                            </div>
+                            <div class="tarjeta-componente-contenido">
+                                <div class="tarjeta-componente-contenido-modelo">BAC-5901C</div>
+                                <div class="tarjeta-componente-contenido-marca">KMC</div>
+                                <div class="tarjeta-componente-contenido-desc">
+                                    Controlador DDC programable, 8UI, 8UO, BACnet MS/TP, alimetación 
+                                    a 24 VAC/DC.
+                                </div>
+                                <a href="https://www.kmccontrols.com/product/controller-general-purpose-bacnet-aac-clock-ethernet/">
+                                    Documentación
+                                </a>
+                            </div>
                         </div>
-                        <a href="https://www.kmccontrols.com/product/expansion-io-module-16-ui/">
-                            Documentación
-                        </a>
+        
+                        <!-- TARJETA 2 -->
+                        <div class="tarjeta-componente">
+                            <div class="tarjeta-componente-img">
+                                <img src="./img/equipos/can-5901.png" alt="Controlador BAC-5901C">
+                            </div>
+                            <div class="tarjeta-componente-contenido">
+                                <div class="tarjeta-componente-contenido-modelo">CAN-5901</div>
+                                <div class="tarjeta-componente-contenido-marca">KMC</div>
+                                <div class="tarjeta-componente-contenido-desc">
+                                    Módulo de expansión de entradas y salidas, 8UI, 8UO, alimetación 
+                                    a 24 VAC/DC.
+                                </div>
+                                <a href="https://www.kmccontrols.com/product/expansion-io-module-8-ui-8-uo/">
+                                    Documentación
+                                </a>
+                            </div>
+                        </div>
+        
+                        <!-- TARJETA 3 -->
+                        <div class="tarjeta-componente">
+                            <div class="tarjeta-componente-img">
+                                <img src="./img/equipos/can-5902.png" alt="Controlador BAC-5901C">
+                            </div>
+                            <div class="tarjeta-componente-contenido">
+                                <div class="tarjeta-componente-contenido-modelo">CAN-5902</div>
+                                <div class="tarjeta-componente-contenido-marca">KMC</div>
+                                <div class="tarjeta-componente-contenido-desc">
+                                    Controlador DDC programable, 16UI, BACnet MS/TP, alimetación 
+                                    a 24 VAC/DC.
+                                </div>
+                                <a href="https://www.kmccontrols.com/product/expansion-io-module-16-ui/">
+                                    Documentación
+                                </a>
+                            </div>
+                        </div>
+        
+                        <!-- DISPLAY -->
+                        <div class="tarjeta-componente">
+                            <div class="tarjeta-componente-img">
+                                <img src="./img/equipos/lvis.png" alt="Controlador BAC-5901C">
+                            </div>
+                            <div class="tarjeta-componente-contenido">
+                                <div class="tarjeta-componente-contenido-modelo">LVIS-3ME15-Gx</div>
+                                <div class="tarjeta-componente-contenido-marca">LOYTEC</div>
+                                <div class="tarjeta-componente-contenido-desc">
+                                    Display TouchScreen para centralización de sistema, comunicación BACnet MS/TP, BACnet IP, 
+                                    alimentación a 24 VAC/DC.
+                                </div>
+                                <a href="https://www.loytec.com/products/lvis/lvis-3mex">
+                                    Documentación
+                                </a>
+                            </div>
+                        </div>
+                        
                     </div>
-                </div>
 
-                <!-- DISPLAY -->
-                <div class="tarjeta-componente">
-                    <div class="tarjeta-componente-img">
-                        <img src="./img/equipos/lvis.png" alt="Controlador BAC-5901C">
-                    </div>
-                    <div class="tarjeta-componente-contenido">
-                        <div class="tarjeta-componente-contenido-modelo">LVIS-3ME15-Gx</div>
-                        <div class="tarjeta-componente-contenido-marca">LOYTEC</div>
-                        <div class="tarjeta-componente-contenido-desc">
-                            Display TouchScreen para centralización de sistema, comunicación BACnet MS/TP, BACnet IP, 
-                            alimentación a 24 VAC/DC.
-                        </div>
-                        <a href="https://www.loytec.com/products/lvis/lvis-3mex">
-                            Documentación
-                        </a>
-                    </div>
+                </div>
+        
+                <!-- ESPECIFICACION TECNICA -->
+                <div id="info-tecnica-especificacion">
+            
+                    <h3>Especificaciones Técnicas</h3>
+                    <p>Detalles técnicos del sistema.</p>
+
+                </div>
+        
+                <!-- DIAGRAMAS DE FUNCIONAMIENTO -->
+                <div id="info-tecnica-aquitectura">
+
+                    <h3>Diagramas de Funcionamiento</h3>
+                    <img src="diagrama.png" alt="Diagrama de Funcionamiento">
+
                 </div>
                 
+        
+            </section>
+        
+            <!-- SECCION: Sistemas -->
+            <section id="sistemas">
+                <h2>Sistemas</h2>
+                <ul id="sistemas-list"></ul>
+            </section>
+            
+            <!-- SECCION: Documentación -->
+            <section id="documentacion">
+                <h2>Documentación</h2>
+
+                <div>
+                    <h3>Manual de operación</h3>
+                    <ul>
+                        <li><a href="#seccion1">Sección 1</a></li>
+                        <li><a href="#seccion2">Sección 2</a></li>
+                    </ul>
+                </div>
+        
+                <!-- DOCUMENTOS DESCARGABLES -->
+                <div>
+                    <h3>Descargables</h3>
+                    <!-- <i class="fas fa-home icono"></i>
+                    <object data="./icon/appleinc.svg" type="image/svg+xml" class="icono"></object>
+                    <img class="icono" src="./icon/android.svg" alt="icono" > -->
+                    <div class="contenedor-lista">
+                        <a href="./documentos/diagramas/AUT-CM.pdf" download>Arquitectura de control</a>
+                        <a href="./documentos/diagramas/AUT-E-CN-1.pdf" download>Diagrama, cuarto de pruebas, Cntr 1</a>
+                        <a href="./documentos/diagramas/AUT-E-IO1-1.pdf" download>Diagrama, cuarto de pruebas, Cntr 1 - expanción 1</a>
+                        <a href="./documentos/diagramas/AUT-E-IO1-2.pdf" download>Diagrama, cuarto de pruebas, Cntr 1 - expanción 2</a>
+                        <a href="./documentos/diagramas/AUT-E-CN-2.pdf" download>Diagrama, cuarto de pruebas, Cntr 2</a>
+                        <a href="./documentos/diagramas/AUT-E-IO2-1.pdf" download>Diagrama, cuarto de pruebas, Cntr 2 - expanción 1</a>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- SECCION: Soporte -->
+            <section id="soporte">
+                <h2>Soporte</h2>
+                <h3>Preguntas Frecuentes</h3>
+                <p>Aquí van las preguntas frecuentes.</p>
+                <h3>Formulario de Contacto</h3>
+                <form>
+                    <input type="text" placeholder="Tu nombre" required>
+                    <input type="email" placeholder="Tu correo" required>
+                    <textarea placeholder="Tu mensaje" required></textarea>
+                    <div>
+                        <button type="submit">Enviar</button>
+                    </div>
+                </form>
+            </section>
+        
+            <!-- SECCION Contacto -->
+            <section id="contacto">
+                <h2>Contacto</h2>
+                <p>email: cjimenez@atomcontroles.com</p>
+            </section>
+
+        </div>
+
+        <!-- SIDE BAR Right -->
+        <div class="side-bar-right">
+
+            <h2 class="side-bar-right-title">Contenido</h2>
+
+            <div class="side-bar-r-link">
+                <a href="#inicio">general</a>
+                <div class="side-bar-r-sublink">
+                </div> 
+                <a href="#info-tecnica">información técnica</a>
+                <div class="side-bar-r-sublink">
+                    <a href="#info-tecnica-general">descripción genera</a>
+                    <a href="#info-tecnica-sistema">componentes del sistema</a>
+                    <a href="#info-tecnica-especificacion">especificaciones técnicas</a>
+                    <a href="#info-tecnica-aquitectura">Arquitectura de control</a>
+                </div>
+                <a href="#sistemas">sistema</a>
+                <div class="side-bar-r-sublink">
+                </div> 
+                <a href="#manual">manual de operación</a>
+                <div class="side-bar-r-sublink">
+                </div> 
             </div>
 
-            <h3>Especificaciones Técnicas</h3>
-            <p>Detalles técnicos del sistema.</p>
-
-            <h3>Diagramas de Funcionamiento</h3>
-            <img src="diagrama.png" alt="Diagrama de Funcionamiento">
         </div>
-    </section>
-
-    <section id="sistemas">
-        <h2>Sistemas</h2>
-        <ul id="sistemas-list"></ul>
-    </section>
     
 
-    <section id="manual">
-        <h2>Manual de Operación</h2>
-        <h3>Tabla de Contenido</h3>
-        <ul>
-            <li><a href="#seccion1">Sección 1</a></li>
-            <li><a href="#seccion2">Sección 2</a></li>
-        </ul>
-        <h3>Documentos Descargables</h3>
-        <a href="manual.pdf" download>Descargar Manual en PDF</a>
-    </section>
+    </main>
 
-    <section id="soporte">
-        <h2>Soporte</h2>
-        <h3>Preguntas Frecuentes</h3>
-        <p>Aquí van las preguntas frecuentes.</p>
-        <h3>Formulario de Contacto</h3>
-        <form>
-            <input type="text" placeholder="Tu nombre" required>
-            <input type="email" placeholder="Tu correo" required>
-            <textarea placeholder="Tu mensaje" required></textarea>
-            <div>
-                <button type="submit">Enviar</button>
-            </div>
-        </form>
-    </section>
+    <!-- PIE DE PAGINA -->
+    <footer>
+        <p>&copy; 2024 Sistema de Control, INNES Aire</p>
+        <p>www.atomcontroles.com / @cjhirashi</p>
+        <!-- <a href="#">Política de Privacidad</a> -->
+    </footer>
 
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>email: cjimenez@atomcontroles.com</p>
-    </section>
-</main>
+    <script src="script.js"></script>
 
-<footer>
-    <p>&copy; 2024 Sistema de Control, INNES Aire</p>
-    <p>www.atomcontroles.com / @cjhirashi</p>
-    <!-- <a href="#">Política de Privacidad</a> -->
-</footer>
-
-<script src="script.js"></script>
 </body>
 </html>
