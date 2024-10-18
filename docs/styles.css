@@ -236,6 +236,12 @@ section {
     box-shadow: var(--shadow-sect);
 }
 
+.img-arq {
+    width: 100%;
+    border: 2px solid #444; /* Borde oscuro */
+    border-radius: var(--radius);
+}
+
 /* FOOTER */
 footer {
     flex: 0 1 15%;
