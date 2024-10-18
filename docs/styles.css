@@ -238,7 +238,7 @@ section {
 
 .img-arq {
     width: 100%;
-    border: 2px solid #444; /* Borde oscuro */
+    border: 1px solid #444; /* Borde oscuro */
     border-radius: var(--radius);
 }
 
