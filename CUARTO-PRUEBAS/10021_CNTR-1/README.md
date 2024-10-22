@@ -29,27 +29,25 @@ Control de las 15 ***Cajas VAV*** y 7 ***Plenums*** del sistema de control del c
 
 ### PRG1_SENSORES
 
-Conversión de medición de presión de aire a caudales de suministro de aire. Equipo de medición Dwayer **MS-311**, rango de medición *0-2"WC*.
+Programa diseñado para calcular y ajustar los caudales de aire de múltiples VAVs (Válvulas de Volumen de Aire Variable) dentro de diferentes plenums de un sistema HVAC. Utiliza mediciones de presión diferencial para estimar el flujo de aire, y aplica factores de calibración para ajustar cada caudal a los valores reales requeridos, logrando un control preciso del sistema.
 
 ### PRG2_VAVS
 
-Control de apertura de compuertas de ***VAV*** y bloqueo de aire, por demanda de flujo de aire.
+El programa controla las compuertas de un sistema de VAVs (Variable Air Volume) distribuidas en múltiples plenums. Monitorea las demandas de ventilación de cada VAV y ajusta la apertura de las compuertas en función de parámetros predefinidos para mantener un flujo de aire óptimo. La activación de los VAVs y los estados de las compuertas se gestionan con intervalos de sincronización para asegurar un control eficiente y equilibrado del sistema.
 
 ### PRG3_PLENUMS
 
-Asignación de variables de control a parametros de cajas de plenum activo.
+Programa para gestionar y controlar el flujo de aire en un sistema de múltiples plenum mediante el uso de cajas VAV. La lógica del programa asigna caudales, controla las compuertas de las cajas, supervisa la presión en los plenum activos y ajusta los límites operativos de cada caja VAV de acuerdo a la demanda y las configuraciones establecidas.
 
 ### PRG4_DEMANDA
 
-Gestor de calculo de demanda de VAVs, se utiliza un algoritmo PI para generar esta demanda.
+Este programa controla la demanda de plenos en un sistema HVAC mediante un algoritmo PI (Proporcional-Integral) para gestionar diferentes secciones del sistema, ajustando la demanda en función de parámetros establecidos y límites de operación. El programa asegura el funcionamiento adecuado y eficiente de cada caja de ventilación y sus respectivos retornos.
 
 ### PRG5_UMA
 
-### PRG6_CALIBRACION
+El programa PRG5_UMA se encarga del control periódico de una Unidad de Manejo de Aire (UMA), sincronizando datos de estado y configurando puntos específicos de un controlador BACnet. Ejecuta tareas de monitoreo y control condicionales para asegurar el correcto funcionamiento de la UMA en intervalos de tiempo predefinidos.
 
-## PUNTOS DE CONTROL
-
-_____
+---
 
 #### PUNTOS DE ENTRADA
 
