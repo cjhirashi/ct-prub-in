@@ -181,11 +181,13 @@
 La lógica de control del programa se enfoca en la lectura, cálculo y calibración de los caudales de aire para diferentes cajas VAV (Variable Air Volume). A continuación, se explica paso a paso cómo se lleva a cabo esta lógica:
 
 1. **Lectura de la presión diferencial (`DP`)**  
+   
    Cada caja VAV está equipada con un sensor de presión diferencial. La presión diferencial (`DP`) es leída mediante entradas análogas (`AI`). Estas lecturas son esenciales para calcular el caudal de aire (`CFM`) de cada VAV.  
    **Ejemplo de asignación:**  
    `DP = AI3` para la VAV Mediana del Plenum 1.
 
 2. **Cálculo del caudal no calibrado (`CFM_R`)**  
+   
    Se calcula el caudal de aire no calibrado (`CFM_R`) utilizando la fórmula de flujo de aire que toma en cuenta la presión diferencial (`DP`) y un coeficiente de flujo (`CV`) característico de cada VAV. La fórmula utilizada es:  
    ```plaintext
    CFM_R = CV * sqrt(DP)
@@ -193,14 +195,17 @@ La lógica de control del programa se enfoca en la lectura, cálculo y calibraci
    Este valor se calcula de forma individual para cada caja VAV.
 
 3. **Calibración del caudal (`CFM`)**
+    
     Una vez obtenido el valor de CFM_R, se aplica un proceso de calibración para ajustar el caudal, utilizando dos parámetros: un    multiplicador (MULT) y un desplazamiento (OFFSET). La fórmula de calibración es:
     ```plaintext
     CFM = (CFM_R * MULT) + OFFSET
     ```
     `MULT` permite realizar ajustes lineales en el valor calculado.
+
     `OFFSET` compensa errores sistemáticos en la medición o variaciones específicas del sistema.
 
 4. **Ajuste del caudal a valores positivos**
+    
     Se asegura que el caudal final (CFM) no tenga valores negativos aplicando una función de máximo:
     ```plaintext
     CFM = MAX(0, CFM)
@@ -208,9 +213,11 @@ La lógica de control del programa se enfoca en la lectura, cálculo y calibraci
     ```
 
 5. **Almacenamiento de los caudales calculados**
+    
     Cada valor de caudal no calibrado (`CFM_R`) y calibrado (`CFM`) se almacena en variables de control (por ejemplo, `AV1` para el `CFM_R` y `AV4` para el `CFM` en la VAV Mediana del Plenum 1).
 
 6. **Cálculo del caudal total por plenum**
+    
     Para cada plenum, se calcula el caudal total como la suma de los caudales calibrados (`CFM`) de las diferentes cajas VAV que forman parte de dicho plenum.
     **Ejemplo de cálculo del caudal total en Plenum 1:**
     ```plaintext
@@ -220,6 +227,7 @@ La lógica de control del programa se enfoca en la lectura, cálculo y calibraci
     Donde `AV4`, `AV8`, y `AV62` representan los caudales calibrados de las VAV Mediana, Grande y Chica respectivamente en el Plenum 1.
 
 7. **Cálculo de los caudales de retorno**
+    
     En los plenums de retorno (por ejemplo, Plenum 7), se suman los caudales calibrados de las cajas grandes y chicas de retorno para obtener el caudal total de retorno:
     ```plaintext
     AV104 = AV102 + AV103
@@ -235,4 +243,4 @@ La lógica de control se basa en:
  - Suma de caudales calibrados para obtener el caudal total de cada plenum.
  - Cálculo del caudal total de retorno sumando los caudales de las cajas de retorno
 
- 
+Este enfoque asegura un monitoreo preciso y ajustable de los caudales de aire en el sistema HVAC, ajustando los valores según las necesidades operativas y características de cada caja VAV.
