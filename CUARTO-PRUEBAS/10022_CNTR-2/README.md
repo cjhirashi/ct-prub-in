@@ -27,18 +27,18 @@ Control de las 15 ***Cajas VAV*** y 7 ***Plenums*** del sistema de control del c
 
 ## PROGRAMAS
 
-El programa gestiona un sistema de calibración de caudales en un entorno HVAC, permitiendo el ajuste y control de las aperturas de compuertas y la toma de muestras de caudales. Utiliza variables de activación y parámetros de calibración para asegurar que los sistemas de ventilación operen con eficiencia, ajustando los multiplicadores y compensaciones necesarias en función de las mediciones obtenidas.
-
 ### PRG1_CALIBRACION
 
-#### PUNTOS DE ENTRADA
+El programa gestiona un sistema de calibración de caudales en un entorno HVAC, permitiendo el ajuste y control de las aperturas de compuertas y la toma de muestras de caudales. Utiliza variables de activación y parámetros de calibración para asegurar que los sistemas de ventilación operen con eficiencia, ajustando los multiplicadores y compensaciones necesarias en función de las mediciones obtenidas.
 
-##### CNTR (BAC-5901)
+## PUNTOS DE ENTRADA
+
+### CNTR (BAC-5901)
 
 > * **IN03** `` 
 
-#### PUNTOS DE SALIDA
+## PUNTOS DE SALIDA
 
-##### CNTR (BAC-5901)
+### CNTR (BAC-5901)
 
 > * **OUT01** `` 

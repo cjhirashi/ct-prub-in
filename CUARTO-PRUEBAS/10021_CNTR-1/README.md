@@ -49,9 +49,9 @@ El programa PRG5_UMA se encarga del control periódico de una Unidad de Manejo d
 
 ---
 
-#### PUNTOS DE ENTRADA
+## PUNTOS DE ENTRADA
 
-##### CNTR (BAC-5901)
+### CNTR (BAC-5901)
 
 > * **IN03** `P1_VM_DP` PLENUM 1, VAV 01 - MEDIANA, PRES DIF
 > * **IN04** `P1_VG_DP` PLENUM 1, VAV 02 - GRANDE, PRES DIF
@@ -62,7 +62,7 @@ El programa PRG5_UMA se encarga del control periódico de una Unidad de Manejo d
 > * **IN09** `P4_VC_DP` PLENUM 4, VAV 03 - CHICA, PRES DIF
 > * **IN10** `P5_VC_DP` PLENUM 5, VAV 01 - CHICA, PRES DIF
 
-##### EXP-1 (CAN-5901)
+### EXP-1 (CAN-5901)
 
 > * **IN11** `P5_VG_DP` PLENUM 5, VAV 02 - GRANDE, PRES DIF
 > * **IN12** `P6_VG_DP` PLENUM 6, VAV 01 - GRANDE, PRES DIF
@@ -73,7 +73,7 @@ El programa PRG5_UMA se encarga del control periódico de una Unidad de Manejo d
 > * **IN17** `P3_VG_DP` PLENUM 1, VAV 01 - GRANDE, PRES DIF
 > * **IN18** `P1_DP-1` PLENUM 1, CAIDA DE PRESION 1
 
-##### EXP-2 (CAN-5901)
+### EXP-2 (CAN-5901)
 
 > * **IN19** `SAT` TEMPERATURA DE SUMINISTRO DE AIRE
 > * **IN20** `V1_T1` VELOCIDAD DE AIRE 1, TIRO 1
@@ -84,9 +84,9 @@ El programa PRG5_UMA se encarga del control periódico de una Unidad de Manejo d
 > * **IN25** `V6_T1` VELOCIDAD DE AIRE 6, TIRO 1
 > * **IN26** `V7_T1` VELOCIDAD DE AIRE 7, TIRO 1
 
-#### PUNTOS DE SALIDA
+## PUNTOS DE SALIDA
 
-##### CNTR (BAC-5901)
+### CNTR (BAC-5901)
 
 > * **OUT01** `P1_VM_A` PLENUM 1, VAV 01 - MEDIANA, COMPUERTA
 > * **OUT02** `P1_VG_A` PLENUM 1, VAV 02 - GRANDE, COMPUERTA
@@ -97,7 +97,7 @@ El programa PRG5_UMA se encarga del control periódico de una Unidad de Manejo d
 > * **OUT07** `P4_VC_A` PLENUM 4, VAV 03 - CHICA, COMPUERTA
 > * **OUT08** `P5_VC_A` PLENUM 5, VAV 01 - CHICA, COMPUERTA
 
-##### EXP-1 (CAN-5901)
+### EXP-1 (CAN-5901)
 
 > * **OUT09** `P5_VG_A` PLENUM 5, VAV 02 - GRANDE, COMPUERTA
 > * **OUT10** `P6_VG_A` PLENUM 6, VAV 01 - GRANDE, COMPUERTA
@@ -108,7 +108,7 @@ El programa PRG5_UMA se encarga del control periódico de una Unidad de Manejo d
 > * **OUT15** `P1_VG_AB` PLENUM 1, VAV 02 - GRANDE, COMP BLOQ
 > * **OUT16** `P2_VM_AB` PLENUM 2, VAV 01 - MEDIANA, COMP BLOQ
 
-##### EXP-1 (CAN-5901)
+### EXP-1 (CAN-5901)
 
 > * **OUT17** `PR7_VC_AB` PLENUM 1, VAV 01 - MEDIANA, COMP BLOQ
 > * **OUT18** `PR7_VG_AB` PLENUM 1, VAV 02 - GRANDE, COMP BLOQ
