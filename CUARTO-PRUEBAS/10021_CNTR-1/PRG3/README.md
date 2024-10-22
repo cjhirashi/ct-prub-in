@@ -1,597 +1,331 @@
-# PRG3 PLENUMS - v2.0.0
-
-Asignación de variables de control a parametros de cajas de plenum activo.
-
-## DECLARACION DE VARIABLES DEL SISTEMA
-
-1. CONSTANTES: Rango de operación de caudal por caja VAV ( ***Caudal máximo***, ***Caudal mínimo*** )
-
-    - **PLENUM_1**
-        > ***GRANDE***
-        >
-        > `P1_VG_QMAX` = **3000** [3200] 	( *CFM* )	| Caudal máximo
-        >
-        > `P1_VG_QMIN` = **1100** [500] 	( *CFM* )	| Caudal mínimo
-
-        > ***MEDIANA***
-        >
-        > `P1_VM_QMAX` = **850** [1050] 	( *CFM* )	| Caudal máximo
-        >
-        > `P1_VM_QMIN` = **350** [175] 	    ( *CFM* )	| Caudal mínimo
-
-        > ***CHICA***
-        >
-        > `P1_VC_QMAX` = **200** [250] 	    ( *CFM* )	| Caudal máximo
-        >
-        > `P1_VC_QMIN` = **75** [45] 	    ( *CFM* )	| Caudal mínimo
-
-    - **PLENUM_2**
-        > ***GRANDE***
-        >
-        > `P2_VG_QMAX` = **2000** [2350] 	( *CFM* )	| Caudal máximo
-        >
-        > `P2_VG_QMIN` = **850** [400] 	    ( *CFM* )	| Caudal mínimo
-
-        > ***MEDIANA***
-        >
-        > `P2_VM_QMAX` = **650** [800] 	    ( *CFM* )	| Caudal máximo
-        >
-        > `P2_VM_QMIN` = **275** [140] 	    ( *CFM* )	| Caudal mínimo
+# PRG3_PLENUMS
+
+- **CONTROLADOR:** Cuarto Control 1
+- **DESCRIPCIÓN:** Programa para gestionar y controlar el flujo de aire en un sistema de múltiples *plenum* mediante el uso de cajas VAV. La lógica del programa asigna caudales, controla las compuertas de las cajas, supervisa la presión en los *plenum* activos y ajusta los límites operativos de cada caja VAV de acuerdo a la demanda y las configuraciones establecidas.
+- **VERSIÓN:** 2.0.0
+- **AUTOR:** Carlos Jiménez Hirashi - @cjhirashi
+
+---
+
+# Variables de Control del Programa PRG3_PLENUMS
+
+## Sistema de Control de Presión y Caudal
+
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                                  |
+|-----------------|---------------|-------------------------------------------------|
+| **AI18**        | *"WC*         | Caída de presión de Plenum 1, sensor 1.         |
+| **10022.AI3**   | *"WC*         | Caída de presión de Plenum 1, sensor 2.         |
+| **10022.AI4**   | *"WC*         | Caída de presión de Plenum 2.                   |
+| **10022.AI5**   | *"WC*         | Caída de presión de Plenum 4.                   |
+| **10022.AI6**   | *"WC*         | Caída de presión de Plenum 5.                   |
+| **10022.AI7**   | *"WC*         | Caída de presión de Plenum 6.                   |
+
+## Sistema de Caudales de Aire de Cajas VAV
+
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                                   |
+|-----------------|---------------|--------------------------------------------------|
+| **AV4**         | CFM           | Caudal de aire de Plenum 1, caja mediana.        |
+| **AV8**         | CFM           | Caudal de aire de Plenum 1, caja grande.         |
+| **AV13**        | CFM           | Caudal de aire de Plenum 2, caja mediana.        |
+| **AV17**        | CFM           | Caudal de aire de Plenum 2, caja grande.         |
+| **AV22**        | CFM           | Caudal de aire de Plenum 4, caja mediana.        |
+| **AV26**        | CFM           | Caudal de aire de Plenum 4, caja grande.         |
+| **AV30**        | CFM           | Caudal de aire de Plenum 4, caja chica.          |
+| **AV35**        | CFM           | Caudal de aire de Plenum 5, caja chica.          |
+| **AV39**        | CFM           | Caudal de aire de Plenum 5, caja grande.         |
+| **AV44**        | CFM           | Caudal de aire de Plenum 6, caja grande.         |
+| **AV48**        | CFM           | Caudal de aire de Plenum 6, caja mediana.        |
+| **AV53**        | CFM           | Caudal de aire de Plenum 7, caja chica.          |
+| **AV57**        | CFM           | Caudal de aire de Plenum 7, caja grande.         |
+| **AV62**        | CFM           | Caudal de aire de Plenum 1, caja chica.          |
+| **AV66**        | CFM           | Caudal de aire de Plenum 3, caja grande.         |
+
+## Sistema de Demanda y Setpoints de Caudal
+
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                                   |
+|-----------------|---------------|--------------------------------------------------|
+| **AV80**        | CFM           | Caudal de aire requerido, caja grande.           |
+| **AV81**        | CFM           | Caudal de aire requerido, caja chica.            |
+| **AV82**        | CFM           | Demanda de caudal de aire, caja grande.          |
+| **AV83**        | CFM           | Demanda de caudal de aire, caja mediana.         |
+| **AV84**        | CFM           | Demanda de caudal de aire, caja chica.           |
+| **AV107**       | CFM           | Setpoint de caudal de caja grande.               |
+| **AV108**       | CFM           | Setpoint de caudal de caja mediana.              |
+| **AV109**       | CFM           | Setpoint de caudal de caja chica.                |
+| **AV110**       | CFM           | Setpoint de caudal de caja grande, Plenum 7.     |
+| **AV111**       | CFM           | Setpoint de caudal de caja chica, Plenum 7.      |
+| **AV112**       | CFM           | Caudal mínimo de operación, caja grande.         |
+| **AV113**       | CFM           | Caudal máximo de operación, caja grande.         |
+| **AV114**       | CFM           | Caudal mínimo de operación, caja mediana.        |
+| **AV115**       | CFM           | Caudal máximo de operación, caja mediana.        |
+| **AV116**       | CFM           | Caudal mínimo de operación, caja chica.          |
+| **AV117**       | CFM           | Caudal máximo de operación, caja chica.          |
+
+## Sistema de Control de Compuertas y Estado de Plenum
+
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                                   |
+|-----------------|---------------|--------------------------------------------------|
+| **BV2**         | Binario       | Estado general de plenum activo.                 |
+| **BV3**         | Binario       | Estado de plenum 1.                              |
+| **BV4**         | Binario       | Estado de plenum 2.                              |
+| **BV5**         | Binario       | Estado de plenum 3.                              |
+| **BV6**         | Binario       | Estado de plenum 4.                              |
+| **BV7**         | Binario       | Estado de plenum 5.                              |
+| **BV8**         | Binario       | Estado de plenum 6.                              |
+| **BV9**         | Binario       | Permisivo de operación de caja VAV 1.            |
+| **BV10**        | Binario       | Permisivo de operación de caja VAV 2.            |
+| **BV11**        | Binario       | Permisivo de operación de caja VAV 3.            |
+
+## Sistema de Caídas de Presión y Variables de Salida
+
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                                   |
+|-----------------|---------------|--------------------------------------------------|
+| **AV98**        | CFM           | Caudal de aire activo, caja grande.              |
+| **AV99**        | CFM           | Caudal de aire activo, caja mediana.             |
+| **AV100**       | CFM           | Caudal de aire activo, caja chica.               |
+| **AV101**       | CFM           | Suma total de caudal de aire activo.             |
+| **AV105**       | *"WC*         | Caída de presión en el plenum activo, sensor 1.  |
+| **AV106**       | *"WC*         | Caída de presión en el plenum activo, sensor 2.  |
+
+---
+
+# Listado de Variables Locales del Programa PRG3_PLENUMS
+
+1. **P1_VG_QMAX**  
+   - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja grande en Plenum 1.  
+   - ***UNIDADES:*** CFM.
+
+2. **P1_VM_QMAX**  
+   - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja mediana en Plenum 1.  
+   - ***UNIDADES:*** CFM.
+
+3. **P1_VC_QMAX**  
+   - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja chica en Plenum 1.  
+   - ***UNIDADES:*** CFM.
 
-    - **PLENUM_3**
-        > ***GRANDE***
-        >
-        > `P3_VG_QMAX` = **1350** [1450] 	( *CFM* )	| Caudal máximo
-        >
-        > `P3_VG_QMIN` = **575** [290] 	    ( *CFM* )	| Caudal mínimo
+4. **P1_VG_QMIN**  
+   - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja grande en Plenum 1.  
+   - ***UNIDADES:*** CFM.
 
-    - **PLENUM_4**
-        > ***GRANDE***
-        >
-        > `P4_VG_QMAX` = **3000** [3200] 	( *CFM* )	| Caudal máximo
-        >
-        > `P4_VG_QMIN` = **1100** [500] 	( *CFM* )	| Caudal mínimo
+5. **P1_VM_QMIN**  
+   - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja mediana en Plenum 1.  
+   - ***UNIDADES:*** CFM.
 
-        > ***MEDIANA***
-        >
-        > `P4_VM_QMAX` = **850** [1050] 	( *CFM* )	| Caudal máximo
-        >
-        > `P4_VM_QMIN` = **350** [175] 	    ( *CFM* )	| Caudal mínimo
+6. **P1_VC_QMIN**  
+   - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja chica en Plenum 1.  
+   - ***UNIDADES:*** CFM.
 
-        > ***CHICA***
-        >
-        > `P4_VC_QMAX` = **200** [250] 	    ( *CFM* )	| Caudal máximo
-        >
-        > `P4_VC_QMIN` = **75** [45]	 	( *CFM* )	| Caudal mínimo
+7. **P2_VG_QMAX**  
+   - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja grande en Plenum 2.  
+   - ***UNIDADES:*** CFM.
 
-    - **PLENUM_5**
-        > ***GRANDE***
-        >
-        > `P5_VG_QMAX` = **4000** [4200] 	( *CFM* )	| Caudal máximo
-        >
-        > `P5_VG_QMIN` = **1500** [700] 	( *CFM* )	| Caudal mínimo
+8. **P2_VM_QMAX**  
+   - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja mediana en Plenum 2.  
+   - ***UNIDADES:*** CFM.
 
-        > ***CHICA***
-        >
-        > `P5_VC_QMAX` = **300** [400] 	    ( *CFM* )	| Caudal máximo
-        >
-        > `P5_VC_QMIN` = **125** [70]	 	( *CFM* )	| Caudal mínimo
+9. **P2_VG_QMIN**  
+   - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja grande en Plenum 2.  
+   - ***UNIDADES:*** CFM.
 
-    - **PLENUM_6**
-        > ***GRANDE***
-        >
-        > `P6_VG_QMAX` = **3000** [3200] 	( *CFM* )	| Caudal máximo
-        >
-        > `P6_VG_QMIN` = **1100** [500] 	( *CFM* )	| Caudal mínimo
+10. **P2_VM_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja mediana en Plenum 2.  
+    - ***UNIDADES:*** CFM.
 
-        > ***MEDIANA***
-        >
-        > `P6_VM_QMAX` = **850** [1050] 	( *CFM* )	| Caudal máximo
-        >
-        > `P6_VM_QMIN` = **350** [175] 	    ( *CFM* )	| Caudal mínimo
+11. **P3_VG_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja grande en Plenum 3.  
+    - ***UNIDADES:*** CFM.
 
-    - **PLENUM_7R**
-        > ***GRANDE***
-        >
-        > `P7_VG_QMAX` = **3000** [3200] 	( *CFM* )	| Caudal máximo
-        >
-        > `P7_VG_QMIN` = **1100** [500] 	( *CFM* )	| Caudal mínimo
+12. **P3_VG_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja grande en Plenum 3.  
+    - ***UNIDADES:*** CFM.
 
-        > ***CHICA***
-        >
-        > `P7_VC_QMAX` = **200** [250] 	    ( *CFM* )	| Caudal máximo
-        >
-        > `P7_VC_QMIN` = **75** [45]	 	( *CFM* )	| Caudal mínimo
+13. **P4_VG_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja grande en Plenum 4.  
+    - ***UNIDADES:*** CFM.
 
-2. VARIABLES: Operación del sistema de control de caudales por Plenum
+14. **P4_VM_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja mediana en Plenum 4.  
+    - ***UNIDADES:*** CFM.
 
-    > `PLENUM` = **MSV1**					| Selector de plenum en operación
-    >
-    > `SS_CP` = **BV1**		( *On/Off* )	| Activación de sistema de control, cuarto de pruebas 
+15. **P4_VC_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja chica en Plenum 4.  
+    - ***UNIDADES:*** CFM.
 
-3. VARIABLES: Demanda de cajas en plenum activo para operación
+16. **P4_VG_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja grande en Plenum 4.  
+    - ***UNIDADES:*** CFM.
 
-    - **CAJA GRANDE**
+17. **P4_VM_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja mediana en Plenum 4.  
+    - ***UNIDADES:*** CFM.
 
-        > `Q_GR_DM` = **AV82**	( *%* )			| Demanda de caudal
+18. **P4_VC_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja chica en Plenum 4.  
+    - ***UNIDADES:*** CFM.
 
-    - **CAJA MEDIANA**
+19. **P5_VG_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja grande en Plenum 5.  
+    - ***UNIDADES:*** CFM.
 
-        > `Q_MD_DM` = **AV83**	( *%* )			| Demanda de caudal
+20. **P5_VC_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja chica en Plenum 5.  
+    - ***UNIDADES:*** CFM.
 
-    - **CAJA CHICA**
+21. **P5_VG_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja grande en Plenum 5.  
+    - ***UNIDADES:*** CFM.
 
-        > `Q_CH_DM` = **AV84** 	( *%* )			| Demanda de caudal
+22. **P5_VC_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja chica en Plenum 5.  
+    - ***UNIDADES:*** CFM.
 
-    - **CAJA GRANDE** ( RETORNO )
+23. **P6_VG_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja grande en Plenum 6.  
+    - ***UNIDADES:*** CFM.
 
-        > `QR_GR_DM` = **AV80**	( *%* )			| Demanda de caudal
+24. **P6_VM_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja mediana en Plenum 6.  
+    - ***UNIDADES:*** CFM.
 
-    - **CAJA_CHICA** ( RETORNO )
+25. **P6_VG_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja grande en Plenum 6.  
+    - ***UNIDADES:*** CFM.
 
-        > `QR_CH_DM` = **AV81**	( *%* )			| Demanda de caudal
+26. **P6_VM_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja mediana en Plenum 6.  
+    - ***UNIDADES:*** CFM.
 
-4. VARIABLES: Setpoint de caudales para cajas de plenum activo
+27. **P7_VG_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja grande en Plenum 7.  
+    - ***UNIDADES:*** CFM.
 
-    - **CAJA GRANDE**
+28. **P7_VC_QMAX**  
+    - ***DESCRIPCIÓN:*** Caudal máximo permitido para caja chica en Plenum 7.  
+    - ***UNIDADES:*** CFM.
 
-        > `SP_Q_VG` = **AV107**	( *CFM* )		| Setpoint de caudal
+29. **P7_VG_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja grande en Plenum 7.  
+    - ***UNIDADES:*** CFM.
 
-    - **CAJA MEDIANA**
+30. **P7_VC_QMIN**  
+    - ***DESCRIPCIÓN:*** Caudal mínimo permitido para caja chica en Plenum 7.  
+    - ***UNIDADES:*** CFM.
 
-        > `SP_Q_VM` = **AV108**	( *CFM* )		| Setpoint de caudal
+31. **PLENUM**  
+    - ***DESCRIPCIÓN:*** Identificador del plenum activo en el sistema.  
+    - ***UNIDADES:*** Sin unidades.
 
-    - **CAJA CHICA**
+32. **SS_CP**  
+    - ***DESCRIPCIÓN:*** Selector del sistema de control principal (activo/inactivo).  
+    - ***UNIDADES:*** Sin unidades.
 
-        > `SP_Q_VC` = **AV109**	( *CFM* )		| Setpoint de caudal
+33. **SP_Q_VG**  
+    - ***DESCRIPCIÓN:*** Setpoint de caudal para caja grande.  
+    - ***UNIDADES:*** CFM.
 
-    - **CAJA GRANDE** ( RETORNO )
+34. **SP_Q_VM**  
+    - ***DESCRIPCIÓN:*** Setpoint de caudal para caja mediana.  
+    - ***UNIDADES:*** CFM.
 
-        > `SP_Q_VGR` = **AV110**	( *CFM* )		| Setpoint de caudal
+35. **SP_Q_VC**  
+    - ***DESCRIPCIÓN:*** Setpoint de caudal para caja chica.  
+    - ***UNIDADES:*** CFM.
 
-    - **CAJA CHICA** ( RETORNO )
+36. **SP_Q_VGR**  
+    - ***DESCRIPCIÓN:*** Setpoint de caudal para caja grande, Plenum 7.  
+    - ***UNIDADES:*** CFM.
 
-        > `SP_Q_VCR` = **AV111**	( *CFM* )		| Setpoint de caudal
+37. **SP_Q_VCR**  
+    - ***DESCRIPCIÓN:*** Setpoint de caudal para caja chica, Plenum 7.  
+    - ***UNIDADES:*** CFM.
 
-5. VARIABLES: Caudal de aire de cajas VAV
+38. **DP_1**  
+    - ***DESCRIPCIÓN:*** Variable de presión diferencial en el plenum activo, sensor 1.  
+    - ***UNIDADES:*** *"WC.*
 
-    - **PLENUM 1**
+39. **DP_2**  
+    - ***DESCRIPCIÓN:*** Variable de presión diferencial en el plenum activo, sensor 2.  
+    - ***UNIDADES:*** *"WC.*
 
-        > `P1_VM_Q` = **AV4**	( *CFM* )		| Caudal, VAV mediana 
-        >
-        > `P1_VG_Q` = **AV8**	( *CFM* )		| Caudal, VAV grande 
-        >
-        > `P1_VC_Q` = **AV62**	( *CFM* )	    | Caudal, VAV chica 
+40. **ST_P1**  
+    - ***DESCRIPCIÓN:*** Estado de operación de Plenum 1.  
+    - ***UNIDADES:*** Sin unidades.
 
-    - **PLENUM 2**
+41. **ST_P2**  
+    - ***DESCRIPCIÓN:*** Estado de operación de Plenum 2.  
+    - ***UNIDADES:*** Sin unidades.
 
-        > `P2_VM_Q` = **AV13**	( *CFM* )		| Caudal, VAV mediana 
-        >
-        > `P2_VG_Q` = **AV17**	( *CFM* )		| Caudal, VAV grande 
+42. **ST_P3**  
+    - ***DESCRIPCIÓN:*** Estado de operación de Plenum 3.  
+    - ***UNIDADES:*** Sin unidades.
 
-    - **PLENUM 3**
+43. **ST_P4**  
+    - ***DESCRIPCIÓN:*** Estado de operación de Plenum 4.  
+    - ***UNIDADES:*** Sin unidades.
 
-        > `P3_VG_Q` = **AV66**	( *CFM* )	    | Caudal, VAV grande 
+44. **ST_P5**  
+    - ***DESCRIPCIÓN:*** Estado de operación de Plenum 5.  
+    - ***UNIDADES:*** Sin unidades.
 
-    - **PLENUM 4**
+45. **ST_P6**  
+    - ***DESCRIPCIÓN:*** Estado de operación de Plenum 6.  
+    - ***UNIDADES:*** Sin unidades.
 
-        > `P4_VM_Q` = **AV22**	( *CFM* )		| Caudal, VAV mediana 
-        >
-        > `P4_VG_Q` = **AV26**	( *CFM* )		| Caudal, VAV grande 
-        >
-        > `P4_VC_Q` = **AV30**	( *CFM* )		| Caudal, VAV chica 
+46. **ST_CP**  
+    - ***DESCRIPCIÓN:*** Estado de operación general del sistema de *plenum*.  
+    - ***UNIDADES:*** Sin unidades.
 
-    - **PLENUM 5**
+---
 
-        > `P5_VC_Q` = **AV35**	( *CFM* )		| Caudal, VAV chica 
-        >
-        > `P5_VG_Q` = **AV39**	( *CFM* )		| Caudal, VAV grande 
+# Lógica de Control del Programa PRG3_PLENUMS
 
-    - **PLENUM 6**
+## Paso 1: Limitación de Variables
 
-        > `P6_VG_Q` = **AV44**	( *CFM* )		| Caudal, VAV grande 
-        >
-        > `P6_VM_Q` = **AV48**	( *CFM* )		| Caudal, VAV mediana 
+1. **Límite de Setpoints para Cajas VAV**:  
+   Se verifica si los *setpoints* de caudal (`SP_Q_VG`, `SP_Q_VM`, `SP_Q_VC`, `SP_Q_VGR`, `SP_Q_VCR`) están dentro de los rangos permitidos. Si algún valor se encuentra fuera del límite, se ajusta al valor máximo o mínimo correspondiente.
 
-    - **PLENUM 7** ( RETORNO )
+2. **Límite de Selector de Plenum Activo**:  
+   Se valida que la variable `PLENUM` esté dentro del rango de 1 a 6. Si el valor está fuera de estos límites, se ajusta al valor mínimo o máximo permitido.
 
-        > `PR7_VC_Q` = **AV53**	( *CFM* )		| Caudal, VAV chica 
-        >
-        > `PR7_VG_Q` = **AV57**	( *CFM* )		| Caudal, VAV grande 
+## Paso 2: Sistema Activo - Asignación de Parámetros de Control a Plenum Activo
 
-6. VARIABLES: Caida de presión de aire en plenums
+1. **Asignación de Parámetros por Plenum**:  
+   Para cada *plenum*, si el sistema de control (`SS_CP`) está activo y el *plenum* actual es el seleccionado (`PLENUM`), se realizan las siguientes acciones:
 
-    - **PLENUM 1**
+   - **Asignación de Presión de Plenum**:  
+     Se asignan los valores de presión diferencial (`DP_1` y `DP_2`) correspondientes al *plenum* activo.
 
-        > `P1_DP_1` = **AI18** 	    ( *"WC"* )		| Presión diferencial 1
-        >
-        > `P1_DP_2`	= 10022.**AI3** ( *"WC"* )		| Presión diferencial 2 ( ***sicronización cada 5 seg*** ) 
+   - **Bloqueo de Permisivos de Operación**:  
+     Se gestionan los permisos de operación mediante variables binarias (`BV9`, `BV10`, `BV11`), estableciéndolas según los requerimientos del *plenum* activo.
 
-    - **PLENUM 2**
+   - **Límite de Caudal por Tamaño de Caja**:  
+     Se asignan los límites de caudal (`MAX_VG`, `MIN_VG`, `MAX_VM`, `MIN_VM`, `MAX_VC`, `MIN_VC`) para las cajas del *plenum* activo.
 
-        > `P2_DP` =	10022.**AI4** 	( *"WC"* )		| Presión diferencial ( ***sicronización cada 5 seg*** )
+   - **Asignación de Caudal de Aire**:  
+     Se establecen los valores de caudal (`Q_GR`, `Q_MD`, `Q_CH`) según los flujos de aire del *plenum* activo.
 
-    - **PLENUM 4**
+   - **Asignación de Demanda de Aire**:  
+     Se asignan los caudales demandados para las cajas del *plenum* activo.
 
-        > `P4_DP` = 10022.**AI5**   ( *"WC"* )	    | Presión diferencial ( ***sicronización cada 5 seg*** )
+   - **Estado del Plenum Activo**:  
+     Se establece la variable de estado correspondiente al *plenum* activo (`ST_P1`, `ST_P2`, `ST_P3`, `ST_P4`, `ST_P5`, `ST_P6`) en 1, y el resto en 0.
 
-    - **PLENUM 5**
+## Paso 3: Sistema Inactivo - Restablecimiento de Parámetros de Control
 
-        > `P5_DP` = 10022.**AI6**   ( *"WC"* )	    | Presión diferencial ( ***sicronización cada 5 seg*** ) 
+1. **Restablecimiento de Compuertas de Cajas VAV**:  
+   Se establecen todas las variables de apertura de compuertas de cada *plenum* al 100%, indicando un estado de inactividad.
 
-    - **PLENUM 6**
+2. **Restablecimiento de Estados de Operación de Plenum**:  
+   Se restablecen todas las variables de estado (`ST_P1` a `ST_P6`) a 0, indicando que no hay *plenum* activo.
 
-        > `P6_DP` = 10022.**AI7**   ( *"WC"* )	    | Presión diferencial ( ***sicronización cada 5 seg*** ) 
+3. **Desbloqueo de Permisivos de Operación**:  
+   Se desactivan las variables binarias (`BV9`, `BV10`, `BV11`), deshabilitando los permisos de operación para las cajas VAV.
 
-7. VARIABLES (DS): Caudal de aire de cajas activas
+## Paso 4: Estado de Operación General
 
-    > **AV98** = `Q_GR` ( *CFM* )           | Caudal de aire, VAV Grande Activa
-    >
-    > **AV99** = `Q_MD` ( *CFM* )           | Caudal de aire, VAV Mediana Activa
-    >
-    > **AV100** = `Q_CH` ( *CFM* )          | Caudal de aire, VAV Chica Activa
-    >
-    > **AV101** = `Q_GR + Q_MD + Q_CH`      | Caudal total, Plenum Activo
+- Se calcula el estado general de operación del sistema (`ST_CP`) como el valor máximo de los estados de todos los *plenum*, lo cual indica si algún *plenum* se encuentra activo.
 
-8. VARIABLES (DS): Control de compuertas de VAVs
+## Resumen de la Lógica de Control
 
-    - **PLENUM 1**
+La lógica de control del programa PRG3_PLENUMS se centra en la gestión de un sistema de control de flujo de aire mediante *plenum* y cajas VAV. El sistema valida y ajusta los límites de operación, selecciona un *plenum* activo, asigna los caudales y demanda de aire, y monitoriza las caídas de presión. Cuando el sistema está activo, asigna parámetros específicos al *plenum* seleccionado, y cuando se desactiva, restablece todos los valores a un estado de inactividad. La lógica garantiza la operación segura y eficiente del sistema ajustando caudales y monitoreando estados.
 
-        > **AV85** = `P1_VM_A` ( *%* )      | Compuerta, VAV Mediana
-        >
-        > **AV86** = `P1_VG_A` ( *%* )      | Compuerta, VAV Grande
-        >
-        > **AV67** = `P1_VC_A` ( *%* )      | Compuerta, VAV Chica
-
-    - **PLENUM 2**
-
-        > **AV87** = `P2_VM_A` ( *%* )      | Compuerta, VAV Mediana
-        >
-        > **AV88** = `P2_VG_A` ( *%* )      | Compuerta, VAV Grande
-
-    - **PLENUM 3**
-
-        > **AV68** = `P3_VG_A` ( *%* )      | Compuerta, VAV Grande
-
-    - **PLENUM 4**
-
-        > **AV89** = `P4_VM_A` ( *%* )      | Compuerta, VAV Mediana
-        >  
-        > **AV90** = `P4_VG_A` ( *%* )      | Compuerta, VAV Grande
-        >
-        > **AV91** = `P$_VC_A` ( *%* )      | Compuerta, VAV Chica
-
-    - **PLENUM 5**
-
-        > **AV92** = `P5_VC_A` ( *%* )      | Compuerta, VAV Chica
-        >
-        > **AV93** = `P5_VG_A` ( *%* )      | Compuerta, VAV Grande
-
-    - **PLENUM 6**
-
-        > **AV94** = `P6_VG_A` ( *%* )      | Compuerta, VAV Grande
-        >
-        > **AV95** = `P6_VM_A` ( *%* )      | Compuerta, VAV Mediana
-
-    - **PLENUM R7**
-
-        > **AV96** = `PR7_VC_A` ( *%* )      | Compuerta, VAV Chica
-        >
-        > **AV97** = `PR7_VG_A` ( *%* )      | Compuerta, VAV Grande
-
-9. VARIABLES (DS): Estados de Plenums
-
-    > **BV3** = `ST_P1`         | Estado de plenum 1
-    >
-    > **BV4** = `ST_P2`         | Estado de plenum 2
-    >
-    > **BV5** = `ST_P3`         | Estado de plenum 3
-    >
-    > **BV6** = `ST_P4`         | Estado de plenum 4
-    >
-    > **BV7** = `ST_P5`         | Estado de plenum 5
-    >
-    > **BV8** = `ST_P6`         | Estado de plenum 6
-
-10. VARIABLES (DS): Caida de presión de plenum activo
-
-    > **AV105** = `DP_1`        | Presión diferencial 1
-    >
-    > **AV106** = `DP_2`        | Presión diferencial 2
-
-11. VARIABLES (DS): Rango de operación de caudal en VAVs activas
-
-    - **VAV GRANDE**
-
-        > **AV112** = `MIN_VG`      | Caudal mínimo
-        >
-        > **AV113** = `MAX_VG`      | Caudal máximo
-
-    - **VAV MEDIANA**
-        
-        > **AV114** = `MIN_VM`      | Caudal mínimo
-        >
-        > **AV115** = `MAX_VM`      | Caudal máximo
-
-    - **VAV CHICA**
-        
-        > **AV116** = `MIN_VC`      | Caudal mínimo
-        >
-        > **AV117** = `MAN_VC`      | Caudal máximo
-
-<!-- ## SINCRONIZACION DE DATOS
-
-1. Rangos máximo y mínimo de cajas de retorno, cotrol remoto Controlador 2 - cada 10 seg.
-
-    - **VAV GRANDE**
-
-        > 10022.**AV120** = `P7_VG_QMAX`      | Caudal máximo
-        >
-        > 10022.**AV121** = `P7_VG_QMIN`      | Caudal mínimo
-
-    - **VAV CHICA**
-
-        > 10022.**AV122** = `P7_VC_QMAX`      | Caudal máximo
-        >
-        > 10022.**AV123** = `P7_VC_QMIN`      | Caudal mínimo
-
-2. Variables de operación para equipo, control remoto Controlador 2 - cada 10 seg.
-
-    > 10022.**BV10** = **BV1**          | Activación, cuarto de pruebas
-    >
-    > 10022.**MSV1** = **MSV1**         | Plenum en operación
-    >
-    > 10022.**AV16** = **AV107**        | Setpoint, VAV Grande
-    >
-    > 10022.**AV17** = **AV108**        | Setpoint, VAV Mediana
-    >
-    > 10022.**AV18** = **AV109**        | Setpoint, VAV Chica
-    >
-    > 10022.**BV9** = **BV9**           | Permisivo, VAV Grande
-    >
-    > 10022.**BV10** = **BV10**         | Permisivo, VAV Mediana
-    >
-    > 10022.**BV11** = **BV11**         | Permisivo, VAV Chica -->
-
-## LOGICA DE CONTROL
-
-### ASIGNACION DE LIMITES A VARIABLES
-
-1. Limita la asignación del setpoint dada por el usuario, para que el valor nunca quede fuera del rango de operación de la VAV
-
-    - VAV GRANDE
-
-    ```basic
-    IF SP_Q_VG > MAX_VG THEN AV107@8 = MAX_VG
-	IF SP_Q_VG < MIN_VG THEN AV107@8 = MIN_VG
-    ```
-
-    - VAV MEDIANA
-
-    ```basic
-    IF SP_Q_VM > MAX_VM THEN AV108@8 = MAX_VM
-	IF SP_Q_VM < MIN_VM THEN AV108@8 = MIN_VM
-    ```
-
-    - VAV CHICA
-
-    ```basic
-    IF SP_Q_VC > MAX_VC THEN AV109@8 = MAX_VC
-	IF SP_Q_VC < MIN_VC THEN AV109@8 = MIN_VC
-    ```
-
-    - VAV GRANDE ( RETORNO )
-
-    ```basic
-    IF SP_Q_VGR > P7_VG_QMAX THEN AV110@8 = P7_VG_QMAX
-	IF SP_Q_VGR < P7_VG_QMIN THEN AV110@8 = P7_VG_QMIN
-    ```
-
-    - VAV CHICA ( RETORNO )
-
-    ```basic
-    IF SP_Q_VCR > P7_VC_QMAX THEN AV111@8 = P7_VC_QMAX
-	IF SP_Q_VCR < P7_VC_QMIN THEN AV111@8 = P7_VC_QMIN
-    ```
-
-2. Limita la asignación de opciones del plenum, rango de 1 a 6
-
-    ```basic
-    IF PLENUM < 1 THEN PLENUM = 1
-	IF PLENUM > 6 THEN PLENUM = 6
-    ```
-____________________
-
-### SISTEMA ACTIVO - ASIGNACION DE PARAMETROS DE CONTROL A PLENUM ACTIVO
-
-El usuario debe seleccionar qué *Plenum* `PLENUM` requiere activar, esto conectará todas las variables de operación a las cajas del *Plenum* activado.
-
-#### PRESION DE PLENUM
-
-Se asigna la caida de presión correspondiente al plenum activo, el *Plenum 1* cuenta con dos sensores que miden la caida de presión del *Plenum*, el resto de los *Plenums* solo cuentan con un sensor de caida de presión.
-
-*Plenum* con **2** sensores.
-```basic
-DP_1 = P{#}_DP_1
-DP_2 = P{#}_DP_2
-```
-
-*Plenum* con **1** sensor.
-```basic
-DP_1 = P{#}_DP_1
-DP_2 = 0
-```
-
-#### BLOQUEO DE PERMISIVO DE OPERACION
-
-Se bloquean el permisivos de operación en el plenum activo si no se cuenta con un tamaño de caja
-
-Si cuenta con todos los tamaños de caja
-```basic
-RLQ BV9@7
-RLQ BV10@7
-RLQ BV11@7
-```
-
-Si no cuenta con caja mediana
-```basic
-RLQ BV9@7
-BV10@7 = 0
-RLQ BV11@7
-```
-
-Si no cuenta con caja chica
-```basic
-RLQ BV9@7
-RLQ BV10@7
-BV11@7 = 0
-```
-
-#### LIMITE DE CAUDAL POR TAMAÑO DE CAJA
-
-Se asignan los límites de operación de las cajas del plenum activo
-
-Si cuenta con todos los tamaños de caja
-```basic
-MAX_VG = P{#}_VG_QMAX
-MIN_VG = P{#}_VG_QMIN
-MAX_VM = P{#}_VM_QMAX
-MIN_VM = P{#}_VM_QMIN
-MAX_VC = P{#}_VC_QMAX
-MIN_VC = P{#}_VC_QMIN
-```
-
-Si no cuenta con caja mediana
-```basic
-MAX_VG = P{#}_VG_QMAX
-MIN_VG = P{#}_VG_QMIN
-MAX_VM = 0
-MIN_VM = 0
-MAX_VC = P{#}_VC_QMAX
-MIN_VC = P{#}_VC_QMIN
-```
-
-Si no cuenta con caja chica
-```basic
-MAX_VG = P{#}_VG_QMAX
-MIN_VG = P{#}_VG_QMIN
-MAX_VM = P{#}_VM_QMAX
-MIN_VM = P{#}_VM_QMIN
-MAX_VC = 0
-MIN_VC = 0
-```
-
-#### CAUDAL DE AIRE
-
-Se conecta la medición de caudales de las cajas del plenum activo a las variables de control
-
-Si cuenta con todos los tamaños de caja
-```basic
-Q_GR = P{#}_VG_Q
-Q_MD = P{#}_VM_Q
-Q_CH = P{#}_VC_Q
-```
-
-Si no cuenta con caja mediana
-```basic
-Q_GR = P{#}_VG_Q
-Q_MD = 0
-Q_CH = P{#}_VC_Q
-```
-
-Si no cuenta con caja chica
-```basic
-Q_GR = P{#}_VG_Q
-Q_MD = P{#}_VM_Q
-Q_CH = 0
-```
-
-#### DEMANDA DE AIRE
-
-Se asigna el control de demanda de aire a las compuertas de las VAV del Plenum activo.
-
-Ejemplo de asignación, Plenum 1 activo.
-```basic
-P1_VG_A = Q_GR_DM
-P1_VM_A = Q_MD_DM
-P1_VC_A = Q_CH_DM
-P2_VG_A = 0
-P2_VM_A = 0
-P3_VG_A = 0
-P4_VG_A = 0
-P4_VM_A = 0
-P4_VC_A = 0
-P5_VG_A = 0
-P5_VC_A = 0
-P6_VG_A = 0
-P6_VM_A = 0
-```
-
-En el caso de la cajas del Plenum de retorno, la asignación se hacer directa, ya que solo hay un Plenum de retorno.
-
-```basic
-PR7_VG_A = QR_GR_DM
-PR7_VC_A = QR_CH_DM
-```
-
-#### ESTADO DE PLENUM ACTIVO
-
-Se asigna el estado de los Plenums.
-
-Ejemplo de estado, Plenum 1 activo.
-```basic
-ST_P1 = 1
-ST_P2 = 0
-ST_P3 = 0
-ST_P4 = 0
-ST_P5 = 0
-ST_P6 = 0
-```
-
-### SISTEMA INACTIVO - RESTABLECIMIENTO DE PARAMETROS DE CONTROL
-
-Si el sistema se encuentra inactivo `SS_CP` = ***Off***, todas las compuertas de las VAV tomarán un estado general
-
-```basic
-IF SS_CP = 0 THEN
-
-	REM **COMPUERTAS DE CAJAS VAV
-		P1_VG_A = 100
-		P1_VM_A = 100
-		P1_VC_A = 100
-		P2_VG_A = 100
-		P2_VM_A = 100
-		P3_VG_A = 100
-		P4_VG_A = 100
-		P4_VM_A = 100
-		P4_VC_A = 100
-		P5_VG_A = 100
-		P5_VC_A = 100
-		P6_VG_A = 100
-		P6_VM_A = 100
-		PR7_VG_A = 100
-		PR7_VC_A = 100
-
-	REM **ESTADOS DE OPERACION DE PLENUMS
-		ST_P1 = 0
-		ST_P2 = 0
-		ST_P3 = 0
-		ST_P4 = 0
-		ST_P5 = 0
-		ST_P6 = 0
-
-	REM **PERMISIVOS DE OPERACION POR TAMANO DE CAJA
-		BV9@7 = 0
-		BV10@7 = 0
-		BV11@7 = 0
-		
-ENDIF
-```
-
-### ESTADO DE OPERACIÓN GENERAL
-
-La variable de estado de operación general `ST_CP` se activa cuando detecta un plenum activo.
-
-```basic
-ST_CP = MAX(ST_P1, ST_P2, ST_P3, ST_P4, ST_P5, ST_P6)
-```
