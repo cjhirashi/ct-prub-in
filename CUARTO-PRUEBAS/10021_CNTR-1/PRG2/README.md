@@ -5,6 +5,10 @@
 - **VERSIÓN:** 2.0.0
 - **AUTOR:** Carlos Jiménez Hirashi - @cjhirashi
 
+# Proposito general
+
+El propósito del programa es gestionar el control de las compuertas de las VAV en diferentes plenums (espacios de distribución de aire) de un sistema HVAC. Cada plenum contiene una o más VAVs con diferentes tamaños (mediana, grande, chica). El control se basa en la "demanda" de cada VAV y los parámetros definidos, como el umbral de apertura (P_APER) y un intervalo de sincronización (SINC).
+
 # Variables de Control del Sistema de VAVs
 
 ## Plenum 1
@@ -141,7 +145,7 @@
      - `AOxx` se utiliza para controlar la apertura de las compuertas de los VAVs.
      - `BOxx` se utiliza para el estado del bloque de control de las compuertas.
 
-7. **Sincronización de Estados en Plenums Específicos**
+7. **Sincronización de Estados en Plenums Específicos (Variables de control remotas)**
    - En algunos *Plenums*, se requiere una sincronización periódica:
      - Se verifica la condición `IF INTERVAL(SINC)` para sincronizar los estados de los bloques de control (`CM_BL`).
      - Si la condición se cumple, se asignan los valores de `CM_BL` a puntos de control externos (`10022.BOx`).
