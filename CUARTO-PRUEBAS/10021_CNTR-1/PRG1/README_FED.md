@@ -1,11 +1,11 @@
 # PRG1_SENSORES
-- Controlador: Cuarto Control 1
+- **Controlador:** Cuarto Control 1
 
-- Descripción: Este programa está diseñado para la lectura, cálculo y monitoreo de caudales en unidades de volumen de aire variable (VAV) en un sistema HVAC. Utiliza mediciones de presión diferencial (DP) para calcular los caudales de flujo de aire (`CFM`) de diferentes VAVs distribuidos en varios plenums. El programa aplica fórmulas de conversión y calibración para obtener caudales precisos y calcula el caudal total por cada plenum.
+- **Descripción:** Este programa está diseñado para la lectura, cálculo y monitoreo de caudales en unidades de volumen de aire variable (VAV) en un sistema HVAC. Utiliza mediciones de presión diferencial (DP) para calcular los caudales de flujo de aire (`CFM`) de diferentes VAVs distribuidos en varios plenums. El programa aplica fórmulas de conversión y calibración para obtener caudales precisos y calcula el caudal total por cada plenum.
 
-- Versión: 2.0.0
+- **Versión:** 2.0.0
 
-- Autor: Carlos Jimenez Hirashi - @cjhirashi
+- **Autor:** Carlos Jimenez Hirashi - @cjhirashi
 
 ---
 
@@ -13,134 +13,134 @@
 
 #### **PLENUM 1**
 
-- **AV9.10021** | `CFM` | *CFM* | Caudal total del Plenum
+- **AV9** | `CFM` | *CFM* | Caudal total del Plenum
 
 **VAV 01 - Mediana**
-- **AI3.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV1.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV2.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV3.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV4.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI3** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV1** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV2** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV3** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV4** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 **VAV 02 - Grande**
-- **AI4.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV5.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV6.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV7.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV8.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI4** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV5** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV6** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV7** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV8** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 **VAV 03 - Chica**
-- **AI16.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV59.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV60.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV61.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV62.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI16** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV59** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV60** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV61** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV62** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 #### **PLENUM 2**
 
-- **AV18.10021** | `CFM` | *CFM* | Caudal total del Plenum
+- **AV18** | `CFM` | *CFM* | Caudal total del Plenum
 
 **VAV 01 - Mediana**
-- **AI5.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV10.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV11.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV12.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV13.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI5** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV10** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV11** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV12** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV13** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 **VAV 02 - Grande**
-- **AI6.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV14.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV15.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV16.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV17.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI6** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV14** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV15** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV16** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV17** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 #### **PLENUM 3**
 
 **VAV 01 - Grande**
-- **AI17.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV63.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV64.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV65.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV66.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI17** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV63** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV64** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV65** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV66** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 #### **PLENUM 4**
 
-- **AV31.10021** | `CFM` | *CFM* | Caudal total del Plenum
+- **AV31** | `CFM` | *CFM* | Caudal total del Plenum
 
 **VAV 01 - Mediana**
-- **AI7.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV19.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV20.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV21.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV22.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI7** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV19** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV20** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV21** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV22** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 **VAV 02 - Grande**
-- **AI8.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV23.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV24.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV25.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV26.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI8** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV23** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV24** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV25** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV26** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 **VAV 03 - Chica**
-- **AI9.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV27.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV28.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV29.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV30.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI9** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV27** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV28** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV29** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV30** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 #### **PLENUM 5**
 
-- **AV40.10021** | `CFM` | *CFM* | Caudal total del Plenum
+- **AV40** | `CFM` | *CFM* | Caudal total del Plenum
 
 **VAV 01 - Chica**
-- **AI10.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV32.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV33.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV34.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV35.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI10** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV32** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV33** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV34** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV35** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 **VAV 02 - Grande**
-- **AI11.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV36.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV37.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV38.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV39.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI11** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV36** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV37** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV38** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV39** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 #### **PLENUM 6**
 
-- **AV49.10021** | `CFM` | *CFM* | Caudal total del Plenum
+- **AV49** | `CFM` | *CFM* | Caudal total del Plenum
 
 **VAV 01 - Grande**
-- **AI12.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV41.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV42.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV43.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV44.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI12** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV41** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV42** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV43** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV44** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 **VAV 02 - Mediana**
-- **AI13.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV45.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV46.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV47.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV48.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI13** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV45** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV46** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV47** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV48** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 #### **PLENUM R7 - RETORNO**
 
-- **AV58.10021** | `CFM` | *CFM* | Caudal total de Plenum de Retorno
+- **AV58** | `CFM` | *CFM* | Caudal total de Plenum de Retorno
 
 **VAV 01 - Chica**
-- **AI14.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV50.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV51.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV52.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV53.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI14** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV50** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV51** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV52** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV53** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 **VAV 02 - Grande**
-- **AI15.10021** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
-- **AV54.10021** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
-- **AV55.10021** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
-- **AV56.10021** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
-- **AV57.10021** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
+- **AI15** | `DP` | *"WC* | Caída de presión de flujo de aire VAV
+- **AV54** | `CFM_R` | *CFM* | Caudal de flujo de aire VAV sin calibrar
+- **AV55** | `MULT` | *---* | Multiplicador para calibración de Caudal VAV
+- **AV56** | `OFFSET` | *---* | Offset para calibración de Caudal VAV
+- **AV57** | `CFM` | *CFM* | Caudal de flujo de aire VAV Calibrado
 
 ---
 
