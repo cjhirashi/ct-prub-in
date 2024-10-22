@@ -1,6 +1,6 @@
 # PRG1_CALIBRACION
 
-- **CONTROLADOR:** CUARTO CONTROL 2
+- **CONTROLADOR:** Cuarto de pruebas 2 - ID 10022
 
 - **DESCRIPCIÓN:** El programa gestiona un sistema de calibración de caudales en un entorno HVAC, permitiendo el ajuste y control de las aperturas de compuertas y la toma de muestras de caudales. Utiliza variables de activación y parámetros de calibración para asegurar que los sistemas de ventilación operen con eficiencia, ajustando los multiplicadores y compensaciones necesarias en función de las mediciones obtenidas.
 
