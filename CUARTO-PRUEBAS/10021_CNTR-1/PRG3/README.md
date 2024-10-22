@@ -1,6 +1,6 @@
 # PRG3_PLENUMS
 
-- **CONTROLADOR:** Cuarto Control 1
+- **CONTROLADOR:** Cuarto de prueba 1 - ID 10021
 - **DESCRIPCIÓN:** Programa para gestionar y controlar el flujo de aire en un sistema de múltiples *plenum* mediante el uso de cajas VAV. La lógica del programa asigna caudales, controla las compuertas de las cajas, supervisa la presión en los *plenum* activos y ajusta los límites operativos de cada caja VAV de acuerdo a la demanda y las configuraciones establecidas.
 - **VERSIÓN:** 2.0.0
 - **AUTOR:** Carlos Jiménez Hirashi - @cjhirashi
@@ -324,6 +324,8 @@
 ## Paso 4: Estado de Operación General
 
 - Se calcula el estado general de operación del sistema (`ST_CP`) como el valor máximo de los estados de todos los *plenum*, lo cual indica si algún *plenum* se encuentra activo.
+
+---
 
 ## Resumen de la Lógica de Control
 
