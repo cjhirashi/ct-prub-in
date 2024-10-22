@@ -1,11 +1,12 @@
-# PRG1_SENSORES 
-- **CONTROLADOR:** Cuarto de pruebas 1 - DI 10021
+# PRG1_SENSORES
 
-- **DESCRIPCIÓN:** Este programa está diseñado para la lectura, cálculo y monitoreo de caudales en unidades de volumen de aire variable (VAV) en un sistema HVAC. Utiliza mediciones de presión diferencial (DP) para calcular los caudales de flujo de aire (`CFM`) de diferentes VAVs distribuidos en varios plenums. El programa aplica fórmulas de conversión y calibración para obtener caudales precisos y calcula el caudal total por cada plenum.
+- **CONTROLADOR:** Cuarto de pruebas - DI 10021
+
+- **DESCRIPCIÓN:** Programa diseñado para calcular y ajustar los caudales de aire de múltiples VAVs (Válvulas de Volumen de Aire Variable) dentro de diferentes *plenums* de un sistema HVAC. Utiliza mediciones de presión diferencial para estimar el flujo de aire, y aplica factores de calibración para ajustar cada caudal a los valores reales requeridos, logrando un control preciso del sistema.
 
 - **VERSIÓN:** 2.0.0
 
-- **AUTOR:** Carlos Jimenez Hirashi - @cjhirashi
+- **AUTOR:** Carlos Jiménez Hirashi - @cjhirashi
 
 ---
 

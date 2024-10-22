@@ -5,14 +5,18 @@
 - **VERSIÓN:** 2.0.0
 - **AUTOR:** Carlos Jiménez Hirashi - @cjhirashi
 
+---
+
 # Proposito general
 
 El propósito del programa es gestionar el control de las compuertas de las VAV en diferentes plenums (espacios de distribución de aire) de un sistema HVAC. Cada plenum contiene una o más VAVs con diferentes tamaños (mediana, grande, chica). El control se basa en la "demanda" de cada VAV y los parámetros definidos, como el umbral de apertura (P_APER) y un intervalo de sincronización (SINC).
 
+---
+
 # Variables de Control del Sistema de VAVs
 
 ## Plenum 1
-| **ID DE VARIABLE DE CONTROL** | **UNIDADES** | **DESCRIPCIÓN**                             |
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
 |-------------------------------|--------------|--------------------------------------------|
 | **AV85**                      | *N/A*        | Demanda de ventilación para VAV 01 - Mediana |
 | **AO1**                       | *N/A*        | Apertura de compuerta para VAV 01 - Mediana |
@@ -25,7 +29,7 @@ El propósito del programa es gestionar el control de las compuertas de las VAV 
 | **BO22**                      | *N/A*        | Estado del bloque de control para VAV 03 - Chica |
 
 ## Plenum 2
-| **ID DE VARIABLE DE CONTROL** | **UNIDADES** | **DESCRIPCIÓN**                             |
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
 |-------------------------------|--------------|--------------------------------------------|
 | **AV87**                      | *N/A*        | Demanda de ventilación para VAV 01 - Mediana |
 | **AO3**                       | *N/A*        | Apertura de compuerta para VAV 01 - Mediana |
@@ -35,14 +39,14 @@ El propósito del programa es gestionar el control de las compuertas de las VAV 
 | **10022.BO1**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 02 - Grande |
 
 ## Plenum 3
-| **ID DE VARIABLE DE CONTROL** | **UNIDADES** | **DESCRIPCIÓN**                             |
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
 |-------------------------------|--------------|--------------------------------------------|
 | **AV68**                      | *N/A*        | Demanda de ventilación para VAV 01 - Grande |
 | **AO23**                      | *N/A*        | Apertura de compuerta para VAV 01 - Grande |
 | **BO24**                      | *N/A*        | Estado del bloque de control para VAV 01 - Grande |
 
 ## Plenum 4
-| **ID DE VARIABLE DE CONTROL** | **UNIDADES** | **DESCRIPCIÓN**                             |
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
 |-------------------------------|--------------|--------------------------------------------|
 | **AV89**                      | *N/A*        | Demanda de ventilación para VAV 01 - Mediana |
 | **AO5**                       | *N/A*        | Apertura de compuerta para VAV 01 - Mediana |
@@ -55,7 +59,7 @@ El propósito del programa es gestionar el control de las compuertas de las VAV 
 | **10022.BO4**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 03 - Chica |
 
 ## Plenum 5
-| **ID DE VARIABLE DE CONTROL** | **UNIDADES** | **DESCRIPCIÓN**                             |
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
 |-------------------------------|--------------|--------------------------------------------|
 | **AV92**                      | *N/A*        | Demanda de ventilación para VAV 01 - Chica  |
 | **AO8**                       | *N/A*        | Apertura de compuerta para VAV 01 - Chica  |
@@ -65,7 +69,7 @@ El propósito del programa es gestionar el control de las compuertas de las VAV 
 | **10022.BO6**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 02 - Grande |
 
 ## Plenum 6
-| **ID DE VARIABLE DE CONTROL** | **UNIDADES** | **DESCRIPCIÓN**                             |
+| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
 |-------------------------------|--------------|--------------------------------------------|
 | **AV94**                      | *N/A*        | Demanda de ventilación para VAV 01 - Grande |
 | **AO10**                      | *N/A*        | Apertura de compuerta para VAV 01 - Grande |
@@ -83,6 +87,8 @@ El propósito del programa es gestionar el control de las compuertas de las VAV 
 | **AV97**                      | *N/A*        | Demanda de ventilación para VAV 02 - Grande  |
 | **AO13**                      | *N/A*        | Apertura de compuerta para VAV 02 - Grande  |
 | **BO18**                      | *N/A*        | Estado del bloque de control para VAV 02 - Grande |
+
+---
 
 # Variables Locales
 
@@ -109,6 +115,8 @@ El propósito del programa es gestionar el control de las compuertas de las VAV 
 6. **ACTIV**  
    - ***DESCRIPCIÓN:*** Indicador de activación de la caja VAV. Se activa (1) si la demanda supera el punto de apertura mínimo (`P_APER`), y se desactiva (0) si la demanda es menor a 1.  
    - ***UNIDADES:*** N/A
+
+---
 
 # Lógica de Control del Programa
 
@@ -149,6 +157,8 @@ El propósito del programa es gestionar el control de las compuertas de las VAV 
    - En algunos *Plenums*, se requiere una sincronización periódica:
      - Se verifica la condición `IF INTERVAL(SINC)` para sincronizar los estados de los bloques de control (`CM_BL`).
      - Si la condición se cumple, se asignan los valores de `CM_BL` a puntos de control externos (`10022.BOx`).
+
+---
 
 ## Resumen de la Lógica de Control
 
