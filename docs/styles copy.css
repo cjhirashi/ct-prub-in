@@ -228,12 +228,8 @@ p span {
 section {
     display: flex;
     flex-direction: column;
-    background-color: var(--section);
     padding: 20px;
-    border-radius: var(--radius);
-    opacity: 75%;
     color: var(--obj-text);
-    box-shadow: var(--shadow-sect);
 }
 
 .img-arq {
