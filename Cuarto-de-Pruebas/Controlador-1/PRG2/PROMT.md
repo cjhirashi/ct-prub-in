@@ -1,5 +1,10 @@
 Quiero que crees un programa que active y desactive el control de las compuertas de la VAV (compuerta VAV [`A`] y compuerta de bloqueo [`AB`]). El punto que determinará la activación del sistema es la Demanda de operación de la Compuerta [`DM`]. Para activar el sistema, el valor de demanda [`DM`] sea mayor al valor de la constante [`PORC_ACTIV`] y este tiene un valor de 5, para desactivar el sistema, el valor de demanda [`DM`] tiene que ser menor que 1. Cuando el sistema se activa, se conecta el valor de demanda [`DM`] al control de la compuerta [`A`] y la compuerta de bloqueo [`AB`] se manda abrir. En caso de que el sistema está inactivo, se envían los valores de las compuertas [`A`] y [`AB`] a 0.
 
+`DM` = Es una variable externa, es de lectura, su unidad es %
+`A` = Es una variable externa, es de escritura, su unidad es %
+`AB` = Es una variable externa, es de escritura, su unidad es ABRIETA/CERRADA
+`PORC_ACTIV` = Es una constante, con valor 5, su unidad es %
+
 Son 15 VAV en las que se aplicará el mismo proceso, estas están distribuidas en 7 Plenums:
 
 ---VAVs
