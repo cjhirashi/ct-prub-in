@@ -11,11 +11,11 @@ Este programa Control Basic, implementado en el controlador con Device Instance 
 *   **FECHA**: 14/MAR/2025
 
 ---
-### LISTA DE PUNTOS
+### LISTA DE PUNTOS DEL PROGRAMA
 
 | VARIABLE | NOMBRE | DESCRIPCION | TIPO | DI |
 |---|---|---|---|---|
-|  | `PORC_ACTIV` | Porcentaje de activación del control de compuertas | CONSTANTE |  |
+| 5 | PORC_ACTIV | Porcentaje de activación del control de compuertas | CONSTANTE |  |
 | AV85 | `P1_VM_DM` | PLENUM 1 - VAV MEDIANA - DEMANDA | LOCAL |  |
 | AO1 | `P1_VM_A` | PLENUM 1, VAV 01 - MEDIANA, COMPUERTA VAV | LOCAL |  |
 | BO14 | `P1_VM_AB` | PLENUM 1, VAV 01 - MEDIANA, COMPUERTA BLOQUEO | LOCAL |  |
