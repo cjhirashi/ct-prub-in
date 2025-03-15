@@ -1,167 +1,101 @@
-# PRG2_VAVS
+## PRG2 - CONTROL DE COMPUERTAS DE VAVS
 
-- **CONTROLADOR:** Cuarto de Pruebas 1 - ID 10021
-- **DESCRIPCIÓN:** El programa controla las compuertas de un sistema de VAVs (Variable Air Volume) distribuidas en múltiples plenums. Monitorea las demandas de ventilación de cada VAV y ajusta la apertura de las compuertas en función de parámetros predefinidos para mantener un flujo de aire óptimo. La activación de los VAVs y los estados de las compuertas se gestionan con intervalos de sincronización para asegurar un control eficiente y equilibrado del sistema.
-- **VERSIÓN:** 2.0.0
-- **AUTOR:** Carlos Jiménez Hirashi - @cjhirashi
+Este programa Control Basic, implementado en el controlador con Device Instance 10021, tiene como objetivo activar y desactivar el control de las compuertas (VAV y de bloqueo) en 15 VAVs distribuidas en 7 Plenums, basándose en la demanda de operación de cada compuerta.
 
 ---
+### INFORMACION DEL SISTEMA
 
-# Proposito general
-
-El propósito del programa es gestionar el control de las compuertas de las VAV en diferentes plenums (espacios de distribución de aire) de un sistema HVAC. Cada plenum contiene una o más VAVs con diferentes tamaños (mediana, grande, chica). El control se basa en la "demanda" de cada VAV y los parámetros definidos, como el umbral de apertura (P_APER) y un intervalo de sincronización (SINC).
-
----
-
-# Variables de Control del Sistema de VAVs
-
-## Plenum 1
-| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
-|-------------------------------|--------------|--------------------------------------------|
-| **AV85**                      | *N/A*        | Demanda de ventilación para VAV 01 - Mediana |
-| **AO1**                       | *N/A*        | Apertura de compuerta para VAV 01 - Mediana |
-| **BO14**                      | *N/A*        | Estado del bloque de control para VAV 01 - Mediana |
-| **AV86**                      | *N/A*        | Demanda de ventilación para VAV 02 - Grande  |
-| **AO2**                       | *N/A*        | Apertura de compuerta para VAV 02 - Grande  |
-| **BO15**                      | *N/A*        | Estado del bloque de control para VAV 02 - Grande  |
-| **AV67**                      | *N/A*        | Demanda de ventilación para VAV 03 - Chica   |
-| **AO21**                      | *N/A*        | Apertura de compuerta para VAV 03 - Chica   |
-| **BO22**                      | *N/A*        | Estado del bloque de control para VAV 03 - Chica |
-
-## Plenum 2
-| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
-|-------------------------------|--------------|--------------------------------------------|
-| **AV87**                      | *N/A*        | Demanda de ventilación para VAV 01 - Mediana |
-| **AO3**                       | *N/A*        | Apertura de compuerta para VAV 01 - Mediana |
-| **BO16**                      | *N/A*        | Estado del bloque de control para VAV 01 - Mediana |
-| **AV88**                      | *N/A*        | Demanda de ventilación para VAV 02 - Grande  |
-| **AO4**                       | *N/A*        | Apertura de compuerta para VAV 02 - Grande  |
-| **10022.BO1**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 02 - Grande |
-
-## Plenum 3
-| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
-|-------------------------------|--------------|--------------------------------------------|
-| **AV68**                      | *N/A*        | Demanda de ventilación para VAV 01 - Grande |
-| **AO23**                      | *N/A*        | Apertura de compuerta para VAV 01 - Grande |
-| **BO24**                      | *N/A*        | Estado del bloque de control para VAV 01 - Grande |
-
-## Plenum 4
-| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
-|-------------------------------|--------------|--------------------------------------------|
-| **AV89**                      | *N/A*        | Demanda de ventilación para VAV 01 - Mediana |
-| **AO5**                       | *N/A*        | Apertura de compuerta para VAV 01 - Mediana |
-| **10022.BO2**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 01 - Mediana |
-| **AV90**                      | *N/A*        | Demanda de ventilación para VAV 02 - Grande  |
-| **AO6**                       | *N/A*        | Apertura de compuerta para VAV 02 - Grande  |
-| **10022.BO3**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 02 - Grande |
-| **AV91**                      | *N/A*        | Demanda de ventilación para VAV 03 - Chica   |
-| **AO7**                       | *N/A*        | Apertura de compuerta para VAV 03 - Chica   |
-| **10022.BO4**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 03 - Chica |
-
-## Plenum 5
-| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
-|-------------------------------|--------------|--------------------------------------------|
-| **AV92**                      | *N/A*        | Demanda de ventilación para VAV 01 - Chica  |
-| **AO8**                       | *N/A*        | Apertura de compuerta para VAV 01 - Chica  |
-| **10022.BO5**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 01 - Chica |
-| **AV93**                      | *N/A*        | Demanda de ventilación para VAV 02 - Grande  |
-| **AO9**                       | *N/A*        | Apertura de compuerta para VAV 02 - Grande  |
-| **10022.BO6**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 02 - Grande |
-
-## Plenum 6
-| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
-|-------------------------------|--------------|--------------------------------------------|
-| **AV94**                      | *N/A*        | Demanda de ventilación para VAV 01 - Grande |
-| **AO10**                      | *N/A*        | Apertura de compuerta para VAV 01 - Grande |
-| **10022.BO7**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 01 - Grande |
-| **AV95**                      | *N/A*        | Demanda de ventilación para VAV 02 - Mediana |
-| **AO11**                      | *N/A*        | Apertura de compuerta para VAV 02 - Mediana |
-| **10022.BO8**                 | *N/A*        | Estado sincronizado del bloque de control para VAV 02 - Mediana |
-
-## Plenum R7
-| **ID VARIABLE** | **UNIDADES** | **DESCRIPCIÓN**                             |
-|-------------------------------|--------------|--------------------------------------------|
-| **AV96**                      | *N/A*        | Demanda de ventilación para VAV 01 - Chica  |
-| **AO12**                      | *N/A*        | Apertura de compuerta para VAV 01 - Chica  |
-| **BO17**                      | *N/A*        | Estado del bloque de control para VAV 01 - Chica |
-| **AV97**                      | *N/A*        | Demanda de ventilación para VAV 02 - Grande  |
-| **AO13**                      | *N/A*        | Apertura de compuerta para VAV 02 - Grande  |
-| **BO18**                      | *N/A*        | Estado del bloque de control para VAV 02 - Grande |
+*   **AUTOR**: CARLOS JIMENEZ HIRASHI @cjhirashi
+*   **DI**: 10021
+*   **VERSION**: 1.5.0
+*   **FECHA**: 14/MAR/2025
 
 ---
+### LISTA DE PUNTOS
 
-# Variables Locales
-
-1. **P_APER**  
-   - ***DESCRIPCIÓN:*** Punto de apertura mínimo para la activación de las cajas VAV. Define el valor de demanda a partir del cual se activa un VAV.  
-   - ***UNIDADES:*** N/A
-
-2. **SINC**  
-   - ***DESCRIPCIÓN:*** Intervalo de sincronización utilizado para condicionales que requieren control a intervalos específicos.  
-   - ***UNIDADES:*** N/A
-
-3. **DEMANDA**  
-   - ***DESCRIPCIÓN:*** Variable que recibe el valor de demanda de cada VAV según las lecturas de los sensores (identificados como AVxx).  
-   - ***UNIDADES:*** N/A
-
-4. **VAV**  
-   - ***DESCRIPCIÓN:*** Valor de apertura de la compuerta del VAV en función de la demanda.  
-   - ***UNIDADES:*** N/A
-
-5. **CM_BL**  
-   - ***DESCRIPCIÓN:*** Indicador binario del estado de control de la compuerta. Se activa (1) o desactiva (0) según el estado de la demanda.  
-   - ***UNIDADES:*** N/A
-
-6. **ACTIV**  
-   - ***DESCRIPCIÓN:*** Indicador de activación de la caja VAV. Se activa (1) si la demanda supera el punto de apertura mínimo (`P_APER`), y se desactiva (0) si la demanda es menor a 1.  
-   - ***UNIDADES:*** N/A
-
----
-
-# Lógica de Control del Programa
-
-## Paso a Paso
-
-1. **Inicialización de Variables Locales**
-   - Se declaran las siguientes variables locales:
-     - `P_APER`: Punto de apertura mínimo para la activación de las cajas VAV, con un valor inicial de 5.
-     - `SINC`: Intervalo de sincronización utilizado en condicionales específicos, con un valor inicial de 10.
-
-2. **Estructuración del Programa por *Plenums***
-   - El programa está organizado en secciones denominadas *Plenums*, cada uno de los cuales agrupa varios VAVs por tamaño (Mediana, Grande o Chica).
-
-3. **Asignación de Demanda a Cada VAV**
-   - Para cada VAV dentro de un *Plenum*, se asigna un valor de demanda proveniente de un punto de control específico (`AVxx`).
-   - La variable `DEMANDA` toma el valor de `AVxx`, que representa el nivel de demanda de ventilación para ese VAV en particular.
-
-4. **Lógica de Activación de la Caja VAV**
-   - **Condiciones de Activación:**
-     - Si `DEMANDA` es mayor que `P_APER`, se activa el VAV (`ACTIV = 1`).
-     - Si `DEMANDA` es menor a 1, el VAV se desactiva (`ACTIV = 0`).
-
-5. **Control de Compuertas**
-   - Según el estado de activación (`ACTIV`), se controla la apertura de las compuertas de los VAVs:
-     - **VAV Activo (`ACTIV = 1`):**
-       - La variable `VAV` toma el valor de `DEMANDA`.
-       - La variable de control del bloque (`CM_BL`) se establece en 1.
-     - **VAV Inactivo (`ACTIV = 0`):**
-       - La variable `VAV` se establece en 0, cerrando la compuerta.
-       - La variable de control del bloque (`CM_BL`) se establece en 0.
-
-6. **Asignación de Puntos de Control**
-   - Se asignan los valores calculados de apertura (`VAV`) y de control de bloque (`CM_BL`) a los puntos de control específicos:
-     - `AOxx` se utiliza para controlar la apertura de las compuertas de los VAVs.
-     - `BOxx` se utiliza para el estado del bloque de control de las compuertas.
-
-7. **Sincronización de Estados en Plenums Específicos (Variables de control remotas)**
-   - En algunos *Plenums*, se requiere una sincronización periódica:
-     - Se verifica la condición `IF INTERVAL(SINC)` para sincronizar los estados de los bloques de control (`CM_BL`).
-     - Si la condición se cumple, se asignan los valores de `CM_BL` a puntos de control externos (`10022.BOx`).
+| VARIABLE DE CONTROL | NOMBRE DE PUNTO | DESCRIPCION | TIPO | VALOR/PUNTO DE CONTROL |
+|---|---|---|---|---|
+| PORC_ACTIV |  | Porcentaje de activación del control de compuertas | CONSTANTE | 5 |
+| P1_VM_DM | `P1_VM_DM` | PLENUM 1 - VAV MEDIANA - DEMANDA | AV | AV85 |
+| P1_VM_A | `P1_VM_A` | PLENUM 1, VAV 01 - MEDIANA, COMPUERTA VAV | AO | AO1 |
+| P1_VM_AB | `P1_VM_AB` | PLENUM 1, VAV 01 - MEDIANA, COMPUERTA BLOQUEO | BO | BO14 |
+| P1_VG_DM | `P1_VG_DM` | PLENUM 1 - VAV GRANDE - DEMANDA | AV | AV86 |
+| P1_VG_A | `P1_VG_A` | PLENUM 1, VAV 02 - GRANDE, COMPUERTA VAV | AO | AO2 |
+| P1_VG_AB | `P1_VG_AB` | PLENUM 1, VAV 02 - GRANDE, COMPUERTA BLOQUEO | BO | BO15 |
+| P1_VC_DM | `P1_VC_DM` | PLENUM 1, VAV03 - CHICA, DEMANDA | AV | AV67 |
+| P1_VC_A | `P1_VC_A` | PLENUM 1, VAV 03 - CHICA, COMPUERTA VAV | AO | AO21 |
+| P1_VC_AB | `P1_VC_AB` | PLENUM 1, VAV 03 - CHICA, COMPUERTA BLOQUEO | BO | BO22 |
+| P2_VM_DM | `P2_VM_DM` | PLENUM 2 - VAV MEDIANA - DEMANDA | AV | AV87 |
+| P2_VM_A | `P2_VM_A` | PLENUM 2, VAV 01 - MEDIANA, COMPUERTA VAV | AO | AO3 |
+| P2_VM_AB | `P2_VM_AB` | PLENUM 2, VAV 01 - MEDIANA, COMPUERTA BLOQUEO | BO | BO16 |
+| P2_VG_DM | `P2_VG_DM` | PLENUM 2 - VAV GRANDE - DEMANDA | AV | AV88 |
+| P2_VG_A | `P2_VG_A` | PLENUM 2, VAV 02 - GRANDE, COMPUERTA VAV | AO | AO4 |
+| P2_VG_AB | `P2_VG_AB` | PLENUM 2, VAV 02 - GRANDE, COMPUERTA BLOQUEO | BO | BO1 |
+| P3_VG_DM | `P3_VG_DM` | PLENUM 3, VAV01 - GRANDE, DEMANDA | AV | AV68 |
+| P3_VG_A | `P3_VG_A` | PLENUM 3, VAV 01 - GRANDE, COMPUERTA VAV | AO | AO23 |
+| P3_VG_AB | `P3_VG_AB` | PLENUM 3, VAV 01 - GRANDE, COMPUERTA BLOQUEO | BO | BO24 |
+| P4_VM_DM | `P4_VM_DM` | PLENUM 4 - VAV MEDIANA - DEMANDA | AV | AV89 |
+| P4_VM_A | `P4_VM_A` | PLENUM 4, VAV 01 - MEDIANA, COMPUERTA VAV | AO | AO5 |
+| P4_VM_AB | `P4_VM_AB` | PLENUM 4, VAV 01 - MEDIANA, COMPUERTA BLOQUEO | BO | BO2 |
+| P4_VG_DM | `P4_VG_DM` | PLENUM 4 - VAV GRANDE - DEMANDA | AV | AV90 |
+| P4_VG_A | `P4_VG_A` | PLENUM 4, VAV 02 - GRANDE, COMPUERTA VAV | AO | AO6 |
+| P4_VG_AB | `P4_VG_AB` | PLENUM 4, VAV 02 - GRANDE, COMPUERTA BLOQUEO | BO | BO3 |
+| P4_VC_DM | `P4_VC_DM` | PLENUM 4 - VAV CHICA - DEMANDA | AV | AV91 |
+| P4_VC_A | `P4_VC_A` | PLENUM 4, VAV 03 - CHICA, COMPUERTA VAV | AO | AO7 |
+| P4_VC_AB | `P4_VC_AB` | PLENUM 4, VAV 03 - CHICA, COMPUERTA BLOQUEO | BO | BO4 |
+| P5_VC_DM | `P5_VC_DM` | PLENUM 5 - VAV CHICA - DEMANDA | AV | AV92 |
+| P5_VC_A | `P5_VC_A` | PLENUM 5, VAV 01 - CHICA, COMPUERTA VAV | AO | AO8 |
+| P5_VC_AB | `P5_VC_AB` | PLENUM 5, VAV 01 - CHICA, COMPUERTA BLOQUEO | BO | BO5 |
+| P5_VG_DM | `P5_VG_DM` | PLENUM 5 - VAV GRANDE - DEMANDA | AV | AV93 |
+| P5_VG_A | `P5_VG_A` | PLENUM 5, VAV 02 - GRANDE, COMPUERTA VAV | AO | AO9 |
+| P5_VG_AB | `P5_VG_AB` | PLENUM 5, VAV 02 - GRANDE, COMPUERTA BLOQUEO | BO | BO6 |
+| P6_VG_DM | `P6_VG_DM` | PLENUM 6 - VAV GRANDE - DEMANDA | AV | AV94 |
+| P6_VG_A | `P6_VG_A` | PLENUM 6, VAV 01 - GRANDE, COMPUERTA VAV | AO | AO10 |
+| P6_VG_AB | `P6_VG_AB` | PLENUM 6, VAV 01 - GRANDE, COMPUERTA BLOQUEO | BO | BO7 |
+| P6_VM_DM | `P6_VM_DM` | PLENUM 6 - VAV MEDIANA - DEMANDA | AV | AV95 |
+| P6_VM_A | `P6_VM_A` | PLENUM 6, VAV 02 - MEDIANA, COMPUERTA VAV | AO | AO11 |
+| P6_VM_AB | `P6_VM_AB` | PLENUM 6, VAV 02 - MEDIANA, COMPUERTA BLOQUEO | BO | BO8 |
+| PR7_VC_DM | `PR7_VC_DM` | PLENUM R7 - VAV CHICA - DEMANDA | AV | AV96 |
+| PR7_VC_A | `PR7_VC_A` | PLENUM R7, VAV 01 - CHICA, COMPUERTA VAV | AO | AO12 |
+| PR7_VC_AB | `PR7_VC_AB` | PLENUM R7, VAV 01 - CHICA, COMPUERTA BLOQUEO | BO | BO17 |
+| PR7_VG_DM | `PR7_VG_DM` | PLENUM R7 - VAV GRANDE - DEMANDA | AV | AV97 |
+| PR7_VG_A | `PR7_VG_A` | PLENUM R7, VAV 02 - GRANDE, COMPUERTA VAV | AO | AO13 |
+| PR7_VG_AB | `PR7_VG_AB` | PLENUM R7, VAV 02 - GRANDE, COMPUERTA BLOQUEO | BO | BO18 |
 
 ---
+### LOGICA DE OPERACION
 
-## Resumen de la Lógica de Control
+El programa itera a través de cada VAV en cada Plenum y aplica la siguiente lógica:
 
-El programa gestiona un sistema de VAVs distribuidos en múltiples *Plenums*. Cada VAV recibe una demanda de ventilación (`DEMANDA`), que se compara con un punto mínimo de apertura (`P_APER`). Según el resultado, se activa o desactiva el VAV y se ajusta la apertura de la compuerta en consecuencia. Los valores de apertura y de control se asignan a puntos de salida específicos para el control de las compuertas y los bloques. En algunos *Plenums*, se sincronizan los estados de las compuertas a intervalos definidos por `SINC`.
+1.  **Activación/Desactivación:**
 
-Esta lógica permite un control eficiente y modular del flujo de aire, garantizando que cada VAV se gestione de manera individual y sincronizada cuando sea necesario.
+    *   Si el valor de la demanda (`DM`) es mayor que el porcentaje de activación definido por la constante `PORC_ACTIV` (actualmente 5), se activa el control de la compuerta (`ACTIV` = 1).
+    *   Si el valor de la demanda (`DM`) es menor que 1, se desactiva el control de la compuerta (`ACTIV` = 0).
+
+    ```
+    IF P1_VM_DM > PORC_ACTIV THEN P1_VM_ACTIV = 1
+    IF P1_VM_DM < 1 THEN P1_VM_ACTIV = 0
+    ```
+2.  **Control de Compuertas:**
+
+    *   Si el control de la compuerta está activo (`ACTIV` = 1):
+
+        *   El valor de la compuerta VAV (`A`) se establece igual al valor de la demanda (`DM`).
+        *   La compuerta de bloqueo (`AB`) se abre (valor 1).
+        
+    *   Si el control de la compuerta está inactivo (`ACTIV` = 0):
+
+        *   El valor de la compuerta VAV (`A`) se establece en 0.
+        *   La compuerta de bloqueo (`AB`) se cierra (valor 0).
+
+    ```
+    IF P1_VM_ACTIV THEN 
+        P1_VM_A = P1_VM_DM
+        P1_VM_AB = 1 
+    ELSE 
+        P1_VM_A = 0
+        P1_VM_AB = 0
+    ENDIF
+    ```
+
+Esta lógica se repite para cada VAV en cada Plenum, asegurando que el sistema responda adecuadamente a las condiciones de demanda en cada zona.

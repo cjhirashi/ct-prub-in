@@ -1,255 +1,312 @@
-REM PRG2_VAVS (CONTROL: CUARTO DE PRUEBAS 1 - ID 10021)
-REM CONTROL DE VAVS DEL SISTEMA
-REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
-REM VERSION 2.0.0
+REM NAME: PRG2 - CONTROL DE COMPUERTAS DE VAVS
+REM ID: 10021
+REM DESCRIPTION: Activa y desactiva el control de compuertas VAV según la demanda.
+REM AUTHOR: CARLOS JIMENEZ HIRASHI @cjhirashi
+REM VERSION: 1.5.0
+REM 14/MAR/2025
 
 REM DECLARACION DE VARIABLES DEL SISTEMA
 
-	LOCALS P_APER, SINC, DEMANDA, VAV, CM_BL, ACTIV
+    REM CONSTANTES: AJUSTES DE OPERACION
+    LOCALS PORC_ACTIV
+        PORC_ACTIV = 5        : REM Porcentaje de activación del control de compuertas
 
-	P_APER = 5
-	SINC = 10
+    REM PLENUM 1 - VAV MEDIANA
+    LOCALS P1_VM_ACTIV, P1_VM_DM, P1_VM_A, P1_VM_AB
+        P1_VM_DM = AV85        : REM Control de demanda de apertura de la Compuerta VAV
+        P1_VM_A = AO1        : REM Control de apertura de Compuerta VAV
+        P1_VM_AB = BO14        : REM Control de apertura de Compuerta Bloqueo
 
-REM LOGICA DE CONTROL
+    REM PLENUM 1 - VAV GRANDE
+    LOCALS P1_VG_ACTIV, P1_VG_DM, P1_VG_A, P1_VG_AB
+        P1_VG_DM = AV86        : REM Control de demanda de apertura de la Compuerta VAV
+        P1_VG_A = AO2        : REM Control de apertura de Compuerta VAV
+        P1_VG_AB = BO15        : REM Control de apertura de Compuerta Bloqueo
+    
+    REM PLENUM 1 - VAV CHICA
+    LOCALS P1_VC_ACTIV, P1_VC_DM, P1_VC_A, P1_VC_AB
+        P1_VC_DM = AV67        : REM Control de demanda de apertura de la Compuerta VAV
+        P1_VC_A = AO21        : REM Control de apertura de Compuerta VAV
+        P1_VC_AB = BO22        : REM Control de apertura de Compuerta Bloqueo
 
-	REM *PLENUM 1
+    REM PLENUM 2 - VAV MEDIANA
+    LOCALS P2_VM_ACTIV, P2_VM_DM, P2_VM_A, P2_VM_AB
+        P2_VM_DM = AV87        : REM Control de demanda de apertura de la Compuerta VAV
+        P2_VM_A = AO3        : REM Control de apertura de Compuerta VAV
+        P2_VM_AB = BO16        : REM Control de apertura de Compuerta Bloqueo
 
-		REM **VAV 01 - MEDIANA 
-			DEMANDA = AV85
+    REM PLENUM 2 - VAV GRANDE
+    LOCALS P2_VG_ACTIV, P2_VG_DM, P2_VG_A, P2_VG_AB
+        P2_VG_DM = AV88        : REM Control de demanda de apertura de la Compuerta VAV
+        P2_VG_A = AO4        : REM Control de apertura de Compuerta VAV
+        P2_VG_AB = BO1        : REM Control de apertura de Compuerta Bloqueo
 
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
+    REM PLENUM 3 - VAV GRANDE
+    LOCALS P3_VG_ACTIV, P3_VG_DM, P3_VG_A, P3_VG_AB
+        P3_VG_DM = AV68        : REM Control de demanda de apertura de la Compuerta VAV
+        P3_VG_A = AO23        : REM Control de apertura de Compuerta VAV
+        P3_VG_AB = BO24        : REM Control de apertura de Compuerta Bloqueo
 
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+    REM PLENUM 4 - VAV MEDIANA
+    LOCALS P4_VM_ACTIV, P4_VM_DM, P4_VM_A, P4_VM_AB
+        P4_VM_DM = AV89        : REM Control de demanda de apertura de la Compuerta VAV
+        P4_VM_A = AO5        : REM Control de apertura de Compuerta VAV
+        P4_VM_AB = BO2        : REM Control de apertura de Compuerta Bloqueo
 
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO1 = VAV
-				BO14 = CM_BL
+    REM PLENUM 4 - VAV GRANDE
+    LOCALS P4_VG_ACTIV, P4_VG_DM, P4_VG_A, P4_VG_AB
+        P4_VG_DM = AV90        : REM Control de demanda de apertura de la Compuerta VAV
+        P4_VG_A = AO6        : REM Control de apertura de Compuerta VAV
+        P4_VG_AB = BO3        : REM Control de apertura de Compuerta Bloqueo
 
-		REM **VAV 02 - GRANDE
-			DEMANDA = AV86
+    REM PLENUM 4 - VAV CHICA
+    LOCALS P4_VC_ACTIV, P4_VC_DM, P4_VC_A, P4_VC_AB
+        P4_VC_DM = AV91        : REM Control de demanda de apertura de la Compuerta VAV
+        P4_VC_A = AO7        : REM Control de apertura de Compuerta VAV
+        P4_VC_AB = BO4        : REM Control de apertura de Compuerta Bloqueo
 
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
+    REM PLENUM 5 - VAV CHICA
+    LOCALS P5_VC_ACTIV, P5_VC_DM, P5_VC_A, P5_VC_AB
+        P5_VC_DM = AV92        : REM Control de demanda de apertura de la Compuerta VAV
+        P5_VC_A = AO8        : REM Control de apertura de Compuerta VAV
+        P5_VC_AB = BO5        : REM Control de apertura de Compuerta Bloqueo
 
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+    REM PLENUM 5 - VAV GRANDE
+    LOCALS P5_VG_ACTIV, P5_VG_DM, P5_VG_A, P5_VG_AB
+        P5_VG_DM = AV93        : REM Control de demanda de apertura de la Compuerta VAV
+        P5_VG_A = AO9        : REM Control de apertura de Compuerta VAV
+        P5_VG_AB = BO6        : REM Control de apertura de Compuerta Bloqueo
 
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO2 = VAV
-				BO15 = CM_BL
+    REM PLENUM 6 - VAV GRANDE
+    LOCALS P6_VG_ACTIV, P6_VG_DM, P6_VG_A, P6_VG_AB
+        P6_VG_DM = AV94        : REM Control de demanda de apertura de la Compuerta VAV
+        P6_VG_A = AO10        : REM Control de apertura de Compuerta VAV
+        P6_VG_AB = BO7        : REM Control de apertura de Compuerta Bloqueo
 
-		REM **VAV 03 - CHICA
-			DEMANDA = AV67
-		
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
-		
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
-		
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO21 = VAV
-				BO22 = CM_BL
-		
-	REM *PLENUM 2
+    REM PLENUM 6 - VAV MEDIANA
+    LOCALS P6_VM_ACTIV, P6_VM_DM, P6_VM_A, P6_VM_AB
+        P6_VM_DM = AV95        : REM Control de demanda de apertura de la Compuerta VAV
+        P6_VM_A = AO11        : REM Control de apertura de Compuerta VAV
+        P6_VM_AB = BO8        : REM Control de apertura de Compuerta Bloqueo
 
-		REM **VAV 01 - MEDIANA
-			DEMANDA = AV87
+    REM PLENUM R7 - VAV CHICA
+    LOCALS PR7_VC_ACTIV, PR7_VC_DM, PR7_VC_A, PR7_VC_AB
+        PR7_VC_DM = AV96        : REM Control de demanda de apertura de la Compuerta VAV
+        PR7_VC_A = AO12        : REM Control de apertura de Compuerta VAV
+        PR7_VC_AB = BO17        : REM Control de apertura de Compuerta Bloqueo
 
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
+    REM PLENUM R7 - VAV GRANDE
+    LOCALS PR7_VG_ACTIV, PR7_VG_DM, PR7_VG_A, PR7_VG_AB
+        PR7_VG_DM = AV97        : REM Control de demanda de apertura de la Compuerta VAV
+        PR7_VG_A = AO13        : REM Control de apertura de Compuerta VAV
+        PR7_VG_AB = BO18        : REM Control de apertura de Compuerta Bloqueo
 
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+REM LOGICA DE CONTROL ***********************************************************************
 
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO3 = VAV
-				BO16 = CM_BL
+    REM *CONTROL DE COMPUERTAS VAV
 
-		REM **VAV 02 - GRANDE
-			DEMANDA = AV88
+        REM **PLENUM 1
+            REM ***VAV MEDIANA 
+                REM ***ACTIVACION DE CAJA
+                    IF P1_VM_DM > PORC_ACTIV THEN P1_VM_ACTIV = 1
+                    IF P1_VM_DM < 1 THEN P1_VM_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P1_VM_ACTIV THEN 
+                        P1_VM_A = P1_VM_DM
+                        P1_VM_AB = 1 
+                     ELSE 
+                        P1_VM_A = 0
+                        P1_VM_AB = 0
+                    ENDIF
 
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
+            REM ***VAV GRANDE 
+                REM ***ACTIVACION DE CAJA
+                    IF P1_VG_DM > PORC_ACTIV THEN P1_VG_ACTIV = 1
+                    IF P1_VG_DM < 1 THEN P1_VG_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P1_VG_ACTIV THEN 
+                        P1_VG_A = P1_VG_DM
+                        P1_VG_AB = 1 
+                     ELSE 
+                        P1_VG_A = 0
+                        P1_VG_AB = 0
+                    ENDIF
 
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+            REM ***VAV CHICA 
+                REM ***ACTIVACION DE CAJA
+                    IF P1_VC_DM > PORC_ACTIV THEN P1_VC_ACTIV = 1
+                    IF P1_VC_DM < 1 THEN P1_VC_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P1_VC_ACTIV THEN 
+                        P1_VC_A = P1_VC_DM
+                        P1_VC_AB = 1 
+                     ELSE 
+                        P1_VC_A = 0
+                        P1_VC_AB = 0
+                    ENDIF
 
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO4 = VAV
-				IF INTERVAL(SINC) THEN
-					10022.BO1 = CM_BL
-				ENDIF
+        REM **PLENUM 2
+            REM ***VAV MEDIANA 
+                REM ***ACTIVACION DE CAJA
+                    IF P2_VM_DM > PORC_ACTIV THEN P2_VM_ACTIV = 1
+                    IF P2_VM_DM < 1 THEN P2_VM_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P2_VM_ACTIV THEN 
+                        P2_VM_A = P2_VM_DM
+                        P2_VM_AB = 1 
+                     ELSE 
+                        P2_VM_A = 0
+                        P2_VM_AB = 0
+                ENDIF
 
-	REM *PLENUM 3
+            REM ***VAV GRANDE 
+                REM ***ACTIVACION DE CAJA
+                    IF P2_VG_DM > PORC_ACTIV THEN P2_VG_ACTIV = 1
+                    IF P2_VG_DM < 1 THEN P2_VG_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P2_VG_ACTIV THEN 
+                        P2_VG_A = P2_VG_DM
+                        P2_VG_AB = 1 
+                     ELSE 
+                        P2_VG_A = 0
+                        P2_VG_AB = 0
+                ENDIF
 
-		REM **VAV 01 - GRANDE
-			DEMANDA = AV68
-		
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
-		
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
-		
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO23 = VAV
-				BO24 = CM_BL
-		
-	REM *PLENUM 4
+        REM **PLENUM 3
+            REM ***VAV GRANDE 
+                REM ***ACTIVACION DE CAJA
+                    IF P3_VG_DM > PORC_ACTIV THEN P3_VG_ACTIV = 1
+                    IF P3_VG_DM < 1 THEN P3_VG_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P3_VG_ACTIV THEN 
+                        P3_VG_A = P3_VG_DM
+                        P3_VG_AB = 1 
+                     ELSE 
+                        P3_VG_A = 0
+                        P3_VG_AB = 0
+                ENDIF
 
-		REM **VAV 01 - MEDIANA
-			DEMANDA = AV89
+        REM **PLENUM 4
+            REM ***VAV MEDIANA 
+                REM ***ACTIVACION DE CAJA
+                    IF P4_VM_DM > PORC_ACTIV THEN P4_VM_ACTIV = 1
+                    IF P4_VM_DM < 1 THEN P4_VM_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P4_VM_ACTIV THEN 
+                        P4_VM_A = P4_VM_DM
+                        P4_VM_AB = 1 
+                     ELSE 
+                        P4_VM_A = 0
+                        P4_VM_AB = 0
+                ENDIF
 
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
+            REM ***VAV GRANDE 
+                REM ***ACTIVACION DE CAJA
+                    IF P4_VG_DM > PORC_ACTIV THEN P4_VG_ACTIV = 1
+                    IF P4_VG_DM < 1 THEN P4_VG_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P4_VG_ACTIV THEN 
+                        P4_VG_A = P4_VG_DM
+                        P4_VG_AB = 1 
+                     ELSE 
+                        P4_VG_A = 0
+                        P4_VG_AB = 0
+                ENDIF
 
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+            REM ***VAV CHICA 
+                REM ***ACTIVACION DE CAJA
+                    IF P4_VC_DM > PORC_ACTIV THEN P4_VC_ACTIV = 1
+                    IF P4_VC_DM < 1 THEN P4_VC_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P4_VC_ACTIV THEN 
+                        P4_VC_A = P4_VC_DM
+                        P4_VC_AB = 1 
+                     ELSE 
+                        P4_VC_A = 0
+                        P4_VC_AB = 0
+                ENDIF
 
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO5 = VAV
-				IF INTERVAL(SINC) THEN
-					10022.BO2 = CM_BL
-				ENDIF
+        REM **PLENUM 5
+            REM ***VAV CHICA 
+                REM ***ACTIVACION DE CAJA
+                    IF P5_VC_DM > PORC_ACTIV THEN P5_VC_ACTIV = 1
+                    IF P5_VC_DM < 1 THEN P5_VC_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P5_VC_ACTIV THEN 
+                        P5_VC_A = P5_VC_DM
+                        P5_VC_AB = 1 
+                     ELSE 
+                        P5_VC_A = 0
+                        P5_VC_AB = 0
+                ENDIF
 
-		REM **VAV 02 - GRANDE
-			DEMANDA = AV90
+            REM ***VAV GRANDE 
+                REM ***ACTIVACION DE CAJA
+                    IF P5_VG_DM > PORC_ACTIV THEN P5_VG_ACTIV = 1
+                    IF P5_VG_DM < 1 THEN P5_VG_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P5_VG_ACTIV THEN 
+                        P5_VG_A = P5_VG_DM
+                        P5_VG_AB = 1 
+                     ELSE 
+                        P5_VG_A = 0
+                        P5_VG_AB = 0
+                ENDIF
 
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
+        REM **PLENUM 6
+            REM ***VAV GRANDE 
+                REM ***ACTIVACION DE CAJA
+                    IF P6_VG_DM > PORC_ACTIV THEN P6_VG_ACTIV = 1
+                    IF P6_VG_DM < 1 THEN P6_VG_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P6_VG_ACTIV THEN 
+                        P6_VG_A = P6_VG_DM
+                        P6_VG_AB = 1 
+                     ELSE 
+                        P6_VG_A = 0
+                        P6_VG_AB = 0
+                ENDIF
 
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
+            REM ***VAV MEDIANA 
+                REM ***ACTIVACION DE CAJA
+                    IF P6_VM_DM > PORC_ACTIV THEN P6_VM_ACTIV = 1
+                    IF P6_VM_DM < 1 THEN P6_VM_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF P6_VM_ACTIV THEN 
+                        P6_VM_A = P6_VM_DM
+                        P6_VM_AB = 1 
+                     ELSE 
+                        P6_VM_A = 0
+                        P6_VM_AB = 0
+                ENDIF
 
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO6 = VAV
-				IF INTERVAL(SINC) THEN
-					10022.BO3 = CM_BL
-				ENDIF
+        REM **PLENUM R7
+            REM ***VAV CHICA 
+                REM ***ACTIVACION DE CAJA
+                    IF PR7_VC_DM > PORC_ACTIV THEN PR7_VC_ACTIV = 1
+                    IF PR7_VC_DM < 1 THEN PR7_VC_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF PR7_VC_ACTIV THEN 
+                        PR7_VC_A = PR7_VC_DM
+                        PR7_VC_AB = 1 
+                     ELSE 
+                        PR7_VC_A = 0
+                        PR7_VC_AB = 0
+                ENDIF
 
-		REM **VAV 03 - CHICA
-			DEMANDA = AV91
+            REM ***VAV GRANDE 
+                REM ***ACTIVACION DE CAJA
+                    IF PR7_VG_DM > PORC_ACTIV THEN PR7_VG_ACTIV = 1
+                    IF PR7_VG_DM < 1 THEN PR7_VG_ACTIV = 0
+                REM ***CONEXION A CONTROL DE COMPUERTAS
+                    IF PR7_VG_ACTIV THEN 
+                        PR7_VG_A = PR7_VG_DM
+                        PR7_VG_AB = 1 
+                     ELSE 
+                        PR7_VG_A = 0
+                        PR7_VG_AB = 0
+                ENDIF
 
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
-
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
-
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO7 = VAV
-				IF INTERVAL(SINC) THEN
-					10022.BO4 = CM_BL
-				ENDIF
-
-	REM *PLENUM 5
-
-		REM **VAV 01 - CHICA
-			DEMANDA = AV92
-
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
-
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
-
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO8 = VAV
-				IF INTERVAL(SINC) THEN
-					10022.BO5 = CM_BL
-				ENDIF
-
-		REM **VAV 02 - GRANDE
-			DEMANDA = AV93
-
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
-
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
-
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO9 = VAV
-				IF INTERVAL(SINC) THEN
-					10022.BO6 = CM_BL
-				ENDIF
-
-	REM *PLENUM 6
-
-		REM **VAV 01 - GRANDE
-			DEMANDA = AV94
-
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
-
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
-
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO10 = VAV
-				IF INTERVAL(SINC) THEN
-					10022.BO7 = CM_BL
-				ENDIF
-
-		REM **VAV 02 - MEDIANA
-			DEMANDA = AV95
-
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
-
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
-
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO11 = VAV
-				IF INTERVAL(SINC) THEN
-					10022.BO8 = CM_BL
-				ENDIF
-
-	REM *PLENUM R7
-
-		REM **VAV 01 - CHICA
-			DEMANDA = AV96
-
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
-
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
-
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO12 = VAV
-				BO17 = CM_BL
-
-		REM **VAV 02 - GRANDE
-			DEMANDA = AV97
-
-			REM ***ACTIVACION DE CAJA
-				IF DEMANDA > P_APER THEN ACTIV = 1
-				IF DEMANDA < 1 THEN ACTIV = 0
-
-			REM ***CONTROL DE COMPUERTAS
-				IF ACTIV THEN VAV = DEMANDA , CM_BL = 1 ELSE VAV = 0 , CM_BL = 0
-
-			REM ***ASIGNACION DE PUNTOS DE CONTROL COMPUERTAS
-				AO13 = VAV
-				BO18 = CM_BL
+REM *********************************************************************************************
 
 END
