@@ -1,47 +1,108 @@
-El nombre del programa será: PRG2 - CONTROL DE COMPUERTAS DE VAVS
-La versión del programa será: 1.5.0
+# PROGRAMA
+* **NOMBRE**: MOD: CONTROL DE COMPUERTAS VAVS
+* **ID PROGRAMA**: PRG2
+* **DI CONTROLADOR**: 10021
+* **AUTOR**: Carlos Jiménez Hirashi *@cjhirashi*
+* **VERSION**: 1.5.0
+
+## DESCRIPCION
+
+Este módulo gestiona el control de apertura de las compuertas (Compuerta VAV y Compuerta de bloqueo) de cada caja VAV del ***Cuarto de pruebas***, esto basándose en el valor de demanda de apertura de compuerta que es asignado a cada caja VAV (esta demanda se genera en otro módulo de control). 
+
+El sistema cuenta con 15 cajas VAV distribuidas en 7 Plenums:
+
+* **PLENUM 1** (P1)
+
+    1. ***VAV MEDIANA*** (VM)
+    2. ***VAV GRANDE*** (VG)
+    3. ***VAV CHICA*** (VC)
+
+* **PLENUM 2** (P2)
+
+    4. ***VAV MEDIANA*** (VM)
+    5. ***VAV GRANDE*** (VG)
+
+* **PLENUM 3** (P3)
+
+    6. ***VAV GRANDE*** (VG)
+
+* **PLENUM 4** (P4)
+
+    7. ***VAV MEDIANA*** (VM)
+    8. ***VAV GRANDE*** (VG)
+    9. ***VAV CHICA*** (VC)
+
+* **PLENUM 5** (P5)
+
+    10. ***VAV CHICA*** (P5_VC)
+    11. ***VAV GRANDE*** (VG)
+
+* **PLENUM 6** (P6)
+
+    12. ***VAV GRANDE*** (VG)
+    13. ***VAV MEDIANA*** (VM)
+
+* **PLENUM 7R** (P7)
+
+    14. ***VAV CHICA*** (VC)
+    15. ***VAV GRANDE*** (VG)
+
+## VARIABLES DE CONTROL
+
+**NOTA**: Totas las variables de control que contengan un prefijo `P[#]_V[T]_`, indican que son variables relacionadas al control de cada VAV, `P[#]` hace referencia al número de Plenum que pertenece, el factor `[#]` representa el número del Plenum que corresponde, `V[T]` hace referencia al tamaño de caja, el factor `[T]` representa el tamaño de caja y su valor puede ser `G` GRANDE, `M` MEDIANA o `C` CHICA, con estos parámetros podremos saber a qué caja VAV y qué Plenum corresponde cada punto.
+
+### VARIABLES INTERNAS
+
+#### CONSTANTES
+
+* `PORCENTAJE_ACTIVACION` Este valor define el porcentaje de apertura que la demanda de la caja VAV tiene que superar para que se active el sistema. Este punto maneja un valor que representa un porcentaje de apertura (*%*) y su valor inicial es 5.
+
+#### VARIABLES
+
+* `P[#]_V[T]_COMPUERTAS` Este punto contiene el estado de operación del control de compuertas de cada caja VAV. Este punto maneja un valor digital, `1` *ACTIVO* y `0` *INACTIVO*.
+
+### VARIABLES EXTERNAS
+
+* `P[#]_V[T]_DEMANDA` Este punto contiene la demanda de apertura para la apertura para la compuerta de la VAV a la que está relacionada. Este punto maneja un valor que representa un porcentaje de apertura (*%*) y puede contener un valor entre 0-100. Este punto se utiliza en la Interfaz de Usuario como solo lectura. El programa LEE esta variable desde la lista de puntos del sistema.
+
+* `P[#]_V[T]_COMPVAV` Este punto es la salida de control que opera la compuerta VAV de la caja VAV como tal. Este punto maneja un valor que representa un porcentaje de apertura (*%*) y puede contener un valor entre 0-100. Este punto se utiliza en la Interfaz de Usuario como solo lectura. El programa ESCRIBE esta variable de la lista de puntos del sistema.
+
+* `P[#]_V[T]_COMPBLQ` Este punto es la salida de control que opera la compuerta de bloqueo de la caja VAV a la que está relacionada. Este punto maneja un valor digital, `1` *ABIERTA* y `0` *CERRADA*. Este punto se utiliza en la Interfaz de Usuario como solo lectura. El programa ESCRIBE esta variable de la lista de puntos del sistema.
+
+## LOGICA DE OPERACION
 
 Quiero que crees un programa que active y desactive el control de las compuertas de la VAV (compuerta VAV [`A`] y compuerta de bloqueo [`AB`]). El punto que determinará la activación del sistema es la Demanda de operación de la Compuerta [`DM`]. Para activar el sistema, el valor de demanda [`DM`] sea mayor al valor de la constante [`PORC_ACTIV`] y este tiene un valor de 5, para desactivar el sistema, el valor de demanda [`DM`] tiene que ser menor que 1. Cuando el sistema se activa, se conecta el valor de demanda [`DM`] al control de la compuerta [`A`] y la compuerta de bloqueo [`AB`] se manda abrir. En caso de que el sistema está inactivo, se envían los valores de las compuertas [`A`] y [`AB`] a 0.
 
-Descripción de variables utilizadas:
+## DIAGRAMA DE FLUJO DEL MODULO
 
-* `DM` = Variable externa, de lectura, (UNIDADES = %)
-* `A` = Variable externa, de escritura, (UNIDADES = %)
-* `AB` = Variable externa, de escritura, (UNIDADES = ABIERTA / CERRADA)
-* `PORC_ACTIV` = Constante, (VALOR = 5), (UNIDADES = %)
+```mermaid
+graph TD
+    DM --> ACTIVACION{DM > PORC_ACTIV};
+    subgraph MODULO
+        subgraph BLOQUE: Activación
+            ACTIVACION -- Si --> SetActive[ACTIV = ON]
+            ACTIVACION -- No --> DESACTIVACION
+            SetActive --> DESACTIVACION{DM < 1}
+            DESACTIVACION -- Si --> SetInactive[ACTIV = OFF]
+        end
+        subgraph BLOQUE: Conexión
+            DESACTIVACION -- No --> CONECTOR
+            SetInactive --> CONECTOR
+            CONECTOR{ACTIV = ON} -- Si --> SISACT[A = DM<br>AB = 1]
+            CONECTOR -- No --> SISINACT[A = 0<br>AB = 0]
+        end
+    end
+    CompVAV[ComVAV = A]
+    CompBloq[ComBloq = AB]
+    SISACT --> CompVAV
+    SISACT --> CompBloq
+    SISINACT --> CompVAV
+    SISINACT --> CompBloq
+```
 
 Son 15 VAV en las que se aplicará el mismo proceso, estas están distribuidas en 7 Plenums:
 
-~~~VAVs
-Plenu 1
-    VAV Mediana (P1_VM)
-    VAV Grande (P1_VG)
-    VAV Chica (P1_VC)
 
-Plenu 2
-    VAV Mediana (P2_VM)
-    VAV Grande (P2_VG)
-
-Plenu 3
-    VAV Grande (P3_VG)
-
-Plenu 4
-    VAV Mediana (P4_VM)
-    VAV Grande (P4_VG)
-    VAV Chica (P4_VC)
-
-Plenu 5
-    VAV Chica (P5_VC)
-    VAV Grande (P5_VG)
-
-Plenu 6
-    VAV Grande (P1_VM)
-    VAV Mediana (P1_VM)
-
-Plenu 7R
-    VAV Chica (P7R_VC)
-    VAV Grande (P7R_VG)
-~~~~~~
 
 1. Primero establecer las Variables de Control del código en la sección de variables de control, vas a seguir esta estructura para cada VAV:
 
