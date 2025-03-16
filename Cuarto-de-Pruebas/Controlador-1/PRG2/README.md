@@ -130,23 +130,30 @@ Todas la variables externas utilizadas seran integradas a una interfaz de usuari
 ### DIAGRAMAS DE CONTROL
 
 ```mermaid
+---
+config:
+  theme: neo-dark
+---
 graph TD
-    P1_VM_DM --> ACTIVACION{DM > PORC_ACTIV};
-    P1_VM_DM --> DESACTIVACION{DM < 1};
-    subgraph BLOQUE: Activación de sistema
-        ACTIVACION -- Si --> SetActive[ACTIV = ON]
-        DESACTIVACION -- Si --> SetInactive[ACTIV = OFF]
-        SetActive
-        SetInactive
+    DM --> ACTIVACION{DM > PORC_ACTIV};
+    subgraph MODULO
+        subgraph BLOQUE: Activación
+            ACTIVACION -- Si --> SetActive[ACTIV = ON]
+            ACTIVACION -- No --> DESACTIVACION
+            SetActive --> DESACTIVACION{DM < 1}
+            DESACTIVACION -- Si --> SetInactive[ACTIV = OFF]
+        end
+        subgraph BLOQUE: Conexión
+            DESACTIVACION -- No --> CONECTOR
+            SetInactive --> CONECTOR
+            CONECTOR{ACTIV = ON} -- Si --> SISACT[A = DM<br>AB = 1]
+            CONECTOR -- No --> SISINACT[A = 0<br>AB = 0]
+        end
     end
-    subgraph Plenum_1
-        CONECTOR{ACTIV = ON}
-        P1_VM_Decision -- Si --> P1_VM_SetA[P1_VM_A = P1_VM_DM];
-        P1_VM_Decision -- Si --> P1_VM_SetAB[P1_VM_AB = 1];
-        P1_VM_Decision -- No --> P1_VM_SetA0[P1_VM_A = 0];
-        P1_VM_Decision -- No --> P1_VM_SetAB0[P1_VM_AB = 0];
-        
-    end
-        
-
+    CompVAV[ComVAV = A]
+    CompBloq[ComBloq = AB]
+    SISACT --> CompVAV
+    SISACT --> CompBloq
+    SISINACT --> CompVAV
+    SISINACT --> CompBloq
 ```
