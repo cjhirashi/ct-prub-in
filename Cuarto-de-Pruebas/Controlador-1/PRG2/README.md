@@ -131,8 +131,15 @@ Todas la variables externas utilizadas seran integradas a una interfaz de usuari
 
 ```mermaid
 graph TD
-    subgraph CONTROL DE COMPUERTAS DE VAVS
             P1_VM_DM --> P1_VM_Decision{P1_VM_DM > PORC_ACTIV<br>AND<br>P1_VM_DM < 1};
+    subgraph CONTROL DE COMPUERTAS DE VAVS
+        subgraph Plenum_1
+            P1_VM_Decision -- Si --> P1_VM_SetA[P1_VM_A = P1_VM_DM];
+            P1_VM_Decision -- Si --> P1_VM_SetAB[P1_VM_AB = 1];
+            P1_VM_Decision -- No --> P1_VM_SetA0[P1_VM_A = 0];
+            P1_VM_Decision -- No --> P1_VM_SetAB0[P1_VM_AB = 0];
+           
+        end
         subgraph Plenum_1
             P1_VM_Decision -- Si --> P1_VM_SetA[P1_VM_A = P1_VM_DM];
             P1_VM_Decision -- Si --> P1_VM_SetAB[P1_VM_AB = 1];
