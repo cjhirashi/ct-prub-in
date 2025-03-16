@@ -1,6 +1,6 @@
 ## PRG2 - CONTROL DE COMPUERTAS DE VAVS
 
-Este programa controla la activación y desactivación de las compuertas de 15 VAVs (Variable Air Volume) distribuidas en 7 Plenums, basándose en la demanda de operación de cada VAV.  Cuando la demanda de una VAV supera un porcentaje de activación (PORC_ACTIV = 5%), se activa el control de su compuerta, abriendo tanto la compuerta principal (A) como la compuerta de bloqueo (AB). Cuando la demanda cae por debajo de 1%, el control se desactiva, cerrando ambas compuertas.
+Este programa controla la activación y desactivación de las compuertas de 15 VAVs (Variable Air Volume) distribuidas en 7 Plenums, basándose en la demanda de operación de cada VAV. Cuando la demanda de una VAV supera un porcentaje de activación (PORC_ACTIV = 5%), se activa el control de su compuerta, abriendo tanto la compuerta principal (A) como la compuerta de bloqueo (AB). Cuando la demanda cae por debajo de 1%, el control se desactiva, cerrando ambas compuertas.
 
 ---
 ### INFORMACION DEL SISTEMA
@@ -79,47 +79,54 @@ Este programa controla la activación y desactivación de las compuertas de 15 V
 ---
 ### LOGICA DE OPERACION
 
-El módulo de control completo del programa está compuesto por bloques de programación que se ejecutan secuencialmente.  Cada bloque corresponde a una VAV específica y realiza las siguientes operaciones:
+El programa  `PRG2 - CONTROL DE COMPUERTAS DE VAVS` está  diseñado  para  gestionar  la  operación  de  las  compuertas  de  15  VAVs  (Variable  Air Volume) ubicadas en 7 Plenums distintos. La activación y desactivación de cada VAV depende del valor de su  correspondiente  demanda  (`P#_V#_DM`).  El  programa  ejecuta  un  ciclo  continuo  que evalúa cada VAV de forma independiente.
 
-1.  **Lectura de la Demanda (DM):** El programa lee el valor de la demanda de la VAV (`P#_V#_DM`).  Esta es una variable externa que indica el porcentaje de apertura solicitado para la compuerta.
+**Estructura de Control (por cada VAV):**
 
-2.  **Activación/Desactivación:**
-    *   Si la demanda (`DM`) es mayor que la constante `PORC_ACTIV` (5%), se activa una variable interna  (`P#_V#_ACTIV`).
-    *   Si la demanda (`DM`) es menor que 1%, la variable interna `P#_V#_ACTIV` se desactiva.
+El programa implementa la siguiente lógica de control para cada una de las 15 VAVs:
 
-3.  **Control de Compuertas:**
-    *   **Si `P#_V#_ACTIV` está activa (valor 1):**
-        *   La compuerta principal de la VAV (`P#_V#_A`) se establece al valor de la demanda (`DM`), permitiendo el flujo de aire proporcional a la demanda.
-        *   La compuerta de bloqueo de la VAV (`P#_V#_AB`) se establece a 1 (ABIERTA), permitiendo el flujo de aire.
-    *   **Si `P#_V#_ACTIV` está inactiva (valor 0):**
-        *   La compuerta principal de la VAV (`P#_V#_A`) se establece a 0, cerrando el flujo de aire.
-        *   La compuerta de bloqueo de la VAV (`P#_V#_AB`) se establece a 0 (CERRADA), bloqueando el flujo de aire.
+1.  **Bloque de Activación:**
 
-**Variables externas en la UI:**
+    *   Se  lee  el  valor  de  la  variable  externa  `P#_V#_DM`  (Demanda  de  la  VAV).  Esta variable  representa  el  porcentaje  de  apertura  demandado  para  la  VAV  y  es establecida por otro programa (no forma parte de este código).
+    *   Se  compara  el  valor  de  `P#_V#_DM`  con  la  constante  `PORC_ACTIV`  (valor  fijo:  5).
+        *   Si `P#_V#_DM > PORC_ACTIV`, se activa la variable interna `P#_V#_ACTIV`.  Esta variable indica que la VAV debe entrar en modo de operación (compuertas abiertas).
+        *   Si `P1_VM_DM < 1`, se desactiva la misma variable `P#_V#_ACTIV`.
+        *   Este bloque funciona como un "pestillo" o "latch": una vez que la demanda supera el umbral, la VAV se activa y permanece activa mientras no baje de 1.
 
-Todas las variables externas de este programa serán integradas a la UI *solo para visualización*. El usuario no podrá modificar estas variables directamente desde la UI. Las variables a visualizar son:
+2.  **Bloque de Conexión a Compuertas:**
+
+    *   **Si `P#_V#_ACTIV` es 1 (VERDADERO):**
+        *   Se  asigna  el  valor  de  `P#_V#_DM`  a  la  variable  externa  `P#_V#_A`.  Esto establece la apertura de la compuerta principal de la VAV al mismo valor que la demanda.
+        *   Se  asigna  el  valor  1  a  la  variable  externa  `P#_V#_AB`.  Esto  abre  la  compuerta de bloqueo de la VAV (1: ABIERTA).
+    *   **Si `P#_V#_ACTIV` es 0 (FALSO):**
+        *    Se asigna el valor 0 a la variable externa `P#_V#_A`.
+        *    Se asigna el valor 0 a la variable externa `P#_V#_AB`.  Esto cierra ambas compuertas.
+
+**Ejemplo de Código (Plenum 1, VAV Mediana):**
+```basic
+    REM ***VAV MEDIANA
+        REM ***ACTIVACION DE CAJA
+            IF P1_VM_DM > PORC_ACTIV THEN P1_VM_ACTIV = 1
+            IF P1_VM_DM < 1 THEN P1_VM_ACTIV = 0
+        REM ***CONEXION A CONTROL DE COMPUERTAS
+            IF P1_VM_ACTIV THEN
+                P1_VM_A = P1_VM_DM
+                P1_VM_AB = 1
+             ELSE
+                P1_VM_A = 0
+                P1_VM_AB = 0
+            ENDIF
+```
+
+**Variables involucradas y su visualización en UI**
+
+Todas la variables externas utilizadas seran integradas a una interfaz de usuario (UI) y seran unicamente de visualización.
 
 *   `P#_V#_DM`: Demanda de cada VAV.
 *   `P#_V#_A`: Posición de la compuerta principal de cada VAV.
 *  `P#_V#_AB`: Estado de la compuerta de bloqueo de cada VAV (1: ABIERTA, 0: CERRADA).
 
-**Ejemplo de código (Plenum 1, VAV Mediana):**
-
-```basic
-REM ***VAV MEDIANA
-    REM ***ACTIVACION DE CAJA
-        IF P1_VM_DM > PORC_ACTIV THEN P1_VM_ACTIV = 1
-        IF P1_VM_DM < 1 THEN P1_VM_ACTIV = 0
-    REM ***CONEXION A CONTROL DE COMPUERTAS
-        IF P1_VM_ACTIV THEN
-            P1_VM_A = P1_VM_DM
-            P1_VM_AB = 1
-         ELSE
-            P1_VM_A = 0
-            P1_VM_AB = 0
-        ENDIF
-```
-
+---
 ### DIAGRAMAS DE CONTROL
 
 ```mermaid
