@@ -131,23 +131,14 @@ Todas la variables externas utilizadas seran integradas a una interfaz de usuari
 
 ```mermaid
 graph TD
-    subgraph Programa_Principal
-        subgraph Plenum_1
+    subgraph CONTROL DE COMPUERTAS DE VAVS
             P1_VM_DM --> P1_VM_Decision{P1_VM_DM > PORC_ACTIV<br>AND<br>P1_VM_DM < 1};
+        subgraph Plenum_1
             P1_VM_Decision -- Si --> P1_VM_SetA[P1_VM_A = P1_VM_DM];
             P1_VM_Decision -- Si --> P1_VM_SetAB[P1_VM_AB = 1];
             P1_VM_Decision -- No --> P1_VM_SetA0[P1_VM_A = 0];
             P1_VM_Decision -- No --> P1_VM_SetAB0[P1_VM_AB = 0];
-            P1_VG_DM --> P1_VG_Decision{P1_VG_DM > PORC_ACTIV<br>AND<br>P1_VG_DM < 1};
-            P1_VG_Decision -- Si --> P1_VG_SetA[P1_VG_A = P1_VG_DM];
-			P1_VG_Decision -- Si --> P1_VG_SetAB[P1_VG_AB = 1];
-            P1_VG_Decision -- No --> P1_VG_SetA0[P1_VG_A = 0];
-			P1_VG_Decision -- No --> P1_VG_SetAB0[P1_VG_AB = 0];
-             P1_VC_DM --> P1_VC_Decision{P1_VC_DM > PORC_ACTIV<br>AND<br>P1_VC_DM < 1};
-            P1_VC_Decision -- Si --> P1_VC_SetA[P1_VC_A = P1_VC_DM];
-			P1_VC_Decision -- Si --> P1_VC_SetAB[P1_VC_AB = 1];
-            P1_VC_Decision -- No --> P1_VC_SetA0[P1_VC_A = 0];
-			P1_VC_Decision -- No --> P1_VC_SetAB0[P1_VC_AB = 0];
+           
         end
 
    end
