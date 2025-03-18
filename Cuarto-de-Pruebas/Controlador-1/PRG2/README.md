@@ -12,25 +12,38 @@ Este módulo gestiona el control de apertura de las compuertas (Compuerta VAV y 
 El sistema cuenta con 15 cajas VAV distribuidas en 7 Plenums:
 
 *   **PLENUM 1** (P1)
+
     1.  ***VAV MEDIANA*** (VM)
     2.  ***VAV GRANDE*** (VG)
     3.  ***VAV CHICA*** (VC)
+
 *   **PLENUM 2** (P2)
+
     4.  ***VAV MEDIANA*** (VM)
     5.  ***VAV GRANDE*** (VG)
+
 *   **PLENUM 3** (P3)
+
     6.  ***VAV GRANDE*** (VG)
+
 *   **PLENUM 4** (P4)
+
     7.  ***VAV MEDIANA*** (VM)
     8.  ***VAV GRANDE*** (VG)
     9.  ***VAV CHICA*** (VC)
+
 *   **PLENUM 5** (P5)
+
     10. ***VAV CHICA*** (P5_VC)
     11. ***VAV GRANDE*** (VG)
+
 *   **PLENUM 6** (P6)
+
     12. ***VAV GRANDE*** (VG)
     13. ***VAV MEDIANA*** (VM)
+
 *   **PLENUM 7R** (P7)
+
     14. ***VAV CHICA*** (VC)
     15. ***VAV GRANDE*** (VG)
 
