@@ -71,78 +71,116 @@ El sistema cuenta con 15 cajas VAV distribuidas en 7 Plenums:
 
 ## LOGICA DE OPERACION
 
-Quiero que crees un programa que active y desactive el control de las compuertas de la VAV (compuerta VAV [`A`] y compuerta de bloqueo [`AB`]). El punto que determinará la activación del sistema es la Demanda de operación de la Compuerta [`DM`]. Para activar el sistema, el valor de demanda [`DM`] sea mayor al valor de la constante [`PORC_ACTIV`] y este tiene un valor de 5, para desactivar el sistema, el valor de demanda [`DM`] tiene que ser menor que 1. Cuando el sistema se activa, se conecta el valor de demanda [`DM`] al control de la compuerta [`A`] y la compuerta de bloqueo [`AB`] se manda abrir. En caso de que el sistema está inactivo, se envían los valores de las compuertas [`A`] y [`AB`] a 0.
+Declaración de variables de control de la caja VAV:
 
-## DIAGRAMA DE FLUJO DEL MODULO
+```basic
+    REM PLENUM [#] - VAV [TAMAÑO]
+    LOCALS P[#]_V[T]_COMPUERTAS, P[#]_V[T]_DEMANDA, 
+    LOCALS P[#]_V[T]_COMPVAV, P[#]_V[T]_COMPBLQ
 
-```mermaid
-graph TD
-    DM --> ACTIVACION{DM > PORC_ACTIV};
-    subgraph MODULO
-        subgraph BLOQUE: Activación
-            ACTIVACION -- Si --> SetActive[ACTIV = ON]
-            ACTIVACION -- No --> DESACTIVACION
-            SetActive --> DESACTIVACION{DM < 1}
-            DESACTIVACION -- Si --> SetInactive[ACTIV = OFF]
-        end
-        subgraph BLOQUE: Conexión
-            DESACTIVACION -- No --> CONECTOR
-            SetInactive --> CONECTOR
-            CONECTOR{ACTIV = ON} -- Si --> SISACT[A = DM<br>AB = 1]
-            CONECTOR -- No --> SISINACT[A = 0<br>AB = 0]
-        end
-    end
-    CompVAV[ComVAV = A]
-    CompBloq[ComBloq = AB]
-    SISACT --> CompVAV
-    SISACT --> CompBloq
-    SISINACT --> CompVAV
-    SISINACT --> CompBloq
+		P1_VM_DM = AV[#]	: REM Demanda de VAV
+		AO[#] = P1_VM_A		: REM Compuerta VAV
+		BO[#] = P1_VM_AB	: REM Compuerta de Bloqueo
 ```
 
-Son 15 VAV en las que se aplicará el mismo proceso, estas están distribuidas en 7 Plenums:
+Este es un módulo de control formado por 2 bloques de operación para el control de las compuertas de aire de la caja VAV (Compuerta VAV `P[#]_V[T]_COMPVAV` y compuerta de bloqueo de aire `P[#]_V[T]_COMPBLQ`).
 
+* ***BLOQUE 1***: Activación del sistema.
 
+    La caja VAV tiene asignado un punto de control que indica la demanda de apertura de la compuerta VAV `P[#]_V[T]_DEMANDA`, este valor es establecido desde otro módulo de control. La activación del control de compuertas se determina por el valor de la demanda, cuando este valor es mayor al punto establecido en la constante `PORCENTAJE_ACTIVACION`, `P[#]_V[T]_DEMANDA > PORCENTAJE_ACTIVACION` se activa el sistema de control `P[#]_V[T]_COMPUERTAS = 1`, si el valor de la demanda es menor a 1 `P[#]_V[T]_DEMANDA < 1` se desactiva el sistema de control `P[#]_V[T]_COMPUERTAS = 0`.
 
-1. Primero establecer las Variables de Control del código en la sección de variables de control, vas a seguir esta estructura para cada VAV:
+    *Ejemplo*:
 
-Ejemplo.
+    ```basic
+    REM *PLENUM [#]
+
+        REM MODULO: VAV [TAMAÑO] 
+
+            REM BLOQUE: Activación del sistema.
+                IF P[#]_V[T]_DEMANDA > PORCENTAJE_ACTIVACION THEN P[#]_V[T]_COMPUERTAS = 1
+                IF P[#]_V[T]_DEMANDA < 1 THEN P[#]_V[T]_COMPUERTAS = 0
+    ```
+
+* ***BLOQUE 2***: Conexión de demanda para apertura de compuertas.
+
+    Cuando el sistema se encuentra activo `P[#]_V[T]_COMPUERTAS = 1` se asigna al contro de compuerta VAV directamente el valor de la demanda `P[#]_V[T]_COMPVAV = P[#]_V[T]_DEMANDA` y al control de la compuerta de bloque se le da el valor de apertura `P[#]_V[T]_COMPBLQ = 1`. Cuando el sistema se encuentra inactivo `P[#]_V[T]_COMPUERTAS = 0` se asigna al control de compuerta VAV el valor de cierre `P[#]_V[T]_COMPVAV = 0` y al control de la compuerta de bloquo, igual valor de cierre `P[#]_V[T]_COMPBLQ = 0`.
+
+    *Ejemplo*:
+
+    ```basic
+    REM BLOQUE: Conexión de demanda para apertura de compuertas.
+        IF P[#]_V[T]_COMPUERTAS = 1 THEN 
+            P[#]_V[T]_COMPVAV = P[#]_V[T]_DEMANDA
+            P[#]_V[T]_COMPBLQ = 1 
+        ELSE 
+            P[#]_V[T]_COMPVAV = 0
+            P[#]_V[T]_COMPBLQ = 0
+        ENDIF
+    ```
+
+En el siguiente ejemplo se muestra el módulo de control completo para cada VAV integrando los dos bloques de control:
+
 ```basic
-    REM PLENUM 1 - VAV MEDIANA
-    LOCALS P1_VM_ACTIV, P1_VM_DM, P1_VM_A, P1_VM_AB
-		REM P1_VM_ACTIV		Estado de activación del control de compuertas (VAV y Bloqueo)
-		P1_VM_DM = AV85		: REM Control de demanda de apertura de la Compuerta VAV
-		AO1 = P1_VM_A		: REM Control de apertura de Compuerta VAV
-		BO1= P1_VM_AB		: REM Control de apertura de Compuerta Bloqueo
-```
+    REM *PLENUM [#]
 
-2. Establece en la misma sección de variables de control la Constante del sistema
+        REM MODULO: VAV [TAMAÑO] 
 
-Ejemplo.
-```basic
-    REM CONSTANTES: AJUSTES DE OPERACION
-	LOCALS PORC_ACTIV
-		PORC_ACTIV = 5		: REM Porcentaje de activación del control de compuertas
-```
+            REM BLOQUE: Activación del sistema.
+                IF P[#]_V[T]_DEMANDA > PORCENTAJE_ACTIVACION THEN P[#]_V[T]_COMPUERTAS = 1
+                IF P[#]_V[T]_DEMANDA < 1 THEN P[#]_V[T]_COMPUERTAS = 0
 
-3. En la sección de lógica de control desarrolla la lógica de control para cada VAV
-
-Ejemplo.
-```basic
-	REM *PLENUM 1
-
-		REM **VAV MEDIANA 
-
-			REM ***ACTIVACION DE CAJA
-				IF P1_VM_DM > PORC_ACTIV THEN P1_VM_ACTIV = 1
-				IF P1_VM_DM < 1 THEN P1_VM_ACTIV = 0
-
-			REM ***CONEXION A CONTROL DE COMPUERTAS
-				IF P1_VM_ACTIV THEN 
-					P1_VM_A = P1_VM_DM
-					P1_VM_AB = 1 
-				 ELSE 
-				 	P1_VM_A = 0
-					P1_VM_AB = 0
+            REM BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P[#]_V[T]_COMPUERTAS = 1 THEN 
+                    P[#]_V[T]_COMPVAV = P[#]_V[T]_DEMANDA
+                    P[#]_V[T]_COMPBLQ = 1 
+                ELSE 
+                    P[#]_V[T]_COMPVAV = 0
+                    P[#]_V[T]_COMPBLQ = 0
                 ENDIF
 ```
+
+
+## DIAGRAMA DE FLUJO DEL MODULO DE CONTROL
+
+### CODIGO DE COLORES
+```mermaid
+flowchart TB
+
+    VARIABLES[VARIABLES EXTERNAS]:::variables
+    BLOQUE1:::bloque1
+    BLOQUE2:::bloque2
+
+    classDef variables fill:#030,stroke:#090,stroke-width:2px,color:#afa,stroke-dasharray: 4 1
+
+    classDef bloque1 fill:#300,stroke:#900,stroke-width:2px,color:#faa,stroke-dasharray: 4 1
+
+    classDef bloque2 fill:#003,stroke:#009,stroke-width:2px,color:#aaf,stroke-dasharray: 4 1
+
+```
+
+### MODULO - CONTROL DE COMPUERTAS VAVS
+```mermaid
+flowchart TB
+
+    DM[/DEMANDA = AV/]:::variables --> ACT{DEMANDA > PORCENTAJE_ACTIVACION}:::bloque1;
+
+        ACT -- Si --> SetActive[COMPUERTAS = ON]:::bloque1 
+        ACT -- No --> DES{DEMANDA < 1}:::bloque1
+        SetActive --> DES
+        DES -- Si --> SetInactive[COMPUERTAS = OFF]:::bloque1
+    
+        DES -- No --> CONECTOR:::bloque2
+        SetInactive --> CONECTOR
+        CONECTOR{COMPUERTAS = ON} -- Si --> SISACT[COMPVAV = DEMANDA<br>COMPBLQ = 1]:::bloque2
+        CONECTOR -- No --> SISINACT[COMPVAV = 0<br>COMPBLQ = 0]:::bloque2
+
+    SISACT & SISINACT --> CompVAV[/AO = COMPVAV/]:::variables
+    SISACT & SISINACT --> CompBloq[/BO = COMPBLQ/]:::variables
+
+    classDef variables fill:#030,stroke:#090,stroke-width:2px,color:#afa,stroke-dasharray: 4 1
+
+    classDef bloque1 fill:#300,stroke:#900,stroke-width:2px,color:#faa,stroke-dasharray: 4 1
+
+    classDef bloque2 fill:#003,stroke:#009,stroke-width:2px,color:#aaf,stroke-dasharray: 4 1
+```
+
