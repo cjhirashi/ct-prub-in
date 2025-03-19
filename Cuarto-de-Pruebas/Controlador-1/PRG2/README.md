@@ -87,9 +87,9 @@ flowchart TB
     BLOQUE1:::bloque1
     BLOQUE2:::bloque2
 
-    classDef variables fill:#030,stroke:#090,stroke-width:2px,color:#afa,stroke-dasharray: 4 1
-    classDef bloque1 fill:#300,stroke:#900,stroke-width:2px,color:#faa,stroke-dasharray: 4 1
-    classDef bloque2 fill:#003,stroke:#009,stroke-width:2px,color:#aaf,stroke-dasharray: 4 1
+    classDef variables fill:#0077CC, stroke:#00BFFF, stroke-width:2px, color:#FFFFFF, stroke-dasharray: 4 1
+    classDef bloque1 fill:#003366, stroke:#006699, stroke-width:2px, color:#ADD8E6, stroke-dasharray: 4 1
+    classDef bloque2 fill:#001A33, stroke:#003366, stroke-width:2px, color:#87CEEB, stroke-dasharray: 4 1
 ```
 
 ### MODULO - CONTROL DE COMPUERTAS VAVS
@@ -108,9 +108,9 @@ flowchart TB
     SISACT & SISINACT --> CompVAV[/AO = COMPVAV/]:::variables
     SISACT & SISINACT --> CompBloq[/BO = COMPBLQ/]:::variables
 
-    classDef variables fill:#030,stroke:#090,stroke-width:2px,color:#afa,stroke-dasharray: 4 1
-    classDef bloque1 fill:#300,stroke:#900,stroke-width:2px,color:#faa,stroke-dasharray: 4 1
-    classDef bloque2 fill:#003,stroke:#009,stroke-width:2px,color:#aaf,stroke-dasharray: 4 1
+    classDef variables fill:#0077CC, stroke:#00BFFF, stroke-width:2px, color:#FFFFFF, stroke-dasharray: 4 1
+    classDef bloque1 fill:#003366, stroke:#006699, stroke-width:2px, color:#ADD8E6, stroke-dasharray: 4 1
+    classDef bloque2 fill:#001A33, stroke:#003366, stroke-width:2px, color:#87CEEB, stroke-dasharray: 4 1
 ```
 *Nota*: El diagrama representa el flujo de control para una *única* VAV.  Este mismo flujo se replica para cada una de las 15 VAVs.
 ---
