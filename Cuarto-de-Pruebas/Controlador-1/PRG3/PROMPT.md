@@ -116,9 +116,10 @@ Los rangos de medición de caudales por caja son los siguientes:
 *   **Entradas:**
     *   `PLENUM` (MSV): Selector del plenum activo (0 = Ninguno, 1-6 = Plenum 1-6). (LEE)
     *   `SS_CP` Señal de activación del sistema. (LEE)
-    *   `SP_Q_V[T]` Setpoint de caudal para VAV Grande. (LEE)
- 
+
+    *   `V[T]_Q-SP` Setpoint de caudal para VAV [TAMAÑO] activa. (LEE)
     *   `P[#]_V[T]_Q` Caudales VAV. (LEE)
+
     *   `P1_DP_1` Caida de presión 1 PLENUM 1. (LEE)
     *   `P1_DP_2` Caida de presión 2 PLENUM 1. (LEE)
     *   `P2_DP` Caida de presión PLENUM 2. (LEE)
@@ -127,27 +128,23 @@ Los rangos de medición de caudales por caja son los siguientes:
     *   `P6_DP` Caida de presión PLENUM 6. (LEE)
 
 *   **Salidas:**
-    *   `Q_GR_DM` Demanda de VAV Grande. (ESCRIBE)
-    *   `Q_MD_DM` Demanda de VAV Mediana. (ESCRIBE)
-    *   `Q_CH_DM` Demanda de VAV Chica. (ESCRIBE)
-    *   `QR_GR_DM` Demanda de VAV Grande de Retorno. (ESCRIBE)
-    *   `QR_CH_DM` Demanda de VAV Chica de Retorno. (ESCRIBE)
     *   `ST_CP`Estado de operación general. (ESCRIBE)
     *   `ST_P1` - `ST_P6` Estado de operación de cada plenum (1-6). (ESCRIBE)
-    *   `Q_GR` Caudal de VAV Grande Activa (ESCRIBE)
-    *   `Q_MD` Caudal de VAV Mediana Activa (ESCRIBE)
-    *   `Q_CH` Caudal de VAV Chica Activa (ESCRIBE)
+
+    *   `V[T]_DEMANDA` Demanda de VAV [TAMAÑO] activa. (ESCRIBE)
+
+    *   `V[T]_Q` Caudal de VAV Grande Activa (ESCRIBE)
     *   `Q_T` Caudal Total Activo (ESCRIBE)
     *   `P[#]_V[T]_COMPVAV` Control de compuerta VAV (ESCRIBE)
 
     *   `DP_1` Caida de presión 1 de plenum activo (ESCRIBE)
     *   `DP_2` Caida de presión 2 de plenum activo (ESCRIBE)
-    *   `MIN_VG` Caudal Mínimo de VAV Grande activa (ESCRIBE)
-    *   `MAX_VG` Caudal Máximo de VAV Grande activa (ESCRIBE)
-    *   `MIN_VM` Caudal Mínimo de VAV Mediana activa (ESCRIBE)
-    *   `MAX_VM` Caudal Máximo de VAV Mediana activa (ESCRIBE)
-    *   `MIN_VC` Caudal Mínimo de VAV Chica activa (ESCRIBE)
-    *   `MAX_VC` Caudal Máximo de VAV Chica activa (ESCRIBE)
+    *   `VG_MIN` Caudal Mínimo de VAV Grande activa (ESCRIBE)
+    *   `VG_MAX` Caudal Máximo de VAV Grande activa (ESCRIBE)
+    *   `VM_MIN` Caudal Mínimo de VAV Mediana activa (ESCRIBE)
+    *   `VM_MAX` Caudal Máximo de VAV Mediana activa (ESCRIBE)
+    *   `VC_MIN` Caudal Mínimo de VAV Chica activa (ESCRIBE)
+    *   `VC_MAX` Caudal Máximo de VAV Chica activa (ESCRIBE)
 
 ## LOGICA DE OPERACION
 
