@@ -182,13 +182,26 @@ Este módulo realiza las siguientes acciones:
 PLENUM = MSV1
 SS_CP = BV1
 ... (leer todos los setpoints y caudales) ...
+... (escribir todas las variables de entrada y salida) ...
 
-// Limitar setpoints
-SP_Q_VG = MIN(MAX(SP_Q_VG, MIN_VG), MAX_VG)
-SP_Q_VM = MIN(MAX(SP_Q_VM, MIN_VM), MAX_VM)
-SP_Q_VC = MIN(MAX(SP_Q_VC, MIN_VC), MAX_VC)
-SP_Q_VGR = MIN(MAX(SP_Q_VGR, P7_VG_QMIN), P7_VG_QMAX)
-SP_Q_VCR = MIN(MAX(SP_Q_VCR, P7_VC_QMIN), P7_VC_QMAX)
+    REM VARIABLES: CAIDA DE PRESION EN PLENUMS
+		LOCALS P1_DP_1, P1_DP_2, P2_DP, P4_DP, P5_DP, P6_DP
+	
+		P1_DP_1 = AI18 	
+		IF INTERVAL(00:00:05) THEN
+			IF PLENUM = 1 THEN P1_DP_2 = 10022.AI3  	
+			IF PLENUM = 2 THEN P2_DP = 10022.AI4
+			IF PLENUM = 4 THEN P4_DP = 10022.AI5
+			IF PLENUM = 5 THEN P5_DP = 10022.AI6
+			IF PLENUM = 6 THEN P6_DP = 10022.AI7
+		ENDIF
+
+// Limitar setpoints de caudales
+VG_Q-SP = MIN(MAX(VG_Q-SP, VG_MIN), VG_MAX)
+VM_Q-SP = MIN(MAX(VM_Q-SP, VM_MIN), VM_MAX)
+VC_Q-SP = MIN(MAX(VC_Q-SP, VC_MIN), VC_MAX)
+VGR_Q-SP = MIN(MAX(VGR_Q-SP, VGR_MIN), VGQ_MAX)
+VCR_Q-SP = MIN(MAX(VCR_Q-SP, VCR_MIN), VCQ_MAX)
 
 // Limitar selector de plenum
 PLENUM = MAX(1, MIN(PLENUM, 6))
@@ -197,6 +210,51 @@ PLENUM = MAX(1, MIN(PLENUM, 6))
 IF SS_CP = 1 THEN
     IF PLENUM = 1 THEN
         // Activar Plenum 1
+        REM ***PRESION DE PLENUM
+					DP_1 = P1_DP_1
+					DP_2 = P1_DP_2
+			
+				REM ***BLOQUEO DE ACTIVACION DE VAV ACTIVA
+
+					RLQ BV9@7
+					RLQ BV10@7
+					RLQ BV11@7
+			
+				REM ***LIMITE DE CAUDAL POR TAMANO DE CAJA
+					VG_MAX = P1_VG_QMAX
+					VG_MIN = P1_VG_QMIN
+					VM_MAX = P1_VM_QMAX
+					VM_MIN = P1_VM_QMIN
+					VC_MAX = P1_VC_QMAX
+					VC_MIN = P1_VC_QMIN
+			
+				REM ***CAUDAL DE AIRE
+					Q_GR = P1_VG_Q
+					Q_MD = P1_VM_Q
+					Q_CH = P1_VC_Q
+			
+				REM ***DEMANDA DE AIRE
+					P1_VG_A = Q_GR_DM
+					P1_VM_A = Q_MD_DM
+					P1_VC_A = Q_CH_DM
+					P2_VG_A = 0
+					P2_VM_A = 0
+					P3_VG_A = 0
+					P4_VG_A = 0
+					P4_VM_A = 0
+					P4_VC_A = 0
+					P5_VG_A = 0
+					P5_VC_A = 0
+					P6_VG_A = 0
+					P6_VM_A = 0
+			
+				REM ***ESTADO DE PLENUM ACTIVO
+					ST_P1 = 1
+					ST_P2 = 0
+					ST_P3 = 0
+					ST_P4 = 0
+					ST_P5 = 0
+					ST_P6 = 0
         ...
     ELSE IF PLENUM = 2 THEN
         // Activar Plenum 2
@@ -227,52 +285,52 @@ ENDIF
 // Calcular estado de operación general
 ST_CP = MAX(ST_P1, ST_P2, ST_P3, ST_P4, ST_P5, ST_P6)
 
-// Escribir salidas
-... (escribir todas las variables de salida) ...
 ```
 
 **Diagrama de Flujo:**
 
 ```mermaid
 flowchart TB
-    subgraph Inicio
-    INICIO[Inicio]:::inicio --> LECTURA["`Lectura de Entradas<br>(PLENUM, SS_CP, Setpoints, Caudales, Caídas de Presión)`"]:::proceso
-    end
+    VAREXT[/"Variables Externas<br>PLENUM, SS_CP, Q-SP, Q, DP"/] --> VARINT
+    VARINT[/"Constantes<br>MAX, MIN"/] --> SPQ
+    SPQ["Q-SP = MIN(MAX(Q-SP, MIN), MAX)"] --> PLENUM
+    PLENUM["PLENUM = MAX(1, MIN(PLENUM, 6))"] --> SSCP
+    SSCP{"SS_CP = 1"} -- SI --> PL1
+    SSCP -- NO --> OFF1
+    OFF1["COMPVAV = 100"] --> OFF2
+    OFF2["ST_P[#] = 0"] --> OFF3
+    OFF3["BLOQUEO DE ACTIVACION DE VAVS ACTIVAS"] --> ST
+    PL1{PLENUM = 1} -- SI --> CNX1
+    CNX1[CONEXION DE VARIABLE PLENUM 1 A CONTROL] --> ST
+    PL1 -- NO --> PL2
+    PL2{PLENUM =2} -- SI --> CNX2
+    CNX2[CONEXION DE VARIABLE PLENUM 2 A CONTROL] --> ST
+    PL2 -- NO --> PL3
+    PL3{PLENUM = 3} -- SI --> CNX3
+    CNX3[CONEXION DE VARIABLE PLENUM 3 A CONTROL] --> ST
+    PL3 -- NO --> PL4
+    PL4{PLENUM = 4} -- SI --> CNX4
+    CNX4[CONEXION DE VARIABLE PLENUM 4 A CONTROL] --> ST
+    PL4 -- NO --> PL5
+    PL5{PLENUM = 5} -- SI --> CNX5
+    CNX5[CONEXION DE VARIABLE PLENUM 5 A CONTROL] --> ST
+    PL5 -- NO --> PL6
+    PL6{PLENUM = 6} -- SI --> CNX6
+    CNX6[CONEXION DE VARIABLE PLENUM 6 A CONTROL] --> ST
+    PL6 -- NO --> ST
+    ST["ST_CP = MAX(ST_P1, ST_P2, ST_P3, ST_P4, ST_P5, ST_P6)"] --> VAROUT
 
-    LECTURA --> LIMITAR_SP["`Limitar Setpoints<br>(SP_Q_VG, SP_Q_VM, SP_Q_VC, SP_Q_VGR, SP_Q_VCR)`"]:::proceso
-
-    LIMITAR_SP --> VERIFICAR_SSCP{SS_CP = 1?}:::condicion
-
-    VERIFICAR_SSCP -- Sí --> subSeleccionPlenum
-        subgraph subSeleccionPlenum
-        VERIFICAR_PLENUM{PLENUM?}:::condicion
-        VERIFICAR_PLENUM -- 1 --> ACT_PLENUM1[Activar Plenum 1]:::proceso
-        VERIFICAR_PLENUM -- 2 --> ACT_PLENUM2[Activar Plenum 2]:::proceso
-        VERIFICAR_PLENUM -- 3 --> ACT_PLENUM3[Activar Plenum 3]:::proceso
-        VERIFICAR_PLENUM -- 4 --> ACT_PLENUM4[Activar Plenum 4]:::proceso
-        VERIFICAR_PLENUM -- 5 --> ACT_PLENUM5[Activar Plenum 5]:::proceso
-        VERIFICAR_PLENUM -- 6 --> ACT_PLENUM6[Activar Plenum 6]:::proceso
-        end
-    VERIFICAR_SSCP -- No --> DESACTIVAR[Desactivar Todos los Plenums]:::proceso
-
-    ACT_PLENUM1 --> RETORNO
-    ACT_PLENUM2 --> RETORNO
-    ACT_PLENUM3 --> RETORNO
-    ACT_PLENUM4 --> RETORNO
-    ACT_PLENUM5 --> RETORNO
-    ACT_PLENUM6 --> RETORNO
+    VAROUT[/"Variables externas<br>"/]
     
-    subgraph subControlRetorno
-        RETORNO["`Control de Plenum de Retorno<br>(Siempre Activo si SS_CP = 1)`"]:::proceso
-    end
-    
-    DESACTIVAR --> CALC_ST_CP
-    RETORNO --> CALC_ST_CP[Calcular ST_CP]:::proceso
-    CALC_ST_CP --> ESCRIBIR_SALIDAS[`Escritura de Salidas`]:::proceso
-    ESCRIBIR_SALIDAS --> FIN[Fin]:::fin
 
-    classDef inicio fill:#0077CC, stroke:#00BFFF, stroke-width:2px, color:#FFFFFF
+    classDef var fill:#0077CC, stroke:#00BFFF, stroke-width:2px, color:#FFFFFF
+    class VAREXT,VARINT,VAROUT var
+
     classDef proceso fill:#003366, stroke:#006699, stroke-width:2px, color:#ADD8E6
-    classDef condicion fill:#FF6600, stroke:#FF9933, stroke-width:2px, color:#FFFFFF
-    classDef fin fill:#001A33, stroke:#003366, stroke-width:2px, color:#87CEEB
+    class SPQ,PLENUM,SSCP,OFF1,OFF2,OFF3,PL1,CNX1,PL2,CNX2,PL3,CNX3,PL4,CNX4,PL5,CNX5,PL6,CNX6,ST proceso
+
+    classDef negativo fill:#663300, stroke:#522900, stroke-width:2px, color:#FFFFFF
+    class OFF1,OFF2,OFF3 negativo
+
+
 ```
