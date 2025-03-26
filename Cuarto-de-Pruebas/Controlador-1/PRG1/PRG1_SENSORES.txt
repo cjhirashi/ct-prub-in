@@ -1,302 +1,281 @@
-REM PRG1_SENSORES (CONTROL: Cuarto de pruebas - DI 10021)
-REM Este programa transforma la lectura del sensor de entrada que mide la velocidad de aire en presión diferencial, calibra esta lectura (aplica un multiplicador y un offset), y convierte la lectura de presión dinámica a caudal de aire (CFM).
-REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
-REM Versión 1.5.0
-REM 2024-05-16
+REM NAME: MOD: LECTURA Y CALCULO DE CAUDALES
+REM DESCRIPTION: Lee sensores DP de VAVs, calibra, calcula caudal (CFM) y suma caudales por plenum.
+REM ID PROGRAMA: PRG1
+REM ID CONTROLADOR: 10021
+REM AUTHOR: Carlos Jiménez Hirashi @cjhirashi, Adaptación: Asistente de IA
+REM VERSION: 1.5.1
+REM 21/MAY/2024
 
-REM DECLARACION DE VARIABLES DEL SISTEMA
+REM DECLARACION DE PUNTOS DE CONTROL ********************************************************
 
-    REM VARIABLES: PLENUM 1 - VAV MEDIANA
-    LOCALS P1_VM_CV, P1_VM_IN, P1_VM_DP, P1_VM_Q, P1_VM_M, P1_VM_O
-		P1_VM_IN = AI3		: REM Lectura de sensor de velocidad de VAV
-		P1_VM_M = AV2		: REM Factor Multiplicador
-		P1_VM_O = AV3		: REM Factor Offset
-		AV1 = P1_VM_DP		: REM Lectura de sensor de velocidad calibrado
-		AV4 = P1_VM_Q 		: REM Conversión de lectura de sensor a Caudales
+    REM CONSTANTES Y VARIABLES INTERNAS
+        REM No se requieren constantes ni variables internas para este programa.
 
-	REM VARIABLES: PLENUM 1 - VAV GRANDE
-    LOCALS P1_VG_CV, P1_VG_IN, P1_VG_DP, P1_VG_Q, P1_VG_M, P1_VG_O
-		P1_VG_IN = AI4		: REM Lectura de sensor de velocidad de VAV
-		P1_VG_M = AV6		: REM Factor Multiplicador
-		P1_VG_O = AV7		: REM Factor Offset
-		AV5 = P1_VG_DP		: REM Lectura de sensor de velocidad calibrado
-		AV8 = P1_VG_Q 		: REM Conversión de lectura de sensor a Caudales
+    REM VARIABLES EXTERNAS
 
-	REM VARIABLES: PLENUM 1 - VAV CHICA
-    LOCALS P1_VC_CV, P1_VC_IN, P1_VC_DP, P1_VC_Q, P1_VC_M, P1_VC_O
-		P1_VC_IN = AI16		: REM Lectura de sensor de velocidad de VAV
-		P1_VC_M = AV60		: REM Factor Multiplicador
-		P1_VC_O = AV61		: REM Factor Offset
-		AV59 = P1_VC_DP		: REM Lectura de sensor de velocidad calibrado
-		AV62 = P1_VC_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 1 - VAV MEDIANA (P1_VM)
+        LOCALS P1_VM_IN, P1_VM_M, P1_VM_O, P1_VM_DP, P1_VM_Q
+            P1_VM_IN = AI3         : REM PLENUM 1 - VAV MEDIANA - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P1_VM_M = AV2          : REM PLENUM 1 - VAV MEDIANA - MULTIPLICADOR () - LECTURA
+            P1_VM_O = AV3          : REM PLENUM 1 - VAV MEDIANA - OFFSET () - LECTURA
+            AV1 = P1_VM_DP         : REM PLENUM 1 - VAV MEDIANA - PRESION DIF ("WC") - ESCRITURA
+            AV4 = P1_VM_Q          : REM PLENUM 1 - VAV MEDIANA - CAUDAL FACTOR (cfm) - ESCRITURA
 
-    REM VARIABLES: PLENUM 2 - VAV MEDIANA
-    LOCALS P2_VM_CV, P2_VM_IN, P2_VM_DP, P2_VM_Q, P2_VM_M, P2_VM_O
-		P2_VM_IN = AI5		: REM Lectura de sensor de velocidad de VAV
-		P2_VM_M = AV11		: REM Factor Multiplicador
-		P2_VM_O = AV12		: REM Factor Offset
-		AV10 = P2_VM_DP		: REM Lectura de sensor de velocidad calibrado
-		AV13 = P2_VM_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 1 - VAV GRANDE (P1_VG)
+        LOCALS P1_VG_IN, P1_VG_M, P1_VG_O, P1_VG_DP, P1_VG_Q
+            P1_VG_IN = AI4         : REM PLENUM 1 - VAV GRANDE - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P1_VG_M = AV6          : REM PLENUM 1 - VAV GRANDE - MULTIPLICADOR () - LECTURA
+            P1_VG_O = AV7          : REM PLENUM 1 - VAV GRANDE - OFFSET () - LECTURA
+            AV5 = P1_VG_DP         : REM PLENUM 1 - VAV GRANDE - PRESION DIF ("WC") - ESCRITURA
+            AV8 = P1_VG_Q          : REM PLENUM 1 - VAV GRANDE - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: PLENUM 2 - VAV GRANDE
-    LOCALS P2_VG_CV, P2_VG_IN, P2_VG_DP, P2_VG_Q, P2_VG_M, P2_VG_O
-		P2_VG_IN = AI6		: REM Lectura de sensor de velocidad de VAV
-		P2_VG_M = AV15		: REM Factor Multiplicador
-		P2_VG_O = AV16		: REM Factor Offset
-		AV14 = P2_VG_DP		: REM Lectura de sensor de velocidad calibrado
-		AV17 = P2_VG_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 1 - VAV CHICA (P1_VC)
+        LOCALS P1_VC_IN, P1_VC_M, P1_VC_O, P1_VC_DP, P1_VC_Q
+            P1_VC_IN = AI16        : REM PLENUM 1 - VAV CHICA - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P1_VC_M = AV60         : REM PLENUM 1 - VAV CHICA - MULTIPLICADOR () - LECTURA
+            P1_VC_O = AV61         : REM PLENUM 1 - VAV CHICA - OFFSET () - LECTURA
+            AV59 = P1_VC_DP        : REM PLENUM 1 - VAV CHICA - PRESION DIF ("WC") - ESCRITURA
+            AV62 = P1_VC_Q         : REM PLENUM 1 - VAV CHICA - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: PLENUM 3 - VAV GRANDE
-    LOCALS P3_VG_CV, P3_VG_IN, P3_VG_DP, P3_VG_Q, P3_VG_M, P3_VG_O
-		P3_VG_IN = AI17		: REM Lectura de sensor de velocidad de VAV
-		P3_VG_M = AV64		: REM Factor Multiplicador
-		P3_VG_O = AV65		: REM Factor Offset
-		AV63 = P3_VG_DP		: REM Lectura de sensor de velocidad calibrado
-		AV66 = P3_VG_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 2 - VAV MEDIANA (P2_VM)
+        LOCALS P2_VM_IN, P2_VM_M, P2_VM_O, P2_VM_DP, P2_VM_Q
+            P2_VM_IN = AI5         : REM PLENUM 2 - VAV MEDIANA - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P2_VM_M = AV11         : REM PLENUM 2 - VAV MEDIANA - MULTIPLICADOR () - LECTURA
+            P2_VM_O = AV12         : REM PLENUM 2 - VAV MEDIANA - OFFSET () - LECTURA
+            AV10 = P2_VM_DP        : REM PLENUM 2 - VAV MEDIANA - PRESION DIF ("WC") - ESCRITURA
+            AV13 = P2_VM_Q         : REM PLENUM 2 - VAV MEDIANA - CAUDAL FACTOR (cfm) - ESCRITURA
 
- 	REM VARIABLES: PLENUM 4 - VAV MEDIANA
-    LOCALS P4_VM_CV, P4_VM_IN, P4_VM_DP, P4_VM_Q, P4_VM_M, P4_VM_O
-		P4_VM_IN = AI7		: REM Lectura de sensor de velocidad de VAV
-		P4_VM_M = AV20		: REM Factor Multiplicador
-		P4_VM_O = AV21		: REM Factor Offset
-		AV19 = P4_VM_DP		: REM Lectura de sensor de velocidad calibrado
-		AV22 = P4_VM_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 2 - VAV GRANDE (P2_VG)
+        LOCALS P2_VG_IN, P2_VG_M, P2_VG_O, P2_VG_DP, P2_VG_Q
+            P2_VG_IN = AI6         : REM PLENUM 2 - VAV GRANDE - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P2_VG_M = AV15         : REM PLENUM 2 - VAV GRANDE - MULTIPLICADOR () - LECTURA
+            P2_VG_O = AV16         : REM PLENUM 2 - VAV GRANDE - OFFSET () - LECTURA
+            AV14 = P2_VG_DP        : REM PLENUM 2 - VAV GRANDE - PRESION DIF ("WC") - ESCRITURA
+            AV17 = P2_VG_Q         : REM PLENUM 2 - VAV GRANDE - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: PLENUM 4 - VAV GRANDE
-    LOCALS P4_VG_CV, P4_VG_IN, P4_VG_DP, P4_VG_Q, P4_VG_M, P4_VG_O
-		P4_VG_IN = AI8		: REM Lectura de sensor de velocidad de VAV
-		P4_VG_M = AV24		: REM Factor Multiplicador
-		P4_VG_O = AV25		: REM Factor Offset
-		AV23 = P4_VG_DP		: REM Lectura de sensor de velocidad calibrado
-		AV26 = P4_VG_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 3 - VAV GRANDE (P3_VG)
+        LOCALS P3_VG_IN, P3_VG_M, P3_VG_O, P3_VG_DP, P3_VG_Q
+            P3_VG_IN = AI17        : REM PLENUM 3 - VAV GRANDE - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P3_VG_M = AV64         : REM PLENUM 3 - VAV GRANDE - MULTIPLICADOR () - LECTURA
+            P3_VG_O = AV65         : REM PLENUM 3 - VAV GRANDE - OFFSET () - LECTURA
+            AV63 = P3_VG_DP        : REM PLENUM 3 - VAV GRANDE - PRESION DIF ("WC") - ESCRITURA
+            AV66 = P3_VG_Q         : REM PLENUM 3 - VAV GRANDE - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: PLENUM 4 - VAV CHICA
-    LOCALS P4_VC_CV, P4_VC_IN, P4_VC_DP, P4_VC_Q, P4_VC_M, P4_VC_O
-		P4_VC_IN = AI9		: REM Lectura de sensor de velocidad de VAV
-		P4_VC_M = AV28		: REM Factor Multiplicador
-		P4_VC_O = AV29		: REM Factor Offset
-		AV27 = P4_VC_DP		: REM Lectura de sensor de velocidad calibrado
-		AV30 = P4_VC_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 4 - VAV MEDIANA (P4_VM)
+        LOCALS P4_VM_IN, P4_VM_M, P4_VM_O, P4_VM_DP, P4_VM_Q
+            P4_VM_IN = AI7         : REM PLENUM 4 - VAV MEDIANA - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P4_VM_M = AV20         : REM PLENUM 4 - VAV MEDIANA - MULTIPLICADOR () - LECTURA
+            P4_VM_O = AV21         : REM PLENUM 4 - VAV MEDIANA - OFFSET () - LECTURA
+            AV19 = P4_VM_DP        : REM PLENUM 4 - VAV MEDIANA - PRESION DIF ("WC") - ESCRITURA
+            AV22 = P4_VM_Q         : REM PLENUM 4 - VAV MEDIANA - CAUDAL FACTOR (cfm) - ESCRITURA
 
-   	REM VARIABLES: PLENUM 5 - VAV CHICA
-    LOCALS P5_VC_CV, P5_VC_IN, P5_VC_DP, P5_VC_Q, P5_VC_M, P5_VC_O
-		P5_VC_IN = AI10		: REM Lectura de sensor de velocidad de VAV
-		P5_VC_M = AV33		: REM Factor Multiplicador
-		P5_VC_O = AV34		: REM Factor Offset
-		AV32 = P5_VC_DP		: REM Lectura de sensor de velocidad calibrado
-		AV35 = P5_VC_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 4 - VAV GRANDE (P4_VG)
+        LOCALS P4_VG_IN, P4_VG_M, P4_VG_O, P4_VG_DP, P4_VG_Q
+            P4_VG_IN = AI8         : REM PLENUM 4 - VAV GRANDE - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P4_VG_M = AV24         : REM PLENUM 4 - VAV GRANDE - MULTIPLICADOR () - LECTURA
+            P4_VG_O = AV25         : REM PLENUM 4 - VAV GRANDE - OFFSET () - LECTURA
+            AV23 = P4_VG_DP        : REM PLENUM 4 - VAV GRANDE - PRESION DIF ("WC") - ESCRITURA
+            AV26 = P4_VG_Q         : REM PLENUM 4 - VAV GRANDE - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: PLENUM 5 - VAV GRANDE
-    LOCALS P5_VG_CV, P5_VG_IN, P5_VG_DP, P5_VG_Q, P5_VG_M, P5_VG_O
-		P5_VG_IN = AI11		: REM Lectura de sensor de velocidad de VAV
-		P5_VG_M = AV37		: REM Factor Multiplicador
-		P5_VG_O = AV38		: REM Factor Offset
-		AV36 = P5_VG_DP		: REM Lectura de sensor de velocidad calibrado
-		AV39 = P5_VG_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 4 - VAV CHICA (P4_VC)
+        LOCALS P4_VC_IN, P4_VC_M, P4_VC_O, P4_VC_DP, P4_VC_Q
+            P4_VC_IN = AI9         : REM PLENUM 4 - VAV CHICA - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P4_VC_M = AV28         : REM PLENUM 4 - VAV CHICA - MULTIPLICADOR () - LECTURA
+            P4_VC_O = AV29         : REM PLENUM 4 - VAV CHICA - OFFSET () - LECTURA
+            AV27 = P4_VC_DP        : REM PLENUM 4 - VAV CHICA - PRESION DIF ("WC") - ESCRITURA
+            AV30 = P4_VC_Q         : REM PLENUM 4 - VAV CHICA - CAUDAL FACTOR (cfm) - ESCRITURA
 
-    REM VARIABLES: PLENUM 6 - VAV GRANDE
-    LOCALS P6_VG_CV, P6_VG_IN, P6_VG_DP, P6_VG_Q, P6_VG_M, P6_VG_O
-		P6_VG_IN = AI12		: REM Lectura de sensor de velocidad de VAV
-		P6_VG_M = AV42		: REM Factor Multiplicador
-		P6_VG_O = AV43		: REM Factor Offset
-		AV41 = P6_VG_DP		: REM Lectura de sensor de velocidad calibrado
-		AV44 = P6_VG_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 5 - VAV CHICA (P5_VC)
+        LOCALS P5_VC_IN, P5_VC_M, P5_VC_O, P5_VC_DP, P5_VC_Q
+            P5_VC_IN = AI10        : REM PLENUM 5 - VAV CHICA - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P5_VC_M = AV33         : REM PLENUM 5 - VAV CHICA - MULTIPLICADOR () - LECTURA
+            P5_VC_O = AV34         : REM PLENUM 5 - VAV CHICA - OFFSET () - LECTURA
+            AV32 = P5_VC_DP        : REM PLENUM 5 - VAV CHICA - PRESION DIF ("WC") - ESCRITURA
+            AV35 = P5_VC_Q         : REM PLENUM 5 - VAV CHICA - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: PLENUM 6 - VAV MEDIANA
-    LOCALS P6_VM_CV, P6_VM_IN, P6_VM_DP, P6_VM_Q, P6_VM_M, P6_VM_O
-		P6_VM_IN = AI13		: REM Lectura de sensor de velocidad de VAV
-		P6_VM_M = AV46		: REM Factor Multiplicador
-		P6_VM_O = AV47		: REM Factor Offset
-		AV45 = P6_VM_DP		: REM Lectura de sensor de velocidad calibrado
-		AV48 = P6_VM_Q 		: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 5 - VAV GRANDE (P5_VG)
+        LOCALS P5_VG_IN, P5_VG_M, P5_VG_O, P5_VG_DP, P5_VG_Q
+            P5_VG_IN = AI11        : REM PLENUM 5 - VAV GRANDE - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P5_VG_M = AV37         : REM PLENUM 5 - VAV GRANDE - MULTIPLICADOR () - LECTURA
+            P5_VG_O = AV38         : REM PLENUM 5 - VAV GRANDE - OFFSET () - LECTURA
+            AV36 = P5_VG_DP        : REM PLENUM 5 - VAV GRANDE - PRESION DIF ("WC") - ESCRITURA
+            AV39 = P5_VG_Q         : REM PLENUM 5 - VAV GRANDE - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: PLENUM R7 - VAV CHICA
-    LOCALS PR7_VC_CV, PR7_VC_IN, PR7_VC_DP, PR7_VC_Q, PR7_VC_M, PR7_VC_O
-		PR7_VC_IN = AI14	: REM Lectura de sensor de velocidad de VAV
-		PR7_VC_M = AV51		: REM Factor Multiplicador
-		PR7_VC_O = AV52		: REM Factor Offset
-		AV50 = PR7_VC_DP	: REM Lectura de sensor de velocidad calibrado
-		AV53 = PR7_VC_Q 	: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 6 - VAV GRANDE (P6_VG)
+        LOCALS P6_VG_IN, P6_VG_M, P6_VG_O, P6_VG_DP, P6_VG_Q
+            P6_VG_IN = AI12        : REM PLENUM 6 - VAV GRANDE - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P6_VG_M = AV42         : REM PLENUM 6 - VAV GRANDE - MULTIPLICADOR () - LECTURA
+            P6_VG_O = AV43         : REM PLENUM 6 - VAV GRANDE - OFFSET () - LECTURA
+            AV41 = P6_VG_DP        : REM PLENUM 6 - VAV GRANDE - PRESION DIF ("WC") - ESCRITURA
+            AV44 = P6_VG_Q         : REM PLENUM 6 - VAV GRANDE - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: PLENUM R7 - VAV GRANDE
-    LOCALS PR7_VG_CV, PR7_VG_IN, PR7_VG_DP, PR7_VG_Q, PR7_VG_M, PR7_VG_O
-		PR7_VG_IN = AI15	: REM Lectura de sensor de velocidad de VAV
-		PR7_VG_M = AV55		: REM Factor Multiplicador
-		PR7_VG_O = AV56		: REM Factor Offset
-		AV54 = PR7_VG_DP	: REM Lectura de sensor de velocidad calibrado
-		AV57 = PR7_VG_Q 	: REM Conversión de lectura de sensor a Caudales
+        REM PLENUM 6 - VAV MEDIANA (P6_VM)
+        LOCALS P6_VM_IN, P6_VM_M, P6_VM_O, P6_VM_DP, P6_VM_Q
+            P6_VM_IN = AI13        : REM PLENUM 6 - VAV MEDIANA - ENTRADA (CAUDALES) ("WC") - LECTURA
+            P6_VM_M = AV46         : REM PLENUM 6 - VAV MEDIANA - MULTIPLICADOR () - LECTURA
+            P6_VM_O = AV47         : REM PLENUM 6 - VAV MEDIANA - OFFSET () - LECTURA
+            AV45 = P6_VM_DP        : REM PLENUM 6 - VAV MEDIANA - PRESION DIF ("WC") - ESCRITURA
+            AV48 = P6_VM_Q         : REM PLENUM 6 - VAV MEDIANA - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: CAUDALES TOTALES DE PLENUMS
-	LOCALS P1_Q, P2_Q, P4_Q, P5_Q, P6_Q, PR7_Q
-		P1_Q = P1_VM_Q + P1_VG_Q + P1_VC_Q
-		P2_Q = P2_VM_Q + P2_VG_Q
-		P4_Q = P4_VM_Q + P4_VG_Q + P4_VC_Q
-		P5_Q = P5_VC_Q + P5_VG_Q
-		P6_Q = P6_VG_Q + P6_VM_Q
-		PR7_Q = PR7_VC_Q + PR7_VG_Q
-		AV9 = P1_Q
-		AV18 = P2_Q
-		AV31 = P4_Q
-		AV40 = P5_Q
-		AV49 = P6_Q
-		AV58 = PR7_VC_Q
+        REM PLENUM 7R - VAV CHICA (PR7_VC)
+        LOCALS PR7_VC_IN, PR7_VC_M, PR7_VC_O, PR7_VC_DP, PR7_VC_Q
+            PR7_VC_IN = AI14       : REM PLENUM R7 - VAV CHICA - ENTRADA (CAUDALES) ("WC") - LECTURA
+            PR7_VC_M = AV51        : REM PLENUM R7 - VAV CHICA - MULTIPLICADOR () - LECTURA
+            PR7_VC_O = AV52        : REM PLENUM R7 - VAV CHICA - OFFSET () - LECTURA
+            AV50 = PR7_VC_DP       : REM PLENUM R7 - VAV CHICA - PRESION DIF ("WC") - ESCRITURA
+            AV53 = PR7_VC_Q        : REM PLENUM R7 - VAV CHICA - CAUDAL FACTOR (cfm) - ESCRITURA
 
-	REM VARIABLES: COEFICIENTES DE VELOCIDAD 
-	IF INTERVAL(00:01:00) THEN
-		P1_VM_CV = 10022.AV112	: REM Coeficiente de Velocidad de VAV
-		P1_VG_CV = 10022.AV113	: REM Coeficiente de Velocidad de VAV
-		P1_VC_CV = 10022.AV114	: REM Coeficiente de Velocidad de VAV
-		P2_VM_CV = 10022.AV115	: REM Coeficiente de Velocidad de VAV
-		P2_VG_CV = 10022.AV116	: REM Coeficiente de Velocidad de VAV
-		P3_VG_CV = 10022.AV117	: REM Coeficiente de Velocidad de VAV
-		P4_VM_CV = 10022.AV118	: REM Coeficiente de Velocidad de VAV
-		P4_VG_CV = 10022.AV119	: REM Coeficiente de Velocidad de VAV
-		P4_VC_CV = 10022.AV120	: REM Coeficiente de Velocidad de VAV
-		P5_VC_CV = 10022.AV121	: REM Coeficiente de Velocidad de VAV
-		P5_VG_CV = 10022.AV122	: REM Coeficiente de Velocidad de VAV
-		P6_VG_CV = 10022.AV123	: REM Coeficiente de Velocidad de VAV
-		P6_VM_CV = 10022.AV124	: REM Coeficiente de Velocidad de VAV
-		PR7_VC_CV = 10022.AV125	: REM Coeficiente de Velocidad de VAV
-		PR7_VG_CV = 10022.AV126	: REM Coeficiente de Velocidad de VAV
-	ENDIF
+        REM PLENUM 7R - VAV GRANDE (PR7_VG)
+        LOCALS PR7_VG_IN, PR7_VG_M, PR7_VG_O, PR7_VG_DP, PR7_VG_Q
+            PR7_VG_IN = AI15       : REM PLENUM R7 - VAV GRANDE - ENTRADA (CAUDALES) ("WC") - LECTURA
+            PR7_VG_M = AV55        : REM PLENUM R7 - VAV GRANDE - MULTIPLICADOR () - LECTURA
+            PR7_VG_O = AV56        : REM PLENUM R7 - VAV GRANDE - OFFSET () - LECTURA
+            AV54 = PR7_VG_DP       : REM PLENUM R7 - VAV GRANDE - PRESION DIF ("WC") - ESCRITURA
+            AV57 = PR7_VG_Q        : REM PLENUM R7 - VAV GRANDE - CAUDAL FACTOR (cfm) - ESCRITURA
+
+        REM CAUDALES TOTALES POR PLENUM
+        LOCALS P1_Q, P2_Q, P4_Q, P5_Q, P6_Q, PR7_Q
+            AV9 = P1_Q             : REM PLENUM 1 - CAUDAL TOTAL (cfm) - ESCRITURA
+            AV18 = P2_Q            : REM PLENUM 2 - CAUDAL TOTAL (cfm) - ESCRITURA
+            AV31 = P4_Q            : REM PLENUM 4 - CAUDAL TOTAL (cfm) - ESCRITURA
+            AV40 = P5_Q            : REM PLENUM 5 - CAUDAL TOTAL (cfm) - ESCRITURA
+            AV49 = P6_Q            : REM PLENUM 6 - CAUDAL TOTAL (cfm) - ESCRITURA
+            AV58 = PR7_Q           : REM PLENUM R7 - CAUDAL TOTAL (cfm) - ESCRITURA
+
+        REM COEFICIENTES DE VELOCIDAD (Lectura Remota Periódica)
+        LOCALS P1_VM_CV, P1_VG_CV, P1_VC_CV, 
+		LOCALS P2_VM_CV, P2_VG_CV, P3_VG_CV, 
+		LOCALS P4_VM_CV, P4_VG_CV, P4_VC_CV, 
+		LOCALS P5_VC_CV, P5_VG_CV, 
+		LOCALS P6_VG_CV, P6_VM_CV, 
+		LOCALS PR7_VC_CV, PR7_VG_CV
+            REM Lectura periodica cada minuto desde controlador 10022
+            IF INTERVAL(00:01:00) THEN
+                P1_VM_CV = 10022.AV112  : REM PLENUM 1 - VAV MEDIANA - COEFICIENTE DE VELOCIDAD
+                P1_VG_CV = 10022.AV113  : REM PLENUM 1 - VAV GRANDE - COEFICIENTE DE VELOCIDAD
+                P1_VC_CV = 10022.AV114  : REM PLENUM 1 - VAV CHICA - COEFICIENTE DE VELOCIDAD
+                P2_VM_CV = 10022.AV115  : REM PLENUM 2 - VAV MEDIANA - COEFICIENTE DE VELOCIDAD
+                P2_VG_CV = 10022.AV116  : REM PLENUM 2 - VAV GRANDE - COEFICIENTE DE VELOCIDAD
+                P3_VG_CV = 10022.AV117  : REM PLENUM 3 - VAV GRANDE - COEFICIENTE DE VELOCIDAD
+                P4_VM_CV = 10022.AV118  : REM PLENUM 4 - VAV MEDIANA - COEFICIENTE DE VELOCIDAD
+                P4_VG_CV = 10022.AV119  : REM PLENUM 4 - VAV GRANDE - COEFICIENTE DE VELOCIDAD
+                P4_VC_CV = 10022.AV120  : REM PLENUM 4 - VAV CHICA - COEFICIENTE DE VELOCIDAD
+                P5_VC_CV = 10022.AV121  : REM PLENUM 5 - VAV CHICA - COEFICIENTE DE VELOCIDAD
+                P5_VG_CV = 10022.AV122  : REM PLENUM 5 - VAV GRANDE - COEFICIENTE DE VELOCIDAD
+                P6_VG_CV = 10022.AV123  : REM PLENUM 6 - VAV GRANDE - COEFICIENTE DE VELOCIDAD
+                P6_VM_CV = 10022.AV124  : REM PLENUM 6 - VAV MEDIANA - COEFICIENTE DE VELOCIDAD
+                PR7_VC_CV = 10022.AV125 : REM PLENUM R7 - VAV CHICA - COEFICIENTE DE VELOCIDAD
+                PR7_VG_CV = 10022.AV126 : REM PLENUM R7 - VAV GRANDE - COEFICIENTE DE VELOCIDAD
+            ENDIF
 
 REM LOGICA DE CONTROL ***********************************************************************
 
-    REM *CALCULO DE CAUDALES EN VAVS
+    REM *CALCULO DE PRESION DIFERENCIAL Y CAUDAL POR VAV
+        REM **PLENUM 1
+            REM ***VAV MEDIANA (P1_VM)
+                REM ****CALIBRACION SENSOR DP
+                P1_VM_DP = MAX(0, ((P1_VM_IN * P1_VM_M) + P1_VM_O))
+                REM ****CALCULO CAUDAL
+                IF P1_VM_DP > 0 THEN P1_VM_Q = P1_VM_CV * (P1_VM_DP ^ 0.5) ELSE P1_VM_Q = 0
 
-		REM **PLENUM 1
+            REM ***VAV GRANDE (P1_VG)
+                REM ****CALIBRACION SENSOR DP
+                P1_VG_DP = MAX(0, ((P1_VG_IN * P1_VG_M) + P1_VG_O))
+                REM ****CALCULO CAUDAL
+                IF P1_VG_DP > 0 THEN P1_VG_Q = P1_VG_CV * (P1_VG_DP ^ 0.5) ELSE P1_VG_Q = 0
 
-			REM **VAV MEDIANA
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P1_VM_DP = MAX(0, ((P1_VM_IN * P1_VM_M) + P1_VM_O))
+            REM ***VAV CHICA (P1_VC)
+                REM ****CALIBRACION SENSOR DP
+                P1_VC_DP = MAX(0, ((P1_VC_IN * P1_VC_M) + P1_VC_O))
+                REM ****CALCULO CAUDAL
+                IF P1_VC_DP > 0 THEN P1_VC_Q = P1_VC_CV * (P1_VC_DP ^ 0.5) ELSE P1_VC_Q = 0
 
-				REM ***CONVERSION
-					P1_VM_Q = MAX(0, (P1_VM_CV * ((P1_VM_DP)^0.5)))
-		
-			REM **VAV GRANDE
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P1_VG_DP = MAX(0, ((P1_VG_IN * P1_VG_M) + P1_VG_O))
+        REM **PLENUM 2
+            REM ***VAV MEDIANA (P2_VM)
+                REM ****CALIBRACION SENSOR DP
+                P2_VM_DP = MAX(0, ((P2_VM_IN * P2_VM_M) + P2_VM_O))
+                REM ****CALCULO CAUDAL
+                IF P2_VM_DP > 0 THEN P2_VM_Q = P2_VM_CV * (P2_VM_DP ^ 0.5) ELSE P2_VM_Q = 0
 
-				REM ***CONVERSION
-					P1_VG_Q = MAX(0, (P1_VG_CV * ((P1_VG_DP)^0.5)))
+            REM ***VAV GRANDE (P2_VG)
+                REM ****CALIBRACION SENSOR DP
+                P2_VG_DP = MAX(0, ((P2_VG_IN * P2_VG_M) + P2_VG_O))
+                REM ****CALCULO CAUDAL
+                IF P2_VG_DP > 0 THEN P2_VG_Q = P2_VG_CV * (P2_VG_DP ^ 0.5) ELSE P2_VG_Q = 0
 
-			REM **VAV CHICA
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P1_VC_DP = MAX(0, ((P1_VC_IN * P1_VC_M) + P1_VC_O))
+        REM **PLENUM 3
+            REM ***VAV GRANDE (P3_VG)
+                REM ****CALIBRACION SENSOR DP
+                P3_VG_DP = MAX(0, ((P3_VG_IN * P3_VG_M) + P3_VG_O))
+                REM ****CALCULO CAUDAL
+                IF P3_VG_DP > 0 THEN P3_VG_Q = P3_VG_CV * (P3_VG_DP ^ 0.5) ELSE P3_VG_Q = 0
 
-				REM ***CONVERSION
-					P1_VC_Q = MAX(0, (P1_VC_CV * ((P1_VC_DP)^0.5)))
+        REM **PLENUM 4
+            REM ***VAV MEDIANA (P4_VM)
+                REM ****CALIBRACION SENSOR DP
+                P4_VM_DP = MAX(0, ((P4_VM_IN * P4_VM_M) + P4_VM_O))
+                REM ****CALCULO CAUDAL
+                IF P4_VM_DP > 0 THEN P4_VM_Q = P4_VM_CV * (P4_VM_DP ^ 0.5) ELSE P4_VM_Q = 0
 
-		REM **PLENUM 2
+            REM ***VAV GRANDE (P4_VG)
+                REM ****CALIBRACION SENSOR DP
+                P4_VG_DP = MAX(0, ((P4_VG_IN * P4_VG_M) + P4_VG_O))
+                REM ****CALCULO CAUDAL
+                IF P4_VG_DP > 0 THEN P4_VG_Q = P4_VG_CV * (P4_VG_DP ^ 0.5) ELSE P4_VG_Q = 0
 
-			REM **VAV MEDIANA
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P2_VM_DP = MAX(0, ((P2_VM_IN * P2_VM_M) + P2_VM_O))
+            REM ***VAV CHICA (P4_VC)
+                REM ****CALIBRACION SENSOR DP
+                P4_VC_DP = MAX(0, ((P4_VC_IN * P4_VC_M) + P4_VC_O))
+                REM ****CALCULO CAUDAL
+                IF P4_VC_DP > 0 THEN P4_VC_Q = P4_VC_CV * (P4_VC_DP ^ 0.5) ELSE P4_VC_Q = 0
 
-				REM ***CONVERSION
-					P2_VM_Q = MAX(0, (P2_VM_CV * ((P2_VM_DP)^0.5)))
-		
-			REM **VAV GRANDE
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P2_VG_DP = MAX(0, ((P2_VG_IN * P2_VG_M) + P2_VG_O))
+        REM **PLENUM 5
+            REM ***VAV CHICA (P5_VC)
+                REM ****CALIBRACION SENSOR DP
+                P5_VC_DP = MAX(0, ((P5_VC_IN * P5_VC_M) + P5_VC_O))
+                REM ****CALCULO CAUDAL
+                IF P5_VC_DP > 0 THEN P5_VC_Q = P5_VC_CV * (P5_VC_DP ^ 0.5) ELSE P5_VC_Q = 0
 
-				REM ***CONVERSION
-					P2_VG_Q = MAX(0, (P2_VG_CV * ((P2_VG_DP)^0.5)))
+            REM ***VAV GRANDE (P5_VG)
+                REM ****CALIBRACION SENSOR DP
+                P5_VG_DP = MAX(0, ((P5_VG_IN * P5_VG_M) + P5_VG_O))
+                REM ****CALCULO CAUDAL
+                IF P5_VG_DP > 0 THEN P5_VG_Q = P5_VG_CV * (P5_VG_DP ^ 0.5) ELSE P5_VG_Q = 0
 
-		REM **PLENUM 3
+        REM **PLENUM 6
+            REM ***VAV GRANDE (P6_VG)
+                REM ****CALIBRACION SENSOR DP
+                P6_VG_DP = MAX(0, ((P6_VG_IN * P6_VG_M) + P6_VG_O))
+                REM ****CALCULO CAUDAL
+                IF P6_VG_DP > 0 THEN P6_VG_Q = P6_VG_CV * (P6_VG_DP ^ 0.5) ELSE P6_VG_Q = 0
 
-			REM **VAV GRANDE
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P3_VG_DP = MAX(0, ((P3_VG_IN * P3_VG_M) + P3_VG_O))
+            REM ***VAV MEDIANA (P6_VM)
+                REM ****CALIBRACION SENSOR DP
+                P6_VM_DP = MAX(0, ((P6_VM_IN * P6_VM_M) + P6_VM_O))
+                REM ****CALCULO CAUDAL
+                IF P6_VM_DP > 0 THEN P6_VM_Q = P6_VM_CV * (P6_VM_DP ^ 0.5) ELSE P6_VM_Q = 0
 
-				REM ***CONVERSION
-					P3_VG_Q = MAX(0, (P3_VG_CV * ((P3_VG_DP)^0.5)))
+        REM **PLENUM 7R
+            REM ***VAV CHICA (PR7_VC)
+                REM ****CALIBRACION SENSOR DP
+                PR7_VC_DP = MAX(0, ((PR7_VC_IN * PR7_VC_M) + PR7_VC_O))
+                REM ****CALCULO CAUDAL
+                IF PR7_VC_DP > 0 THEN PR7_VC_Q = PR7_VC_CV * (PR7_VC_DP ^ 0.5) ELSE PR7_VC_Q = 0
 
-		REM **PLENUM 4
+            REM ***VAV GRANDE (PR7_VG)
+                REM ****CALIBRACION SENSOR DP
+                PR7_VG_DP = MAX(0, ((PR7_VG_IN * PR7_VG_M) + PR7_VG_O))
+                REM ****CALCULO CAUDAL
+                IF PR7_VG_DP > 0 THEN PR7_VG_Q = PR7_VG_CV * (PR7_VG_DP ^ 0.5) ELSE PR7_VG_Q = 0
 
-			REM **VAV MEDIANA
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P4_VM_DP = MAX(0, ((P4_VM_IN * P4_VM_M) + P4_VM_O))
-
-				REM ***CONVERSION
-					P4_VM_Q = MAX(0, (P4_VM_CV * ((P4_VM_DP)^0.5)))
-		
-			REM **VAV GRANDE
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P4_VG_DP = MAX(0, ((P4_VG_IN * P4_VG_M) + P4_VG_O))
-
-				REM ***CONVERSION
-					P4_VG_Q = MAX(0, (P4_VG_CV * ((P4_VG_DP)^0.5)))
-
-			REM **VAV CHICA
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P4_VC_DP = MAX(0, ((P4_VC_IN * P4_VC_M) + P4_VC_O))
-
-				REM ***CONVERSION
-					P4_VC_Q = MAX(0, (P4_VC_CV * ((P4_VC_DP)^0.5)))
-
-		REM **PLENUM 5
-
-			REM **VAV CHICA
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P5_VC_DP = MAX(0, ((P5_VC_IN * P5_VC_M) + P5_VC_O))
-
-				REM ***CONVERSION
-					P5_VC_Q = MAX(0, (P5_VC_CV * ((P5_VC_DP)^0.5)))
-		
-			REM **VAV GRANDE
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P5_VG_DP = MAX(0, ((P5_VG_IN * P5_VG_M) + P5_VG_O))
-
-				REM ***CONVERSION
-					P5_VG_Q = MAX(0, (P5_VG_CV * ((P5_VG_DP)^0.5)))
-
-		REM **PLENUM 6
-
-			REM **VAV GRANDE
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P6_VG_DP = MAX(0, ((P6_VG_IN * P6_VG_M) + P6_VG_O))
-
-				REM ***CONVERSION
-					P6_VG_Q = MAX(0, (P6_VG_CV * ((P6_VG_DP)^0.5)))
-		
-			REM **VAV MEDIANA
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					P6_VM_DP = MAX(0, ((P6_VM_IN * P6_VM_M) + P6_VM_O))
-
-				REM ***CONVERSION
-					P6_VM_Q = MAX(0, (P6_VM_CV * ((P6_VM_DP)^0.5)))
-
-		REM **PLENUM R7
-
-			REM **VAV CHICA
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					PR7_VC_DP = MAX(0, ((PR7_VC_IN * PR7_VC_M) + PR7_VC_O))
-
-				REM ***CONVERSION
-					PR7_VC_Q = MAX(0, (PR7_VC_CV * ((PR7_VC_DP)^0.5)))
-		
-			REM **VAV GRANDE
-		
-				REM ***CALIBRACION DE SENSOR DE ENTRADA
-					PR7_VG_DP = MAX(0, ((PR7_VG_IN * PR7_VG_M) + PR7_VG_O))
-
-				REM ***CONVERSION
-					PR7_VG_Q = MAX(0, (PR7_VG_CV * ((PR7_VG_DP)^0.5)))
+    REM *CALCULO DE CAUDALES TOTALES POR PLENUM
+        P1_Q = P1_VM_Q + P1_VG_Q + P1_VC_Q
+        P2_Q = P2_VM_Q + P2_VG_Q
+        REM P3_Q no se calcula por separado, P3_VG_Q es el total.
+        P4_Q = P4_VM_Q + P4_VG_Q + P4_VC_Q
+        P5_Q = P5_VC_Q + P5_VG_Q
+        P6_Q = P6_VG_Q + P6_VM_Q
+        PR7_Q = PR7_VC_Q + PR7_VG_Q
 
 REM *********************************************************************************************
 
