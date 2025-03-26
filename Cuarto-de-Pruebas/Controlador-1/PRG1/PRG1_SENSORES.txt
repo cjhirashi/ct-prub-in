@@ -3,8 +3,8 @@ REM DESCRIPTION: Lee sensores DP de VAVs, calibra, calcula caudal (CFM) y suma c
 REM ID PROGRAMA: PRG1
 REM ID CONTROLADOR: 10021
 REM AUTHOR: Carlos Jiménez Hirashi @cjhirashi, Adaptación: Asistente de IA
-REM VERSION: 1.5.1
-REM 21/MAY/2024
+REM VERSION: 1.5.0
+REM 26/MAR/2025
 
 REM DECLARACION DE PUNTOS DE CONTROL ********************************************************
 

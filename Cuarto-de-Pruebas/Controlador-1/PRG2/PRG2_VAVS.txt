@@ -1,297 +1,321 @@
-REM NAME: PRG2 - CONTROL DE COMPUERTAS DE VAVS
-REM ID: 10021
-REM DESCRIPTION: Control de compuertas VAV basado en la demanda
-REM AUTHOR: Carlos Jimenez Hirashi @cjhirashi
+REM NAME: MOD: CONTROL DE COMPUERTAS VAVS
+REM DESCRIPTION: Controla la apertura de Compuerta VAV y Compuerta Bloqueo basado en demanda.
+REM ID PROGRAMA: PRG2
+REM ID CONTROLADOR: 10021
+REM AUTHOR: Carlos Jiménez Hirashi @cjhirashi, Adaptación: Asistente de IA
 REM VERSION: 1.5.0
-REM 23/AGO/2024
+REM 26/MAR/2025
 
-REM DECLARACION DE PUNTOS DE CONTROL
+REM DECLARACION DE PUNTOS DE CONTROL ********************************************************
 
     REM CONSTANTES Y VARIABLES INTERNAS
+
         REM CONSTANTES: AJUSTES DE OPERACION
-        LOCALS PORC_ACTIV
-            PORC_ACTIV = 5    : REM Porcentaje de activación del control de compuertas (%)
+        LOCALS PORCENTAJE_ACTIVACION
+            PORCENTAJE_ACTIVACION = 5    : REM Umbral de demanda para activar control de compuertas (%)
 
-        REM VARIABLES INTERNAS: ESTADO DE LAS VAVS
-        LOCALS P1_VM_ACTIV, P1_VG_ACTIV, P1_VC_ACTIV, P2_VM_ACTIV, P2_VG_ACTIV
-        LOCALS P3_VG_ACTIV, P4_VM_ACTIV, P4_VG_ACTIV, P4_VC_ACTIV, P5_VC_ACTIV
-        LOCALS P5_VG_ACTIV, P6_VG_ACTIV, P6_VM_ACTIV, PR7_VC_ACTIV, PR7_VG_ACTIV
-
+        REM VARIABLES INTERNAS: ESTADO DE CONTROL VAVs
+        LOCALS P1_VM_COMPUERTAS, P1_VG_COMPUERTAS, P1_VC_COMPUERTAS
+        LOCALS P2_VM_COMPUERTAS, P2_VG_COMPUERTAS, P3_VG_COMPUERTAS
+        LOCALS P4_VM_COMPUERTAS, P4_VG_COMPUERTAS, P4_VC_COMPUERTAS
+        LOCALS P5_VC_COMPUERTAS, P5_VG_COMPUERTAS, P6_VG_COMPUERTAS
+        LOCALS P6_VM_COMPUERTAS, PR7_VC_COMPUERTAS, PR7_VG_COMPUERTAS
 
     REM VARIABLES EXTERNAS
 
-        REM PLENUM 1
-        LOCALS P1_VM_DM, P1_VG_DM, P1_VC_DM, P1_VM_A, P1_VG_A, P1_VC_A, P1_VM_AB, P1_VG_AB, P1_VC_AB
-            P1_VM_DM = AV85    : REM PLENUM 1 - VAV MEDIANA - DEMANDA (%)
-            P1_VG_DM = AV86    : REM PLENUM 1 - VAV GRANDE - DEMANDA (%)
-            P1_VC_DM = AV67    : REM PLENUM 1 - VAV CHICA - DEMANDA (%)
-            AO1 = P1_VM_A      : REM PLENUM 1 - VAV MEDIANA - COMPUERTA VAV (%)
-            AO2 = P1_VG_A      : REM PLENUM 1 - VAV GRANDE - COMPUERTA VAV (%)
-            AO21 = P1_VC_A     : REM PLENUM 1 - VAV CHICA - COMPUERTA VAV (%)
-            BO14 = P1_VM_AB    : REM PLENUM 1 - VAV MEDIANA - COMPUERTA BLOQUEO (CERRADA/ABIERTA)
-            BO15 = P1_VG_AB    : REM PLENUM 1 - VAV GRANDE - COMPUERTA BLOQUEO (CERRADA/ABIERTA)
-            BO22 = P1_VC_AB    : REM PLENUM 1 - VAV CHICA - COMPUERTA BLOQUEO (CERRADA/ABIERTA)
+        REM PLENUM 1 - VAV MEDIANA (P1_VM)
+        LOCALS P1_VM_DEMANDA, P1_VM_COMPVAV, P1_VM_COMPBLQ
+            P1_VM_DEMANDA = AV85   : REM PLENUM 1 - VAV MEDIANA - DEMANDA (%) - LECTURA
+            AO1 = P1_VM_COMPVAV    : REM PLENUM 1 - VAV MEDIANA - COMPUERTA VAV (%) - ESCRITURA
+            BO14 = P1_VM_COMPBLQ   : REM PLENUM 1 - VAV MEDIANA - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA LOCAL
 
-        REM PLENUM 2
-        LOCALS P2_VM_DM, P2_VG_DM, P2_VM_A, P2_VG_A, P2_VM_AB, P2_VG_AB
-            P2_VM_DM = AV87    : REM PLENUM 2 - VAV MEDIANA - DEMANDA (%)
-            P2_VG_DM = AV88    : REM PLENUM 2 - VAV GRANDE - DEMANDA (%)
-            AO3 = P2_VM_A      : REM PLENUM 2 - VAV MEDIANA - COMPUERTA VAV (%)
-            AO4 = P2_VG_A      : REM PLENUM 2 - VAV GRANDE - COMPUERTA VAV (%)
-            BO16 = P2_VM_AB    : REM PLENUM 2 - VAV MEDIANA - COMPUERTA BLOQUEO (CERRADA/ABIERTA)
-            BO1 = P2_VG_AB     : REM PLENUM 2 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
+        REM PLENUM 1 - VAV GRANDE (P1_VG)
+        LOCALS P1_VG_DEMANDA, P1_VG_COMPVAV, P1_VG_COMPBLQ
+            P1_VG_DEMANDA = AV86   : REM PLENUM 1 - VAV GRANDE - DEMANDA (%) - LECTURA
+            AO2 = P1_VG_COMPVAV    : REM PLENUM 1 - VAV GRANDE - COMPUERTA VAV (%) - ESCRITURA
+            BO15 = P1_VG_COMPBLQ   : REM PLENUM 1 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA LOCAL
 
-        REM PLENUM 3
-        LOCALS P3_VG_DM, P3_VG_A, P3_VG_AB
-            P3_VG_DM = AV68    : REM PLENUM 3 - VAV GRANDE - DEMANDA (%)
-            AO23 = P3_VG_A     : REM PLENUM 3 - VAV GRANDE - COMPUERTA VAV (%)
-            BO24 = P3_VG_AB    : REM PLENUM 3 - VAV GRANDE - COMPUERTA BLOQUEO (CERRADA/ABIERTA)
+        REM PLENUM 1 - VAV CHICA (P1_VC)
+        LOCALS P1_VC_DEMANDA, P1_VC_COMPVAV, P1_VC_COMPBLQ
+            P1_VC_DEMANDA = AV67   : REM PLENUM 1 - VAV CHICA - DEMANDA (%) - LECTURA
+            AO21 = P1_VC_COMPVAV   : REM PLENUM 1 - VAV CHICA - COMPUERTA VAV (%) - ESCRITURA
+            BO22 = P1_VC_COMPBLQ   : REM PLENUM 1 - VAV CHICA - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA LOCAL
 
-        REM PLENUM 4
-        LOCALS P4_VM_DM, P4_VG_DM, P4_VC_DM, P4_VM_A, P4_VG_A, P4_VC_A, P4_VM_AB, P4_VG_AB, P4_VC_AB
-            P4_VM_DM = AV89    : REM PLENUM 4 - VAV MEDIANA - DEMANDA (%)
-            P4_VG_DM = AV90    : REM PLENUM 4 - VAV GRANDE - DEMANDA (%)
-            P4_VC_DM = AV91    : REM PLENUM 4 - VAV CHICA - DEMANDA (%)
-            AO5 = P4_VM_A      : REM PLENUM 4 - VAV MEDIANA - COMPUERTA VAV (%)
-            AO6 = P4_VG_A      : REM PLENUM 4 - VAV GRANDE - COMPUERTA VAV (%)
-            AO7 = P4_VC_A      : REM PLENUM 4 - VAV CHICA - COMPUERTA VAV (%)
-            BO2 = P4_VM_AB     : REM PLENUM 4 - VAV MEDIANA - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
-            BO3 = P4_VG_AB     : REM PLENUM 4 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
-            BO4 = P4_VC_AB     : REM PLENUM 4 - VAV CHICA - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
+        REM PLENUM 2 - VAV MEDIANA (P2_VM)
+        LOCALS P2_VM_DEMANDA, P2_VM_COMPVAV, P2_VM_COMPBLQ
+            P2_VM_DEMANDA = AV87   : REM PLENUM 2 - VAV MEDIANA - DEMANDA (%) - LECTURA
+            AO3 = P2_VM_COMPVAV    : REM PLENUM 2 - VAV MEDIANA - COMPUERTA VAV (%) - ESCRITURA
+            BO16 = P2_VM_COMPBLQ   : REM PLENUM 2 - VAV MEDIANA - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA LOCAL
 
-        REM PLENUM 5
-        LOCALS P5_VC_DM, P5_VG_DM, P5_VC_A, P5_VG_A, P5_VC_AB, P5_VG_AB
-            P5_VC_DM = AV92    : REM PLENUM 5 - VAV CHICA - DEMANDA (%)
-            P5_VG_DM = AV93    : REM PLENUM 5 - VAV GRANDE - DEMANDA (%)
-            AO8 = P5_VC_A      : REM PLENUM 5 - VAV CHICA - COMPUERTA VAV (%)
-            AO9 = P5_VG_A      : REM PLENUM 5 - VAV GRANDE - COMPUERTA VAV (%)
-            BO5 = P5_VC_AB     : REM PLENUM 5 - VAV CHICA - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
-            BO6 = P5_VG_AB     : REM PLENUM 5 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
+        REM PLENUM 2 - VAV GRANDE (P2_VG)
+        LOCALS P2_VG_DEMANDA, P2_VG_COMPVAV, P2_VG_COMPBLQ
+            P2_VG_DEMANDA = AV88   : REM PLENUM 2 - VAV GRANDE - DEMANDA (%) - LECTURA
+            AO4 = P2_VG_COMPVAV    : REM PLENUM 2 - VAV GRANDE - COMPUERTA VAV (%) - ESCRITURA
+            10022.BO1 = P2_VG_COMPBLQ : REM PLENUM 2 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA REMOTO
 
-        REM PLENUM 6
-        LOCALS P6_VG_DM, P6_VM_DM, P6_VG_A, P6_VM_A, P6_VG_AB, P6_VM_AB
-            P6_VG_DM = AV94    : REM PLENUM 6 - VAV GRANDE - DEMANDA (%)
-            P6_VM_DM = AV95    : REM PLENUM 6 - VAV MEDIANA - DEMANDA (%)
-            AO10 = P6_VG_A     : REM PLENUM 6 - VAV GRANDE - COMPUERTA VAV (%)
-            AO11 = P6_VM_A     : REM PLENUM 6 - VAV MEDIANA - COMPUERTA VAV (%)
-            BO7 = P6_VG_AB     : REM PLENUM 6 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
-            BO8 = P6_VM_AB     : REM PLENUM 6 - VAV MEDIANA - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
+        REM PLENUM 3 - VAV GRANDE (P3_VG)
+        LOCALS P3_VG_DEMANDA, P3_VG_COMPVAV, P3_VG_COMPBLQ
+            P3_VG_DEMANDA = AV68   : REM PLENUM 3 - VAV GRANDE - DEMANDA (%) - LECTURA
+            AO23 = P3_VG_COMPVAV   : REM PLENUM 3 - VAV GRANDE - COMPUERTA VAV (%) - ESCRITURA
+            BO24 = P3_VG_COMPBLQ   : REM PLENUM 3 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA LOCAL
 
-        REM PLENUM 7R
-        LOCALS PR7_VC_DM, PR7_VG_DM, PR7_VC_A, PR7_VG_A, PR7_VC_AB, PR7_VG_AB
-            PR7_VC_DM = AV96   : REM PLENUM R7 - VAV CHICA - DEMANDA (%)
-            PR7_VG_DM = AV97   : REM PLENUM R7 - VAV GRANDE - DEMANDA (%)
-            AO12 = PR7_VC_A    : REM PLENUM R7 - VAV CHICA - COMPUERTA VAV (%)
-            AO13 = PR7_VG_A    : REM PLENUM R7 - VAV GRANDE - COMPUERTA VAV (%)
-            BO17 = PR7_VC_AB   : REM PLENUM R7 - VAV CHICA - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
-            BO18 = PR7_VG_AB   : REM PLENUM R7 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA)
+        REM PLENUM 4 - VAV MEDIANA (P4_VM)
+        LOCALS P4_VM_DEMANDA, P4_VM_COMPVAV, P4_VM_COMPBLQ
+            P4_VM_DEMANDA = AV89   : REM PLENUM 4 - VAV MEDIANA - DEMANDA (%) - LECTURA
+            AO5 = P4_VM_COMPVAV    : REM PLENUM 4 - VAV MEDIANA - COMPUERTA VAV (%) - ESCRITURA
+            10022.BO2 = P4_VM_COMPBLQ : REM PLENUM 4 - VAV MEDIANA - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA REMOTO
+
+        REM PLENUM 4 - VAV GRANDE (P4_VG)
+        LOCALS P4_VG_DEMANDA, P4_VG_COMPVAV, P4_VG_COMPBLQ
+            P4_VG_DEMANDA = AV90   : REM PLENUM 4 - VAV GRANDE - DEMANDA (%) - LECTURA
+            AO6 = P4_VG_COMPVAV    : REM PLENUM 4 - VAV GRANDE - COMPUERTA VAV (%) - ESCRITURA
+            10022.BO3 = P4_VG_COMPBLQ : REM PLENUM 4 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA REMOTO
+
+        REM PLENUM 4 - VAV CHICA (P4_VC)
+        LOCALS P4_VC_DEMANDA, P4_VC_COMPVAV, P4_VC_COMPBLQ
+            P4_VC_DEMANDA = AV91   : REM PLENUM 4 - VAV CHICA - DEMANDA (%) - LECTURA
+            AO7 = P4_VC_COMPVAV    : REM PLENUM 4 - VAV CHICA - COMPUERTA VAV (%) - ESCRITURA
+            10022.BO4 = P4_VC_COMPBLQ : REM PLENUM 4 - VAV CHICA - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA REMOTO
+
+        REM PLENUM 5 - VAV CHICA (P5_VC)
+        LOCALS P5_VC_DEMANDA, P5_VC_COMPVAV, P5_VC_COMPBLQ
+            P5_VC_DEMANDA = AV92   : REM PLENUM 5 - VAV CHICA - DEMANDA (%) - LECTURA
+            AO8 = P5_VC_COMPVAV    : REM PLENUM 5 - VAV CHICA - COMPUERTA VAV (%) - ESCRITURA
+            10022.BO5 = P5_VC_COMPBLQ : REM PLENUM 5 - VAV CHICA - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA REMOTO
+
+        REM PLENUM 5 - VAV GRANDE (P5_VG)
+        LOCALS P5_VG_DEMANDA, P5_VG_COMPVAV, P5_VG_COMPBLQ
+            P5_VG_DEMANDA = AV93   : REM PLENUM 5 - VAV GRANDE - DEMANDA (%) - LECTURA
+            AO9 = P5_VG_COMPVAV    : REM PLENUM 5 - VAV GRANDE - COMPUERTA VAV (%) - ESCRITURA
+            10022.BO6 = P5_VG_COMPBLQ : REM PLENUM 5 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA REMOTO
+
+        REM PLENUM 6 - VAV GRANDE (P6_VG)
+        LOCALS P6_VG_DEMANDA, P6_VG_COMPVAV, P6_VG_COMPBLQ
+            P6_VG_DEMANDA = AV94   : REM PLENUM 6 - VAV GRANDE - DEMANDA (%) - LECTURA
+            AO10 = P6_VG_COMPVAV   : REM PLENUM 6 - VAV GRANDE - COMPUERTA VAV (%) - ESCRITURA
+            10022.BO7 = P6_VG_COMPBLQ : REM PLENUM 6 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA REMOTO
+
+        REM PLENUM 6 - VAV MEDIANA (P6_VM)
+        LOCALS P6_VM_DEMANDA, P6_VM_COMPVAV, P6_VM_COMPBLQ
+            P6_VM_DEMANDA = AV95   : REM PLENUM 6 - VAV MEDIANA - DEMANDA (%) - LECTURA
+            AO11 = P6_VM_COMPVAV   : REM PLENUM 6 - VAV MEDIANA - COMPUERTA VAV (%) - ESCRITURA
+            10022.BO8 = P6_VM_COMPBLQ : REM PLENUM 6 - VAV MEDIANA - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA REMOTO
+
+        REM PLENUM 7R - VAV CHICA (PR7_VC)
+        LOCALS PR7_VC_DEMANDA, PR7_VC_COMPVAV, PR7_VC_COMPBLQ
+            PR7_VC_DEMANDA = AV96  : REM PLENUM R7 - VAV CHICA - DEMANDA (%) - LECTURA
+            AO12 = PR7_VC_COMPVAV  : REM PLENUM R7 - VAV CHICA - COMPUERTA VAV (%) - ESCRITURA
+            BO17 = PR7_VC_COMPBLQ  : REM PLENUM R7 - VAV CHICA - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA LOCAL
+
+        REM PLENUM 7R - VAV GRANDE (PR7_VG)
+        LOCALS PR7_VG_DEMANDA, PR7_VG_COMPVAV, PR7_VG_COMPBLQ
+            PR7_VG_DEMANDA = AV97  : REM PLENUM R7 - VAV GRANDE - DEMANDA (%) - LECTURA
+            AO13 = PR7_VG_COMPVAV  : REM PLENUM R7 - VAV GRANDE - COMPUERTA VAV (%) - ESCRITURA
+            BO18 = PR7_VG_COMPBLQ  : REM PLENUM R7 - VAV GRANDE - COMPUERTA BLOQUEO (ABIERTA/CERRADA) - ESCRITURA LOCAL
 
 REM LOGICA DE CONTROL ***********************************************************************
 
-    REM *CONTROL DE COMPUERTAS VAV
+    REM *PLENUM 1
+        REM **MODULO: VAV MEDIANA (P1_VM)
+            REM ***BLOQUE: Activación del sistema.
+                IF P1_VM_DEMANDA > PORCENTAJE_ACTIVACION THEN P1_VM_COMPUERTAS = 1
+                IF P1_VM_DEMANDA < 1 THEN P1_VM_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P1_VM_COMPUERTAS = 1 THEN
+                    P1_VM_COMPVAV = P1_VM_DEMANDA
+                    P1_VM_COMPBLQ = 1
+                ELSE
+                    P1_VM_COMPVAV = 0
+                    P1_VM_COMPBLQ = 0
+                ENDIF
 
-        REM **PLENUM 1
-            REM ***VAV MEDIANA
-                REM ***ACTIVACION DE CAJA
-                    IF P1_VM_DM > PORC_ACTIV THEN P1_VM_ACTIV = 1
-                    IF P1_VM_DM < 1 THEN P1_VM_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P1_VM_ACTIV THEN
-                        P1_VM_A = P1_VM_DM
-                        P1_VM_AB = 1
-                     ELSE
-                        P1_VM_A = 0
-                        P1_VM_AB = 0
-                    ENDIF
+        REM **MODULO: VAV GRANDE (P1_VG)
+            REM ***BLOQUE: Activación del sistema.
+                IF P1_VG_DEMANDA > PORCENTAJE_ACTIVACION THEN P1_VG_COMPUERTAS = 1
+                IF P1_VG_DEMANDA < 1 THEN P1_VG_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P1_VG_COMPUERTAS = 1 THEN
+                    P1_VG_COMPVAV = P1_VG_DEMANDA
+                    P1_VG_COMPBLQ = 1
+                ELSE
+                    P1_VG_COMPVAV = 0
+                    P1_VG_COMPBLQ = 0
+                ENDIF
 
-            REM ***VAV GRANDE
-                REM ***ACTIVACION DE CAJA
-                    IF P1_VG_DM > PORC_ACTIV THEN P1_VG_ACTIV = 1
-                    IF P1_VG_DM < 1 THEN P1_VG_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P1_VG_ACTIV THEN
-                        P1_VG_A = P1_VG_DM
-                        P1_VG_AB = 1
-                     ELSE
-                        P1_VG_A = 0
-                        P1_VG_AB = 0
-                    ENDIF
+        REM **MODULO: VAV CHICA (P1_VC)
+            REM ***BLOQUE: Activación del sistema.
+                IF P1_VC_DEMANDA > PORCENTAJE_ACTIVACION THEN P1_VC_COMPUERTAS = 1
+                IF P1_VC_DEMANDA < 1 THEN P1_VC_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P1_VC_COMPUERTAS = 1 THEN
+                    P1_VC_COMPVAV = P1_VC_DEMANDA
+                    P1_VC_COMPBLQ = 1
+                ELSE
+                    P1_VC_COMPVAV = 0
+                    P1_VC_COMPBLQ = 0
+                ENDIF
 
-            REM ***VAV CHICA
-                REM ***ACTIVACION DE CAJA
-                    IF P1_VC_DM > PORC_ACTIV THEN P1_VC_ACTIV = 1
-                    IF P1_VC_DM < 1 THEN P1_VC_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P1_VC_ACTIV THEN
-                        P1_VC_A = P1_VC_DM
-                        P1_VC_AB = 1
-                     ELSE
-                        P1_VC_A = 0
-                        P1_VC_AB = 0
-                    ENDIF
+    REM *PLENUM 2
+        REM **MODULO: VAV MEDIANA (P2_VM)
+            REM ***BLOQUE: Activación del sistema.
+                IF P2_VM_DEMANDA > PORCENTAJE_ACTIVACION THEN P2_VM_COMPUERTAS = 1
+                IF P2_VM_DEMANDA < 1 THEN P2_VM_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P2_VM_COMPUERTAS = 1 THEN
+                    P2_VM_COMPVAV = P2_VM_DEMANDA
+                    P2_VM_COMPBLQ = 1
+                ELSE
+                    P2_VM_COMPVAV = 0
+                    P2_VM_COMPBLQ = 0
+                ENDIF
 
+        REM **MODULO: VAV GRANDE (P2_VG)
+            REM ***BLOQUE: Activación del sistema.
+                IF P2_VG_DEMANDA > PORCENTAJE_ACTIVACION THEN P2_VG_COMPUERTAS = 1
+                IF P2_VG_DEMANDA < 1 THEN P2_VG_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P2_VG_COMPUERTAS = 1 THEN
+                    P2_VG_COMPVAV = P2_VG_DEMANDA
+                    P2_VG_COMPBLQ = 1
+                ELSE
+                    P2_VG_COMPVAV = 0
+                    P2_VG_COMPBLQ = 0
+                ENDIF
 
-        REM **PLENUM 2
-            REM ***VAV MEDIANA
-                REM ***ACTIVACION DE CAJA
-                    IF P2_VM_DM > PORC_ACTIV THEN P2_VM_ACTIV = 1
-                    IF P2_VM_DM < 1 THEN P2_VM_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P2_VM_ACTIV THEN
-                        P2_VM_A = P2_VM_DM
-                        P2_VM_AB = 1
-                     ELSE
-                        P2_VM_A = 0
-                        P2_VM_AB = 0
-                    ENDIF
+    REM *PLENUM 3
+        REM **MODULO: VAV GRANDE (P3_VG)
+            REM ***BLOQUE: Activación del sistema.
+                IF P3_VG_DEMANDA > PORCENTAJE_ACTIVACION THEN P3_VG_COMPUERTAS = 1
+                IF P3_VG_DEMANDA < 1 THEN P3_VG_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P3_VG_COMPUERTAS = 1 THEN
+                    P3_VG_COMPVAV = P3_VG_DEMANDA
+                    P3_VG_COMPBLQ = 1
+                ELSE
+                    P3_VG_COMPVAV = 0
+                    P3_VG_COMPBLQ = 0
+                ENDIF
 
-            REM ***VAV GRANDE
-                REM ***ACTIVACION DE CAJA
-                    IF P2_VG_DM > PORC_ACTIV THEN P2_VG_ACTIV = 1
-                    IF P2_VG_DM < 1 THEN P2_VG_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P2_VG_ACTIV THEN
-                        P2_VG_A = P2_VG_DM
-                        P2_VG_AB = 1
-                     ELSE
-                        P2_VG_A = 0
-                        P2_VG_AB = 0
-                    ENDIF
+    REM *PLENUM 4
+        REM **MODULO: VAV MEDIANA (P4_VM)
+            REM ***BLOQUE: Activación del sistema.
+                IF P4_VM_DEMANDA > PORCENTAJE_ACTIVACION THEN P4_VM_COMPUERTAS = 1
+                IF P4_VM_DEMANDA < 1 THEN P4_VM_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P4_VM_COMPUERTAS = 1 THEN
+                    P4_VM_COMPVAV = P4_VM_DEMANDA
+                    P4_VM_COMPBLQ = 1
+                ELSE
+                    P4_VM_COMPVAV = 0
+                    P4_VM_COMPBLQ = 0
+                ENDIF
 
-        REM **PLENUM 3
-            REM ***VAV GRANDE
-                REM ***ACTIVACION DE CAJA
-                    IF P3_VG_DM > PORC_ACTIV THEN P3_VG_ACTIV = 1
-                    IF P3_VG_DM < 1 THEN P3_VG_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P3_VG_ACTIV THEN
-                        P3_VG_A = P3_VG_DM
-                        P3_VG_AB = 1
-                     ELSE
-                        P3_VG_A = 0
-                        P3_VG_AB = 0
-                    ENDIF
+        REM **MODULO: VAV GRANDE (P4_VG)
+            REM ***BLOQUE: Activación del sistema.
+                IF P4_VG_DEMANDA > PORCENTAJE_ACTIVACION THEN P4_VG_COMPUERTAS = 1
+                IF P4_VG_DEMANDA < 1 THEN P4_VG_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P4_VG_COMPUERTAS = 1 THEN
+                    P4_VG_COMPVAV = P4_VG_DEMANDA
+                    P4_VG_COMPBLQ = 1
+                ELSE
+                    P4_VG_COMPVAV = 0
+                    P4_VG_COMPBLQ = 0
+                ENDIF
 
-        REM **PLENUM 4
-            REM ***VAV MEDIANA
-                REM ***ACTIVACION DE CAJA
-                    IF P4_VM_DM > PORC_ACTIV THEN P4_VM_ACTIV = 1
-                    IF P4_VM_DM < 1 THEN P4_VM_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P4_VM_ACTIV THEN
-                        P4_VM_A = P4_VM_DM
-                        P4_VM_AB = 1
-                     ELSE
-                        P4_VM_A = 0
-                        P4_VM_AB = 0
-                    ENDIF
+        REM **MODULO: VAV CHICA (P4_VC)
+            REM ***BLOQUE: Activación del sistema.
+                IF P4_VC_DEMANDA > PORCENTAJE_ACTIVACION THEN P4_VC_COMPUERTAS = 1
+                IF P4_VC_DEMANDA < 1 THEN P4_VC_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P4_VC_COMPUERTAS = 1 THEN
+                    P4_VC_COMPVAV = P4_VC_DEMANDA
+                    P4_VC_COMPBLQ = 1
+                ELSE
+                    P4_VC_COMPVAV = 0
+                    P4_VC_COMPBLQ = 0
+                ENDIF
 
-            REM ***VAV GRANDE
-                REM ***ACTIVACION DE CAJA
-                    IF P4_VG_DM > PORC_ACTIV THEN P4_VG_ACTIV = 1
-                    IF P4_VG_DM < 1 THEN P4_VG_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P4_VG_ACTIV THEN
-                        P4_VG_A = P4_VG_DM
-                        P4_VG_AB = 1
-                     ELSE
-                        P4_VG_A = 0
-                        P4_VG_AB = 0
-                    ENDIF
+    REM *PLENUM 5
+        REM **MODULO: VAV CHICA (P5_VC)
+            REM ***BLOQUE: Activación del sistema.
+                IF P5_VC_DEMANDA > PORCENTAJE_ACTIVACION THEN P5_VC_COMPUERTAS = 1
+                IF P5_VC_DEMANDA < 1 THEN P5_VC_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P5_VC_COMPUERTAS = 1 THEN
+                    P5_VC_COMPVAV = P5_VC_DEMANDA
+                    P5_VC_COMPBLQ = 1
+                ELSE
+                    P5_VC_COMPVAV = 0
+                    P5_VC_COMPBLQ = 0
+                ENDIF
 
-            REM ***VAV CHICA
-                REM ***ACTIVACION DE CAJA
-                    IF P4_VC_DM > PORC_ACTIV THEN P4_VC_ACTIV = 1
-                    IF P4_VC_DM < 1 THEN P4_VC_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P4_VC_ACTIV THEN
-                        P4_VC_A = P4_VC_DM
-                        P4_VC_AB = 1
-                     ELSE
-                        P4_VC_A = 0
-                        P4_VC_AB = 0
-                    ENDIF
+        REM **MODULO: VAV GRANDE (P5_VG)
+            REM ***BLOQUE: Activación del sistema.
+                IF P5_VG_DEMANDA > PORCENTAJE_ACTIVACION THEN P5_VG_COMPUERTAS = 1
+                IF P5_VG_DEMANDA < 1 THEN P5_VG_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P5_VG_COMPUERTAS = 1 THEN
+                    P5_VG_COMPVAV = P5_VG_DEMANDA
+                    P5_VG_COMPBLQ = 1
+                ELSE
+                    P5_VG_COMPVAV = 0
+                    P5_VG_COMPBLQ = 0
+                ENDIF
 
-        REM **PLENUM 5
-            REM ***VAV CHICA
-                REM ***ACTIVACION DE CAJA
-                    IF P5_VC_DM > PORC_ACTIV THEN P5_VC_ACTIV = 1
-                    IF P5_VC_DM < 1 THEN P5_VC_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P5_VC_ACTIV THEN
-                        P5_VC_A = P5_VC_DM
-                        P5_VC_AB = 1
-                     ELSE
-                        P5_VC_A = 0
-                        P5_VC_AB = 0
-                    ENDIF
+    REM *PLENUM 6
+        REM **MODULO: VAV GRANDE (P6_VG)
+            REM ***BLOQUE: Activación del sistema.
+                IF P6_VG_DEMANDA > PORCENTAJE_ACTIVACION THEN P6_VG_COMPUERTAS = 1
+                IF P6_VG_DEMANDA < 1 THEN P6_VG_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P6_VG_COMPUERTAS = 1 THEN
+                    P6_VG_COMPVAV = P6_VG_DEMANDA
+                    P6_VG_COMPBLQ = 1
+                ELSE
+                    P6_VG_COMPVAV = 0
+                    P6_VG_COMPBLQ = 0
+                ENDIF
 
-            REM ***VAV GRANDE
-                REM ***ACTIVACION DE CAJA
-                    IF P5_VG_DM > PORC_ACTIV THEN P5_VG_ACTIV = 1
-                    IF P5_VG_DM < 1 THEN P5_VG_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P5_VG_ACTIV THEN
-                        P5_VG_A = P5_VG_DM
-                        P5_VG_AB = 1
-                     ELSE
-                        P5_VG_A = 0
-                        P5_VG_AB = 0
-                    ENDIF
+        REM **MODULO: VAV MEDIANA (P6_VM)
+            REM ***BLOQUE: Activación del sistema.
+                IF P6_VM_DEMANDA > PORCENTAJE_ACTIVACION THEN P6_VM_COMPUERTAS = 1
+                IF P6_VM_DEMANDA < 1 THEN P6_VM_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF P6_VM_COMPUERTAS = 1 THEN
+                    P6_VM_COMPVAV = P6_VM_DEMANDA
+                    P6_VM_COMPBLQ = 1
+                ELSE
+                    P6_VM_COMPVAV = 0
+                    P6_VM_COMPBLQ = 0
+                ENDIF
 
-        REM **PLENUM 6
-            REM ***VAV GRANDE
-                REM ***ACTIVACION DE CAJA
-                    IF P6_VG_DM > PORC_ACTIV THEN P6_VG_ACTIV = 1
-                    IF P6_VG_DM < 1 THEN P6_VG_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P6_VG_ACTIV THEN
-                        P6_VG_A = P6_VG_DM
-                        P6_VG_AB = 1
-                     ELSE
-                        P6_VG_A = 0
-                        P6_VG_AB = 0
-                    ENDIF
+    REM *PLENUM 7R
+        REM **MODULO: VAV CHICA (PR7_VC)
+            REM ***BLOQUE: Activación del sistema.
+                IF PR7_VC_DEMANDA > PORCENTAJE_ACTIVACION THEN PR7_VC_COMPUERTAS = 1
+                IF PR7_VC_DEMANDA < 1 THEN PR7_VC_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF PR7_VC_COMPUERTAS = 1 THEN
+                    PR7_VC_COMPVAV = PR7_VC_DEMANDA
+                    PR7_VC_COMPBLQ = 1
+                ELSE
+                    PR7_VC_COMPVAV = 0
+                    PR7_VC_COMPBLQ = 0
+                ENDIF
 
-            REM ***VAV MEDIANA
-                REM ***ACTIVACION DE CAJA
-                    IF P6_VM_DM > PORC_ACTIV THEN P6_VM_ACTIV = 1
-                    IF P6_VM_DM < 1 THEN P6_VM_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF P6_VM_ACTIV THEN
-                        P6_VM_A = P6_VM_DM
-                        P6_VM_AB = 1
-                     ELSE
-                        P6_VM_A = 0
-                        P6_VM_AB = 0
-                    ENDIF
-
-        REM **PLENUM 7R
-            REM ***VAV CHICA
-                REM ***ACTIVACION DE CAJA
-                    IF PR7_VC_DM > PORC_ACTIV THEN PR7_VC_ACTIV = 1
-                    IF PR7_VC_DM < 1 THEN PR7_VC_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF PR7_VC_ACTIV THEN
-                        PR7_VC_A = PR7_VC_DM
-                        PR7_VC_AB = 1
-                     ELSE
-                        PR7_VC_A = 0
-                        PR7_VC_AB = 0
-                    ENDIF
-
-            REM ***VAV GRANDE
-                REM ***ACTIVACION DE CAJA
-                    IF PR7_VG_DM > PORC_ACTIV THEN PR7_VG_ACTIV = 1
-                    IF PR7_VG_DM < 1 THEN PR7_VG_ACTIV = 0
-                REM ***CONEXION A CONTROL DE COMPUERTAS
-                    IF PR7_VG_ACTIV THEN
-                        PR7_VG_A = PR7_VG_DM
-                        PR7_VG_AB = 1
-                     ELSE
-                        PR7_VG_A = 0
-                        PR7_VG_AB = 0
-                    ENDIF
+        REM **MODULO: VAV GRANDE (PR7_VG)
+            REM ***BLOQUE: Activación del sistema.
+                IF PR7_VG_DEMANDA > PORCENTAJE_ACTIVACION THEN PR7_VG_COMPUERTAS = 1
+                IF PR7_VG_DEMANDA < 1 THEN PR7_VG_COMPUERTAS = 0
+            REM ***BLOQUE: Conexión de demanda para apertura de compuertas.
+                IF PR7_VG_COMPUERTAS = 1 THEN
+                    PR7_VG_COMPVAV = PR7_VG_DEMANDA
+                    PR7_VG_COMPBLQ = 1
+                ELSE
+                    PR7_VG_COMPVAV = 0
+                    PR7_VG_COMPBLQ = 0
+                ENDIF
 
 REM *********************************************************************************************
 
