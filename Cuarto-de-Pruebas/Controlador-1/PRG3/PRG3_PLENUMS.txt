@@ -1,0 +1,524 @@
+REM NAME: MOD: CONTROL DE PLENUMS
+REM DESCRIPTION: Gestiona la selección del plenum activo, activación/desactivación de VAVs, limitación de setpoints y asignación de variables de control y monitoreo.
+REM ID PROGRAMA: PRG3
+REM ID CONTROLADOR: 10021
+REM AUTHOR: Carlos Jiménez Hirashi @cjhirashi, Adaptación: Asistente de IA
+REM VERSION: 1.5.0
+REM 27/MAR/2025
+
+REM DECLARACION DE PUNTOS DE CONTROL
+
+    REM CONSTANTES INTERNAS
+
+        REM CONSTANTES: RANGOS DE CAUDAL PLENUM 1
+        LOCALS P1_VG_QMAX, P1_VG_QMIN, P1_VM_QMAX, P1_VM_QMIN, P1_VC_QMAX, P1_VC_QMIN
+            P1_VG_QMAX = 3000    : REM PLENUM 1 - VAV GRANDE - Caudal Máximo ( cfm )
+            P1_VG_QMIN = 1100    : REM PLENUM 1 - VAV GRANDE - Caudal Mínimo ( cfm )
+            P1_VM_QMAX = 850     : REM PLENUM 1 - VAV MEDIANA - Caudal Máximo ( cfm )
+            P1_VM_QMIN = 350     : REM PLENUM 1 - VAV MEDIANA - Caudal Mínimo ( cfm )
+            P1_VC_QMAX = 200     : REM PLENUM 1 - VAV CHICA - Caudal Máximo ( cfm )
+            P1_VC_QMIN = 75      : REM PLENUM 1 - VAV CHICA - Caudal Mínimo ( cfm )
+
+        REM CONSTANTES: RANGOS DE CAUDAL PLENUM 2
+        LOCALS P2_VG_QMAX, P2_VG_QMIN, P2_VM_QMAX, P2_VM_QMIN
+            P2_VG_QMAX = 2000    : REM PLENUM 2 - VAV GRANDE - Caudal Máximo ( cfm )
+            P2_VG_QMIN = 850     : REM PLENUM 2 - VAV GRANDE - Caudal Mínimo ( cfm )
+            P2_VM_QMAX = 650     : REM PLENUM 2 - VAV MEDIANA - Caudal Máximo ( cfm )
+            P2_VM_QMIN = 275     : REM PLENUM 2 - VAV MEDIANA - Caudal Mínimo ( cfm )
+
+        REM CONSTANTES: RANGOS DE CAUDAL PLENUM 3
+        LOCALS P3_VG_QMAX, P3_VG_QMIN
+            P3_VG_QMAX = 1350    : REM PLENUM 3 - VAV GRANDE - Caudal Máximo ( cfm )
+            P3_VG_QMIN = 575     : REM PLENUM 3 - VAV GRANDE - Caudal Mínimo ( cfm )
+
+        REM CONSTANTES: RANGOS DE CAUDAL PLENUM 4
+        LOCALS P4_VG_QMAX, P4_VG_QMIN, P4_VM_QMAX, P4_VM_QMIN, P4_VC_QMAX, P4_VC_QMIN
+            P4_VG_QMAX = 3000    : REM PLENUM 4 - VAV GRANDE - Caudal Máximo ( cfm )
+            P4_VG_QMIN = 1100    : REM PLENUM 4 - VAV GRANDE - Caudal Mínimo ( cfm )
+            P4_VM_QMAX = 850     : REM PLENUM 4 - VAV MEDIANA - Caudal Máximo ( cfm )
+            P4_VM_QMIN = 350     : REM PLENUM 4 - VAV MEDIANA - Caudal Mínimo ( cfm )
+            P4_VC_QMAX = 200     : REM PLENUM 4 - VAV CHICA - Caudal Máximo ( cfm )
+            P4_VC_QMIN = 75      : REM PLENUM 4 - VAV CHICA - Caudal Mínimo ( cfm )
+
+        REM CONSTANTES: RANGOS DE CAUDAL PLENUM 5
+        LOCALS P5_VG_QMAX, P5_VG_QMIN, P5_VC_QMAX, P5_VC_QMIN
+            P5_VG_QMAX = 4000    : REM PLENUM 5 - VAV GRANDE - Caudal Máximo ( cfm )
+            P5_VG_QMIN = 1500    : REM PLENUM 5 - VAV GRANDE - Caudal Mínimo ( cfm )
+            P5_VC_QMAX = 300     : REM PLENUM 5 - VAV CHICA - Caudal Máximo ( cfm )
+            P5_VC_QMIN = 125     : REM PLENUM 5 - VAV CHICA - Caudal Mínimo ( cfm )
+
+        REM CONSTANTES: RANGOS DE CAUDAL PLENUM 6
+        LOCALS P6_VG_QMAX, P6_VG_QMIN, P6_VM_QMAX, P6_VM_QMIN
+            P6_VG_QMAX = 3000    : REM PLENUM 6 - VAV GRANDE - Caudal Máximo ( cfm )
+            P6_VG_QMIN = 1100    : REM PLENUM 6 - VAV GRANDE - Caudal Mínimo ( cfm )
+            P6_VM_QMAX = 850     : REM PLENUM 6 - VAV MEDIANA - Caudal Máximo ( cfm )
+            P6_VM_QMIN = 350     : REM PLENUM 6 - VAV MEDIANA - Caudal Mínimo ( cfm )
+
+        REM CONSTANTES: RANGOS DE CAUDAL PLENUM 7 (RETORNO)
+        LOCALS PR7_VG_QMAX, PR7_VG_QMIN, PR7_VC_QMAX, PR7_VC_QMIN
+            PR7_VG_QMAX = 3000   : REM PLENUM R7 - VAV GRANDE - Caudal Máximo ( cfm )
+            PR7_VG_QMIN = 1100   : REM PLENUM R7 - VAV GRANDE - Caudal Mínimo ( cfm )
+            PR7_VC_QMAX = 200    : REM PLENUM R7 - VAV CHICA - Caudal Máximo ( cfm )
+            PR7_VC_QMIN = 75     : REM PLENUM R7 - VAV CHICA - Caudal Mínimo ( cfm )
+
+    REM VARIABLES EXTERNAS
+
+        REM CONTROL SISTEMA Y PLENUM
+        LOCALS PLENUM, SS_CP, ST_CP, ST_P1, ST_P2, ST_P3, ST_P4, ST_P5, ST_P6
+            PLENUM = MSV1       : REM PLENUM EN OPERACION ( 1..6 )
+            SS_CP = BV1        : REM SISTEMA - ACTIVACION ( ACTIVA/INACTIVA )
+            BV2 = ST_CP        : REM SISTEMA - ESTADO ( ACTIVA/INACTIVA )
+            BV3 = ST_P1        : REM PLENUM 1 - ESTADO ( ACTIVA/INACTIVA )
+            BV4 = ST_P2        : REM PLENUM 2 - ESTADO ( ACTIVA/INACTIVA )
+            BV5 = ST_P3        : REM PLENUM 3 - ESTADO ( ACTIVA/INACTIVA )
+            BV6 = ST_P4        : REM PLENUM 4 - ESTADO ( ACTIVA/INACTIVA )
+            BV7 = ST_P5        : REM PLENUM 5 - ESTADO ( ACTIVA/INACTIVA )
+            BV8 = ST_P6        : REM PLENUM 6 - ESTADO ( ACTIVA/INACTIVA )
+
+        REM SETPOINTS Y LÍMITES VAV ACTIVA
+        LOCALS VG_Q_SP, VM_Q_SP, VC_Q_SP, VGR_Q_SP, VCR_Q_SP
+        LOCALS VG_MIN, VG_MAX, VM_MIN, VM_MAX, VC_MIN, VC_MAX
+            VG_Q_SP = AV107    : REM VAV GRANDE ACTIVA - SETPOINT DE CAUDAL ( cfm )
+            VM_Q_SP = AV108    : REM VAV MEDIANA ACTIVA - SETPOINT DE CAUDAL ( cfm )
+            VC_Q_SP = AV109    : REM VAV CHICA ACTIVA - SETPOINT DE CAUDAL ( cfm )
+            VGR_Q_SP = AV110   : REM VAV GRANDE RETORNO - SETPOINT DE CAUDAL ( cfm )
+            VCR_Q_SP = AV111   : REM VAV CHICA RETORNO - SETPOINT DE CAUDAL ( cfm )
+            AV112 = VG_MIN     : REM VAV GRANDE ACTIVA - CAUDAL MINIMO ( cfm )
+            AV113 = VG_MAX     : REM VAV GRANDE ACTIVA - CAUDAL MAXIMO ( cfm )
+            AV114 = VM_MIN     : REM VAV MEDIANA ACTIVA - CAUDAL MINIMO ( cfm )
+            AV115 = VM_MAX     : REM VAV MEDIANA ACTIVA - CAUDAL MAXIMO ( cfm )
+            AV116 = VC_MIN     : REM VAV CHICA ACTIVA - CAUDAL MINIMO ( cfm )
+            AV117 = VC_MAX     : REM VAV CHICA ACTIVA - CAUDAL MAXIMO ( cfm )
+
+        REM CAUDALES VAV (POR PLENUM Y ACTIVAS)
+        LOCALS P1_VM_Q, P1_VG_Q, P1_VC_Q, 
+        LOCALS P2_VM_Q, P2_VG_Q, P3_VG_Q, P4_VM_Q, P4_VG_Q, P4_VC_Q
+        LOCALS P5_VC_Q, P5_VG_Q, P6_VG_Q, P6_VM_Q, PR7_VC_Q, PR7_VG_Q
+        LOCALS VG_Q, VM_Q, VC_Q, Q_T
+            P1_VM_Q = AV4      : REM PLENUM 1 - VAV MEDIANA - CAUDAL FACTOR ( cfm )
+            P1_VG_Q = AV8      : REM PLENUM 1 - VAV GRANDE - CAUDAL FACTOR ( cfm )
+            P1_VC_Q = AV62     : REM PLENUM 1 - VAV CHICA - CAUDAL FACTOR ( cfm )
+            P2_VM_Q = AV13     : REM PLENUM 2 - VAV MEDIANA - CAUDAL FACTOR ( cfm )
+            P2_VG_Q = AV17     : REM PLENUM 2 - VAV GRANDE - CAUDAL FACTOR ( cfm )
+            P3_VG_Q = AV66     : REM PLENUM 3 - VAV GRANDE - CAUDAL FACTOR ( cfm )
+            P4_VM_Q = AV22     : REM PLENUM 4 - VAV MEDIANA - CAUDAL FACTOR ( cfm )
+            P4_VG_Q = AV26     : REM PLENUM 4 - VAV GRANDE - CAUDAL FACTOR ( cfm )
+            P4_VC_Q = AV30     : REM PLENUM 4 - VAV CHICA - CAUDAL FACTOR ( cfm )
+            P5_VC_Q = AV35     : REM PLENUM 5 - VAV CHICA - CAUDAL FACTOR ( cfm )
+            P5_VG_Q = AV39     : REM PLENUM 5 - VAV GRANDE - CAUDAL FACTOR ( cfm )
+            P6_VG_Q = AV44     : REM PLENUM 6 - VAV GRANDE - CAUDAL FACTOR ( cfm )
+            P6_VM_Q = AV48     : REM PLENUM 6 - VAV MEDIANA - CAUDAL FACTOR ( cfm )
+            PR7_VC_Q = AV53    : REM PLENUM R7 - VAV CHICA - CAUDAL FACTOR ( cfm )
+            PR7_VG_Q = AV57    : REM PLENUM R7 - VAV GRANDE - CAUDAL FACTOR ( cfm )
+            AV98 = VG_Q        : REM VAV GRANDE ACTIVA - CAUDAL ( cfm )
+            AV99 = VM_Q        : REM VAV MEDIANA ACTIVA - CAUDAL ( cfm )
+            AV100 = VC_Q       : REM VAV CHICA ACTIVA - CAUDAL ( cfm )
+            AV101 = Q_T        : REM VAVS ACTIVAS - CAUDAL TOTAL ( cfm )
+
+        REM DEMANDAS VAV (POR PLENUM Y ACTIVAS)
+        LOCALS VG_DEMANDA, VM_DEMANDA, VC_DEMANDA, VGR_DEMANDA, VCR_DEMANDA
+        LOCALS P1_VM_DEMANDA, P1_VG_DEMANDA, P1_VC_DEMANDA, P2_VM_DEMANDA, P2_VG_DEMANDA, P3_VG_DEMANDA
+        LOCALS P4_VM_DEMANDA, P4_VG_DEMANDA, P4_VC_DEMANDA, P5_VC_DEMANDA, P5_VG_DEMANDA
+        LOCALS P6_VG_DEMANDA, P6_VM_DEMANDA, PR7_VC_DEMANDA, PR7_VG_DEMANDA
+            VG_DEMANDA = AV82    : REM VAV GRANDE - DEMANDA ( % )
+            VM_DEMANDA = AV83    : REM VAV MEDIANA - DEMANDA ( % )
+            VC_DEMANDA = AV84    : REM VAV CHICA - DEMANDA ( % )
+            VGR_DEMANDA = AV80   : REM VAV GRANDE RETORNO - DEMANDA ( % )
+            VCR_DEMANDA = AV81   : REM VAV CHICA RETORNO - DEMANDA ( % )
+            AV85 = P1_VM_DEMANDA : REM PLENUM 1 - VAV MEDIANA - DEMANDA ( % )
+            AV86 = P1_VG_DEMANDA : REM PLENUM 1 - VAV GRANDE - DEMANDA ( % )
+            AV67 = P1_VC_DEMANDA : REM PLENUM 1 - VAV CHICA - DEMANDA ( % )
+            AV87 = P2_VM_DEMANDA : REM PLENUM 2 - VAV MEDIANA - DEMANDA ( % )
+            AV88 = P2_VG_DEMANDA : REM PLENUM 2 - VAV GRANDE - DEMANDA ( % )
+            AV68 = P3_VG_DEMANDA : REM PLENUM 3 - GRANDE - DEMANDA ( % )
+            AV89 = P4_VM_DEMANDA : REM PLENUM 4 - VAV MEDIANA - DEMANDA ( % )
+            AV90 = P4_VG_DEMANDA : REM PLENUM 4 - VAV GRANDE - DEMANDA ( % )
+            AV91 = P4_VC_DEMANDA : REM PLENUM 4 - VAV CHICA - DEMANDA ( % )
+            AV92 = P5_VC_DEMANDA : REM PLENUM 5 - VAV CHICA - DEMANDA ( % )
+            AV93 = P5_VG_DEMANDA : REM PLENUM 5 - VAV GRANDE - DEMANDA ( % )
+            AV94 = P6_VG_DEMANDA : REM PLENUM 6 - VAV GRANDE - DEMANDA ( % )
+            AV95 = P6_VM_DEMANDA : REM PLENUM 6 - VAV MEDIANA - DEMANDA ( % )
+            AV96 = PR7_VC_DEMANDA: REM PLENUM R7 - VAV CHICA - DEMANDA ( % )
+            AV97 = PR7_VG_DEMANDA: REM PLENUM R7 - VAV GRANDE - DEMANDA ( % )
+
+        REM CAÍDAS DE PRESIÓN (POR PLENUM Y ACTIVAS)
+        LOCALS P1_DP_1, P1_DP_2, P2_DP, P4_DP, P5_DP, P6_DP, DP_1, DP_2
+            P1_DP_1 = AI18       : REM PLENUM 1 - CAIDA DE PRESION 1 ( "WC" )
+            P1_DP_2 = 10022.AI3  : REM PLENUM 1, CAIDA DE PRESION 2 ( "WC" )
+            P2_DP = 10022.AI4    : REM PLENUM 2, CAIDA DE PRESION ( "WC" )
+            P4_DP = 10022.AI5    : REM PLENUM 4, CAIDA DE PRESION ( "WC" )
+            P5_DP = 10022.AI6    : REM PLENUM 5, CAIDA DE PRESION ( "WC" )
+            P6_DP = 10022.AI7    : REM PLENUM 6, CAIDA DE PRESION ( "WC" )
+            AV105 = DP_1         : REM PLENUM ACTIVO - CAIDA DE PRESION SENSOR 1 ( "WC" )
+            AV106 = DP_2         : REM PLENUM ACTIVO - CAIDA DE PRESION SENSOR 2 ( "WC" )
+
+REM LOGICA DE CONTROL ***********************************************************************
+
+    REM *LIMITACION DE SETPOINTS DE CAUDAL
+        VG_Q_SP = MIN(MAX(VG_Q_SP, VG_MIN), VG_MAX)
+        VM_Q_SP = MIN(MAX(VM_Q_SP, VM_MIN), VM_MAX)
+        VC_Q_SP = MIN(MAX(VC_Q_SP, VC_MIN), VC_MAX)
+        VGR_Q_SP = MIN(MAX(VGR_Q_SP, PR7_VG_QMIN), PR7_VG_QMAX)
+        VCR_Q_SP = MIN(MAX(VCR_Q_SP, PR7_VC_QMIN), PR7_VC_QMAX)
+
+    REM *LIMITACION SELECTOR DE PLENUM (Asegura que esté entre 1 y 6)
+        PLENUM = MAX(1, MIN(PLENUM, 6))
+
+    REM *LOGICA PRINCIPAL - SELECCION DE PLENUM ACTIVO
+    IF SS_CP = 1 THEN
+        REM **LECTURA DE CAIDA DE PRESION REMOTA (Solo si el plenum está seleccionado)
+        IF INTERVAL(00:00:05) THEN
+            IF PLENUM = 1 THEN P1_DP_2 = 10022.AI3
+            IF PLENUM = 2 THEN P2_DP = 10022.AI4
+            IF PLENUM = 4 THEN P4_DP = 10022.AI5
+            IF PLENUM = 5 THEN P5_DP = 10022.AI6
+            IF PLENUM = 6 THEN P6_DP = 10022.AI7
+        ENDIF
+
+        REM **SELECCION DE PLENUM Y ASIGNACION DE VARIABLES
+        IF PLENUM = 1 THEN
+            REM ***PLENUM 1 ACTIVO
+                REM ****PRESION DE PLENUM
+                DP_1 = P1_DP_1
+                DP_2 = P1_DP_2
+
+                REM ****BLOQUEO DE ACTIVACION DE VAV ACTIVA (Prioridad 7)
+                RLQ BV9@7
+                RLQ BV10@7
+                RLQ BV11@7
+
+                REM ****LIMITE DE CAUDAL POR TAMANO DE CAJA
+                VG_MAX = P1_VG_QMAX
+                VG_MIN = P1_VG_QMIN
+                VM_MAX = P1_VM_QMAX
+                VM_MIN = P1_VM_QMIN
+                VC_MAX = P1_VC_QMAX
+                VC_MIN = P1_VC_QMIN
+
+                REM ****CAUDAL DE AIRE
+                VG_Q = P1_VG_Q
+                VM_Q = P1_VM_Q
+                VC_Q = P1_VC_Q
+
+                REM ****DEMANDA DE AIRE (Solo las de P1 reciben demanda activa)
+                P1_VG_DEMANDA = VG_DEMANDA
+                P1_VM_DEMANDA = VM_DEMANDA
+                P1_VC_DEMANDA = VC_DEMANDA
+                P2_VG_DEMANDA = 0
+                P2_VM_DEMANDA = 0
+                P3_VG_DEMANDA = 0
+                P4_VG_DEMANDA = 0
+                P4_VM_DEMANDA = 0
+                P4_VC_DEMANDA = 0
+                P5_VG_DEMANDA = 0
+                P5_VC_DEMANDA = 0
+                P6_VG_DEMANDA = 0
+                P6_VM_DEMANDA = 0
+
+                REM ****ESTADO DE PLENUM ACTIVO
+                ST_P1 = 1
+                ST_P2 = 0
+                ST_P3 = 0
+                ST_P4 = 0
+                ST_P5 = 0
+                ST_P6 = 0
+
+        ELSE IF PLENUM = 2 THEN
+            REM ***PLENUM 2 ACTIVO
+                REM ****PRESION DE PLENUM
+                DP_1 = P2_DP
+                DP_2 = 0  : REM Plenum 2 solo tiene 1 sensor DP
+
+                REM ****BLOQUEO DE ACTIVACION DE VAV ACTIVA (Prioridad 7)
+                RLQ BV9@7
+                RLQ BV10@7
+                BV11@7 = 0  : REM Plenum 2 no tiene VAV Chica
+
+                REM ****LIMITE DE CAUDAL POR TAMANO DE CAJA
+                VG_MAX = P2_VG_QMAX
+                VG_MIN = P2_VG_QMIN
+                VM_MAX = P2_VM_QMAX
+                VM_MIN = P2_VM_QMIN
+                VC_MAX = 0
+                VC_MIN = 0
+
+                REM ****CAUDAL DE AIRE
+                VG_Q = P2_VG_Q
+                VM_Q = P2_VM_Q
+                VC_Q = 0
+
+                REM ****DEMANDA DE AIRE (Solo las de P2 reciben demanda activa)
+                P1_VG_DEMANDA = 0
+                P1_VM_DEMANDA = 0
+                P1_VC_DEMANDA = 0
+                P2_VG_DEMANDA = VG_DEMANDA
+                P2_VM_DEMANDA = VM_DEMANDA
+                P3_VG_DEMANDA = 0
+                P4_VG_DEMANDA = 0
+                P4_VM_DEMANDA = 0
+                P4_VC_DEMANDA = 0
+                P5_VG_DEMANDA = 0
+                P5_VC_DEMANDA = 0
+                P6_VG_DEMANDA = 0
+                P6_VM_DEMANDA = 0
+
+                REM ****ESTADO DE PLENUM ACTIVO
+                ST_P1 = 0
+                ST_P2 = 1
+                ST_P3 = 0
+                ST_P4 = 0
+                ST_P5 = 0
+                ST_P6 = 0
+
+        ELSE IF PLENUM = 3 THEN
+            REM ***PLENUM 3 ACTIVO
+                REM ****PRESION DE PLENUM (Asumiendo que no hay sensor DP para P3)
+                DP_1 = 0
+                DP_2 = 0
+
+                REM ****BLOQUEO DE ACTIVACION DE VAV ACTIVA (Prioridad 7)
+                
+                RLQ BV9@7
+                BV10@7 = 0  : REM Plenum 3 no tiene VAV Mediana
+                BV11@7 = 0  : REM Plenum 3 no tiene VAV Chica
+
+                REM ****LIMITE DE CAUDAL POR TAMANO DE CAJA
+                VG_MAX = P3_VG_QMAX
+                VG_MIN = P3_VG_QMIN
+                VM_MAX = 0
+                VM_MIN = 0
+                VC_MAX = 0
+                VC_MIN = 0
+
+                REM ****CAUDAL DE AIRE
+                VG_Q = P3_VG_Q
+                VM_Q = 0
+                VC_Q = 0
+
+                REM ****DEMANDA DE AIRE (Solo las de P3 reciben demanda activa)
+                P1_VG_DEMANDA = 0
+                P1_VM_DEMANDA = 0
+                P1_VC_DEMANDA = 0
+                P2_VG_DEMANDA = 0
+                P2_VM_DEMANDA = 0
+                P3_VG_DEMANDA = VG_DEMANDA
+                P4_VG_DEMANDA = 0
+                P4_VM_DEMANDA = 0
+                P4_VC_DEMANDA = 0
+                P5_VG_DEMANDA = 0
+                P5_VC_DEMANDA = 0
+                P6_VG_DEMANDA = 0
+                P6_VM_DEMANDA = 0
+
+                REM ****ESTADO DE PLENUM ACTIVO
+                ST_P1 = 0
+                ST_P2 = 0
+                ST_P3 = 1
+                ST_P4 = 0
+                ST_P5 = 0
+                ST_P6 = 0
+
+        ELSE IF PLENUM = 4 THEN
+            REM ***PLENUM 4 ACTIVO
+                REM ****PRESION DE PLENUM
+                DP_1 = P4_DP
+                DP_2 = 0 : REM Plenum 4 solo tiene 1 sensor DP
+
+                REM ****BLOQUEO DE ACTIVACION DE VAV ACTIVA (Prioridad 7)
+                RLQ BV9@7
+                RLQ BV10@7
+                RLQ BV11@7
+
+                REM ****LIMITE DE CAUDAL POR TAMANO DE CAJA
+                VG_MAX = P4_VG_QMAX
+                VG_MIN = P4_VG_QMIN
+                VM_MAX = P4_VM_QMAX
+                VM_MIN = P4_VM_QMIN
+                VC_MAX = P4_VC_QMAX
+                VC_MIN = P4_VC_QMIN
+
+                REM ****CAUDAL DE AIRE
+                VG_Q = P4_VG_Q
+                VM_Q = P4_VM_Q
+                VC_Q = P4_VC_Q
+
+                REM ****DEMANDA DE AIRE (Solo las de P4 reciben demanda activa)
+                P1_VG_DEMANDA = 0
+                P1_VM_DEMANDA = 0
+                P1_VC_DEMANDA = 0
+                P2_VG_DEMANDA = 0
+                P2_VM_DEMANDA = 0
+                P3_VG_DEMANDA = 0
+                P4_VG_DEMANDA = VG_DEMANDA
+                P4_VM_DEMANDA = VM_DEMANDA
+                P4_VC_DEMANDA = VC_DEMANDA
+                P5_VG_DEMANDA = 0
+                P5_VC_DEMANDA = 0
+                P6_VG_DEMANDA = 0
+                P6_VM_DEMANDA = 0
+
+                REM ****ESTADO DE PLENUM ACTIVO
+                ST_P1 = 0
+                ST_P2 = 0
+                ST_P3 = 0
+                ST_P4 = 1
+                ST_P5 = 0
+                ST_P6 = 0
+
+        ELSE IF PLENUM = 5 THEN
+            REM ***PLENUM 5 ACTIVO
+                REM ****PRESION DE PLENUM
+                DP_1 = P5_DP
+                DP_2 = 0 : REM Plenum 5 solo tiene 1 sensor DP
+
+                REM ****BLOQUEO DE ACTIVACION DE VAV ACTIVA (Prioridad 7)
+                RLQ BV9@7
+                BV10@7 = 0  : REM Plenum 5 no tiene VAV Mediana
+                RLQ BV11@7
+
+                REM ****LIMITE DE CAUDAL POR TAMANO DE CAJA
+                VG_MAX = P5_VG_QMAX
+                VG_MIN = P5_VG_QMIN
+                VM_MAX = 0
+                VM_MIN = 0
+                VC_MAX = P5_VC_QMAX
+                VC_MIN = P5_VC_QMIN
+
+                REM ****CAUDAL DE AIRE
+                VG_Q = P5_VG_Q
+                VM_Q = 0
+                VC_Q = P5_VC_Q
+
+                REM ****DEMANDA DE AIRE (Solo las de P5 reciben demanda activa)
+                P1_VG_DEMANDA = 0
+                P1_VM_DEMANDA = 0
+                P1_VC_DEMANDA = 0
+                P2_VG_DEMANDA = 0
+                P2_VM_DEMANDA = 0
+                P3_VG_DEMANDA = 0
+                P4_VG_DEMANDA = 0
+                P4_VM_DEMANDA = 0
+                P4_VC_DEMANDA = 0
+                P5_VG_DEMANDA = VG_DEMANDA
+                P5_VC_DEMANDA = VC_DEMANDA
+                P6_VG_DEMANDA = 0
+                P6_VM_DEMANDA = 0
+
+                REM ****ESTADO DE PLENUM ACTIVO
+                ST_P1 = 0
+                ST_P2 = 0
+                ST_P3 = 0
+                ST_P4 = 0
+                ST_P5 = 1
+                ST_P6 = 0
+
+        ELSE IF PLENUM = 6 THEN
+            REM ***PLENUM 6 ACTIVO
+                REM ****PRESION DE PLENUM
+                DP_1 = P6_DP
+                DP_2 = 0 : REM Plenum 6 solo tiene 1 sensor DP
+
+                REM ****BLOQUEO DE ACTIVACION DE VAV ACTIVA (Prioridad 7)
+                RLQ BV9@7
+                RLQ BV10@7
+                BV11@7 = 0  : REM Plenum 6 no tiene VAV Chica
+
+                REM ****LIMITE DE CAUDAL POR TAMANO DE CAJA
+                VG_MAX = P6_VG_QMAX
+                VG_MIN = P6_VG_QMIN
+                VM_MAX = P6_VM_QMAX
+                VM_MIN = P6_VM_QMIN
+                VC_MAX = 0
+                VC_MIN = 0
+
+                REM ****CAUDAL DE AIRE
+                VG_Q = P6_VG_Q
+                VM_Q = P6_VM_Q
+                VC_Q = 0
+
+                REM ****DEMANDA DE AIRE (Solo las de P6 reciben demanda activa)
+                P1_VG_DEMANDA = 0
+                P1_VM_DEMANDA = 0
+                P1_VC_DEMANDA = 0
+                P2_VG_DEMANDA = 0
+                P2_VM_DEMANDA = 0
+                P3_VG_DEMANDA = 0
+                P4_VG_DEMANDA = 0
+                P4_VM_DEMANDA = 0
+                P4_VC_DEMANDA = 0
+                P5_VG_DEMANDA = 0
+                P5_VC_DEMANDA = 0
+                P6_VG_DEMANDA = VG_DEMANDA
+                P6_VM_DEMANDA = VM_DEMANDA
+
+                REM ****ESTADO DE PLENUM ACTIVO
+                ST_P1 = 0
+                ST_P2 = 0
+                ST_P3 = 0
+                ST_P4 = 0
+                ST_P5 = 0
+                ST_P6 = 1
+
+        ENDIF
+
+        REM **CONTROL DE PLENUM DE RETORNO (PLENUM 7)
+        PR7_VG_DEMANDA = VGR_DEMANDA
+        PR7_VC_DEMANDA = VCR_DEMANDA
+
+        REM **CALCULO DE CAUDAL TOTAL ACTIVO
+        Q_T = VG_Q + VM_Q + VC_Q
+
+    ELSE
+        REM **SISTEMA INACTIVO (SS_CP = 0)
+            REM ***DESACTIVAR TODAS LAS DEMANDAS
+            P1_VG_DEMANDA = 100
+            P1_VM_DEMANDA = 100
+            P1_VC_DEMANDA = 100
+            P2_VG_DEMANDA = 100
+            P2_VM_DEMANDA = 100
+            P3_VG_DEMANDA = 100
+            P4_VG_DEMANDA = 100
+            P4_VM_DEMANDA = 100
+            P4_VC_DEMANDA = 100
+            P5_VG_DEMANDA = 100
+            P5_VC_DEMANDA = 100
+            P6_VG_DEMANDA = 100
+            P6_VM_DEMANDA = 100
+            PR7_VG_DEMANDA = 100
+            PR7_VC_DEMANDA = 100
+
+            REM ***DESACTIVAR ESTADOS DE PLENUM
+            ST_P1 = 0
+            ST_P2 = 0
+            ST_P3 = 0
+            ST_P4 = 0
+            ST_P5 = 0
+            ST_P6 = 0
+
+            REM ***REINICIAR VARIABLES ACTIVAS
+            DP_1 = 0
+            DP_2 = 0
+            VG_MAX = 0
+            VG_MIN = 0
+            VM_MAX = 0
+            VM_MIN = 0
+            VC_MAX = 0
+            VC_MIN = 0
+            VG_Q = 0
+            VM_Q = 0
+            VC_Q = 0
+            Q_T = 0
+
+            REM ***LIBERAR CONTROL DE ACTIVACION DE VAV ACTIVA (Prioridad 7)
+            RLQ BV9@7
+            RLQ BV10@7
+            RLQ BV11@7
+
+    ENDIF
+
+    REM *CALCULO ESTADO DE OPERACIÓN GENERAL
+    ST_CP = MAX(ST_P1, ST_P2, ST_P3, ST_P4, ST_P5, ST_P6)
+
+REM *********************************************************************************************
+
+END

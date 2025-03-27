@@ -16,89 +16,89 @@ Los rangos de medición de caudales por caja son los siguientes:
 
 * **VAV GRANDE**
 
-	* **MAX** = 3000	
-	* **MIN** = 1100	
+	* **MAX** = 3000 *cfm*
+	* **MIN** = 1100 *cfm*
 
 * **VAV MEDIANA**
 
-	* **MAX** = 850	
-	* **MIN** = 350
+	* **MAX** = 850 *cfm*
+	* **MIN** = 350 *cfm*
 
 * **VAV CHICA**
 
-	* **MAX** = 200	
-	* **MIN** = 75
+	* **MAX** = 200 *cfm*
+	* **MIN** = 75 *cfm*
 
 ### PLENUM 2
 
 * **VAV GRANDE**
 
-	* **MAX** = 2000	
-	* **MIN** = 850	
+	* **MAX** = 2000 *cfm*
+	* **MIN** = 850  *cfm*
 
 * **VAV MEDIANA**
 
-    * **MAX** = 650	
-	* **MIN** = 275
+    * **MAX** = 650 *cfm*
+	* **MIN** = 275 *cfm*
 
 ### PLENUM 3
 
 * **VAV GRANDE**
 
-	* **MAX** = 1350
-	* **MIN** = 575	
+	* **MAX** = 1350 *cfm*
+	* **MIN** = 575 *cfm*
 
 ### PLENUM 4
 
 * **VAV GRANDE**
 
-	* **MAX** = 3000	
-	* **MIN** = 1100	
+	* **MAX** = 3000 *cfm*
+	* **MIN** = 1100 *cfm*
 
 * **VAV MEDIANA**
-	* **MAX** = 850	
-	* **MIN** = 350	
+	* **MAX** = 850 *cfm*
+	* **MIN** = 350 *cfm*
 
 * **VAV CHICA**
 
-	* **MAX** = 200	
-	* **MIN** = 75
+	* **MAX** = 200 *cfm*
+	* **MIN** = 75 *cfm*
 	
 ### PLENUM 5
 
 * **VAV GRANDE**
 
-	* **MAX** = 4000	
-	* **MIN** = 1500	
+	* **MAX** = 4000 *cfm*
+	* **MIN** = 1500 *cfm*
 
 * **VAV CHICA**
 
-	* **MAX** = 300	
-	* **MIN** = 125	
+	* **MAX** = 300 *cfm*
+	* **MIN** = 125 *cfm*
 
 ### PLENUM 6
 		
 * **VAV GRANDE**
 
-	* **MAX** = 3000	
-	* **MIN** = 1100	
+	* **MAX** = 3000 *cfm*
+	* **MIN** = 1100 *cfm*
 
 * **VAV MEDIANA**
 
-	* **MAX** = 850	
-	* **MIN** = 350	
+	* **MAX** = 850 *cfm*
+	* **MIN** = 350 *cfm*
 
 ### PLENUM 7
 
 * **VAV GRANDE**
 
-	* **MAX** = 3000	
-	* **MIN** = 1100	
+	* **MAX** = 3000 *cfm*
+	* **MIN** = 1100 *cfm*
 
 * **VAV CHICA**
 
-	* **MAX** = 200	
-	* **MIN** = 75
+	* **MAX** = 200 *cfm*
+	* **MIN** = 75 *cfm*
 
 
 ## VARIABLES DE CONTROL
@@ -109,7 +109,7 @@ Los rangos de medición de caudales por caja son los siguientes:
 
 #### CONSTANTES
 
-*   **Rangos de Operación de Caudal (QMAX, QMIN):** Para cada VAV (ej: `P1_VG_QMAX`, `P1_VG_QMIN`, etc.). *
+*   **Rangos de Operación de Caudal (QMAX, QMIN):** Para cada VAV (ejemplo: `P1_VG_QMAX`, `P1_VG_QMIN`, etc.). *
 
 ### VARIABLES EXTERNAS
 
@@ -126,16 +126,15 @@ Los rangos de medición de caudales por caja son los siguientes:
     *   `P4_DP` Caida de presión PLENUM 4. (LEE)
     *   `P5_DP` Caida de presión PLENUM 5. (LEE)
     *   `P6_DP` Caida de presión PLENUM 6. (LEE)
+    *   `V[T]_DEMANDA` Demanda de VAV [TAMAÑO] activa. (LEE)
 
 *   **Salidas:**
     *   `ST_CP`Estado de operación general. (ESCRIBE)
     *   `ST_P1` - `ST_P6` Estado de operación de cada plenum (1-6). (ESCRIBE)
 
-    *   `V[T]_DEMANDA` Demanda de VAV [TAMAÑO] activa. (ESCRIBE)
-
     *   `V[T]_Q` Caudal de VAV Grande Activa (ESCRIBE)
     *   `Q_T` Caudal Total Activo (ESCRIBE)
-    *   `P[#]_V[T]_COMPVAV` Control de compuerta VAV (ESCRIBE)
+    *   `P[#]_V[T]_DEMANDA` Control de compuerta VAV (ESCRIBE)
 
     *   `DP_1` Caida de presión 1 de plenum activo (ESCRIBE)
     *   `DP_2` Caida de presión 2 de plenum activo (ESCRIBE)
@@ -145,6 +144,8 @@ Los rangos de medición de caudales por caja son los siguientes:
     *   `VM_MAX` Caudal Máximo de VAV Mediana activa (ESCRIBE)
     *   `VC_MIN` Caudal Mínimo de VAV Chica activa (ESCRIBE)
     *   `VC_MAX` Caudal Máximo de VAV Chica activa (ESCRIBE)
+
+    *Nota: para los rangos de caudales Máximos y Mínimos de retorno, ocupar los valores de las cajas VAV del plenum 7R* (ejemplo: `PR7_VG_QMAX`, `PR7_VG_QMIN`, etc.)
 
 ## LOGICA DE OPERACION
 
@@ -229,24 +230,24 @@ IF SS_CP = 1 THEN
 					VC_MIN = P1_VC_QMIN
 			
 				REM ***CAUDAL DE AIRE
-					Q_GR = P1_VG_Q
-					Q_MD = P1_VM_Q
-					Q_CH = P1_VC_Q
+					VG_Q = P1_VG_Q
+					VM_Q = P1_VM_Q
+					VC_Q = P1_VC_Q
 			
 				REM ***DEMANDA DE AIRE
-					P1_VG_A = Q_GR_DM
-					P1_VM_A = Q_MD_DM
-					P1_VC_A = Q_CH_DM
-					P2_VG_A = 0
-					P2_VM_A = 0
-					P3_VG_A = 0
-					P4_VG_A = 0
-					P4_VM_A = 0
-					P4_VC_A = 0
-					P5_VG_A = 0
-					P5_VC_A = 0
-					P6_VG_A = 0
-					P6_VM_A = 0
+					P1_VG_DEMANDA = VG_DEMANDA
+					P1_VM_DEMANDA = VM_DEMANDA
+					P1_VC_DEMANDA = VC_DEMANDA
+					P2_VG_DEMANDA = 0
+					P2_VM_DEMANDA = 0
+					P3_VG_DEMANDA = 0
+					P4_VG_DEMANDA = 0
+					P4_VM_DEMANDA = 0
+					P4_VC_DEMANDA = 0
+					P5_VG_DEMANDA = 0
+					P5_VC_DEMANDA = 0
+					P6_VG_DEMANDA = 0
+					P6_VM_DEMANDA = 0
 			
 				REM ***ESTADO DE PLENUM ACTIVO
 					ST_P1 = 1
@@ -258,6 +259,51 @@ IF SS_CP = 1 THEN
         ...
     ELSE IF PLENUM = 2 THEN
         // Activar Plenum 2
+        REM ***PRESION DE PLENUM
+					DP_1 = P2_DP
+					DP_2 = 0
+			
+				REM ***BLOQUEO DE ACTIVACION DE VAV ACTIVA
+
+					RLQ BV9@7
+					RLQ BV10@7
+					BV11@7 = 0
+			
+				REM ***LIMITE DE CAUDAL POR TAMANO DE CAJA
+					VG_MAX = P1_VG_QMAX
+					VG_MIN = P1_VG_QMIN
+					VM_MAX = P1_VM_QMAX
+					VM_MIN = P1_VM_QMIN
+					VC_MAX = 0
+					VC_MIN = 0
+			
+				REM ***CAUDAL DE AIRE
+					VG_Q = P1_VG_Q
+					VM_Q = P1_VM_Q
+					VC_Q = 0
+			
+				REM ***DEMANDA DE AIRE
+					P1_VG_DEMANDA = 0
+					P1_VM_DEMANDA = 0
+					P1_VC_DEMANDA = 0
+					P2_VG_DEMANDA = VG_DEMANDA
+					P2_VM_DEMANDA = VM_DEMANDA
+					P3_VG_DEMANDA = 0
+					P4_VG_DEMANDA = 0
+					P4_VM_DEMANDA = 0
+					P4_VC_DEMANDA = 0
+					P5_VG_DEMANDA = 0
+					P5_VC_DEMANDA = 0
+					P6_VG_DEMANDA = 0
+					P6_VM_DEMANDA = 0
+			
+				REM ***ESTADO DE PLENUM ACTIVO
+					ST_P1 = 0
+					ST_P2 = 1
+					ST_P3 = 0
+					ST_P4 = 0
+					ST_P5 = 0
+					ST_P6 = 0
         ...
     ELSE IF PLENUM = 3 THEN
         // Activar Plenum 3
@@ -274,11 +320,14 @@ IF SS_CP = 1 THEN
     ENDIF
 
     // Control de Plenum de Retorno (siempre activo si SS_CP = 1)
-    PR7_VG_A = QR_GR_DM
-    PR7_VC_A = QR_CH_DM
+    PR7_VG_DEMANDA = VGR_DEMANDA
+    PR7_VC_DEMANDA = VCR_DEMANDA
 
 ELSE // SS_CP = 0
     // Desactivar todos los plenums
+    P1_VG_DEMANDA = 100
+    P1_VM_DEMANDA = 100
+    P1_VC_DEMANDA = 100
     ...
 ENDIF
 
@@ -297,7 +346,7 @@ flowchart TB
     PLENUM["PLENUM = MAX(1, MIN(PLENUM, 6))"] --> SSCP
     SSCP{"SS_CP = 1"} -- SI --> PL1
     SSCP -- NO --> OFF1
-    OFF1["COMPVAV = 100"] --> OFF2
+    OFF1["DEMANDA = 100"] --> OFF2
     OFF2["ST_P[#] = 0"] --> OFF3
     OFF3["BLOQUEO DE ACTIVACION DE VAVS ACTIVAS"] --> ST
     PL1{PLENUM = 1} -- SI --> CNX1
