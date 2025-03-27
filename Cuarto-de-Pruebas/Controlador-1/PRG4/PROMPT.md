@@ -39,10 +39,10 @@ Este módulo implementa la lógica de control PID para las VAVs de suministro (G
     *   `VGR_ACT` Permiso de operación para la VAV Grande de Retorno.
     *   `VCR_ACT` Permiso de operación para la VAV Chica de Retorno.
     *   `VG_Q` Caudal actual de la VAV Grande.
-    *   `MD_Q` Caudal actual de la VAV Mediana.
-    *   `CH_Q` Caudal actual de la VAV Chica.
+    *   `VM_Q` Caudal actual de la VAV Mediana.
+    *   `VC_Q` Caudal actual de la VAV Chica.
     *   `VGR_Q` Caudal actual de la VAV Grande de Retorno.
-    *   `CHR_Q` Caudal actual de la VAV Chica de Retorno.
+    *   `VCR_Q` Caudal actual de la VAV Chica de Retorno.
     *   `VG_Q-SP` Setpoint de caudal para la VAV Grande.
     *   `VM_Q-SP` Setpoint de caudal para la VAV Mediana.
     *   `VC_Q-SP` Setpoint de caudal para la VAV Chica.
@@ -50,7 +50,7 @@ Este módulo implementa la lógica de control PID para las VAVs de suministro (G
     *   `VCR_Q-SP` Setpoint de caudal para la VAV Chica de Retorno.
 
 *   **Salidas:**
-    *   `VG_DEMANDA`, `VM_DEMANDADM`, `VC_DEMANDA`: Demanda de apertura de la compuerta para cada VAV activa (%).
+    *   `VG_DEMANDA`, `VM_DEMANDA`, `VC_DEMANDA`: Demanda de apertura de la compuerta para cada VAV activa (%).
     *   `VGR_DEMANDA`, `VCR_DEMANDA`: Demanda de apertura de la compuerta para cada VAV de retorno (%).
 
 ## LOGICA DE OPERACION

@@ -1,211 +1,286 @@
-REM PRG4_DEMANDA (CONTROL: CUARTO DE PRUEBAS 1 - ID 10021)
-REM CONTROL DE DEMANDA PLENUMS
-REM AUTHOR CARLOS JIMENEZ HIRASHI @cjhirashi
-REM VERSION 2.0.0
+REM NAME: MOD: CONTROL PID VAVs
+REM DESCRIPTION: Implementa control PI para VAVs de suministro y retorno basado en error de caudal.
+REM ID PROGRAMA: PRG4
+REM ID CONTROLADOR: 10021
+REM AUTHOR: Carlos Jiménez Hirashi @cjhirashi, Adaptación: Asistente de IA
+REM VERSION: 1.5.0
+REM 27/MAR/2025
 
-REM DECLARACION DE VARIABLES DEL SISTEMA
+REM DECLARACION DE PUNTOS DE CONTROL
 
-	REM *VARIABLES: Contadores del sistema
-		LOCALS TM, T_VG, T_VM, T_VC, T_VGR, T_VCR
-	
-		TM = 1 / SCANS
-		T_VG = T_VG + TM
-		T_VM = T_VM + TM
-		T_VC = T_VC + TM
-		T_VGR = T_VGR + TM
-		T_VCR = T_VCR + TM
-	
-	REM *VARIABLES: Parámetros de operación
-		LOCALS SS_CP,
-		LOCALS L_MAX, L_MIN
+    REM CONSTANTES INTERNAS
 
-		SS_CP = BV1
-		L_MAX = 100
-		L_MIN = 6
+        REM CONSTANTES: LÍMITES DE DEMANDA
+        LOCALS MAX_L, MIN_L
+            MAX_L = 100     : REM Límite máximo para demanda de compuerta ( % )
+            MIN_L = 0       : REM Límite mínimo para demanda de compuerta ( % )
 
-	REM *VARIABLES: Parámetros para algoritmo de demanda
-		LOCALS PERM_VG, PERM_VM, PERM_VC, PERM_VGR, PERM_VCR
-		LOCALS Q_VG, Q_VM, Q_VC, Q_VGR, Q_VCR
-		LOCALS SP_Q_VG, SP_Q_VM, SP_Q_VC, SP_Q_VGR, SP_Q_VCR
-		LOCALS P_VG, P_VM, P_VC, P_VGR, P_VCR
-		LOCALS I_VG, I_VM, I_VC, I_VGR, I_VCR
-		LOCALS ERR_VG, ERR_VM, ERR_VC, ERR_VGR, ERR_VCR
-		LOCALS PR_VG, PR_VM, PR_VC, PR_VGR, PR_VCR
-		LOCALS IR_VG, IR_VM, IR_VC, IR_VGR, IR_VCR
-		LOCALS IS_VG, IS_VM, IS_VC, IS_VGR, IS_VCR
-		LOCALS DM_VG, DM_VM, DM_VC, DM_VGR, DM_VCR
+    REM VARIABLES INTERNAS
 
-REM LOGICA DE CONTROL
-	
-	REM *ALGORITMOS PARA CONTROL DE DEMANDA 
+        REM VARIABLES: CONTROL PID VAV GRANDE (VG)
+        LOCALS VG_T, VG_ERR, VG_PR, VG_IR, VG_IS
 
-		REM **PI CAJA GRANDE
-			PERM_VG = BV9
-			Q_VG = AV98
-			SP_Q_VG = AV107
-			P_VG = AV69
-			I_VG = AV70
+        REM VARIABLES: CONTROL PID VAV MEDIANA (VM)
+        LOCALS VM_T, VM_ERR, VM_PR, VM_IR, VM_IS
 
-			IF SS_CP = 1 AND PERM_VG = 1 THEN
+        REM VARIABLES: CONTROL PID VAV CHICA (VC)
+        LOCALS VC_T, VC_ERR, VC_PR, VC_IR, VC_IS
 
-				REM **ERROR DEL SISTEMA
-					ERR_VG = ( Q_VG - SP_Q_VG ) * -1
+        REM VARIABLES: CONTROL PID VAV GRANDE RETORNO (VGR)
+        LOCALS VGR_T, VGR_ERR, VGR_PR, VGR_IR, VGR_IS
 
-				REM **RESULTANTE PROPORCIONAL
-					PR_VG = ( ERR_VG / ( SP_Q_VG * P_VG )) * 100
+        REM VARIABLES: CONTROL PID VAV CHICA RETORNO (VCR)
+        LOCALS VCR_T, VCR_ERR, VCR_PR, VCR_IR, VCR_IS
 
-				REM **RESULTANTE INTEGRAL
-					IR_VG = (( 100 * ERR_VG ) / SP_Q_VG ) * I_VG
-					IF T_VG > 1 THEN IS_VG = IS_VG + IR_VG, T_VG = 0
-					IS_VG = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VG ))
+    REM VARIABLES EXTERNAS
 
-				REM **DEMANDA DE SISTEMA
-					DM_VG = PR_VG + IS_VG
-					DM_VG = MAX( L_MIN , MIN( L_MAX, DM_VG ))
+        REM ESTADO DEL SISTEMA Y PERMISOS VAV
+        LOCALS SS_CP, VG_ACT, VM_ACT, VC_ACT, VGR_ACT, VCR_ACT
+            SS_CP = BV1     : REM SISTEMA - ACTIVACION ( ACTIVA/INACTIVA )
+            VG_ACT = BV9    : REM VAV GRANDE - ACTIVACION ( ACTIVA/INACTIVA )
+            VM_ACT = BV10   : REM VAV MEDIANA - ACTIVACION ( ACTIVA/INACTIVA )
+            VC_ACT = BV11   : REM VAV CHICA - ACTIVACION ( ACTIVA/INACTIVA )
+            VGR_ACT = BV12  : REM VAV GRANDE RETORNO - ACTIVACION ( ACTIVA/INACTIVA )
+            VCR_ACT = BV13  : REM VAV CHICA RETORNO - ACTIVACION ( ACTIVA/INACTIVA )
 
-			  ELSE
+        REM GANANCIAS PID
+        LOCALS VG_P, VG_I, VM_P, VM_I, VC_P, VC_I
+            VG_P = AV69     : REM CAJA GRANDE - VALOR PROPORCIONAL ( )
+            VG_I = AV70     : REM CAJA GRANDE - VALOR INTEGRAL ( )
+            VM_P = AV71     : REM CAJA MEDIANA - VALOR PROPORCIONAL ( )
+            VM_I = AV72     : REM CAJA MEDIANA - VALOR INTEGRAL ( )
+            VC_P = AV73     : REM CAJA CHICA - VALOR PROPORCIONAL ( )
+            VC_I = AV74     : REM CAJA CHICA - VALOR INTEGRAL ( )
 
-				PR_VG = 0, IR_VG = 0, IS_VG = 0, DM_VG = 0
+        REM CAUDALES ACTUALES (Q)
+        LOCALS VG_Q, VM_Q, VC_Q, VGR_Q, VCR_Q
+            VG_Q = AV98     : REM VAV GRANDE ACTIVA - CAUDAL ( cfm )
+            VM_Q = AV99     : REM VAV MEDIANA ACTIVA - CAUDAL ( cfm )
+            VC_Q = AV100    : REM VAV CHICA ACTIVA - CAUDAL ( cfm )
+            VGR_Q = AV102   : REM VAV GRANDE RETORNO - CAUDAL ( cfm )
+            VCR_Q = AV103   : REM VAV CHICA RETORNO - CAUDAL ( cfm )
 
-			ENDIF
+        REM SETPOINTS DE CAUDAL (Q-SP)
+        LOCALS VG_Q_SP, VM_Q_SP, VC_Q_SP, VGR_Q_SP, VCR_Q_SP
+            VG_Q_SP = AV107 : REM VAV GRANDE ACTIVA - SETPOINT DE CAUDAL ( cfm )
+            VM_Q_SP = AV108 : REM VAV MEDIANA ACTIVA - SETPOINT DE CAUDAL ( cfm )
+            VC_Q_SP = AV109 : REM VAV CHICA ACTIVA - SETPOINT DE CAUDAL ( cfm )
+            VGR_Q_SP = AV110: REM VAV GRANDE RETORNO - SETPOINT DE CAUDAL ( cfm )
+            VCR_Q_SP = AV111: REM VAV CHICA RETORNO - SETPOINT DE CAUDAL ( cfm )
 
-			AV82 = DM_VG
+        REM DEMANDAS CALCULADAS (SALIDAS)
+        LOCALS VGR_DEMANDA, VCR_DEMANDA, VG_DEMANDA, VM_DEMANDA, VC_DEMANDA
+            AV80 = VGR_DEMANDA : REM VAV GRANDE RETORNO - DEMANDA ( % )
+            AV81 = VCR_DEMANDA : REM VAV CHICA RETORNO - DEMANDA ( % )
+            AV82 = VG_DEMANDA  : REM VAV GRANDE - DEMANDA ( % )
+            AV83 = VM_DEMANDA  : REM VAV MEDIANA - DEMANDA ( % )
+            AV84 = VC_DEMANDA  : REM VAV CHICA - DEMANDA ( % )
 
-		REM **PI CAJA MEDIANA
-			PERM_VM = BV10
-			Q_VM = AV99
-			SP_Q_VM = AV108
-			P_VM = AV71
-			I_VM = AV72
 
-			IF SS_CP = 1 AND PERM_VM = 1 THEN
+REM LOGICA DE CONTROL ***********************************************************************
 
-				REM **ERROR DEL SISTEMA
-					ERR_VM = ( Q_VM - SP_Q_VM ) * -1
+    REM *ACUMULACION DE TIEMPO POR SCAN
+    IF SCANS > 0 THEN VG_T = VG_T + (1 / SCANS)
+    IF SCANS > 0 THEN VM_T = VM_T + (1 / SCANS)
+    IF SCANS > 0 THEN VC_T = VC_T + (1 / SCANS)
+    IF SCANS > 0 THEN VGR_T = VGR_T + (1 / SCANS)
+    IF SCANS > 0 THEN VCR_T = VCR_T + (1 / SCANS)
 
-				REM **RESULTANTE PROPORCIONAL
-					PR_VM = ( ERR_VM / ( SP_Q_VM * P_VM )) * 100
+    REM **CONTROL PI - VAV GRANDE (VG)
+    IF SS_CP = 1 AND VG_ACT = 1 THEN
+        REM ***ERROR DEL SISTEMA
+            VG_ERR = (VG_Q - VG_Q_SP) * -1
 
-				REM **RESULTANTE INTEGRAL
-					IR_VM = (( 100 * ERR_VM ) / SP_Q_VM ) * I_VM
-					IF T_VM > 1 THEN IS_VM = IS_VM + IR_VM, T_VM = 0
-					IS_VM = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VM ))
+        REM ***RESULTANTE PROPORCIONAL (Protegido contra división por cero)
+            IF VG_Q_SP <> 0 AND VG_P <> 0 THEN
+                VG_PR = (VG_ERR / (VG_Q_SP * VG_P)) * 100
+            ELSE
+                VG_PR = 0
+            ENDIF
 
-				REM **DEMANDA DE SISTEMA
-					DM_VM = PR_VM + IS_VM
-					DM_VM = MAX( L_MIN , MIN( L_MAX, DM_VM ))
+        REM ***RESULTANTE INTEGRAL (Protegido contra división por cero)
+            IF VG_Q_SP <> 0 THEN
+                 VG_IR = ((100 * VG_ERR) / VG_Q_SP) * VG_I
+            ELSE
+                 VG_IR = 0
+            ENDIF
 
-			  ELSE
+            IF VG_T > 1 THEN
+                VG_IS = VG_IS + VG_IR
+                VG_T = 0
+            ENDIF
+            REM ****LIMITACION ANTI-WINDUP
+            VG_IS = MAX(MIN_L - 10, MIN(MAX_L + 10, VG_IS))
 
-				PR_VM = 0, IR_VM = 0, IS_VM = 0, DM_VM = 0
+        REM ***DEMANDA DE SISTEMA
+            VG_DEMANDA = VG_PR + VG_IS
+            VG_DEMANDA = MAX(MIN_L, MIN(MAX_L, VG_DEMANDA))
 
-			ENDIF
+    ELSE
+        REM ***DESACTIVADO - Resetear valores PID
+        VG_PR = 0
+        VG_IR = 0
+        VG_IS = 0
+        VG_DEMANDA = 0
+        VG_T = 0 : REM Resetear contador de tiempo
+    ENDIF
 
-			AV83 = DM_VM
+    REM **CONTROL PI - VAV MEDIANA (VM)
+    IF SS_CP = 1 AND VM_ACT = 1 THEN
+        REM ***ERROR DEL SISTEMA
+            VM_ERR = (VM_Q - VM_Q_SP) * -1
 
-		REM **PI CAJA CHICA
-			PERM_VC = BV11
-			Q_VC = AV100
-			SP_Q_VC = AV109
-			P_VC = AV73
-			I_VC = AV74
+        REM ***RESULTANTE PROPORCIONAL (Protegido contra división por cero)
+            IF VM_Q_SP <> 0 AND VM_P <> 0 THEN
+                VM_PR = (VM_ERR / (VM_Q_SP * VM_P)) * 100
+            ELSE
+                VM_PR = 0
+            ENDIF
 
-			IF SS_CP = 1 AND PERM_VC = 1 THEN
+        REM ***RESULTANTE INTEGRAL (Protegido contra división por cero)
+            IF VM_Q_SP <> 0 THEN
+                 VM_IR = ((100 * VM_ERR) / VM_Q_SP) * VM_I
+            ELSE
+                 VM_IR = 0
+            ENDIF
 
-				REM **ERROR DEL SISTEMA
-					ERR_VC = ( Q_VC - SP_Q_VC ) * -1
+            IF VM_T > 1 THEN
+                VM_IS = VM_IS + VM_IR
+                VM_T = 0
+            ENDIF
+            REM ****LIMITACION ANTI-WINDUP
+            VM_IS = MAX(MIN_L - 10, MIN(MAX_L + 10, VM_IS))
 
-				REM **RESULTANTE PROPORCIONAL
-					PR_VC = ( ERR_VC / ( SP_Q_VC * P_VC )) * 100
+        REM ***DEMANDA DE SISTEMA
+            VM_DEMANDA = VM_PR + VM_IS
+            VM_DEMANDA = MAX(MIN_L, MIN(MAX_L, VM_DEMANDA))
 
-				REM **RESULTANTE INTEGRAL
-					IR_VC = (( 100 * ERR_VC ) / SP_Q_VC ) * I_VC
-					IF T_VC > 1 THEN IS_VC = IS_VC + IR_VC, T_VC = 0
-					IS_VC = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VC ))
+    ELSE
+        REM ***DESACTIVADO - Resetear valores PID
+        VM_PR = 0
+        VM_IR = 0
+        VM_IS = 0
+        VM_DEMANDA = 0
+        VM_T = 0 : REM Resetear contador de tiempo
+    ENDIF
 
-				REM **DEMANDA DE SISTEMA
-					DM_VC = PR_VC + IS_VC
-					DM_VC = MAX( L_MIN , MIN( L_MAX, DM_VC ))
+    REM **CONTROL PI - VAV CHICA (VC)
+    IF SS_CP = 1 AND VC_ACT = 1 THEN
+        REM ***ERROR DEL SISTEMA
+            VC_ERR = (VC_Q - VC_Q_SP) * -1
 
-			ELSE
+        REM ***RESULTANTE PROPORCIONAL (Protegido contra división por cero)
+            IF VC_Q_SP <> 0 AND VC_P <> 0 THEN
+                VC_PR = (VC_ERR / (VC_Q_SP * VC_P)) * 100
+            ELSE
+                VC_PR = 0
+            ENDIF
 
-				PR_VC = 0, IR_VC = 0, IS_VC = 0, DM_VC = 0
+        REM ***RESULTANTE INTEGRAL (Protegido contra división por cero)
+            IF VC_Q_SP <> 0 THEN
+                 VC_IR = ((100 * VC_ERR) / VC_Q_SP) * VC_I
+            ELSE
+                 VC_IR = 0
+            ENDIF
 
-			ENDIF
+            IF VC_T > 1 THEN
+                VC_IS = VC_IS + VC_IR
+                VC_T = 0
+            ENDIF
+            REM ****LIMITACION ANTI-WINDUP
+            VC_IS = MAX(MIN_L - 10, MIN(MAX_L + 10, VC_IS))
 
-			AV84 = DM_VC
+        REM ***DEMANDA DE SISTEMA
+            VC_DEMANDA = VC_PR + VC_IS
+            VC_DEMANDA = MAX(MIN_L, MIN(MAX_L, VC_DEMANDA))
 
-		REM **PI CAJA GRANDE RETORNO
-			PERM_VGR = BV35
-			Q_VGR = AV102
-			SP_Q_VGR = AV110
-			P_VGR = AV69
-			I_VGR = AV70
+    ELSE
+        REM ***DESACTIVADO - Resetear valores PID
+        VC_PR = 0
+        VC_IR = 0
+        VC_IS = 0
+        VC_DEMANDA = 0
+        VC_T = 0 : REM Resetear contador de tiempo
+    ENDIF
 
-			IF SS_CP = 1 AND PERM_VGR = 1 THEN
+    REM **CONTROL PI - VAV GRANDE RETORNO (VGR)
+    IF SS_CP = 1 AND VGR_ACT = 1 THEN
+        REM ***ERROR DEL SISTEMA
+            VGR_ERR = (VGR_Q - VGR_Q_SP) * -1
 
-				REM **ERROR DEL SISTEMA
-					ERR_VGR = ( Q_VGR - SP_Q_VGR ) * -1
+        REM ***RESULTANTE PROPORCIONAL (Usa ganancias VG_P)
+            IF VGR_Q_SP <> 0 AND VG_P <> 0 THEN
+                VGR_PR = (VGR_ERR / (VGR_Q_SP * VG_P)) * 100
+            ELSE
+                VGR_PR = 0
+            ENDIF
 
-				REM **RESULTANTE PROPORCIONAL
-					PR_VGR = ( ERR_VGR / ( SP_Q_VGR * P_VGR )) * 100
+        REM ***RESULTANTE INTEGRAL (Usa ganancias VG_I)
+            IF VGR_Q_SP <> 0 THEN
+                 VGR_IR = ((100 * VGR_ERR) / VGR_Q_SP) * VG_I
+            ELSE
+                 VGR_IR = 0
+            ENDIF
 
-				REM **RESULTANTE INTEGRAL
-					IR_VGR = (( 100 * ERR_VGR ) / SP_Q_VGR ) * I_VGR
-					IF T_VGR > 1 THEN IS_VGR = IS_VGR + IR_VGR, T_VGR = 0
-					IS_VGR = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VGR ))
+            IF VGR_T > 1 THEN
+                VGR_IS = VGR_IS + VGR_IR
+                VGR_T = 0
+            ENDIF
+            REM ****LIMITACION ANTI-WINDUP
+            VGR_IS = MAX(MIN_L - 10, MIN(MAX_L + 10, VGR_IS))
 
-				REM **DEMANDA DE SISTEMA
-					DM_VGR = PR_VGR + IS_VGR
-					DM_VGR = MAX( L_MIN , MIN( L_MAX, DM_VGR ))
+        REM ***DEMANDA DE SISTEMA
+            VGR_DEMANDA = VGR_PR + VGR_IS
+            VGR_DEMANDA = MAX(MIN_L, MIN(MAX_L, VGR_DEMANDA))
 
-			ELSE
+    ELSE
+        REM ***DESACTIVADO - Resetear valores PID
+        VGR_PR = 0
+        VGR_IR = 0
+        VGR_IS = 0
+        VGR_DEMANDA = 0
+        VGR_T = 0 : REM Resetear contador de tiempo
+    ENDIF
 
-				PR_VGR = 0, IR_VGR = 0, IS_VGR = 0, DM_VGR = 0
+    REM **CONTROL PI - VAV CHICA RETORNO (VCR)
+    IF SS_CP = 1 AND VCR_ACT = 1 THEN
+        REM ***ERROR DEL SISTEMA
+            VCR_ERR = (VCR_Q - VCR_Q_SP) * -1
 
-			ENDIF
+        REM ***RESULTANTE PROPORCIONAL (Usa ganancias VC_P)
+            IF VCR_Q_SP <> 0 AND VC_P <> 0 THEN
+                VCR_PR = (VCR_ERR / (VCR_Q_SP * VC_P)) * 100
+            ELSE
+                VCR_PR = 0
+            ENDIF
 
-			AV80 = DM_VGR
+        REM ***RESULTANTE INTEGRAL (Usa ganancias VC_I)
+            IF VCR_Q_SP <> 0 THEN
+                 VCR_IR = ((100 * VCR_ERR) / VCR_Q_SP) * VC_I
+            ELSE
+                 VCR_IR = 0
+            ENDIF
 
-		REM **PI CAJA CHICA RETORNO
-			PERM_VCR = BV36
-			Q_VCR = AV103
-			SP_Q_VCR = AV111
-			P_VCR = AV73
-			I_VCR = AV74
+            IF VCR_T > 1 THEN
+                VCR_IS = VCR_IS + VCR_IR
+                VCR_T = 0
+            ENDIF
+            REM ****LIMITACION ANTI-WINDUP
+            VCR_IS = MAX(MIN_L - 10, MIN(MAX_L + 10, VCR_IS))
 
-			IF SS_CP = 1 AND PERM_VCR = 1 THEN
+        REM ***DEMANDA DE SISTEMA
+            VCR_DEMANDA = VCR_PR + VCR_IS
+            VCR_DEMANDA = MAX(MIN_L, MIN(MAX_L, VCR_DEMANDA))
 
-				REM **ERROR DEL SISTEMA
-					ERR_VCR = ( Q_VCR - SP_Q_VCR ) * -1
+    ELSE
+        REM ***DESACTIVADO - Resetear valores PID
+        VCR_PR = 0
+        VCR_IR = 0
+        VCR_IS = 0
+        VCR_DEMANDA = 0
+        VCR_T = 0 : REM Resetear contador de tiempo
+    ENDIF
 
-				REM **RESULTANTE PROPORCIONAL
-					PR_VCR = ( ERR_VCR / ( SP_Q_VCR * P_VCR )) * 100
-
-				REM **RESULTANTE INTEGRAL
-					IR_VCR = (( 100 * ERR_VCR ) / SP_Q_VCR ) * I_VCR
-					IF T_VCR > 1 THEN IS_VCR = IS_VCR + IR_VCR, T_VCR = 0
-					IS_VCR = MAX( L_MIN - 10, MIN( L_MAX + 10, IS_VCR ))
-
-				REM **DEMANDA DE SISTEMA
-					DM_VCR = PR_VCR + IS_VCR
-					DM_VCR = MAX( L_MIN , MIN( L_MAX, DM_VCR ))
-
-			ELSE
-
-				PR_VCR = 0, IR_VCR = 0, IS_VCR = 0, DM_VCR = 0
-
-			ENDIF
-
-			AV81 = DM_VCR
-
-REM PERMISIVO DE OPERACION ACTIVO
-
-	REM CAJAS VAV
-		IF PERM_VG = 0 AND PERM_VM = 0 AND PERM_VC = 0 THEN BV9@8 = 1
-
-	REM CAJAS VAV RETORNO
-		IF PERM_VGR = 0 AND PERM_VCR = 0 THEN BV35@8 = 1
-	 
+REM *********************************************************************************************
 
 END
