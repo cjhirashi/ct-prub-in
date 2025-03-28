@@ -154,18 +154,20 @@ REM DECLARACION DE PUNTOS DE CONTROL
 
 REM LOGICA DE CONTROL ***********************************************************************
 
-    REM *LIMITACION DE SETPOINTS DE CAUDAL
-        VG_Q_SP = MIN(MAX(VG_Q_SP, VG_MIN), VG_MAX)
-        VM_Q_SP = MIN(MAX(VM_Q_SP, VM_MIN), VM_MAX)
-        VC_Q_SP = MIN(MAX(VC_Q_SP, VC_MIN), VC_MAX)
-        VGR_Q_SP = MIN(MAX(VGR_Q_SP, PR7_VG_QMIN), PR7_VG_QMAX)
-        VCR_Q_SP = MIN(MAX(VCR_Q_SP, PR7_VC_QMIN), PR7_VC_QMAX)
-
-    REM *LIMITACION SELECTOR DE PLENUM (Asegura que esté entre 1 y 6)
-        PLENUM = MAX(1, MIN(PLENUM, 6))
 
     REM *LOGICA PRINCIPAL - SELECCION DE PLENUM ACTIVO
     IF SS_CP = 1 THEN
+
+        REM *LIMITACION DE SETPOINTS DE CAUDAL
+            VG_Q_SP = MIN(MAX(VG_Q_SP, VG_MIN), VG_MAX)
+            VM_Q_SP = MIN(MAX(VM_Q_SP, VM_MIN), VM_MAX)
+            VC_Q_SP = MIN(MAX(VC_Q_SP, VC_MIN), VC_MAX)
+            VGR_Q_SP = MIN(MAX(VGR_Q_SP, PR7_VG_QMIN), PR7_VG_QMAX)
+            VCR_Q_SP = MIN(MAX(VCR_Q_SP, PR7_VC_QMIN), PR7_VC_QMAX)
+
+        REM *LIMITACION SELECTOR DE PLENUM (Asegura que esté entre 1 y 6)
+            PLENUM = MAX(1, MIN(PLENUM, 6))
+
         REM **LECTURA DE CAIDA DE PRESION REMOTA (Solo si el plenum está seleccionado)
         IF INTERVAL(00:00:05) THEN
             IF PLENUM = 1 THEN P1_DP_2 = 10022.AI3
@@ -468,6 +470,11 @@ REM LOGICA DE CONTROL **********************************************************
         REM **CALCULO DE CAUDAL TOTAL ACTIVO
         Q_T = VG_Q + VM_Q + VC_Q
 
+        REM *PROTECCION DE BLOQUEO DE SISTEMA 
+            IF BV9 = 0 AND BV10 = 0 AND BV11 = 0 THEN
+                BV9@8 = 1
+            ENDIF
+
     ELSE
         REM **SISTEMA INACTIVO (SS_CP = 0)
             REM ***DESACTIVAR TODAS LAS DEMANDAS
@@ -484,6 +491,10 @@ REM LOGICA DE CONTROL **********************************************************
             P5_VC_DEMANDA = 100
             P6_VG_DEMANDA = 100
             P6_VM_DEMANDA = 100
+            PR7_VG_DEMANDA = 100
+            PR7_VC_DEMANDA = 100
+
+            REM **PLENUM DE RETORNO (PLENUM 7)
             PR7_VG_DEMANDA = 100
             PR7_VC_DEMANDA = 100
 
@@ -510,14 +521,26 @@ REM LOGICA DE CONTROL **********************************************************
             Q_T = 0
 
             REM ***LIBERAR CONTROL DE ACTIVACION DE VAV ACTIVA (Prioridad 7)
-            RLQ BV9@7
-            RLQ BV10@7
-            RLQ BV11@7
+            BV9@7 = 0
+            BV10@7 = 0
+            BV11@7 = 0
+
+        REM *RESTABLECIMIENTO DE VARIABLES
+            VG_Q_SP = 0
+            VM_Q_SP = 0
+            VC_Q_SP = 0
+            VGR_Q_SP = 0
+            VCR_Q_SP = 0
+            PLENUM = 1
 
     ENDIF
 
-    REM *CALCULO ESTADO DE OPERACIÓN GENERAL
-    ST_CP = MAX(ST_P1, ST_P2, ST_P3, ST_P4, ST_P5, ST_P6)
+    REM *ESCRITURA DE PUNTOS
+        AV107 = VG_Q_SP     : REM VAV GRANDE ACTIVA - SETPOINT DE CAUDAL ( cfm )
+        AV108 = VM_Q_SP     : REM VAV MEDIANA ACTIVA - SETPOINT DE CAUDAL ( cfm )
+        AV109 = VC_Q_SP     : REM VAV CHICA ACTIVA - SETPOINT DE CAUDAL ( cfm )
+        AV110 = VGR_Q_SP    : REM VAV GRANDE RETORNO - SETPOINT DE CAUDAL ( cfm )
+        AV111 = VCR_Q_SP    : REM VAV CHICA RETORNO - SETPOINT DE CAUDAL ( cfm )
 
 REM *********************************************************************************************
 

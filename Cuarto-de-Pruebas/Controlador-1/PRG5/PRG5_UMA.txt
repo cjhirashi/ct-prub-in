@@ -4,19 +4,39 @@ REM ID PROGRAMA: PRG5
 REM ID CONTROLADOR: 10021
 REM AUTHOR: Carlos Jiménez Hirashi @cjhirashi, Adaptación: Asistente de IA
 REM VERSION: 1.5.0
-REM 27/MAR/2025
+REM 13/JUN/2024
+
+REM DECLARACION DE PUNTOS DE CONTROL
+
+    REM VARIABLES EXTERNAS
+
+        REM CONTROL LOCAL CUARTO DE PRUEBAS
+        LOCALS SS_CP, SAT_SP_LOC, DP_SP_LOC, ST_CP
+            SS_CP = BV1         : REM SISTEMA - ACTIVACION ( ACTIVA/INACTIVA )
+            SAT_SP_LOC = AV118  : REM TEMPERATURA DE SUMINISTRO - SETPOINT ( °C )
+            DP_SP_LOC = AV119   : REM PRESION DIFERENCIAL - SETPOINT ( "WC" )
+            BV2 = ST_CP         : REM SISTEMA - ESTADO ( ACTIVA/INACTIVA )
+
+        REM CONTROL REMOTO UMA-01 (DI=10003)
+        LOCALS ST_UMA, SAT_SP_REM, DP_SP_REM, SS_UMA
+            IF INTERVAL(00:00:05) THEN
+                ST_UMA = 10003.BV3      : REM SISTEMA - ESTADO DE OPERACION ( ACTIVA/INACTIVA )
+                10003.AV4 = SAT_SP_REM  : REM TEMPERATURA DE SUMINISTRO DE AIRE - SETPOINT ( °C )
+                10003.AV8 = DP_SP_REM   : REM PRSIÓN DE SUMINISTRO DE AIRE -SETPOINT ( "WC" )
+                10003.MSV1 = SS_UMA     : REM SISTEMA - ARRANQUE Y PARO ( 4=CP_MODE/RLQ=OFF )
+            ENDIF
 
 REM LOGICA DE CONTROL ***********************************************************************
 
     REM *MODULO DE CONTROL DE UMA-01 (Se ejecuta cada 5 segundos)
-    IF INTERVAL(00:00:05) THEN
+    
 
         REM **SINCRONIZAR ESTADO (Leer estado remoto y escribirlo localmente)
-            BV2 = 10003.BV3 : REM ST_CP = ST_UMA
+            ST_CP = ST_UMA
 
         REM **ENVIAR SETPOINTS (Escribir setpoints locales a variables remotas)
-            10003.AV4 = AV118 : REM SAT_SP_REM = SAT_SP_LOC
-            10003.AV8 = AV119 : REM DP_SP_REM = DP_SP_LOC
+            SAT_SP_REM = SAT_SP_LOC
+            DP_SP_REM = DP_SP_LOC
 
         REM **CONTROLAR ARRANQUE/PARADA REMOTO (PRIORIDAD 7)
             IF SS_CP = 1 THEN
@@ -27,7 +47,7 @@ REM LOGICA DE CONTROL **********************************************************
                 RLQ 10003.MSV1@7
             ENDIF
 
-    ENDIF
+
 
 REM *********************************************************************************************
 
