@@ -470,9 +470,17 @@ REM LOGICA DE CONTROL **********************************************************
         REM **CALCULO DE CAUDAL TOTAL ACTIVO
         Q_T = VG_Q + VM_Q + VC_Q
 
+        REM *DESBLOQUEO DE DE ACTIVACION DE VAVS DE RETORNO
+            RLQ BV12@7
+            RLQ BV13@7
+
         REM *PROTECCION DE BLOQUEO DE SISTEMA 
             IF BV9 = 0 AND BV10 = 0 AND BV11 = 0 THEN
                 BV9@8 = 1
+            ENDIF
+            
+            IF BV12 = 0 AND BV13 = 0 THEN
+                BV12@8 = 1
             ENDIF
 
     ELSE
@@ -524,6 +532,8 @@ REM LOGICA DE CONTROL **********************************************************
             BV9@7 = 0
             BV10@7 = 0
             BV11@7 = 0
+            BV12@7 = 0
+            BV13@7 = 0
 
         REM *RESTABLECIMIENTO DE VARIABLES
             VG_Q_SP = 0
@@ -536,11 +546,11 @@ REM LOGICA DE CONTROL **********************************************************
     ENDIF
 
     REM *ESCRITURA DE PUNTOS
-        AV107 = VG_Q_SP     : REM VAV GRANDE ACTIVA - SETPOINT DE CAUDAL ( cfm )
-        AV108 = VM_Q_SP     : REM VAV MEDIANA ACTIVA - SETPOINT DE CAUDAL ( cfm )
-        AV109 = VC_Q_SP     : REM VAV CHICA ACTIVA - SETPOINT DE CAUDAL ( cfm )
-        AV110 = VGR_Q_SP    : REM VAV GRANDE RETORNO - SETPOINT DE CAUDAL ( cfm )
-        AV111 = VCR_Q_SP    : REM VAV CHICA RETORNO - SETPOINT DE CAUDAL ( cfm )
+        AV107@8 = VG_Q_SP     : REM VAV GRANDE ACTIVA - SETPOINT DE CAUDAL ( cfm ), PRIORIDAD 8 - ESCRITURA MANUAL USUARIO
+        AV108@8 = VM_Q_SP     : REM VAV MEDIANA ACTIVA - SETPOINT DE CAUDAL ( cfm ), PRIORIDAD 8 - ESCRITURA MANUAL USUARIO
+        AV109@8 = VC_Q_SP     : REM VAV CHICA ACTIVA - SETPOINT DE CAUDAL ( cfm ), PRIORIDAD 8 - ESCRITURA MANUAL USUARIO
+        AV110@8 = VGR_Q_SP    : REM VAV GRANDE RETORNO - SETPOINT DE CAUDAL ( cfm ), PRIORIDAD 8 - ESCRITURA MANUAL USUARIO
+        AV111@8 = VCR_Q_SP    : REM VAV CHICA RETORNO - SETPOINT DE CAUDAL ( cfm ), PRIORIDAD 8 - ESCRITURA MANUAL USUARIO
 
 REM *********************************************************************************************
 

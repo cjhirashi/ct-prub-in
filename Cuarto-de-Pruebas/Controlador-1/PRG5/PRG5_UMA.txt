@@ -32,7 +32,11 @@ REM LOGICA DE CONTROL **********************************************************
     
 
         REM **SINCRONIZAR ESTADO (Leer estado remoto y escribirlo localmente)
-            ST_CP = ST_UMA
+            IF SS_CP = 1 THEN
+                ST_CP = ST_UMA
+             ELSE
+                ST_CP = 0
+            ENDIF
 
         REM **ENVIAR SETPOINTS (Escribir setpoints locales a variables remotas)
             SAT_SP_REM = SAT_SP_LOC
