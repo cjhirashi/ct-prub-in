@@ -1,4 +1,4 @@
-# 🧩 Proceso de Calibración de Cajas VAV - Enfoque Práctico KMC
+# 🧩 CP - Operativo - Proceso de Calibración de Cajas VAV
 
 ## 🔷 A. Sistema KMC como Instrumento de Adquisición de Datos
 
