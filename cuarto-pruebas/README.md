@@ -98,9 +98,33 @@ El Cuarto de Pruebas es el **centro de I+D de INNES Aire** para:
 | SPT3_CP | Veris TWLPXXX4E4 | `133023` | `23` | Temperatura ambiente 3 |
 | SPT4_CP | Veris TWLPXXX4E4 | `133024` | `24` | Temperatura ambiente 4 |
 
----
+### **🎛️ Variables de Control Principales**
 
-## ⚙️ **Sistemas de Medición**
+#### **Control Operacional (Controlador 1)**
+
+| **Variable** | **Punto BACnet** | **Función** | **Rango/Estados** |
+|--------------|------------------|-------------|-------------------|
+| **SS_CP** | BV1 | Activación sistema cuarto pruebas | ACTIVA/INACTIVA |
+| **PLENUM** | MSV1 | Selector de plenum operativo | 1-6 |
+| **VG_Q_SP** | AV107 | Setpoint caudal VAV grande | CFM |
+| **VM_Q_SP** | AV108 | Setpoint caudal VAV mediana | CFM |
+| **VC_Q_SP** | AV109 | Setpoint caudal VAV chica | CFM |
+| **VG_Q** | AV98 | Caudal actual VAV grande activa | CFM |
+| **VM_Q** | AV99 | Caudal actual VAV mediana activa | CFM |
+| **VC_Q** | AV100 | Caudal actual VAV chica activa | CFM |
+
+#### **Sistema de Calibración (Controlador 2)**
+
+| **Variable** | **Punto BACnet** | **Función** | **Rango/Estados** |
+|--------------|------------------|-------------|-------------------|
+| **CL_ACTIV** | BV23 | Activación calibración | ACTIVA/INACTIVA |
+| **CL_INICIO** | BV24 | Inicio proceso calibración | ACTIVA/INACTIVA |
+| **CL_M** | AV6 | Número de muestras | 5-20 |
+| **CL_T** | AV7 | Tiempo entre muestras | Segundos |
+| **CL_MULTI** | AV14 | Multiplicador calculado | Factor |
+| **CL_OFFSET** | AV15 | Offset calculado | CFM |
+| **ACT_TIRO** | BV15 | Activar prueba de tiro | ACTIVA/INACTIVA |
+| **ACT_AREA** | BV16 | Activar prueba área efectiva | ACTIVA/INACTIVA |
 
 ### **🌡️ Sensores de Temperatura**
 - **Ambiente**: 4 puntos independientes (18-28°C ±0.1°C)
