@@ -286,4 +286,181 @@
 | **AI17** | V7_T2 | Velocidad aire 7 - Tiro 2 | ALNOR 8475-075 | 10-500 FPM |
 
 ### **Sensores de Velocidad Aire - Tiro 3**
-| **I/O** | **Variable** | **Descripción
+| **I/O** | **Variable** | **Descripción** | **Sensor** | **Rango** |
+|---------|--------------|-----------------|------------|-----------|
+| **AI19** | V1_T3 | Velocidad aire 1 - Tiro 3 | ALNOR 8475-075 | 10-500 FPM |
+| **AI20** | V2_T3 | Velocidad aire 2 - Tiro 3 | ALNOR 8475-075 | 10-500 FPM |
+| **AI21** | V3_T3 | Velocidad aire 3 - Tiro 3 | ALNOR 8475-075 | 10-500 FPM |
+| **AI22** | V4_T3 | Velocidad aire 4 - Tiro 3 | ALNOR 8475-075 | 10-500 FPM |
+| **AI23** | V5_T3 | Velocidad aire 5 - Tiro 3 | ALNOR 8475-075 | 10-500 FPM |
+| **AI24** | V6_T3 | Velocidad aire 6 - Tiro 3 | ALNOR 8475-075 | 10-500 FPM |
+| **AI25** | V7_T3 | Velocidad aire 7 - Tiro 3 | ALNOR 8475-075 | 10-500 FPM |
+
+---
+
+## ⚡ **Salidas Físicas**
+
+### **Salidas Digitales - Control Remoto (BO1-BO8)**
+| **I/O** | **Variable** | **Descripción** | **Actuador** | **Estados** |
+|---------|--------------|-----------------|-------------|-------------|
+| **BO1** | P2_VG_AB | Plenum 2 VAV Grande - Bloqueo | Belimo LMB24-3 | ABIERTA/CERRADA |
+| **BO2** | P4_VM_AB | Plenum 4 VAV Mediana - Bloqueo | Belimo LMB24-3 | ABIERTA/CERRADA |
+| **BO3** | P4_VG_AB | Plenum 4 VAV Grande - Bloqueo | Belimo LMB24-3 | ABIERTA/CERRADA |
+| **BO4** | P4_VC_AB | Plenum 4 VAV Chica - Bloqueo | Belimo LMB24-3 | ABIERTA/CERRADA |
+| **BO5** | P5_VC_AB | Plenum 5 VAV Chica - Bloqueo | Belimo LMB24-3 | ABIERTA/CERRADA |
+| **BO6** | P5_VG_AB | Plenum 5 VAV Grande - Bloqueo | Belimo LMB24-3 | ABIERTA/CERRADA |
+| **BO7** | P6_VG_AB | Plenum 6 VAV Grande - Bloqueo | Belimo LMB24-3 | ABIERTA/CERRADA |
+| **BO8** | P6_VM_AB | Plenum 6 VAV Mediana - Bloqueo | Belimo LMB24-3 | ABIERTA/CERRADA |
+
+---
+
+## 🔧 **Programas de Control**
+
+| **Programa** | **Función** | **Variables Principales** | **Ciclo** |
+|--------------|-------------|---------------------------|-----------|
+| **PRG1_CALIBRACION** | Sistema híbrido KMC-Excel | AV6-15, BV23-29 | Manual |
+
+---
+
+## 📊 **Sistema de Calibración Híbrido**
+
+### **Proceso de Calibración Automatizado**
+
+#### **Fase 1: Configuración (Variables AV6-AV13)**
+1. **CL_M** (AV6): Define número de muestras por punto (5-20)
+2. **CL_T** (AV7): Establece tiempo entre muestras (segundos)
+3. **CL_P_L/CL_P_H** (AV8-AV9): Rango de aperturas a evaluar
+4. **CL_Q_S_L/CL_Q_S_H** (AV10,AV12): Caudales sistema esperados
+5. **CL_Q_B_L/CL_Q_B_H** (AV11,AV13): Caudales balómetro referencia
+
+#### **Fase 2: Control del Proceso (Variables BV23-BV29)**
+1. **CL_ACTIV** (BV23): Activar sistema de calibración
+2. **CL_INICIO** (BV24): Iniciar proceso automatizado
+3. **CL_COMP** (BV25): Selector de apertura actual
+4. **CL_LEER** (BV26): Comando lectura de datos
+5. **CL_RESET** (BV27): Reset de parámetros
+6. **CL_CALCULO** (BV28): Activar cálculo de factores
+7. **CL_CALIBRAR** (BV29): Aplicar calibración al sistema
+
+#### **Fase 3: Resultados (Variables AV14-AV15)**
+1. **CL_MULTI** (AV14): Multiplicador calculado (factor "a")
+2. **CL_OFFSET** (AV15): Offset calculado (valor "b")
+
+**Ecuación final**: `Q_calibrado = a × Q_sistema + b`
+
+### **Análisis Estadístico (10 Grupos)**
+
+Cada grupo de variables (1-10) proporciona:
+- **V_PROM_X**: Promedio de muestras
+- **V_MAX_X**: Valor máximo registrado  
+- **V_MIN_X**: Valor mínimo registrado
+- **V_MAN_X**: Valor manual de referencia
+- **V_GRUPO-X_1-4**: Variables auxiliares del grupo
+
+### **Coeficientes de Velocidad (AV112-AV126)**
+
+Variables que comunican factores de calibración al Controlador 1:
+- **15 coeficientes** correspondientes a las 15 VAVs del sistema
+- **Comunicación BACnet** entre controladores para sincronización
+- **Actualización automática** tras completar calibración
+
+---
+
+## ⚠️ **Configuraciones Críticas**
+
+### **Parámetros de Calibración Recomendados**
+| **Parámetro** | **Valor Típico** | **Rango Válido** | **Observaciones** |
+|---------------|------------------|------------------|-------------------|
+| **CL_M** | 10 muestras | 5-20 | Mayor número = mayor precisión |
+| **CL_T** | 30 segundos | 10-120 | Tiempo estabilización |
+| **CL_P_L** | 20% | 10-30% | Apertura mínima prueba |
+| **CL_P_H** | 100% | 80-100% | Apertura máxima prueba |
+
+### **Criterios de Validación**
+- **Coeficiente correlación**: R² > 0.95 requerido
+- **Error máximo**: <5% en rango operacional
+- **Repetibilidad**: CV < 3% entre ciclos
+- **Linealidad**: Modelo lineal válido en todo el rango
+
+### **Estados de Alarma**
+- **CL_ACTIV = 1** sin **CL_INICIO = 1**: Sistema preparado
+- **Múltiples BV activas**: Conflicto de comandos
+- **CL_MULTI = 0**: Error en cálculo de calibración
+- **Temperaturas fuera rango**: Condiciones ambientales inválidas
+
+---
+
+## 🌐 **Comunicación Inter-Controladores**
+
+### **Variables Compartidas con Controlador 1**
+- **Coeficientes de velocidad** (AV112-AV126): Factores de calibración
+- **Estados de sistema**: Sincronización de modos operación
+- **Datos de temperatura**: T_AVG compartido para compensación
+
+### **Protocolo de Sincronización**
+1. **Controlador 2**: Ejecuta calibración y calcula coeficientes
+2. **Comunicación BACnet**: Transfiere AV112-AV126 a Controlador 1
+3. **Controlador 1**: Aplica nuevos factores a cálculos de caudal
+4. **Validación cruzada**: Verificación de aplicación correcta
+
+---
+
+## 🔗 **Enlaces de Referencia**
+
+### **Documentación Relacionada**
+- **[Lista Completa Controlador 1](./puntos-controlador-1.md)** - DDC 10021 Operacional
+- **[Manual Calibración Completo](./Procedimientos/calibracion-vav.md)** - Proceso híbrido
+- **[Análisis Estadístico Excel](./Datos/Templates/calibracion-template.xlsx)** - Plantilla
+- **[Procedimientos Validación](./Procedimientos/validacion-calibracion.md)** - Criterios
+
+### **Especificaciones Técnicas**
+- **[KMC BAC-5901C Manual](./Documentación/Manuales/BAC-5901C.pdf)** - Controlador
+- **[KMC CAN-5902 Manual](./Documentación/Manuales/CAN-5902.pdf)** - Expansión solo entradas
+- **[SETRA Sensores DP](./Documentación/Especificaciones/setra-2651.pdf)** - Presión plenums
+- **[ALNOR Sensores Velocidad](./Documentación/Especificaciones/alnor-8475.pdf)** - Tiros 2&3
+
+### **Diagramas Técnicos**
+- **[Diagrama Eléctrico CN-02](./Documentación/Diagramas/AUT-E-CN-2.pdf)** - Conexionado
+- **[Diagrama Expansión IO2-01](./Documentación/Diagramas/AUT-E-IO2-1.pdf)** - Velocidades
+- **[Arquitectura Comunicación](./Documentación/Diagramas/AUT-CM.pdf)** - BACnet MS/TP
+
+---
+
+## 📝 **Notas Importantes**
+
+### **Para Programadores de Calibración**
+- Variables AV31-AV110 forman **10 grupos estadísticos** independientes
+- Sistema **híbrido KMC-Excel** requiere sincronización de datos
+- Coeficientes AV112-AV126 deben actualizarse en **Controlador 1** tras calibración
+- Variables BV23-BV29 controlan **secuencia automatizada** de calibración
+
+### **Para Técnicos de Medición**
+- AI3-AI8: Sensores **SETRA** diferentes modelos según rango plenum
+- AI11-AI25: **21 sensores velocidad** distribuidos en Tiros 2 y 3
+- BO1-BO8: Control **remoto** de compuertas bloqueo vía relevadores
+- AI10: Sensor **móvil** para validaciones puntuales
+
+### **Para Analistas de Datos**
+- **152 variables BACnet** disponibles para análisis
+- Sistema de **10 grupos estadísticos** para procesamiento paralelo
+- Variables **PROM/MAX/MIN** actualizadas en tiempo real
+- **Coeficientes de velocidad** históricos para tendencias
+
+### **Para Mantenimiento**
+- Verificar alimentación **24VAC** controlador + expansión (TR-05, TR-06)
+- Revisar comunicación **CAN** con expansión IO2-01
+- Monitorear **BACnet MS/TP** estado (MAC 22)
+- Calibrar sensores **SETRA** presión plenum cada 6 meses
+
+---
+
+<div align="center">
+
+**🔧 Controlador 2 - INNES Aire**  
+*Calibración avanzada y análisis estadístico para optimización del sistema*
+
+[![Manual Calibración](https://img.shields.io/badge/📖-Manual_Calibración-blue)](./Procedimientos/calibracion-vav.md)
+[![Análisis Estadístico](https://img.shields.io/badge/📊-Análisis_Excel-green)](./Datos/Templates/)
+[![Soporte Técnico](https://img.shields.io/badge/📞-Soporte_24/7-red)](../README.md#contactos-emergencia)
+
+</div>
