@@ -1,4 +1,4 @@
-# ⚙️ CP – Operativo – Proceso de Medición de Tiro
+# ⚙️ CP – Operativo – Proceso de Medición de Tiro en Cuarto de Pruebas
 
 ## 🔷 A. Sistema KMC como Instrumento de Adquisición de Datos
 
@@ -27,15 +27,17 @@ Esta prueba consta de **una sola pestaña**, que incluye:
 
 **Nota adicional:** En la interfaz solo se muestra el **número del transductor** y sus valores de velocidad (FPM). No se visualizan altura ni coordenadas en el controlador.
 
-**Flujo operativo:**
+**Importante:** Los transductores deben comenzar a dar lecturas **desde el momento en que se activa la prueba**, incluso antes de iniciar el muestreo, para permitir al usuario ajustar la posición y altura según lo que sensan. Una vez que los transductores están en la posición correcta y el caudal se estabiliza, el usuario decide iniciar el ciclo de muestreo.
+
+### Flujo operativo:
 1. Activar modo de prueba.
 2. Seleccionar plenum y cajas.
 3. Configurar caudales, N, Δt y Grupo.
 4. Esperar estabilización de caudal.
-5. Iniciar muestreo.
-6. Monitorear lecturas en tiempo real.
-7. Finalizar ciclo y revisar estadísticas.
-8. Guardar grupo.
+5. Ajustar posición y altura de transductores según lecturas en tiempo real.
+6. Iniciar muestreo.
+7. Monitorear lecturas en tiempo real.
+8. Finalizar ciclo y revisar estadísticas.
 
 ---
 
@@ -66,6 +68,7 @@ Grupo | Caudal objetivo | Velocidad por altura (FPM) | Promedio | Máximo | Mín
 
 **Fase 2: Ejecución**
 - Esperar estabilización.
+- Ajustar posición y altura de transductores.
 - Iniciar muestreo.
 - Monitorear lecturas.
 
@@ -85,4 +88,4 @@ Grupo | Caudal objetivo | Velocidad por altura (FPM) | Promedio | Máximo | Mín
   - Sensor fuera de rango → alerta en tiempo real.
   - Ciclo incompleto → no calcular estadísticas.
 
-**Nota:** Aunque la interfaz no muestra altura ni coordenadas, estos datos son obligatorios en el registro externo (Excel).
+**Nota:** Aunque la interfaz no muestra altura ni coordenadas, estos datos son obligatorios en el registro externo (Excel). Además, las lecturas previas al muestreo son críticas para posicionar correctamente los transductores.
