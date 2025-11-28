@@ -316,8 +316,8 @@ Durante cada ciclo de PESTAÑA 1, medir simultáneamente con **caudalímetro pat
 ### Persistencia
 - **Durante sesión:** Parámetros de muestreo persisten al cambiar de caja
 - **Al cerrar interfaz:** Parámetros se resetean a defaults si es que no se guardaron
-- **Pérdida de energía:** Valores a, b se pierden si no hay memoria no volátil (recomendado implementar EEPROM)
-- **Respaldo:** Mantener Excel con todos los valores a, b y fechas
+- **Pérdida de energía:** Valores a, b se pierden
+- **Respaldo:** Mantener Excel con todos los valores a, b y fechas de la calibración
 
 ### Manejo de Errores
 - Sensor T falla → cambiar a modo MANUAL
