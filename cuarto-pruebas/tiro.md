@@ -85,7 +85,7 @@ Grupo | Caudal objetivo | Velocidad por altura (FPM) | Promedio | Máximo | Mín
 - Persistencia de parámetros mientras la prueba está activa.
 - `[RESET]` borra datos y vuelve a valores por defecto.
 - Manejo de errores:
-  - Sensor fuera de rango → alerta en tiempo real.
-  - Ciclo incompleto → no calcular estadísticas.
+  - Sensor fuera de rango → alerta en tiempo real (si es posible, o fijar a valores mínimos o máximos, según caso)
+  - Ciclo incompleto → no calcular estadísticas. (En especial, cuando se detiene el muestreo)
 
 **Nota:** Aunque la interfaz no muestra altura ni coordenadas, estos datos son obligatorios en el registro externo (Excel). Además, las lecturas previas al muestreo son críticas para posicionar correctamente los transductores.
